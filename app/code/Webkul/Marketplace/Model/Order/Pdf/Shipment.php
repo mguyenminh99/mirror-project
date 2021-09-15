@@ -59,8 +59,8 @@ class Shipment extends \Magento\Sales\Model\Order\Pdf\Shipment
         \Magento\Framework\Translate\Inline\StateInterface $inlineTranslation,
         \Magento\Sales\Model\Order\Address\Renderer $addressRenderer,
         \Magento\Store\Model\StoreManagerInterface $storeManager,
-        \Magento\Store\Model\App\Emulation $appEmulation,
-        array $data = []
+	\Magento\Framework\Locale\ResolverInterface $localeResolver,
+	array $data = []
     ) {
         $this->helper = $helper;
         $this->_string = $string;
@@ -76,7 +76,7 @@ class Shipment extends \Magento\Sales\Model\Order\Pdf\Shipment
             $inlineTranslation,
             $addressRenderer,
             $storeManager,
-            $appEmulation,
+            $localeResolver,
             $data
         );
     }
