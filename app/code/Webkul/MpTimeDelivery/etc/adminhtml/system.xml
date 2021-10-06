@@ -30,6 +30,12 @@
                     <source_model>Webkul\MpTimeDelivery\Model\Config\Source\Days</source_model>
                     <backend_model>Webkul\MpTimeDelivery\Model\Config\SaveOption</backend_model>
                 </field>
+                <field id="default_allowed_day" translate="label" type="select" sortOrder="15" showInDefault="1" showInWebsite="1" showInStore="1" >
+                    <label>Default Allowed Day</label>
+                    <source_model>Webkul\MpTimeDelivery\Model\Config\Source\Days</source_model>
+                    <backend_model>Webkul\MpTimeDelivery\Model\Config\SaveOption</backend_model>
+                </field>
+
                 <field id="maximum_days" translate="label comment" type="text" sortOrder="20" showInDefault="1" showInWebsite="1" showInStore="1" >
                     <label>Display Total Days</label>
                     <validate>required-entry validate-digits validate-not-negative-number validate-digits-range digits-range-0-100</validate>
@@ -42,6 +48,22 @@
                 </field>
                 <field id="message" translate="label comment" type="textarea" sortOrder="30" showInDefault="1" showInWebsite="1" showInStore="1" >
                     <label>Error Message if Time Slots are not available.</label>
+                </field>
+                 <field id="default_allowed_day" translate="label" type="select" sortOrder="15" showInDefault="1" showInWebsite="1" showInStore="1" >
+                    <label>Default Allowed Day</label>
+                    <source_model>Webkul\MpTimeDelivery\Model\Config\Source\Days</source_model>
+                    <backend_model>Webkul\MpTimeDelivery\Model\Config\SaveOption</backend_model>
+                </field>
+                <!-- <field id="delivery_time" translate="label" type="text" showInDefault="1" showInWebsite="1" showInStore="1" sortOrder="40">
+                    <label>Default Time Range</label>
+                    <frontend_model>Webkul\MpTimeDelivery\Model\Config\Source\DeliveryTime</frontend_model>
+                </field> -->
+                <field id="default_start_time" translate="label" type="time" showInDefault="1" showInWebsite="1" showInStore="1" sortOrder="40">
+                     <label>Default Start Time</label>
+                </field>
+
+                <field id="default_end_time" translate="label" type="time" showInDefault="1" showInWebsite="1" showInStore="1" sortOrder="40">
+                    <label>Default End Time</label>
                 </field>
             </group>
             <group id="default_slots" translate="label" type="text" sortOrder="2" showInDefault="1" showInWebsite="1" showInStore="1">

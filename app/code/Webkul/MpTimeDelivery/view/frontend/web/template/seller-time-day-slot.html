@@ -29,12 +29,13 @@
 				<!--ko foreach: { data: Object.keys($parent.getSortedSlots(data.slots)), as: 'key' } -->
 				<!-- ko if: $parents[1].checkDay(key, data.seller_start_date) -->
 				<tr class="slot-row">
-					<td class="first-child">
-						<span class="day-time" data-bind="text: $parents[1].getDate(data.id , key)"></span>
-					</td>
-					<td>
+
+                    <td>
+                        <!-- data-bind="valueAsNumber: level, event:{ change: $parent.permissionChanged }" -->
+                        
+                        <select >
 						<!--ko foreach: { data: data.slots[key], as: 'time' } -->
-						
+                
 						<div class="slot" data-bind="style: {
 											background: time.is_available ==0 || $parents[2].checkTime(time.slot, key) === false ? 'rgb(255, 160, 160)':'',
 										},
@@ -42,22 +43,27 @@
 										click: $parents[2].isSelected.bind($data, $parents[2], $parents[1]),
 										attr:{'seller-group':$parents[2].generateClass(data.name)}">
 							<!-- ko if: $parents[2].checkTime(time.slot, key) === true -->
-							<input class="radio" type="checkbox" , data-bind="
-																enable: time.is_available,
-																attr: {
-																	'value': time.slot,
-																		'id': time.slot_id,
-																		'name':'id_'+data.id,
-																		'data-date': $parents[2].getDate(data.id , key)
-																},
-																click: $parents[2].selectTimeSlot.bind($data, $parents[2], $parents[1])" class="radio" />
+						    <option  data-bind="
+                            enable: time.is_available,
+                            attr: {
+                                'value': time.slot,
+                                    'id': time.slot_id,
+                                    'name':'id_'+data.id,
+                                    'data-date': $parents[2].getDate(data.id , key)
+                            },
+                            click: $parents[2].selectTimeSlot.bind($data, $parents[2], $parents[1]),text: time.slot"></option>
 							<!-- /ko -->
-							<label data-bind="text: time.slot"></label>
 						</div>
-
 						<!-- /ko -->
+                        </select>
 					</td>
 
+					<td class="first-child">
+                        <select>
+                            <option class='day-time' data-bind="text: $parents[1].getDate(data.id , key)"></option>
+                        </select>
+					</td>
+					
 				</tr>
 				<!-- /ko -->
 				<!-- /ko -->

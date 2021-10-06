@@ -25,7 +25,10 @@ class TimeSlotConfigProvider implements ConfigProviderInterface
     const XPATH_MESSAGE         = 'timeslot/configurations/message';
     const ENABLED               = 'timeslot/configurations/active';
     const TIME_ZONE = 'general/locale/timezone';
-
+    const DEFAULT_START_TIME = 'timeslot/configurations/default_start_time';
+    const DEFAULT_END_TIME = 'timeslot/configurations/default_end_time';
+    const DEFAULT_DAY = 'timeslot/configurations/default_allowed_day';
+    
     /**
      * @var \Magento\Checkout\Model\SessionFactory
      */
@@ -151,6 +154,10 @@ class TimeSlotConfigProvider implements ConfigProviderInterface
     {
         $store = $this->getStoreId();
         $allowedDays = $this->scopeConfig->getValue(self::XPATH_ALLOWED_DAY, ScopeInterface::SCOPE_STORE, $store);
+        $defaultAllowedDay = $this->scopeConfig->getValue(self::DEFAULT_DAY, ScopeInterface::SCOPE_STORE, $store);
+        $defaultStartTime = $this->scopeConfig->getValue(self::DEFAULT_START_TIME, ScopeInterface::SCOPE_STORE, $store);
+        $defaultEndTime = $this->scopeConfig->getValue(self::DEFAULT_END_TIME, ScopeInterface::SCOPE_STORE, $store);
+        
         $processTime = $this->scopeConfig->getValue(self::XPATH_PROCESS_TIME, ScopeInterface::SCOPE_STORE, $store);
         $maxDays = $this->scopeConfig->getValue(self::XPATH_MAX_DAYS, ScopeInterface::SCOPE_STORE, $store);
         $message = $this->scopeConfig->getValue(self::XPATH_MESSAGE, ScopeInterface::SCOPE_STORE, $store);
@@ -167,7 +174,10 @@ class TimeSlotConfigProvider implements ConfigProviderInterface
             'start_date'   => date("Y-m-d", $date),
             'max_days'     => $maxDays,
             'isEnabled'    => $isEnabled,
-            'timezone' => $timezone
+            'timezone' => $timezone,
+            'defaultDay'=>$defaultAllowedDay,
+            'defaultStartTime'=>$defaultStartTime,
+            'defaultEndTime'=>$defaultEndTime,
         ];
 
         if (!$isEnabled) {
