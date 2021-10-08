@@ -206,7 +206,7 @@ define(
                 },
                 checkDay: function (day, sellerStart,selectedId,dataSlot) {
 
-                    this.getDefaultSelected(day,selectedId,dataSlot);
+                   // this.getDefaultSelected(day,selectedId,dataSlot);
                     if (sellerStart) {
                         var d = new Date(sellerStart);
                     } else {
@@ -265,11 +265,22 @@ define(
 
                     return date;
                 },
+                getFormatDate:function(date){
+
+                    // return  $.datepicker.formatDate(
+                    //     'yy Year mm Month dd Day',
+                    //     new Date(date)
+                    // );
+
+                    var tm= date.split("-");
+                    return tm[0]+'year'+tm[1]+'month'+tm[2]+'day';
+
+                },
                 daySelect:function(Selectdata,SelectId,event)
                 {
                     var data_id=Selectdata.id;
                     Selectdata=Selectdata.slots;
-                    
+                    var SelectDateValue='';
                     if(event!=undefined)
                     {
                         var elem = event.target || event.srcElement || event.currentTarget;
@@ -277,16 +288,33 @@ define(
                     
                             var elem = event.currentTarget;
                         if (typeof elem !== 'undefined') {
-                            var selectValue=$('#' + elem.id).val();
-                            var SelectDateValue = $.datepicker.formatDate(
-                                'yy-mm-dd',
-                                new Date(selectValue)
-                            );
-                            this.Selectdata(SelectDateValue);
+                           var selectValue=$('#' + elem.id).val();
+                            if(selectValue!='')
+                            {   
+                                  var a=selectValue.split("year");
+                                  var yy=a[0];
+                                  var b=a[1].split("month");
+                                  var mm=b[0];
+                                  var c=b[1].split("day");
+                                  var dd=c[0];
+                                  var nowDate=yy+"-"+mm+"-"+dd;
+                                  console.log(nowDate);
+
+                                 SelectDateValue = $.datepicker.formatDate(
+                                    'yy-mm-dd',
+                                    new Date(nowDate)
+                                );
+                                this.Selectdata(SelectDateValue);
+                            }else{
+                                 SelectDateValue = '';
+
+                            }
                         } else{
                             this.Selectdata(0);
                         }   
                         
+                        if(SelectDateValue!='')
+                        {
                         var option="";
                         for(var p in Selectdata)
                         {
@@ -307,6 +335,10 @@ define(
                         // $('.' + elem.getAttribute('seller-group')).removeClass('selected');
                         // $(event.currentTarget).addClass('selected');
                         $("#wk_slot_times_"+SelectId).append(option);
+                        }else{
+                            $("#wk_slot_times_"+SelectId).html("<option value=''>None</option>");
+                        }
+
                     }
                 }
                     
@@ -333,7 +365,6 @@ define(
                 },
                 selectTimeSlot: function (seller, model, data, event) {
                     $(".selected-slots").remove();
-                  
                     
                     if(event!=undefined)
                     {
@@ -360,7 +391,7 @@ define(
                                 'yy-mm-dd',
                                 new Date(Selected_date)
                             );
-
+                            Selected_date=this.getFormatDate(Selected_date);
 
                             $('#' + elem.id + '_time').val(Selected_value);
                             $('#' + elem.id + '_date').val(Selected_date);

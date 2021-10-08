@@ -29,9 +29,10 @@
 					<tr class="slot-row">
 						<td class="first-child">
 								<select data-bind="optionsCaption: 'Choose Week day...',selectedOptions: $parent.chosenDate,value: $parent.daySelect(data,data.id,event), valueUpdate: 'change',attr: {'id': 'wk_days_slot_'+data.id,'name': 'id_'+data.id}" id="wk_days_slot_" name="wk_days_slot_">
+								<option class='day-time' value='' selected='selected'>None</option>
 									<!--ko foreach: { data: Object.keys($parent.getSortedSlots(data.slots)), as: 'key' } -->
 										<!-- ko if: $parents[1].checkDay(key, data.seller_start_date,data.id,data) -->
-									     	<option class='day-time'  data-bind="text: key,attr:{keydata:key}"></option>
+									     	<option class='day-time'  data-bind="text: $parents[1].getFormatDate(key),attr:{keydata:key}"></option>
 										<!-- /ko -->
 									<!-- /ko -->
 								</select>
@@ -39,9 +40,9 @@
 							<td>
 								<!--ko if: $parent.getSelectedDate() != 0 -->
 									<select id="wk_slot_times_" data-bind="value: $parent.selectTimeSlot($data, $parents[2], $parents[1],event), valueUpdate: 'change',attr: {'id': 'wk_slot_times_'+data.id,'name': 'id_'+data.id}" >
-										<option>Choose Time Slot</option>
-										<option data-bind="text:$parent.getDefaultTimeRange(),attr: {data_date:$parent.getDefaultDate(),value:$parent.getDefaultTimeRange()}"></option>
-								</select>
+										<option selected='selected' value=''>None</option>
+										<!-- <option data-bind="text:$parent.getDefaultTimeRange(),attr: {data_date:$parent.getDefaultDate(),value:$parent.getDefaultTimeRange()}"></option> -->
+								</select> 
 								<!-- /ko -->
 							</td>
 						</tr>
