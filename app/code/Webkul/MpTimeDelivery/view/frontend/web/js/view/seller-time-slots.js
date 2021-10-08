@@ -15,7 +15,8 @@ define(
     'ko',
     'uiComponent',
     'Magento_Customer/js/customer-data',
-    "jquery/ui"
+    'mage/translate',
+    "jquery/ui",
     ],
     function ($, ko, Component, customerData) {
         'use strict';
@@ -83,13 +84,13 @@ define(
                         {
                             if(cday!=undefined && cday==p)
                             {
-                                $("#wk_slot_times_"+selectedId).html("<option>Choose Time Slot</option>");
+                                $("#wk_slot_times_"+selectedId).html($.mage.__("<option>Choose Time Slot</option>"));
                                 for(var p1 in Selectdata[p])
                                 {
                                     if(Selectdata[p][p1].is_available)
                                     {
                                         var data_date=this.getDate(data_id ,cday)
-                                         option+="<option id='"+Selectdata[p][p1].slot_id+"' name='id_"+data_id+"' data_date='"+data_date+"' value='"+Selectdata[p][p1].slot+"'>"+Selectdata[p][p1].slot+"</option>";
+                                         option+=$.mage.__("<option id='"+Selectdata[p][p1].slot_id+"' name='id_"+data_id+"' data_date='"+data_date+"' value='"+Selectdata[p][p1].slot+"'>"+Selectdata[p][p1].slot+"</option>");
                                     }
                                 }
                             }
@@ -273,7 +274,7 @@ define(
                     // );
 
                     var tm= date.split("-");
-                    return tm[0]+'year'+tm[1]+'month'+tm[2]+'day';
+                    return tm[0]+$.mage.__('year')+tm[1]+$.mage.__('month')+tm[2]+$.mage.__('day');
 
                 },
                 daySelect:function(Selectdata,SelectId,event)
@@ -289,56 +290,66 @@ define(
                             var elem = event.currentTarget;
                         if (typeof elem !== 'undefined') {
                            var selectValue=$('#' + elem.id).val();
-                            if(selectValue!='')
-                            {   
-                                  var a=selectValue.split("year");
-                                  var yy=a[0];
-                                  var b=a[1].split("month");
-                                  var mm=b[0];
-                                  var c=b[1].split("day");
-                                  var dd=c[0];
-                                  var nowDate=yy+"-"+mm+"-"+dd;
-                                  console.log(nowDate);
+                           if(selectValue!='' ){
+                           
+                                    if(selectValue!='None' )
+                                    {   
+                                        var a=selectValue.split("year");
+                                        var yy=a[0];
+                                        var b=a[1].split("month");
+                                        var mm=b[0];
+                                        var c=b[1].split("day");
+                                        var dd=c[0];
+                                        var nowDate=yy+"-"+mm+"-"+dd;
+                                        // console.log(nowDate);
 
-                                 SelectDateValue = $.datepicker.formatDate(
-                                    'yy-mm-dd',
-                                    new Date(nowDate)
-                                );
-                                this.Selectdata(SelectDateValue);
+                                        SelectDateValue = $.datepicker.formatDate(
+                                            'yy-mm-dd',
+                                            new Date(nowDate)
+                                        );
+                                        this.Selectdata(SelectDateValue);
+                                    }else{
+                                        SelectDateValue = $.mage.__('None');
+
+                                    }
                             }else{
-                                 SelectDateValue = '';
-
+                                SelectDateValue = '';
                             }
+
                         } else{
                             this.Selectdata(0);
                         }   
-                        
+
                         if(SelectDateValue!='')
                         {
-                        var option="";
-                        for(var p in Selectdata)
-                        {
-                            if(SelectDateValue!=undefined && SelectDateValue==p)
-                            {
-                                $("#wk_slot_times_"+SelectId).html("<option>Choose Time Slot</option>");
-                                for(var p1 in Selectdata[p])
+
+                                if(SelectDateValue!='None')
                                 {
-                                    if(Selectdata[p][p1].is_available)
+
+                                var option="";
+                                for(var p in Selectdata)
+                                {
+                                    if(SelectDateValue!=undefined && SelectDateValue==p)
                                     {
-                                        var data_date=this.getDate(data_id ,SelectDateValue)
-                                         option+="<option id='"+Selectdata[p][p1].slot_id+"' name='id_"+data_id+"' data_date='"+data_date+"' value='"+Selectdata[p][p1].slot+"'>"+Selectdata[p][p1].slot+"</option>";
+                                        $("#wk_slot_times_"+SelectId).html("<option>"+$.mage.__('Choose Time Slot')+"</option>");
+                                        for(var p1 in Selectdata[p])
+                                        {
+                                            if(Selectdata[p][p1].is_available)
+                                            {
+                                                var data_date=this.getDate(data_id ,SelectDateValue)
+                                                option+="<option id='"+Selectdata[p][p1].slot_id+"' name='id_"+data_id+"' data_date='"+data_date+"' value='"+Selectdata[p][p1].slot+"'>"+Selectdata[p][p1].slot+"</option>";
+                                            }
+                                        }
+                                        
                                     }
                                 }
-                                
-                            }
+                                // $('.' + elem.getAttribute('seller-group')).removeClass('selected');
+                                // $(event.currentTarget).addClass('selected');
+                                $("#wk_slot_times_"+SelectId).append(option);
+                                }else{
+                                    $("#wk_slot_times_"+SelectId).html("<option value=''>"+$.mage.__('Choose Time Slot')+"</option><option value='None'>"+$.mage.__('None')+"</option>");
+                                }
                         }
-                        // $('.' + elem.getAttribute('seller-group')).removeClass('selected');
-                        // $(event.currentTarget).addClass('selected');
-                        $("#wk_slot_times_"+SelectId).append(option);
-                        }else{
-                            $("#wk_slot_times_"+SelectId).html("<option value=''>None</option>");
-                        }
-
                     }
                 }
                     
@@ -374,7 +385,7 @@ define(
 
                           //  console.log($('#' + elem.id + '_time'))
                             //console.log($('#' + elem.id + '_date'));
-                            var Selected_value=elem.value;
+                            var Selected_value=$.mage.__(elem.value);
                             var Selected_date=null;
                             var Selected_id=null;
                             
@@ -386,12 +397,18 @@ define(
                                     Selected_id=this.id;
                                 }
                             });
+                            if(Selected_date!=null)
+                            {
 
                             Selected_date = $.datepicker.formatDate(
                                 'yy-mm-dd',
                                 new Date(Selected_date)
                             );
+
                             Selected_date=this.getFormatDate(Selected_date);
+                            }else{
+                                Selected_date=$.mage.__('None');
+                            }
 
                             $('#' + elem.id + '_time').val(Selected_value);
                             $('#' + elem.id + '_date').val(Selected_date);
