@@ -84,13 +84,13 @@ define(
                         {
                             if(cday!=undefined && cday==p)
                             {
-                                $("#wk_slot_times_"+selectedId).html($.mage.__("<option>Choose Time Slot</option>"));
+                                //$("#wk_slot_times_"+selectedId).html($.mage.__("<option>Choose Time Slot</option>"));
                                 for(var p1 in Selectdata[p])
                                 {
                                     if(Selectdata[p][p1].is_available)
                                     {
                                         var data_date=this.getDate(data_id ,cday)
-                                         option+=$.mage.__("<option id='"+Selectdata[p][p1].slot_id+"' name='id_"+data_id+"' data_date='"+data_date+"' value='"+Selectdata[p][p1].slot+"'>"+Selectdata[p][p1].slot+"</option>");
+                                         option+=$.mage.__("<option id='"+Selectdata[p][p1].slot_id+"' name='id_"+data_id+"' data_date='"+data_date+"' value='"+$.mage.__(Selectdata[p][p1].slot)+"'>"+$.mage.__(Selectdata[p][p1].slot)+"</option>");
                                     }
                                 }
                             }
@@ -268,14 +268,11 @@ define(
                 },
                 getFormatDate:function(date){
 
-                    // return  $.datepicker.formatDate(
-                    //     'yy Year mm Month dd Day',
-                    //     new Date(date)
-                    // );
-
                     var tm= date.split("-");
-                    return tm[0]+$.mage.__('year')+tm[1]+$.mage.__('month')+tm[2]+$.mage.__('day');
-
+                    var year=$.mage.__('年');
+                    var month=$.mage.__('月');
+                    var day=$.mage.__('日');
+                    return tm[0]+year+tm[1]+month+tm[2]+day;
                 },
                 daySelect:function(Selectdata,SelectId,event)
                 {
@@ -294,11 +291,11 @@ define(
                            
                                     if(selectValue!='None' )
                                     {   
-                                        var a=selectValue.split("year");
+                                        var a=selectValue.split("年");
                                         var yy=a[0];
-                                        var b=a[1].split("month");
+                                        var b=a[1].split("月");
                                         var mm=b[0];
-                                        var c=b[1].split("day");
+                                        var c=b[1].split("日");
                                         var dd=c[0];
                                         var nowDate=yy+"-"+mm+"-"+dd;
                                         // console.log(nowDate);
@@ -337,7 +334,7 @@ define(
                                             if(Selectdata[p][p1].is_available)
                                             {
                                                 var data_date=this.getDate(data_id ,SelectDateValue)
-                                                option+="<option id='"+Selectdata[p][p1].slot_id+"' name='id_"+data_id+"' data_date='"+data_date+"' value='"+Selectdata[p][p1].slot+"'>"+Selectdata[p][p1].slot+"</option>";
+                                                option+="<option id='"+Selectdata[p][p1].slot_id+"' name='id_"+data_id+"' data_date='"+data_date+"' value='"+$.mage.__(Selectdata[p][p1].slot)+"'>"+$.mage.__(Selectdata[p][p1].slot)+"</option>";
                                             }
                                         }
                                         
@@ -433,6 +430,7 @@ define(
                                         flag=0;
                                     }
                                 });
+
                                 if (flag) {
                                     this.selectedSlots.push({
                                         'id': seller.id,
@@ -448,6 +446,72 @@ define(
                         customerData.set("selected-slots", this.selectedSlots());
                         this.isChecked(true);
                         $('#co-shipping-method-form').append("<input class='selected-slots' type='hidden' name='seller_data' value='" + JSON.stringify(this.selectedSlots()) + "'/>");
+                    }else{
+                        
+                        var Selected_value=$.mage.__($("select[id^=wk_slot_times_").val());
+                        var Selected_date=null;
+                        var Selected_id=null;
+                        $.each($("select[id^=wk_slot_times_").find("option"),function (index, value) {
+
+                            if(this.getAttribute("value")==Selected_value)
+                            {
+                                Selected_date=this.getAttribute("data_date");
+                                Selected_id=this.id;
+                            }
+                        });
+                        if(Selected_date!=null)
+                        {
+
+                        Selected_date = $.datepicker.formatDate(
+                            'yy-mm-dd',
+                            new Date(Selected_date)
+                        );
+
+                        Selected_date=this.getFormatDate(Selected_date);
+                        }else{
+                            Selected_date=$.mage.__('None');
+                        }
+
+                        $('#' + elem.id + '_time').val(Selected_value);
+                        $('#' + elem.id + '_date').val(Selected_date);
+
+                        if (this.selectedSlots().length == 0) {
+                            this.selectedSlots.push({
+                                'id': seller.id,
+                                'name': seller.name,
+                                'slot_time': Selected_value,
+                                'date': Selected_date,
+                                'slot_id': Selected_id
+                            });
+                            this.sellerCount(this.sellerCount() + 1);
+                        } else {
+                            let flag=1;
+                            var thisthis=this;
+                            $.each(this.selectedSlots(),function (index, value) {
+                                if (seller.id == value.id) {
+                                    thisthis.selectedSlots()[index].slot_time = Selected_value;
+                                    thisthis.selectedSlots()[index].date = Selected_date;
+                                    thisthis.selectedSlots()[index].slot_id = Selected_id;
+                                    flag=0;
+                                }
+                            });
+
+                            if (flag) {
+                                this.selectedSlots.push({
+                                    'id': seller.id,
+                                    'name': seller.name,
+                                    'slot_time': Selected_value,
+                                    'date': Selected_date,
+                                    'slot_id': Selected_id
+                                });
+                                this.sellerCount(this.sellerCount() + 1);
+                            }
+                        }
+                    
+                    customerData.set("selected-slots", this.selectedSlots());
+                    this.isChecked(true);
+                    $('#co-shipping-method-form').append("<input class='selected-slots' type='hidden' name='seller_data' value='" + JSON.stringify(this.selectedSlots()) + "'/>");
+                        
                     }
                     
                  }

@@ -13,6 +13,7 @@ define(
         return function (Shipping) {
             return Shipping.extend(
                 {
+
                     validateShippingInformation: function () {
                         var sellerCount = sellerTimeSlots().sellerCount();
                         var totalSellerCount = sellerTimeSlots().totalSellerCount();
