@@ -145,5 +145,5 @@
     text-align:center;
 }
 .wk_selectbox_slot{
-    border:0px solid;
+    box-shadow: none;
 }
