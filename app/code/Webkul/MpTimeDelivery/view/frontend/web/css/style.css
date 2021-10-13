@@ -144,3 +144,6 @@
 .wk-row-view .empty-message {
     text-align:center;
 }
+.wk_selectbox_slot{
+    border:0px solid;
+}

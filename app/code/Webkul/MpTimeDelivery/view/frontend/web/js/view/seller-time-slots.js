@@ -274,10 +274,10 @@ define(
                     var day=$.mage.__('日');
                     return tm[0]+year+tm[1]+month+tm[2]+day;
                 },
-                daySelect:function(Selectdata,SelectId,event)
+                daySelect:function(Select_data,SelectId,event)
                 {
-                    var data_id=Selectdata.id;
-                    Selectdata=Selectdata.slots;
+                    var data_id=Select_data.id;
+                   var Selectdata=Select_data.slots;
                     var SelectDateValue='';
                     if(event!=undefined)
                     {
@@ -285,70 +285,79 @@ define(
                         if (typeof elem !== 'undefined' && (elem instanceof jQuery && elem.length) || elem instanceof HTMLElement) {
                     
                             var elem = event.currentTarget;
-                        if (typeof elem !== 'undefined') {
-                           var selectValue=$('#' + elem.id).val();
-                           if(selectValue!='' ){
-                           
-                                    if(selectValue!='None' )
-                                    {   
-                                        var a=selectValue.split("年");
-                                        var yy=a[0];
-                                        var b=a[1].split("月");
-                                        var mm=b[0];
-                                        var c=b[1].split("日");
-                                        var dd=c[0];
-                                        var nowDate=yy+"-"+mm+"-"+dd;
-                                        // console.log(nowDate);
+                            if (typeof elem !== 'undefined') {
+                                var selectValue=$('#' + elem.id).val();
+                                    if(selectValue!='' ){
+                                
+                                            if(selectValue!='None' )
+                                            {   
+                                                var a=selectValue.split("年");
+                                                var yy=a[0];
+                                                var b=a[1].split("月");
+                                                var mm=b[0];
+                                                var c=b[1].split("日");
+                                                var dd=c[0];
+                                                var nowDate=yy+"-"+mm+"-"+dd;
+                                                // console.log(nowDate);
 
-                                        SelectDateValue = $.datepicker.formatDate(
-                                            'yy-mm-dd',
-                                            new Date(nowDate)
-                                        );
-                                        this.Selectdata(SelectDateValue);
-                                    }else{
-                                        SelectDateValue = $.mage.__('None');
+                                                SelectDateValue = $.datepicker.formatDate(
+                                                    'yy-mm-dd',
+                                                    new Date(nowDate)
+                                                );
+                                                this.Selectdata(SelectDateValue);
+                                            }else{
+                                                SelectDateValue = $.mage.__('None');
 
-                                    }
-                            }else{
-                                SelectDateValue = '';
-                            }
-
-                        } else{
-                            this.Selectdata(0);
-                        }   
-
-                        if(SelectDateValue!='')
-                        {
-
-                                if(SelectDateValue!='None')
-                                {
-
-                                var option="";
-                                for(var p in Selectdata)
-                                {
-                                    if(SelectDateValue!=undefined && SelectDateValue==p)
-                                    {
-                                        $("#wk_slot_times_"+SelectId).html("<option>"+$.mage.__('Choose Time Slot')+"</option>");
-                                        for(var p1 in Selectdata[p])
-                                        {
-                                            if(Selectdata[p][p1].is_available)
-                                            {
-                                                var data_date=this.getDate(data_id ,SelectDateValue)
-                                                option+="<option id='"+Selectdata[p][p1].slot_id+"' name='id_"+data_id+"' data_date='"+data_date+"' value='"+$.mage.__(Selectdata[p][p1].slot)+"'>"+$.mage.__(Selectdata[p][p1].slot)+"</option>";
                                             }
-                                        }
-                                        
+                                    }else{
+                                        SelectDateValue = '';
                                     }
-                                }
-                                // $('.' + elem.getAttribute('seller-group')).removeClass('selected');
-                                // $(event.currentTarget).addClass('selected');
-                                $("#wk_slot_times_"+SelectId).append(option);
-                                }else{
-                                    $("#wk_slot_times_"+SelectId).html("<option value=''>"+$.mage.__('Choose Time Slot')+"</option><option value='None'>"+$.mage.__('None')+"</option>");
-                                }
+
+                            } else{
+                                this.Selectdata(0);
+                            }   
+
+                            if(SelectDateValue!='')
+                            {
+
+                                    if(SelectDateValue!=$.mage.__('None'))
+                                    {
+
+                                            var option="";
+                                            for(var p in Selectdata)
+                                            {
+                                                if(SelectDateValue!=undefined && SelectDateValue==p)
+                                                {
+                                                //  $("#wk_slot_times_"+SelectId).html("<option>"+$.mage.__('Choose Time Slot')+"</option>");
+                                                $("#wk_slot_times_"+SelectId).html("");
+                                                
+                                                    for(var p1 in Selectdata[p])
+                                                    {
+                                                        if(Selectdata[p][p1].is_available)
+                                                        {
+                                                            var data_date=this.getDate(data_id ,SelectDateValue)
+                                                            option+="<option id='"+Selectdata[p][p1].slot_id+"' name='id_"+data_id+"' data_date='"+data_date+"' value='"+$.mage.__(Selectdata[p][p1].slot)+"'>"+$.mage.__(Selectdata[p][p1].slot)+"</option>";
+                                                        }
+                                                    }
+                                                    
+                                                }
+                                            }
+                                            // $('.' + elem.getAttribute('seller-group')).removeClass('selected');
+                                            // $(event.currentTarget).addClass('selected');
+                                            $("#wk_slot_times_"+SelectId).append(option);
+                                    }else{
+                                        $("#wk_slot_times_"+SelectId).html("<option value='"+$.mage.__('None')+"'>"+$.mage.__('None')+"</option>");
+                                    }
+                            }else if(SelectDateValue==$.mage.__('None'))
+                            {
+                                $("#wk_slot_times_"+SelectId).html("<option value='"+$.mage.__('None')+"'>"+$.mage.__('None')+"</option>");
+                            }
                         }
+                            // if($("#wk_slot_times_"+SelectId+" option").length==1)
+                            // {
+                                 this.selectTimeSlot(Select_data,null,null,undefined,$("#wk_slot_times_"+SelectId));
+                            // }
                     }
-                }
                     
                 },
                 getSelectedDate:function()
@@ -371,7 +380,7 @@ define(
                     }
 
                 },
-                selectTimeSlot: function (seller, model, data, event) {
+                selectTimeSlot: function (seller, model, data, event,elem) {
                     $(".selected-slots").remove();
                     
                     if(event!=undefined)
@@ -446,9 +455,78 @@ define(
                         customerData.set("selected-slots", this.selectedSlots());
                         this.isChecked(true);
                         $('#co-shipping-method-form').append("<input class='selected-slots' type='hidden' name='seller_data' value='" + JSON.stringify(this.selectedSlots()) + "'/>");
-                    }else{
+                        }else{
                         
-                        var Selected_value=$.mage.__($("select[id^=wk_slot_times_").val());
+                                var Selected_value=$.mage.__($("select[id^=wk_slot_times_").val());
+                                var Selected_date=null;
+                                var Selected_id=null;
+                                $.each($("select[id^=wk_slot_times_").find("option"),function (index, value) {
+
+                                    if(this.getAttribute("value")==Selected_value)
+                                    {
+                                        Selected_date=this.getAttribute("data_date");
+                                        Selected_id=this.id;
+                                    }
+                                });
+                                if(Selected_date!=null)
+                                {
+
+                                Selected_date = $.datepicker.formatDate(
+                                    'yy-mm-dd',
+                                    new Date(Selected_date)
+                                );
+
+                                Selected_date=this.getFormatDate(Selected_date);
+                                }else{
+                                    Selected_date=$.mage.__('None');
+                                }
+
+                                $('#' + elem.id + '_time').val(Selected_value);
+                                $('#' + elem.id + '_date').val(Selected_date);
+
+                                if (this.selectedSlots().length == 0) {
+                                    this.selectedSlots.push({
+                                        'id': seller.id,
+                                        'name': seller.name,
+                                        'slot_time': Selected_value,
+                                        'date': Selected_date,
+                                        'slot_id': Selected_id
+                                    });
+                                    this.sellerCount(this.sellerCount() + 1);
+                                } else {
+                                    let flag=1;
+                                    var thisthis=this;
+                                    $.each(this.selectedSlots(),function (index, value) {
+                                        if (seller.id == value.id) {
+                                            thisthis.selectedSlots()[index].slot_time = Selected_value;
+                                            thisthis.selectedSlots()[index].date = Selected_date;
+                                            thisthis.selectedSlots()[index].slot_id = Selected_id;
+                                            flag=0;
+                                        }
+                                    });
+
+                                    if (flag) {
+                                        this.selectedSlots.push({
+                                            'id': seller.id,
+                                            'name': seller.name,
+                                            'slot_time': Selected_value,
+                                            'date': Selected_date,
+                                            'slot_id': Selected_id
+                                        });
+                                        this.sellerCount(this.sellerCount() + 1);
+                                    }
+                                 }
+                    
+                                customerData.set("selected-slots", this.selectedSlots());
+                                this.isChecked(true);
+                                $('#co-shipping-method-form').append("<input class='selected-slots' type='hidden' name='seller_data' value='" + JSON.stringify(this.selectedSlots()) + "'/>");
+
+                        
+                        }
+                    }else if(elem)
+                    {
+
+                        var Selected_value=$.mage.__($(elem).val());
                         var Selected_date=null;
                         var Selected_id=null;
                         $.each($("select[id^=wk_slot_times_").find("option"),function (index, value) {
@@ -461,7 +539,6 @@ define(
                         });
                         if(Selected_date!=null)
                         {
-
                         Selected_date = $.datepicker.formatDate(
                             'yy-mm-dd',
                             new Date(Selected_date)
@@ -506,15 +583,13 @@ define(
                                 });
                                 this.sellerCount(this.sellerCount() + 1);
                             }
-                        }
-                    
-                    customerData.set("selected-slots", this.selectedSlots());
-                    this.isChecked(true);
-                    $('#co-shipping-method-form').append("<input class='selected-slots' type='hidden' name='seller_data' value='" + JSON.stringify(this.selectedSlots()) + "'/>");
+                         }
+            
+                        customerData.set("selected-slots", this.selectedSlots());
+                        this.isChecked(true);
+                        $('#co-shipping-method-form').append("<input class='selected-slots' type='hidden' name='seller_data' value='" + JSON.stringify(this.selectedSlots()) + "'/>");
                         
                     }
-                    
-                 }
                     return true;
                 },
                 ChangeDynamicTimeSlot: function (model,event, seller) {
