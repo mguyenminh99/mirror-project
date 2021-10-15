@@ -95,8 +95,6 @@ define(
                                 }
                             }
                         }
-                        // $('.' + elem.getAttribute('seller-group')).removeClass('selected');
-                        // $(event.currentTarget).addClass('selected');
                         $("#wk_slot_times_"+selectedId).append(option);
                      
                     }     
