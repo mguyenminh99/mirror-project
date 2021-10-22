@@ -61,7 +61,7 @@
     padding-left: 1em;
     text-align: left;
     vertical-align:middle;
-    width: 0.5rem;
+    width: 50%;
 }
 .slot {
     background: #e6e6e6;
@@ -86,7 +86,10 @@
   top: 0;
   cursor: pointer;
 }
-
+table.time-slot
+{
+    width:63%;
+}
 .slot:hover {
     background: #c5c5c5;
     box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
@@ -127,17 +130,7 @@
     display: inline-block;
     margin: 10px 0px 10px 0px;
 }
-.no-slots-block{
-    border: 1px solid #ff9393;
-    padding: 1%;
-}
-.slected-slots tbody:nth-child(odd) {
-    background: #F5F5F5;
-}
-.slected-slots tbody td{
-  border-left: .1rem dashed #d6d6d6;
-  border-right: .1rem dashed #d6d6d6;
-}
+
 .timeslot-information-title{
   text-align: center;
 }
@@ -146,4 +139,9 @@
 }
 .wk_selectbox_slot{
     box-shadow: none;
+}
+@media only screen and (max-width: 768px) {
+    table.time-slot {
+        width: 100%;
+    }
 }
