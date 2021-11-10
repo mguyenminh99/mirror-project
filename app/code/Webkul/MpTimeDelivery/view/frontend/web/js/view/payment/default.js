@@ -30,7 +30,7 @@ define(
                         return data;
                     },
                     getSlotInfo: function () {
-                        return JSON.stringify(sellerTimeSlots().selectedSlots());
+                        return JSON.stringify(customerData.get('changeevent-slots')());
                     }
                 }
             );

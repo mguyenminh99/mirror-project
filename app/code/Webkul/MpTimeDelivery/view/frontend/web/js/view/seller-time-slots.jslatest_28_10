@@ -49,7 +49,6 @@ define(
                     this.startDate = window.checkoutConfig.start_date;
                     this.Selectdata=ko.observable();
                     this.slots = ko.observableArray([]);
-                    this.availableSlots = ko.observableArray([]);
                     this.timeslots=ko.observableArray([]);
                     this.sortedSlots = ko.observableArray([]),
                     this.chosenDate=ko.observableArray([]),
@@ -81,28 +80,29 @@ define(
                     {
                         this.chosenDate([cday]);
                         var option="";
-                        // for(var p in Selectdata)
-                        // {
-                        //     if(cday!=undefined && cday==p)
-                        //     {
-                        //         //$("#wk_slot_times_"+selectedId).html($.mage.__("<option>Choose Time Slot</option>"));
-                        //         for(var p1 in Selectdata[p])
-                        //         {
-                        //             if(Selectdata[p][p1].is_available)
-                        //             {
-                        //                 // var data_date=this.getDate(data_id ,cday)
-                        //                  option+=$.mage.__("<option id='"+Selectdata[p][p1].slot_id+"' name='id_"+data_id+"' data_date='"+data_date+"' value='"+$.mage.__(Selectdata[p][p1].slot)+"'>"+$.mage.__(Selectdata[p][p1].slot)+"</option>");
-                        //             }
-                        //         }
-                        //     }
-                        // }
-                        // $("#wk_slot_times_"+selectedId).append(option);
+                        for(var p in Selectdata)
+                        {
+                            if(cday!=undefined && cday==p)
+                            {
+                                //$("#wk_slot_times_"+selectedId).html($.mage.__("<option>Choose Time Slot</option>"));
+                                for(var p1 in Selectdata[p])
+                                {
+                                    if(Selectdata[p][p1].is_available)
+                                    {
+                                        var data_date=this.getDate(data_id ,cday)
+                                         option+=$.mage.__("<option id='"+Selectdata[p][p1].slot_id+"' name='id_"+data_id+"' data_date='"+data_date+"' value='"+$.mage.__(Selectdata[p][p1].slot)+"'>"+$.mage.__(Selectdata[p][p1].slot)+"</option>");
+                                    }
+                                }
+                            }
+                        }
+                        $("#wk_slot_times_"+selectedId).append(option);
                      
                     }     
                 },
                 getDefaultDate:function()
                 {
                     var inMiSec= this.chosenDate();
+                    console.log(inMiSec[0]);
                    var returnDate = $.datepicker.formatDate(
                         'DD, d MM, yy',
                         new Date(inMiSec[0])
@@ -111,6 +111,7 @@ define(
                 },
                 getDefaultDay:function()
                 {
+                  console.log(this.defaultAllowedDay);
                    return this.defaultAllowedDay;
                 },
                 getDefaultTimeRange:function()
@@ -161,6 +162,7 @@ define(
                     return ordered;
                 },
                 getDate: function (sellerId , cday) {
+
                     var sellerStartDate = this.sellersData[sellerId].seller_start_date;
                     var cDate = new Date(cday);
                     var cDay = cDate.getDay();
@@ -274,18 +276,16 @@ define(
                 },
                 daySelect:function(Select_data,SelectId,event)
                 {
-                  
+                    console.log("279 ",event.type);
                     var data_id=Select_data.id;
-                    var Selectdata=Select_data.slots;
+                   var Selectdata=Select_data.slots;
                     var SelectDateValue='';
-                    var count = 0;
                     if(event!=undefined)
                     {
                      
                         var elem = event.target || event.srcElement || event.currentTarget;
-                       
                         if (typeof elem !== 'undefined' && (elem instanceof jQuery && elem.length) || elem instanceof HTMLElement) {
-                            SelectId = elem.name.split('_')[1];
+                    
                             var elem = event.currentTarget;
                             if (typeof elem !== 'undefined') {
                                 var selectValue=$('#' + elem.id).val();
@@ -300,6 +300,8 @@ define(
                                                 var c=b[1].split("日");
                                                 var dd=c[0];
                                                 var nowDate=yy+"-"+mm+"-"+dd;
+                                                // console.log(nowDate);
+
                                                 SelectDateValue = $.datepicker.formatDate(
                                                     'yy-mm-dd',
                                                     new Date(nowDate)
@@ -316,8 +318,8 @@ define(
                             } else{
                                 this.Selectdata(0);
                             }   
-                        
-                           
+                            console.log("SelectedDataValue ",SelectDateValue);
+                            // localStorage.setItem('SelectDateValue', SelectDateValue);
                             if(SelectDateValue!='')
                             {
                               
@@ -343,8 +345,8 @@ define(
                                                     
                                                 }
                                             }
-                                            $('.' + elem.getAttribute('seller-group')).removeClass('selected');
-                                            $(event.currentTarget).addClass('selected');
+                                            // $('.' + elem.getAttribute('seller-group')).removeClass('selected');
+                                            // $(event.currentTarget).addClass('selected');
                                             $("#wk_slot_times_"+SelectId).append(option);
                                     }else{
                                         $("#wk_slot_times_"+SelectId).html("<option value='"+$.mage.__('None')+"'>"+$.mage.__('None')+"</option>");
@@ -353,38 +355,59 @@ define(
                             {
                                 $("#wk_slot_times_"+SelectId).html("<option value='"+$.mage.__('None')+"'>"+$.mage.__('None')+"</option>");
                             }
-                        } else {
+                        }else {
                             //this is for  when page load
-                            var customerLoadData= customerData.get('changeevent-slots')();
-                            $('#co-shipping-method-form').append("<input class='selected-slots' type='hidden' name='seller_data' value='" + JSON.stringify(customerLoadData) + "'/>");
-                            var option = "";
-                            setTimeout(function(){
-                            var customData = [];
-                            $.each(customerLoadData,function(index,value){
-                                 $("#wk_days_option_"+value.id+"_"+value.date).attr("selected","selected");
+                           
+                        //    var LocalStorageSelectDateValue = localStorage.getItem('SelectDateValue');
+                        //     if(LocalStorageSelectDateValue!='')
+                        //     {
                                
-                                
-                            });
-                            //get selected date on load
-                            var selectedDate = $("#wk_days_slot_"+SelectId).find(":selected").attr('keydata');
-                            //add time slot on page load
-                            if(Selectdata[selectedDate]!=undefined){
-                                var optionData ="";
-                                $.each(Selectdata[selectedDate],function(splindex,splvalue){
-                                    optionData+="<option id='"+splvalue.slot_id+"' name='id_"+SelectId+"' data_date='"+selectedDate+"' value='"+$.mage.__(splvalue.slot)+"'>"+$.mage.__(splvalue.slot)+"</option>";
-                                });
-                                
-                                $("#wk_slot_times_"+SelectId).html("");
-                                $("#wk_slot_times_"+SelectId).append(optionData);
-                            }
-                        },1000);
-                             
+                        //             if(LocalStorageSelectDateValue!=$.mage.__('None'))
+                        //             {
+                                        
+                        //                     var option="";
+                        //                     for(var p in Selectdata)
+                        //                     {
+                        //                         if(LocalStorageSelectDateValue!=undefined && LocalStorageSelectDateValue==p)
+                        //                         {
+                                                   
+                        //                         //  $("#wk_slot_times_"+SelectId).html("<option>"+$.mage.__('Choose Time Slot')+"</option>");
+                        //                         $("#wk_slot_times_"+SelectId).html("");
+                                                
+                        //                             for(var p1 in Selectdata[p])
+                        //                             {
+                        //                                 if(Selectdata[p][p1].is_available)
+                        //                                 {
+                                                           
+                        //                                     var data_date=this.getDate(data_id ,LocalStorageSelectDateValue)
+                                                          
+                        //                                     if(localStorage.getItem('timeSlot') == Selectdata[p][p1].slot){
+                        //                                         localStorage.setItem('loadSelectedId', Selectdata[p][p1].slot_id);
+                        //                                         option+="<option id='"+Selectdata[p][p1].slot_id+"' selected='selected' name='id_"+data_id+"' data_date='"+data_date+"' value='"+$.mage.__(Selectdata[p][p1].slot)+"'>"+$.mage.__(Selectdata[p][p1].slot)+"</option>";
+                        //                                     }else{
+                        //                                         option+="<option id='"+Selectdata[p][p1].slot_id+"' name='id_"+data_id+"' data_date='"+data_date+"' value='"+$.mage.__(Selectdata[p][p1].slot)+"'>"+$.mage.__(Selectdata[p][p1].slot)+"</option>";
+                        //                                     }
+                        //                                 }
+                        //                             }
+                                                    
+                        //                         }
+                        //                     }
+                                           
+                        //                     // $('.' + elem.getAttribute('seller-group')).removeClass('selected');
+                        //                     // $(event.currentTarget).addClass('selected');
+                        //                     $(".wk_selectbox_slot.seletctbox_time").append(option);
+                        //             }else{
+                        //                 // $("#wk_slot_times_"+SelectId).html("<option value='"+$.mage.__('None')+"'>"+$.mage.__('None')+"</option>");
+                        //             }
+                        //     }
                         }
-                        var eventData = false;
-                        if(event.type=="change"){
-                            eventData = true;
-                        }
-                        this.selectTimeSlot(Select_data,null,null,undefined,$("#wk_slot_times_"+SelectId),eventData);
+                            // if($("#wk_slot_times_"+SelectId+" option").length==1)
+                            // {
+                                if(event.type !="readystatechange"){
+                                    console.log("raaja");
+                                    this.selectTimeSlot(Select_data,null,null,undefined,$("#wk_slot_times_"+SelectId));
+                                }
+                            // }
                     }  
                     
                 },
@@ -408,17 +431,30 @@ define(
                     }
 
                 },
-                selectTimeSlot: function (seller, model, data, event,elem,eventData=true) {
+                selectTimeSlot: function (seller, model, data, event,elem) {
+                  
                     $(".selected-slots").remove();
+                    
                     if(event!=undefined)
                     {
+                        console.log(event.type);
+                        console.log(event.target.id);
+                        console.log(event.srcElement);
+                        console.log(event.currentTarget);
                         var elem = event.target || event.srcElement || event.currentTarget;
-                    
-                        if (typeof elem !== 'undefined' && (elem instanceof jQuery && elem.length) || elem instanceof HTMLElement) {
+                        var istarget = event.target.id==undefined?false:event.target.id.includes('wk_slot_times_');
+                        console.log(istarget);
+                        if (istarget==true && typeof elem !== 'undefined' && (elem instanceof jQuery && elem.length || elem instanceof HTMLElement)) {
                             var wkTimeSlot =  $("select[id^=wk_slot_times_").val();
+                            // localStorage.setItem('timeSlot', wkTimeSlot);
+                          //  console.log($('#' + elem.id + '_time'))
+                            //console.log($('#' + elem.id + '_date'));
+                          
+                       
                             var Selected_value=$.mage.__(elem.value);
                             var Selected_date=null;
                             var Selected_id=null;
+                            
                             $.each($(elem).find("option"),function (index, value) {
 
                                 if(this.getAttribute("value")==Selected_value)
@@ -475,10 +511,14 @@ define(
                                     this.sellerCount(this.sellerCount() + 1);
                                 }
                             }
-                        customerData.set("selected-slots", this.selectedSlots());
-                        this.isChecked(true);
-                        $('#co-shipping-method-form').append("<input class='selected-slots' type='hidden' name='seller_data' value='" + JSON.stringify(this.selectedSlots()) + "'/>");
+                            console.log("503  ", this.selectedSlots());
+                            customerData.set("selected-slots", this.selectedSlots());
+                            this.isChecked(true);
+                            $('#co-shipping-method-form').append("<input class='selected-slots' type='hidden' name='seller_data' value='" + JSON.stringify(this.selectedSlots()) + "'/>");
+                        
                         }else{
+                           
+                            if(event.type !="readystatechange"){
                                 var Selected_value = $.mage.__(
                                   $("select[id^=wk_slot_times_").val()
                                 );
@@ -492,7 +532,6 @@ define(
                                         Selected_id=this.id;
                                     }
                                 });
-                                
                                 if(Selected_date!=null)
                                 {
 
@@ -508,8 +547,9 @@ define(
 
                                 $('#' + elem.id + '_time').val(Selected_value);
                                 $('#' + elem.id + '_date').val(Selected_date);
-
-                                if (this.selectedSlots().length == 0) {
+                                var selectedSlotsData = customerData.get("selected-slots")();
+                                if (selectedSlotsData.length == 0) {
+                                    console.log("616")
                                     this.selectedSlots.push({
                                         'id': seller.id,
                                         'name': seller.name,
@@ -519,19 +559,24 @@ define(
                                     });
                                     this.sellerCount(this.sellerCount() + 1);
                                 } else {
+                                    console.log("626");
                                     let flag=1;
                                     var thisthis=this;
+                                    
                                     $.each(this.selectedSlots(),function (index, value) {
-                                        if (seller.id == value.id) {
-                                            
-                                            thisthis.selectedSlots()[index].slot_time = Selected_value;
-                                            thisthis.selectedSlots()[index].date = Selected_date;
-                                            thisthis.selectedSlots()[index].slot_id = Selected_id;
+                                         if (seller.id == value.id) {
+                                            console.log(seller.id);
+                                            console.log(value.id);
+                                            console.log("-----------");
+                                            selectedSlotsData[index].slot_time = Selected_value;
+                                            selectedSlotsData[index].date = Selected_date;
+                                            selectedSlotsData[index].slot_id = Selected_id;
                                             flag=0;
                                         }
                                     });
-                                   
+                                 
                                     if (flag) {
+                                        console.log("here");
                                         this.selectedSlots.push({
                                             'id': seller.id,
                                             'name': seller.name,
@@ -542,45 +587,85 @@ define(
                                         this.sellerCount(this.sellerCount() + 1);
                                     }
                                  }
-                                customerData.set("selected-slots", this.selectedSlots());
+                                 console.log("getLength ",selectedSlotsData.length);
+                                 if(selectedSlotsData.length == undefined){
+                                    selectedSlotsData = this.selectedSlots();
+                                 }
+                                console.log("642  ", selectedSlotsData);
+                                customerData.set("selected-slots", selectedSlotsData);
                                 this.isChecked(true);
-                                var customerLoadData= customerData.get('changeevent-slots')();
-                                if(customerLoadData.length){
-                                    $('#co-shipping-method-form').append("<input class='selected-slots' type='hidden' name='seller_data' value='" + JSON.stringify(customerLoadData) + "'/>");
-                                } else{
-                                    $('#co-shipping-method-form').append("<input class='selected-slots' type='hidden' name='seller_data' value='" + JSON.stringify(this.selectedSlots()) + "'/>");
-                                }
+                                $(".selected-slots").remove();
+                                $('#co-shipping-method-form').append("<input class='selected-slots' type='hidden' name='seller_data' value='" + JSON.stringify(selectedSlotsData) + "'/>");
+                          
+                            }
+                            
 
-                        
+                             if(event.type =="readystatechange"){
+                               
+                                $.each(customerData.get('selected-slots')(),function (index, value) {
+                                   $('#wk_days_option_'+value.id+'_'+value.date).attr('selected','selected')
+                                });
+                                $('#co-shipping-method-form').append("<input class='selected-slots' type='hidden' name='seller_data' value='" + JSON.stringify(customerData.get('selected-slots')()) + "'/>");
+                            }
                         }
-                    }else 
-                    if(elem)
+                    }else if(elem)
                     {
-                      
-                        if($(elem).val()!=null && $(elem).val()!="None" && eventData==true){
-                            var Selected_value=$.mage.__($(elem).val());
-                            var Selected_date=null;
-                            var Selected_id=null;
-                            $.each($("select[id^=wk_slot_times_").find("option"),function (index, value) {
+                        
+                        var Selected_value=$.mage.__($(elem).val());
+                        var Selected_date=null;
+                        var Selected_id=null;
+                        $.each($("select[id^=wk_slot_times_").find("option"),function (index, value) {
 
-                                if(this.getAttribute("value")==Selected_value)
-                                {
-                                    Selected_date=this.getAttribute("data_date");
-                                    Selected_id=this.id;
+                            if(this.getAttribute("value")==Selected_value)
+                            {
+                                Selected_date=this.getAttribute("data_date");
+                                Selected_id=this.id;
+                            }
+                        });
+                        if(Selected_date!=null)
+                        {
+                        Selected_date = $.datepicker.formatDate(
+                            'yy-mm-dd',
+                            new Date(Selected_date)
+                        );
+
+                        Selected_date=this.getFormatDate(Selected_date);
+                        }else{
+                            Selected_date=$.mage.__('None');
+                        }
+
+                        $('#' + elem.id + '_time').val(Selected_value);
+                        $('#' + elem.id + '_date').val(Selected_date);
+                        var selectedSlotsData = customerData.get("selected-slots")();
+                        if (selectedSlotsData.length == 0) {
+                            console.log("616")
+                            this.selectedSlots.push({
+                                'id': seller.id,
+                                'name': seller.name,
+                                'slot_time': Selected_value,
+                                'date': Selected_date,
+                                'slot_id': Selected_id
+                            });
+                            this.sellerCount(this.sellerCount() + 1);
+                        } else {
+                            console.log("626");
+                            let flag=1;
+                            var thisthis=this;
+                            
+                            $.each(this.selectedSlots(),function (index, value) {
+                                 if (seller.id == value.id) {
+                                    console.log(seller.id);
+                                    console.log(value.id);
+                                    console.log("-----------");
+                                    selectedSlotsData[index].slot_time = Selected_value;
+                                    selectedSlotsData[index].date = Selected_date;
+                                    selectedSlotsData[index].slot_id = Selected_id;
+                                    flag=0;
                                 }
                             });
-                            if(Selected_date!=null)
-                            {
-                            Selected_date = $.datepicker.formatDate(
-                                'yy-mm-dd',
-                                new Date(Selected_date)
-                            );
-
-                            Selected_date=this.getFormatDate(Selected_date);
-                            }else{
-                                Selected_date=$.mage.__('None');
-                            }
-                            if (this.selectedSlots().length == 0) {
+                         
+                            if (flag) {
+                                console.log("here");
                                 this.selectedSlots.push({
                                     'id': seller.id,
                                     'name': seller.name,
@@ -589,41 +674,17 @@ define(
                                     'slot_id': Selected_id
                                 });
                                 this.sellerCount(this.sellerCount() + 1);
-                            } else {
-                                
-                                let flag=1;
-                                var thisthis=this;
-                                $.each(this.selectedSlots(),function (index, value) {
-                                    
-                                    if (seller.id == value.id) {
-                                        
-                                        thisthis.selectedSlots()[index].slot_time = Selected_value;
-                                        thisthis.selectedSlots()[index].date = Selected_date;
-                                        thisthis.selectedSlots()[index].slot_id = Selected_id;
-                                        flag=0;
-                                    }
-                                });
-                            
-                                if (flag) {
-                                    this.selectedSlots.push({
-                                        'id': seller.id,
-                                        'name': seller.name,
-                                        'slot_time': Selected_value,
-                                        'date': Selected_date,
-                                        'slot_id': Selected_id
-                                    });
-                                    this.sellerCount(this.sellerCount() + 1);
-                                }
                             }
-                            customerData.set(
-                              "changeevent-slots",
-                              this.selectedSlots()
-                            );
-                            customerData.set("selected-slots", this.selectedSlots());
-                            this.isChecked(true);
-                            $('#co-shipping-method-form').append("<input class='selected-slots' type='hidden' name='seller_data' value='" + JSON.stringify(this.selectedSlots()) + "'/>");
-                        
-                        }
+                         }
+                         console.log("getLength ",selectedSlotsData.length);
+                         if(selectedSlotsData.length == undefined){
+                            selectedSlotsData = this.selectedSlots();
+                         }
+                        console.log("642  ", selectedSlotsData);
+                        customerData.set("selected-slots", selectedSlotsData);
+                        this.isChecked(true);
+                        $(".selected-slots").remove();
+                        $('#co-shipping-method-form').append("<input class='selected-slots' type='hidden' name='seller_data' value='" + JSON.stringify(selectedSlotsData) + "'/>");
                         
                     }
                     return true;
@@ -665,8 +726,10 @@ define(
                                 model.sellerCount(model.sellerCount() + 1);
                             }
                         }
+
                     }
-                    customerData.set("selected-slots", model.selectedSlots());
+                    console.log("689  ", this.selectedSlots());
+                    // customerData.set("selected-slots", model.selectedSlots());
                     model.isChecked(true);
                     $('#co-shipping-method-form').append("<input class='selected-slots' type='hidden' name='seller_data' value='" + JSON.stringify(model.selectedSlots()) + "'/>");
                     return true;
