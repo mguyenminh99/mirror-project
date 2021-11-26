@@ -29,11 +29,18 @@ define(
                     this.isEnabled = window.checkoutConfig.isEnabled;
                 },
                 getSlotInfo: function () {
-                    if ($.isEmptyObject(sellerTimeSlots().selectedSlots())) {
-                        var slots = customerData.get("selected-slots");
-                        return slots;
+                    var changeEventSlots = customerData.get("changeevent-slots")();
+                    if ($.isEmptyObject(changeEventSlots)){
+                        if ($.isEmptyObject(sellerTimeSlots().selectedSlots())) {
+                            var slots = customerData.get("selected-slots");
+                            return slots;
+                        }
+                        return sellerTimeSlots().selectedSlots();
+                       
+                    }else{
+                        return customerData.get("changeevent-slots");
                     }
-                    return sellerTimeSlots().selectedSlots();
+                    
                 },
             }
         );
