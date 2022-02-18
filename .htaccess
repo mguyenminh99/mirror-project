@@ -423,3 +423,9 @@ ErrorDocument 403 /pub/errors/404.php
     </FilesMatch>
 
 </IfModule>
+
+############################################
+# Nginx proxy HTTPS Fix for Magento        #
+############################################
+SetEnvIf X-Forwarded-Proto https HTTPS=on
+
