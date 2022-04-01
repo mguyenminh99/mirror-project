@@ -109,7 +109,7 @@ $deliveryOrderCollection = $block->getOrderCollection();
                             ?>
                         <tr class="wk-row-view empty-message">
                             <td colspan="4">
-                                We couldn't find any records.
+                                <?= $block->escapeHtml(__("We couldn't find any records. "))?>
                             </td>
                         </tr>
 

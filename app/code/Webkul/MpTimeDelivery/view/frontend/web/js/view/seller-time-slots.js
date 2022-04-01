@@ -503,6 +503,9 @@ define(
                                 var Selected_value = $.mage.__(
                                   $("select[id^=wk_slot_times_").val()
                                 );
+                                if (Selected_value == undefined) {
+                                    Selected_value = $.mage.__('None');
+                                }
                                 var Selected_date=null;
                                 var Selected_id=null;
                                 $.each($("select[id^=wk_slot_times_").find("option"),function (index, value) {
