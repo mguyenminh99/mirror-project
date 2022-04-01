@@ -80,7 +80,10 @@ class ShippingInformationManagement
                 $sellerId = $this->_helper->getSellerId($mpassignproductId, $item->getProductId());
                 if (is_array($sellerData)) {
                     foreach ($sellerData as $value) {
-                        if ($sellerId == $value['id']) {
+                        if ($value['id'] == 0) {
+                            $item->setDeliveryDate($value['date']);
+                            $item->setDeliveryTime($value['slot_time']);
+                        }elseif ($sellerId == $value['id']) {
                             $item->setDeliveryDate($value['date']);
                             $item->setDeliveryTime($value['slot_time']);
                         }
