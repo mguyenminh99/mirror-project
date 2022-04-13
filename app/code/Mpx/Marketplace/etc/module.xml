@@ -13,6 +13,7 @@
     <module name="Mpx_Marketplace">
         <sequence>
             <module name="Webkul_Marketplace"/>
+            <module name="Magento_Customer"/>
         </sequence>
     </module>
 </config>
