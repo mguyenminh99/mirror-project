@@ -124,6 +124,17 @@ $currencySymbol = $helper->getCurrencySymbol();
                     <input type="text" id="contact_number" name="contact_number" value="<?= $block->escapeHtml($partner['contact_number']); ?>" title="<?= /* @noEscape */ __('Enter Contact Number') ?>" class="input-text" placeholder="<?= /* @noEscape */ __('Enter Contact Number with country code ex: (123) 456-7890') ?>"/>
                 </div>
             </div>
+            <div class="field profile hidden">
+                <label><?= /* @noEscape */ __('Tax/VAT Number') ?> </label>
+                <?php
+                if ($profile_hint_status && $helper->getProfileHintTax()) {?>
+                    <img src="<?= $block->escapeUrl($this->getViewFileUrl('Webkul_Marketplace::images/quest.png')); ?>" class='questimg' title="<?= $block->escapeHtml($helper->getProfileHintTax()) ?>"/>
+                    <?php
+                } ?>
+                <div class="control">
+                    <input type="text" id="taxvat" name="taxvat" value="<?= $block->escapeHtml($partner['taxvat']); ?>" title="<?= /* @noEscape */ __('Enter Tax or VAT number') ?>" class="input-text" placeholder="<?= /* @noEscape */ __('Enter Tax or VAT number') ?>"/>
+                </div>
+            </div>
             <?php
             if ($helper->getActiveColorPicker()) {?>
                 <div class="field profile">
