@@ -257,6 +257,7 @@ return [
         'Magento_PaypalReCaptcha' => 1,
         'MSP_TwoFactorAuth' => 1,
         'Mpx_Backend' => 1,
+        'Mpx_Base' => 1,
         'Webkul_Marketplace' => 1,
         'Mpx_Sales' => 1,
         'Temando_ShippingRemover' => 1,

@@ -1,0 +1,27 @@
+<?php
+/**
+ * Vnext Software.
+ */
+?>
+<?php
+use Mpx\Base\Block\Customer\Authorization\FooterAuthorization;
+
+// @codingStandardsIgnoreFile
+
+/**
+ * @var $block FooterAuthorization
+ */
+?>
+
+<?php
+    $href = $block->getHref();
+?>
+<script type="text/x-magento-init">
+{
+    "*": {
+        "Mpx_Base/js/footer": {
+            "href": "<?= $href ?>"
+        }
+    }
+}
+</script>

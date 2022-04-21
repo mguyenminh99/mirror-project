@@ -8,5 +8,10 @@
                 <argument name="logo_height" xsi:type="number">100</argument>
             </arguments>
         </referenceBlock>
+        <referenceBlock name="privacy-policy-link" remove="true"/>
+        <referenceBlock name="catalog-search-advanced-link" remove="true"/>
+        <referenceBlock name="search-term-popular-link" remove="true"/>
+        <referenceBlock name="contact-us-link" remove="true"/>
+        <referenceBlock name="sales-guest-form-link" remove="true"/>
     </body>
 </page>
