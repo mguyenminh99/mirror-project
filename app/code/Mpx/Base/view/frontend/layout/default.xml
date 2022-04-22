@@ -8,7 +8,7 @@
       xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
     <body>
         <referenceContainer name="before.body.end">
-            <block class="Mpx\Base\Block\Customer\Authorization\FooterAuthorization"
+            <block class="Magento\Customer\Block\Account\AuthorizationLink"
                    name="custom-footer"
                    template="Mpx_Base::footer.phtml"/>
         </referenceContainer>
