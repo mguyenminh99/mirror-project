@@ -1,4 +1,5 @@
 <?php
+// @codingStandardsIgnoreFile
 /**
  * Webkul Software.
  *
@@ -392,7 +393,7 @@ if ($helper->getUrlRewrite()) { ?>
 <br/><br/>
 <form action="<?= $block->escapeUrl($block->getUrl('marketplace/account/savePaymentInfo', ["_secure" => $this->getRequest()->isSecure()])) ?>" enctype="multipart/form-data" method="post" data-role="form-payment-validate" data-mage-init='{"validation":{}}'>
     <div class="wk-mp-page-title page-title">
-        <h2><?= /* @noEscape */ __('Edit Payment Information') ?></h1>
+        <h2><?= /* @noEscape */ __('Edit Payment Information') ?></h2>
             <button class="button wk-mp-btn" title="<?= /* @noEscape */ __('Save Payment') ?>" type="submit">
                 <span><span><?= /* @noEscape */ __('Save Payment') ?></span></span>
             </button>
@@ -420,7 +421,7 @@ if ($helper->getUrlRewrite()) { ?>
 <?php if ($helper->getMinOrderSettings()): ?>
     <form action="<?= $block->escapeUrl($block->getUrl('marketplace/account/saveMinOrder', ["_secure" => $this->getRequest()->isSecure()])) ?>" method="post" data-mage-init='{"validation":{}}'>
         <div class="wk-mp-page-title page-title">
-            <h2><?= /* @noEscape */ __('Set Minimum Order Amount') ?></h1>
+            <h2><?= /* @noEscape */ __('Set Minimum Order Amount') ?></h2>
                 <button class="button wk-mp-btn" title="<?= /* @noEscape */ __('Save') ?>" type="submit">
                     <span><span><?= /* @noEscape */ __('Save') ?></span></span>
                 </button>
