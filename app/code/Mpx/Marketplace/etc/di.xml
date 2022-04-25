@@ -13,4 +13,6 @@
                type="Mpx\Marketplace\Plugin\Customer\RemoveVatCustomer"
                sortOrder="1" />
     </type>
+     <preference for="Webkul\Marketplace\Model\ResourceModel\Sellerearning\FrontGrid\Collection" type="Mpx\Marketplace\Model\ResourceModel\Sellerearning\FrontGrid\Collection" />
+     <preference for="Webkul\Marketplace\Ui\DataProvider\CustomerHistoryDataProvider" type="Mpx\Marketplace\Ui\DataProvider\CustomerHistoryDataProvider" />
 </config>
