@@ -256,6 +256,8 @@ return [
         'Klarna_Kp' => 1,
         'Magento_PaypalReCaptcha' => 1,
         'MSP_TwoFactorAuth' => 1,
+        'Magefan_Community' => 1,
+        'Magefan_LoginAsCustomer' => 1,
         'Mpx_Backend' => 1,
         'Mpx_InventoryShippingAdminUi' => 1,
         'Webkul_Marketplace' => 1,
