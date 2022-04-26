@@ -50,7 +50,7 @@
 "Short Description","短い説明"
 "Special Price To","特別価格上限"
 "Allowed Product Qty on Product Purchase for Customer","1回に注文できる個数制限"
-"By default %1 qty will be allowed for customer to add in cart.","デフォルトでは一度に5個までカートに入れられます。"
+"By default %1 qty will be allowed for customer to add in cart.","デフォルトでは一度に%1個までカートに入れられます。"
 "Product Images","商品画像"
 "Configurable products allow customers to choose options (Ex: shirt color).You need to create a simple product for each configuration (Ex: a product for each color).","商品属性を追加する商品は、それぞれの属性設定ごとにsimple productを作成する必要があります。(例 : シャツのカラー属性を設定した場合、色ごとに商品を作成する。)"
 
