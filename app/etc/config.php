@@ -262,6 +262,7 @@ return [
         'Mpx_Base' => 1,
         'Mpx_InventoryShippingAdminUi' => 1,
         'Webkul_Marketplace' => 1,
+        'Webkul_MpTimeDelivery' => 1,
         'Temando_ShippingRemover' => 1,
         'Vertex_Tax' => 1,
         'Vertex_AddressValidation' => 1,
@@ -269,7 +270,7 @@ return [
         'Webkul_MarketplaceBaseShipping' => 1,
         'Webkul_MpApi' => 1,
         'Webkul_MpAssignProduct' => 1,
-        'Webkul_MpTimeDelivery' => 1,
+        'Mpx_TimeDelivery' => 1,
         'Webkul_Mpshipping' => 1,
         'Yotpo_Yotpo' => 1
     ]

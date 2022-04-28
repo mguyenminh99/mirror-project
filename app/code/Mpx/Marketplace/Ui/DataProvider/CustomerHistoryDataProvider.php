@@ -9,9 +9,9 @@ use Webkul\Marketplace\Model\ResourceModel\Saleslist\Collection as OrderColl;
 use Webkul\Marketplace\Helper\Data as HelperData;
 
 /**
- * Class CustomerHistoryDataProvider
+ * @inheritdoc
  */
-class CustomerHistoryDataProvider extends  \Webkul\Marketplace\Ui\DataProvider\CustomerHistoryDataProvider
+class CustomerHistoryDataProvider extends \Webkul\Marketplace\Ui\DataProvider\CustomerHistoryDataProvider
 {
     /**
      * Construct
@@ -35,7 +35,16 @@ class CustomerHistoryDataProvider extends  \Webkul\Marketplace\Ui\DataProvider\C
         array $meta = [],
         array $data = []
     ) {
-        parent::__construct($name, $primaryFieldName, $requestFieldName, $orderColl, $collectionFactory, $helperData, $meta, $data);
+        parent::__construct(
+            $name,
+            $primaryFieldName,
+            $requestFieldName,
+            $orderColl,
+            $collectionFactory,
+            $helperData,
+            $meta,
+            $data
+        );
         $sellerId = $helperData->getCustomerId();
 
         $customerGridFlat = $orderColl->getTable('customer_grid_flat');
