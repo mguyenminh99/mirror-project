@@ -407,7 +407,7 @@ $weightUnit = $helper->getWeightUnit();
             </div>
             <input type="hidden" checked="checked" class="weight-switcher" id="weight-switcher1" value="1" name="product[product_has_weight]">
             <input type="hidden" class="validate-zero-or-greater input-text" name="product[weight]" id="weight" value="0">
-            <div class="field">
+            <div class="field hidden">
                 <label class="label"><?= $block->escapeHtml(__('Url Key')) ?>:</label>
                 <div class="control">
                     <input type="text" class="input-text" name="product[url_key]" id="url_key" value="<?= $block->escapeHtml($product_coll['url_key']) ?>"/>
