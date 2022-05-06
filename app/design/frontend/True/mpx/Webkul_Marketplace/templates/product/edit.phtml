@@ -296,7 +296,7 @@ $weightUnit = $helper->getWeightUnit();
                     <?php
                 } ?>
                 <div class="control">
-                    <input type="text" class="required-entry validate-zero-or-greater input-text" name="product[price]" id="price" value="<?= /* @noEscape */ $product_coll->getPrice() ?>" data-ui-id="product-tabs-attributes-tab-fieldset-element-text-product-price"/>
+                    <input type="text" class="required-entry validate-zero-or-greater input-text validate-digits validate-number" name="product[price]" id="price" value="<?= /* @noEscape */ number_format($product_coll->getPrice(),0,"","") ?>" data-ui-id="product-tabs-attributes-tab-fieldset-element-text-product-price"/>
                 </div>
             </div>
             <?php if ($product_coll['type_id']!='configurable') { ?>
@@ -308,7 +308,7 @@ $weightUnit = $helper->getWeightUnit();
                         <?php
                     } ?>
                     <div class="control">
-                        <input type="text" class="widthinput input-text validate-zero-or-greater" name="product[special_price]" id="special-price" value="<?= /* @noEscape */ $product_coll->getSpecialPrice() ?>"/>
+                        <input type="text" class="widthinput input-text validate-zero-or-greater validate-digits validate-number" name="product[special_price]" id="special-price" value="<?php if($product_coll->getSpecialPrice() !='') echo number_format($product_coll->getSpecialPrice(),0, "", "") ?>"/>
                     </div>
                 </div>
                 <div class="field">
