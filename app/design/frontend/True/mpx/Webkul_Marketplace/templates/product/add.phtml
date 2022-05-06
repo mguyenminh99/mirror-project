@@ -260,7 +260,7 @@ if (!empty($data['set'])) {
                     <img src="<?= $block->escapeUrl($this->getViewFileUrl('Webkul_Marketplace::images/quest.png')); ?>" class='questimg' title="<?= $block->escapeHtml($helper->getProductHintPrice()) ?>"/>
                 <?php endif; ?>
                 <div class="control">
-                    <input type="text" class="required-entry validate-zero-or-greater input-text" name="product[price]" id="price" value="<?= /* @noEscape */ $data['product']['price']?>"/>
+                    <input type="text" class="required-entry validate-zero-or-greater input-text validate-digits validate-number" name="product[price]" id="price" value="<?= /* @noEscape */ $data['product']['price']?>"/>
                 </div>
             </div>
             <div class="field">
@@ -269,7 +269,7 @@ if (!empty($data['set'])) {
                     <img src="<?= $block->escapeUrl($this->getViewFileUrl('Webkul_Marketplace::images/quest.png')); ?>" class='questimg' title="<?= $block->escapeHtml($helper->getProductHintSpecialPrice()) ?>"/>
                 <?php endif; ?>
                 <div class="control">
-                    <input type="text" class="widthinput input-text validate-zero-or-greater" name="product[special_price]" id="special-price" value="<?= /* @noEscape */ $data['product']['special_price']?>"/>
+                    <input type="text" class="widthinput input-text validate-zero-or-greater validate-digits validate-number " name="product[special_price]" id="special-price" value="<?= /* @noEscape */ $data['product']['special_price']?>"/>
                 </div>
             </div>
             <div class="field">
