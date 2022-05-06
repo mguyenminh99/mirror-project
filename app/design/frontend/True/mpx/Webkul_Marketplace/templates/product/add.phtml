@@ -23,6 +23,9 @@ $weightUnit = $helper->getWeightUnit();
 if (!empty($data['set'])) {
     $set = $data['set'];
 }
+$tax10Percent = $helper->getTaxClassModel()->addFieldToFilter('class_name','消費税10%')->getFirstItem();
+$taxId = $tax10Percent->getClassId();
+$taxName = $tax10Percent->getClassName();
 ?>
 <form action="<?= $block->escapeUrl($block->getUrl('marketplace/product/save', ['_secure' => $this->getRequest()->isSecure()])) ?>" enctype="multipart/form-data" method="post" id="edit-product" data-form="edit-product" data-mage-init='{"validation":{}}'>
     <div class="wk-mp-design" id="wk-bodymain">
@@ -331,13 +334,14 @@ if (!empty($data['set'])) {
                     <img src="<?= $block->escapeUrl($this->getViewFileUrl('Webkul_Marketplace::images/quest.png')); ?>" class='questimg' title="<?= $block->escapeHtml($helper->getProductHintTax()) ?>"/>
                 <?php endif; ?>
                 <div class="control">
-                    <select id="tax-class-id" class=" required-entry required-entry select" name="product[tax_class_id]" disabled>
-                        <option value="0"><?= $block->escapeHtml(__('消費税10%'))?></option>
+                    <select id="tax-class-id" class=" required-entry required-entry select" disabled>
+                        <option value="<?php echo $taxId;?>"><?= $block->escapeHtml(__($taxName))?></option>
                     </select>
                 </div>
             </div>
-            <input type="hidden" checked="checked" class="weight-switcher" id="weight-switcher1" value="1" name="product[product_has_weight]">
-            <input type="hidden" class="validate-zero-or-greater input-text" name="product[weight]" id="weight" value="0"/>
+            <input type="hidden" value="<?php echo $taxId;?>" name="product[tax_class_id]">
+            <input type="hidden" value="1" name="product[product_has_weight]">
+            <input type="hidden"name="product[weight]" value="0"/>
             <?php if(!$helper->getCustomerSharePerWebsite()): ?>
                 <div class="field required">
                     <label class="label"><?= $block->escapeHtml(__('Product in Websites')) ?>:</label>
