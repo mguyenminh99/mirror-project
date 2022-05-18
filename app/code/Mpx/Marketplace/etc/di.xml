@@ -17,7 +17,7 @@
      <preference for="Webkul\Marketplace\Ui\DataProvider\CustomerHistoryDataProvider" type="Mpx\Marketplace\Ui\DataProvider\CustomerHistoryDataProvider" />
     <type name="Webkul\Marketplace\Controller\Product\Save">
         <plugin name="Mpx_Marketplace::ValidateDecimal"
-                type="Mpx\Marketplace\Plugin\Product\ValidateDecimal"
+                type="Mpx\Marketplace\Plugin\Product\BeforeSaveProduct"
                 sortOrder="1" />
     </type>
 </config>
