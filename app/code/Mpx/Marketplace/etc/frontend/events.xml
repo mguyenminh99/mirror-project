@@ -1,0 +1,17 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Mpx Software.
+ *
+ * @category  Mpx
+ * @package   Mpx_Marketplace
+ * @author    Mpx
+ */
+-->
+
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:framework:Event/etc/events.xsd">
+    <event name="controller_action_predispatch_marketplace_account_becomeseller">
+        <observer name="mpx_seller_model_save_before" instance="Mpx\Marketplace\Observer\Predispatch\BecomeSeller" />
+    </event>
+</config>
