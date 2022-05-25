@@ -7,7 +7,7 @@
 "Manage Print PDF Header Info","出力するPDFヘッダの編集"
 "Manage Assign Product","商品の割り当て"
 "Shipping Setting","配送設定"
-"Time Slots Configuration","配送日時設定"
+"Time Slots Configuration","指定可能な配送日時の設定"
 "Delivery Order History","配送履歴"
 "My Order History","注文履歴"
 
@@ -87,7 +87,7 @@
 "Origin Address","配送設定"
 "Shipping Origin Address","配送基本住所"
 
-"Time Delivery Configuration","配送日時設定"
+"Time Delivery Configuration","指定可能な配送日時の設定"
 "Create Delivery Time Slots","配送日時作成"
 "Minimum Required Time in Order Process","出荷にかかる日数"
 "Enter number of days, e.g: 5","数字で出荷までにかかる日数を入力。 例 : 5"
