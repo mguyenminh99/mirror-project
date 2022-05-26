@@ -78,7 +78,7 @@ define(
                                                 var element = $(event.target).closest('#product_options_container_top > div.fieldset-wrapper');
                                                 if (element.length) {
                                                     $('#time_delivery_' + element.attr('id').replace('option_', '') + '_is_delete').val(1);
-                                                    element.addClass('ignore-validate').remove();
+                                                    element.addClass('ignore-validate').hide();
                                                     this.closeModal(true);
                                                 }
                                             }
