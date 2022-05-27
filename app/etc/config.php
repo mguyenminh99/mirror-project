@@ -224,7 +224,7 @@ return [
         'Magento_VaultGraphQl' => 1,
         'Magento_Version' => 1,
         'Magento_Swagger' => 1,
-        'Magento_WebapiAsync' => 1,
+        'Magento_WebapiAsync' => 0,
         'Magento_WebapiSecurity' => 1,
         'Magento_Weee' => 1,
         'Magento_WeeeGraphQl' => 1,
