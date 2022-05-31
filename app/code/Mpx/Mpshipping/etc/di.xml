@@ -19,4 +19,5 @@
                 sortOrder="2" />
     </type>
     <preference for="Webkul\Mpshipping\Controller\Shipping\View" type="Mpx\Mpshipping\Controller\Shipping\View" />
+    <preference for="Webkul\Mpshipping\Controller\Shipping\Index" type="Mpx\Mpshipping\Controller\Shipping\Index" />
 </config>
