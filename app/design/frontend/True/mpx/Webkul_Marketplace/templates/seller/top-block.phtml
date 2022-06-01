@@ -70,7 +70,7 @@ if ($partner['shop_url']) {
             <?php if ($helper->getSellerFlagStatus() && (
                     ($flagReasons->getSize() && $helper->getSellerFlagData('reason')) || $helper->getSellerFlagData('other_reason'))
             ) { ?>
-                <div class="wk-mp-collection-seller-title">
+                <div class="wk-mp-collection-seller-title" hidden="hidden">
                     <span class="wk-report-flag-link"><a id="reportflag"><?= $helper->getSellerFlagData('seller_flag_label') ?></a></span>
                 </div>
             <?php } ?>
