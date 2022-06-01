@@ -1,13 +1,15 @@
 <?php
+// @codingStandardsIgnoreFile
 /**
- * Webkul Software.
+ * Mpx Software.
  *
- * @category  Webkul
- * @package   Webkul_Marketplace
- * @author    Webkul
- * @copyright Copyright (c) Webkul Software Private Limited (https://webkul.com)
- * @license   https://store.webkul.com/license.html
+ * @category  Mpx
+ * @package   Mpx_Marketplace
+ * @author    Mpx
  */
+
+/** @var $block \Webkul\Marketplace\Block\Order\View */
+
 $helper = $this->helper(\Webkul\Marketplace\Helper\Data::class);
 $orderHelper = $this->helper(\Webkul\Marketplace\Helper\Orders::class);
 $orderId = $this->getRequest()->getParam('id');
@@ -99,14 +101,7 @@ if (count($marketplaceOrders)) {
                             </a>
                             <?php
                         } ?>
-                        <?php if ($itemInvoiceStatus!="Invoiced" && $order->canInvoice() && $itemCancelStatus!="1") {?>
-                            <a href="<?= $block->escapeUrl($block->getUrl('marketplace/order/invoice', ['id'=>$orderId, '_secure' => $this->getRequest()->isSecure()]))?>" class="action">
-                                <button class="button wk-mp-btn" title="<?= /* @noEscape */ __('Create Invoice to confirm collected amount from buyer for this order') ?>" onclick="return confirm('<?= /* @noEscape */ __("Are you sure you want to create invoice?") ?>')" type="button">
-                                    <span><span><?= /* @noEscape */ __('Invoice') ?></span></span>
-                                </button>
-                            </a>
-                            <?php
-                        } elseif ($itemInvoiceStatus=="Invoiced" && $itemRefundStatus!="Refunded" && $order->canCreditmemo() && $itemCancelStatus!="1") {
+                        <?php if ($itemInvoiceStatus=="Invoiced" && $itemRefundStatus!="Refunded" && $order->canCreditmemo() && $itemCancelStatus!="1") {
                             if ($paymentCode == 'mpcashondelivery' && !$adminPayStatus) { ?>
                                 <a href="<?= $block->escapeUrl($block->getUrl('mpcashondelivery/order/payadmin', ['id'=>$orderId, '_secure' => $this->getRequest()->isSecure()]))?>" class="action">
                                     <button class="button wk-mp-btn" title="<?= /* @noEscape */ __('Pay Admin for his commission for this order') ?>" onclick="return confirm('<?= /* @noEscape */ __("If you pay admin commission then you can not do refund for buyer in future. Are you sure you want to pay admin for his commission?") ?>')" type="button">
