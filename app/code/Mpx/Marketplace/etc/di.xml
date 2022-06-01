@@ -15,6 +15,8 @@
     </type>
      <preference for="Webkul\Marketplace\Model\ResourceModel\Sellerearning\FrontGrid\Collection" type="Mpx\Marketplace\Model\ResourceModel\Sellerearning\FrontGrid\Collection" />
      <preference for="Webkul\Marketplace\Ui\DataProvider\CustomerHistoryDataProvider" type="Mpx\Marketplace\Ui\DataProvider\CustomerHistoryDataProvider" />
+     <preference for="Webkul\Marketplace\Block\Order\Totals" type="Mpx\Marketplace\Block\Order\Totals" />
+     <preference for="Webkul\Marketplace\Block\Order\Invoice\Totals" type="Mpx\Marketplace\Block\Order\Invoice\Totals" />
     <type name="Webkul\Marketplace\Controller\Product\Save">
         <plugin name="Mpx_Marketplace::ValidateDecimal"
                 type="Mpx\Marketplace\Plugin\Product\BeforeSaveProduct"
