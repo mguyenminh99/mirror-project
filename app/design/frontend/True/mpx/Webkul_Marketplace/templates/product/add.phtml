@@ -211,28 +211,7 @@ $taxName = $tax10Percent->getClassName();
                     <img src="<?= $block->escapeUrl($this->getViewFileUrl('Webkul_Marketplace::images/quest.png')); ?>" class='questimg' title="<?= $block->escapeHtml($helper->getProductHintShortDesc()) ?>"/>
                 <?php } ?>
                 <div class="control wk-border-box-sizing">
-                    <textarea name="product[short_description]" class="input-text" id="short_description" rows="5" cols="75" ><?= /* @noEscape */ $data['product']['short_description']?></textarea>
-                    <?php if ($helper->isWysiwygEnabled()): ?>
-                        <script>
-                            require([
-                                "jquery",
-                                "mage/translate",
-                                "mage/adminhtml/events",
-                                "mage/adminhtml/wysiwyg/tiny_mce/setup"
-                            ], function(jQuery) {
-                                wysiwygShortDescription = new wysiwygSetup("short_description", {
-                                    "width" : "100%",
-                                    "height" : "200px",
-                                    "plugins" : [{"name":"image"}],
-                                    "tinymce4" : {
-                                        "toolbar":"formatselect | bold italic underline | alignleft aligncenter alignright | bullist numlist | link table charmap","plugins":"advlist autolink lists link charmap media noneditable table contextmenu paste code help table",
-                                    },
-                                    files_browser_window_url: "<?=$block->getWysiwygUrl();?>"
-                                });
-                                wysiwygShortDescription.setup("exact");
-                            });
-                        </script>
-                    <?php endif; ?>
+                    <input type="text" name="product[short_description]" data-validate='{"maxlength":128}' class="input-text" id="short_description"></input>
                 </div>
             </div>
             <?php if ($skuType == 'static'): ?>

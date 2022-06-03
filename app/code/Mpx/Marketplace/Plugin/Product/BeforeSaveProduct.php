@@ -37,6 +37,9 @@ class BeforeSaveProduct
     const EMPTY_SPECIAL_PRICE_MESSAGE = "Please enter a special price.";
     const INVALID_SPECIAL_PRICE_ERROR_CODE =  "invalid_special_price";
     const INVALID_SPECIAL_PRICE_ERROR_MESSAGE = "Please enter the special price as a numerical value.";
+    const SHORT_DESCRIPTION_LENGTH_ERROR_CODE =  "lenght_short_description";
+    const SHORT_DESCRIPTION_LENGTH_ERROR_MESSAGE = "Please enter no more than 128 characters.";
+    const SHORT_DESCRIPTION_MAX_LENGTH = 128;
 
     /**
      * @var ManagerInterface
@@ -118,6 +121,7 @@ class BeforeSaveProduct
             $this->validateSpecialPricePeriod($wholeData);
         }
         $this->validateDateTime($wholeData);
+        $this->validateShortDescription($wholeData);
         //End validate rule call
 
         if (!empty($this->errors)) {
@@ -256,6 +260,25 @@ class BeforeSaveProduct
                 $this->errors[] = [
                     'type' => self::DATE_VALIDATION_ERROR_CODE,
                     'message' => self::DATE_VALIDATION_ERROR_MESSAGE
+                ];
+            }
+        }
+    }
+
+    /**
+     * Validate ShortDescription
+     *
+     * @param array $wholeData
+     * @return void
+     */
+    protected function validateShortDescription(array $wholeData): void
+    {
+        if (isset($wholeData['product']['short_description'])) {
+            $shortDescription = $wholeData['product']['short_description'];
+            if (strlen($shortDescription) > self::SHORT_DESCRIPTION_MAX_LENGTH) {
+                $this->errors[] = [
+                    'type' => self::SHORT_DESCRIPTION_LENGTH_ERROR_CODE,
+                    'message' => self::SHORT_DESCRIPTION_LENGTH_ERROR_MESSAGE
                 ];
             }
         }
