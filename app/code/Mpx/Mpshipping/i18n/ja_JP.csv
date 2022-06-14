@@ -35,3 +35,4 @@
 "Search by method name","配送方法名称で検索する"
 "Edit shipping set record","購入金額別配送方法の編集"
 "Table Rate Shipping by Region","地域別配送料金の設定"
+"Seller Of Product(s) %1 do not provide shipping service at your location.","%1 は配送方法が設定されていません。購入できない場合は販売店にお問合せください。"

@@ -85,6 +85,9 @@
 "Thursday","木曜日"
 "Friday","金曜日"
 "Saturday","土曜日"
+"Enter your destination to get a shipping estimate.","配送料金計算の為、配送先住所を入力して下さい。"
+"There are no source items with the in stock status","商品に在庫がありません。"
+
 "Your Name","お名前"
 "Your Email","メールアドレス"
 "You added product %1 to the <a href=""%2"">comparison list</a>.","<a href=""%2"">比較リストに</a> %1 を追加しました。"
@@ -103,6 +106,8 @@
 Shipped,出荷数
 "Are you sure you want to remove this item from your Compare Products list?","この商品を比較リストから削除しますか？"
 "Qty Sold","販売総数"
+"Some of the products are out of stock.","在庫切れの商品があります。"
+"This product is out of stock.","こちらの商品は在庫切れのため、現在購入できません。"
 "Please use full width kana only in this field.","全角カナで入力してください"
 "Create New Customer Account","アカウントを作成"
 
