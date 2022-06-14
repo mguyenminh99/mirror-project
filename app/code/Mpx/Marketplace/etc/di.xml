@@ -22,4 +22,5 @@
                 type="Mpx\Marketplace\Plugin\Product\BeforeSaveProduct"
                 sortOrder="1" />
     </type>
+    <preference for="Webkul\Marketplace\Controller\Order\Shipment" type="Mpx\Marketplace\Controller\Order\Shipment" />
 </config>
