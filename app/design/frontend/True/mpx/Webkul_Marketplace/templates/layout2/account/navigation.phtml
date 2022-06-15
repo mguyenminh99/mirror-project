@@ -99,15 +99,6 @@ $transactionCount = $block->getTransactionNotificationCount();
                     </a>
                 </li>
             <?php endif; ?>
-            <?php if ($_helper->isAllowed('marketplace/order/shipping')): ?>
-                <?php if ($_helper->getIsOrderManage()=="1"): ?>
-                    <li class="wk-mp-item-order-shipping level-0 <?= /* @noEscape */ strpos($magentoCurrentUrl, 'marketplace/order/shipping')? "current active":"";?>" id="wk-mp-menu-order-shipping" >
-                        <a href="<?= $block->escapeUrl($block->getUrl('marketplace/order/shipping', ['_secure' => $this->getRequest()->isSecure()])); ?>" class="<?= /* @noEscape */ strpos($magentoCurrentUrl, 'marketplace/order/shipping')? "active":"";?>">
-                            <span><?= /* @noEscape */ __('Manage Print PDF Header Info') ?></span>
-                        </a>
-                    </li>
-                <?php endif; ?>
-            <?php endif; ?>
             <?php if ($_helper->isAllowed('marketplace/account/review')): ?>
                 <?php if ($_helper->getSellerProfileDisplayFlag()): ?>
                     <li class="wk-mp-item-review level-0 <?= /* @noEscape */ strpos($magentoCurrentUrl, 'marketplace/account/review')? "current active":"";?>" id="wk-mp-menu-review" >
