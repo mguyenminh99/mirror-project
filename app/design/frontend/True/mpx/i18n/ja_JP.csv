@@ -110,5 +110,7 @@ Shipped,出荷数
 "This product is out of stock.","こちらの商品は在庫切れのため、現在購入できません。"
 "Please use full width kana only in this field.","全角カナで入力してください"
 "Create New Customer Account","アカウントを作成"
+"Print Shipment","納品書を印刷"
+"Tracking Number(s):","送り状番号"
 "Print Shipment","納品書を出力"
 
