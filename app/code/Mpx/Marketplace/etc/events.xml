@@ -14,4 +14,7 @@
     <event name="marketplace_seller_save_before">
         <observer name="mpx_seller_model_save_before" instance="Mpx\Marketplace\Observer\SellerSaveBefore" />
     </event>
+    <event name="checkout_submit_all_after">
+        <observer name="webkul_marketplace_sales_order_place_after_observer" instance="Mpx\Marketplace\Observer\SalesOrderPlaceAfterObserver" />
+    </event>
 </config>
