@@ -93,19 +93,9 @@ $transactionCount = $block->getTransactionNotificationCount();
                 <?php endif; ?>
             <?php endif; ?>
             <?php if ($_helper->isAllowed('marketplace/account/earning')): ?>
-                <li class="nav item notification-link wk-mp-item-earning level-0 <?= /* @noEscape */ strpos($magentoCurrentUrl, 'marketplace/account/earning')? "current active":"";?>" id="wk-mp-menu-earning" >
-                    <a href="<?= $block->escapeUrl($block->getUrl('marketplace/account/earning', ['_secure' => $this->getRequest()->isSecure()])); ?>" class="<?= /* @noEscape */ strpos($magentoCurrentUrl, 'marketplace/account/earning')? "active":"";?>">
-                        <span><?= /* @noEscape */ __('Earnings') ?></span>
-                    </a>
-                </li>
             <?php endif; ?>
             <?php if ($_helper->isAllowed('marketplace/account/review')): ?>
                 <?php if ($_helper->getSellerProfileDisplayFlag()): ?>
-                    <li class="wk-mp-item-review level-0 <?= /* @noEscape */ strpos($magentoCurrentUrl, 'marketplace/account/review')? "current active":"";?>" id="wk-mp-menu-review" >
-                        <a href="<?= $block->escapeUrl($block->getUrl('marketplace/account/review', ['_secure' => $this->getRequest()->isSecure()])); ?>" class="<?= /* @noEscape */ strpos($magentoCurrentUrl, 'marketplace/account/review')? "active":"";?>">
-                            <span><?= /* @noEscape */ __('Review') ?></span>
-                        </a>
-                    </li>
                 <?php endif; ?>
             <?php endif; ?>
             <?= $block->getChildHtml('layout2_seller_account_navigation');?>

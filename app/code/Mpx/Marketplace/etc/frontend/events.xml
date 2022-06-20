@@ -14,4 +14,10 @@
     <event name="controller_action_predispatch_marketplace_account_becomeseller">
         <observer name="mpx_seller_model_save_before" instance="Mpx\Marketplace\Observer\Predispatch\BecomeSeller" />
     </event>
+    <event name="controller_action_predispatch_marketplace_account_earning">
+        <observer name="mpx_account_earning_controller_before" instance="Mpx\Marketplace\Observer\Account\NoRoute" />
+    </event>
+    <event name="controller_action_predispatch_marketplace_account_review">
+        <observer name="mpx_account_review_controller_before" instance="Mpx\Marketplace\Observer\Account\NoRoute" />
+    </event>
 </config>
