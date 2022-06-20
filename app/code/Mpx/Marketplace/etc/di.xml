@@ -23,4 +23,6 @@
                 sortOrder="1" />
     </type>
     <preference for="Webkul\Marketplace\Controller\Order\Shipment" type="Mpx\Marketplace\Controller\Order\Shipment" />
+    <preference for="Webkul\Marketplace\Model\Order\Pdf\Shipment" type="Mpx\Marketplace\Model\Order\Pdf\Shipment" />
+    <preference for="Webkul\Marketplace\Model\Plugin\Order\ShipmentPdfHeader" type="Mpx\Marketplace\Model\Plugin\Order\ShipmentPdfHeader" />
 </config>
