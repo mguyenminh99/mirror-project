@@ -21,13 +21,6 @@ $transactionCount = $block->getTransactionNotificationCount();
 <nav data-mage-init='{"Webkul_Marketplace/js/sellerNavigation": {}}' class="wk-mp-menu wk-mp-main">
     <ul id="wk-mp-nav">
         <?php if ($isPartner): ?>
-            <?php if ($_helper->isAllowed('marketplace/account/dashboard')): ?>
-                <li class="wk-mp-item-dashboard level-0 <?= /* @noEscape */ strpos($magentoCurrentUrl, 'marketplace/account/dashboard')? "current active":"";?>" id="wk-mp-menu-dashboard" >
-                    <a href="<?= $block->escapeUrl($block->getUrl('marketplace/account/dashboard', ['_secure' => $this->getRequest()->isSecure()])); ?>" class="<?= /* @noEscape */ strpos($magentoCurrentUrl, 'marketplace/account/dashboard')? "active":"";?>">
-                        <span><?= /* @noEscape */ __('Dashboard') ?></span>
-                    </a>
-                </li>
-            <?php endif; ?>
             <?php if ($_helper->isAllowed('marketplace/order/history')): ?>
                 <li class="nav item notification-link wk-mp-item-order level-0 <?= /* @noEscape */ strpos($magentoCurrentUrl, 'marketplace/order') && (!strpos($magentoCurrentUrl, 'marketplace/order/shipping/'))? "current active":"";?>" id="wk-mp-menu-order" >
                     <a href="<?= $block->escapeUrl($block->getUrl('marketplace/order/history', ['_secure' => $this->getRequest()->isSecure()])); ?>" class="<?= /* @noEscape */ strpos($magentoCurrentUrl, 'marketplace/order') && (!strpos($magentoCurrentUrl, 'marketplace/order/shipping/'))? "active":"";?>">
