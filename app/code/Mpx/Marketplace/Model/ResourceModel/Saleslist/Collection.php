@@ -27,7 +27,7 @@ class Collection extends \Webkul\Marketplace\Model\ResourceModel\Saleslist\Colle
             'main_table.order_item_id = soi.item_id AND main_table.order_id = soi.order_id',
             [
                 'item_id' => 'item_id',
-                'SUM(row_total) AS magepro_price'
+                'SUM(soi.row_total) AS magepro_price'
             ]
         );
 
