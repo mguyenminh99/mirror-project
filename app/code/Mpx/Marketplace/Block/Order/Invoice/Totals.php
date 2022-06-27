@@ -22,7 +22,7 @@ class Totals extends \Webkul\Marketplace\Block\Order\Invoice\Totals
             $source = $source[0];
             $taxToSeller = $source['tax_to_seller'];
             $currencyRate = $source['currency_rate'];
-            $subtotal = $source['magepro_price'];
+            $subtotal = $order->getSubtotalInclTax();
             $adminSubtotal = $source['total_commission'];
             $shippingamount = $source['shipping_charges'];
             $refundedShippingAmount = $source['refunded_shipping_charges'];
