@@ -35,9 +35,6 @@ if ($order->getPayment()) {
                 <th class="col price"><?= $block->escapeHtml(__('COD Charges')) ?></th>
                 <?php
             } ?>
-            <th class="col price"><?= $block->escapeHtml(__('Admin Commission')) ?></th>
-            <th class="col price"><?= $block->escapeHtml(__('Vendor Total')) ?></th>
-            <th class="col price"><?= $block->escapeHtml(__('Subtotal')) ?></th>
         </tr>
         </thead>
         <?php
@@ -48,7 +45,7 @@ if ($order->getPayment()) {
                 continue;
             }
             $i++;
-            $rowTotal = $item->getRowTotal();
+            $rowTotal = $item->getRowTotalInclTax();
             $sellerItemCost = $item->getRowTotal();
             $sellerItemCommission = $item->getTotalCommission();
             $currencyRate = $item->getCurrencyRate();
@@ -154,7 +151,7 @@ if ($order->getPayment()) {
                     <td class="col price" data-th="<?= $block->escapeHtml(__('Price')); ?>">
                             <span class="price-excluding-tax" data-label="<?= $block->escapeHtml(__('Excl. Tax')); ?>">
                                 <span class="cart-price">
-                                    <?= /* @noEscape */ $order->formatPrice($item->getPrice()); ?>
+                                    <?= /* @noEscape */ $order->formatPrice($item->getPriceInclTax()); ?>
                                 </span>
                             </span>
                     </td>
@@ -164,12 +161,6 @@ if ($order->getPayment()) {
                                 <li class="item">
                                     <span class="title"><?= $block->escapeHtml(__('Ordered')); ?></span>
                                     <span class="content"><?= $block->escapeHtml($item->getQtyOrdered()*1) ?></span>
-                                </li>
-                            <?php endif; ?>
-                            <?php if ($item->getQtyInvoiced() > 0): ?>
-                                <li class="item">
-                                    <span class="title"><?= $block->escapeHtml(__('Invoiced')); ?></span>
-                                    <span class="content"><?= $block->escapeHtml($item->getQtyInvoiced()*1) ?></span>
                                 </li>
                             <?php endif; ?>
                             <?php if ($item->getQtyShipped() > 0): ?>
@@ -198,9 +189,6 @@ if ($order->getPayment()) {
                         <td class="col price" data-th="<?= $block->escapeHtml(__('COD Charges')) ?>"><?= /* @noEscape */ $order->formatPrice($block->getOrderedPricebyorder($currencyRate, $item->getCodCharges()));?></td>
                         <?php
                     } ?>
-                    <td class="col price" data-th="<?= $block->escapeHtml(__('Admin Commission')); ?>"><?= /* @noEscape */ $order->formatPrice($block->getOrderedPricebyorder($currencyRate, $sellerItemCommission));?></td>
-                    <td class="col price" data-th="<?= $block->escapeHtml(__('Vendor Total')); ?>"><?= /* @noEscape */ $order->formatPrice($block->getOrderedPricebyorder($currencyRate, $sellerItemCost));?></td>
-                    <td class="col subtotal" data-th="<?= $block->escapeHtml(__('Subtotal')); ?>"><?= /* @noEscape */ $order->formatPrice($block->getOrderedPricebyorder($currencyRate, $rowTotal));?></td>
                 </tr>
                 <?php
             } else { ?>
@@ -312,9 +300,6 @@ if ($order->getPayment()) {
                                 <td class="col price" data-th="<?= $block->escapeHtml(__('COD Charges')) ?>"><?= /* @noEscape */ $order->formatPrice($block->getOrderedPricebyorder($currencyRate, $codCharges));?></td>
                                 <?php
                             } ?>
-                            <td class="col price" data-th="<?= $block->escapeHtml(__('Admin Commission')); ?>"><?= /* @noEscape */ $order->formatPrice($block->getOrderedPricebyorder($currencyRate, $sellerItemCommission));?></td>
-                            <td class="col price" data-th="<?= $block->escapeHtml(__('Vendor Total')); ?>"><?= /* @noEscape */ $order->formatPrice($block->getOrderedPricebyorder($currencyRate, $sellerItemCost));?></td>
-                            <td class="col subtotal" data-th="<?= $block->escapeHtml(__('Subtotal')); ?>"><?= /* @noEscape */ $order->formatPrice($block->getOrderedPricebyorder($currencyRate, $rowTotal));?></td>
                             <?php
                         }?>
                     </tr>

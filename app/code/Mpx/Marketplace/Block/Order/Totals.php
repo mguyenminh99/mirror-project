@@ -22,7 +22,7 @@ class Totals extends \Webkul\Marketplace\Block\Order\Totals
             $source = $source[0];
             $taxToSeller = $source['tax_to_seller'];
             $currencyRate = $source['currency_rate'];
-            $subtotal = $source['magepro_price'];
+            $subtotal = $order->getSubtotalInclTax();
             $adminSubtotal = $source['total_commission'];
             $shippingamount = $source['shipping_charges'];
             $refundedShippingAmount = $source['refunded_shipping_charges'];
@@ -70,20 +70,20 @@ class Totals extends \Webkul\Marketplace\Block\Order\Totals
                 ]
             );
 
-            $this->_totals['tax'] = new \Magento\Framework\DataObject(
-                [
-                    'code' => 'tax',
-                    'value' => $this->helper->getCurrentCurrencyPrice($currencyRate, $totaltax),
-                    'label' => __('Total Tax')
-                ]
-            );
-
             $this->_totals['ordered_total'] = new \Magento\Framework\DataObject(
                 [
                     'code' => 'ordered_total',
                     'strong' => 1,
                     'value' => $this->helper->getCurrentCurrencyPrice($currencyRate, $totalOrdered),
                     'label' => __('Total Ordered Amount')
+                ]
+            );
+
+            $this->_totals['tax'] = new \Magento\Framework\DataObject(
+                [
+                    'code' => 'tax',
+                    'value' => $this->helper->getCurrentCurrencyPrice($currencyRate, $totaltax),
+                    'label' => __('Total Tax')
                 ]
             );
 

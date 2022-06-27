@@ -279,9 +279,9 @@ class Totals extends \Magento\Sales\Block\Order\Totals
             $paymentCode = $this->getOrder()->getPayment()->getMethod();
         }
         if ($paymentCode == 'mpcashondelivery') {
-            return 'colspan="8" class="mark"';
+            return 'colspan="5" class="mark"';
         }
-        return 'colspan="7" class="mark"';
+        return 'colspan="4" class="mark"';
     }
 
     /**

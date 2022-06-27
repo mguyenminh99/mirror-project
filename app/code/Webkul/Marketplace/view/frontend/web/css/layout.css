@@ -1209,7 +1209,7 @@ small.wk-mp-products-bottom {
     }
 }
 .wk-mp-main .order-date .label {
-    display: none;
+    display: inline;
 }
 .wk-mp-main .order-date {
     font-size: 16px;
