@@ -13,7 +13,7 @@
     <body>
         <referenceBlock name="logo">
             <arguments>
-                <argument name="logo_image_src" xsi:type="string">images/x_logo_bk.svg</argument>
+                <argument name="logo_image_src" xsi:type="string">images/x_logo_type02.svg</argument>
             </arguments>
         </referenceBlock>
     </body>
