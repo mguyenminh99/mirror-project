@@ -145,7 +145,7 @@ if ($isPartner == 1) {
                                             <thead>
                                             <tr class="headings">
                                                 <th><?= /* @noEscape */ __('Carrier') ?></th>
-                                                <th><?= /* @noEscape */ __('Title') ?></th>
+                                                <th hidden="hidden"><?= /* @noEscape */ __('Title') ?></th>
                                                 <th><?= /* @noEscape */ __('Number') ?></th>
 
                                             </tr>
@@ -163,7 +163,7 @@ if ($isPartner == 1) {
                                                         <?php endforeach; ?>
                                                     </select>
                                                 </td>
-                                                <td >
+                                                <td hidden="hidden">
                                                     <input class="input-text required"
                                                            type="text"
                                                            id="wk-mp-tracking-title"
