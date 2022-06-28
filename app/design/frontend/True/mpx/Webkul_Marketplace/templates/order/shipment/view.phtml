@@ -163,7 +163,7 @@ if ($isPartner == 1) {
                                                 <thead>
                                                     <tr class="headings">
                                                         <th><?= /* @noEscape */ __('Carrier') ?></th>
-                                                        <th><?= /* @noEscape */ __('Title') ?></th>
+                                                        <th hidden="hidden"><?= /* @noEscape */ __('Title') ?></th>
                                                         <th><?= /* @noEscape */ __('Number') ?></th>
                                                         <th><?= /* @noEscape */ __('Action') ?></th>
                                                     </tr>
@@ -181,12 +181,12 @@ if ($isPartner == 1) {
                                                                 <?php endforeach; ?>
                                                             </select>
                                                         </td>
-                                                        <td >
+                                                        <td hidden="hidden">
                                                             <input class="input-text"
                                                                 type="text"
                                                                 id="wk-mp-tracking-title"
                                                                 name="title"
-                                                                value="" />
+                                                                value="custom" />
                                                         </td>
                                                         <td >
                                                             <input class="input-text"
@@ -209,7 +209,7 @@ if ($isPartner == 1) {
                                                 <?php $i = 0; foreach ($_tracks as $_track):$i++ ?>
                                                     <tr>
                                                         <td><?= $block->escapeHtml($block->getCarrierTitle($_track->getCarrierCode())) ?></td>
-                                                        <td><?= $block->escapeHtml($_track->getTitle()) ?></td>
+                                                        <td hidden="hidden"><?= $block->escapeHtml($_track->getTitle()) ?></td>
                                                         <td>
                                                             <?php if ($_track->isCustom()): ?>
                                                                 <?= $block->escapeHtml($_track->getNumber()) ?>
@@ -279,7 +279,7 @@ if ($isPartner == 1) {
         <script id="sellerOrderShipmentTemplate" type="text/x-jquery-tmpl">
             <tr>
                 <td><%- data.carrier %></td>
-                <td><%- data.title %></td>
+                <td hidden="hidden"><%- data.title %></td>
                 <td class="<%- data.numberclass %>">
                     <%- data.number %>
                 </td>
