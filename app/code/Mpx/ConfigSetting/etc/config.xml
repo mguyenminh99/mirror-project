@@ -69,5 +69,10 @@
                 <allow_guest>0</allow_guest>
             </review>
         </catalog>
+        <newsletter>
+            <general>
+                <active>0</active>
+            </general>
+        </newsletter>
     </default>
 </config>
