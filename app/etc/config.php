@@ -266,6 +266,8 @@ return [
         'Mpx_DisableEditProduct' => 1,
         'Mpx_InventorySales' => 1,
         'Mpx_InventoryShippingAdminUi' => 1,
+        'Webkul_Marketplace' => 1,
+        'Mpx_PaypalJs' => 1,
         'Mpx_Marketplace' => 1,
         'Webkul_MpAssignProduct' => 1,
         'Webkul_Mpshipping' => 1,
