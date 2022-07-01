@@ -14,7 +14,7 @@
             <block class="Magento\Backend\Block\Page\Header" name="logo" before="-">
                 <arguments>
                     <argument name="show_part" xsi:type="string">logo</argument>
-                    <argument name="logo_image_src" xsi:type="string">images/x_logo_bk.svg</argument>
+                    <argument name="logo_image_src" xsi:type="string">images/x_logo_wh.svg</argument>
                 </arguments>
             </block>
         </referenceContainer>
