@@ -18,5 +18,8 @@
                 </arguments>
             </block>
         </referenceContainer>
+        <referenceContainer remove="true" name="legal.system">
+            <block  class="Magento\Framework\View\Element\Template" name="session.activity.link" template="Magento_Security::page/activity_link.phtml" before="report" ifconfig="admin/security/admin_account_sharing"  />
+        </referenceContainer>
     </body>
 </page>
