@@ -13,6 +13,7 @@
         </timeslot>
         <marketplace>
             <layout_settings>
+                <logo>default/x_logo_wh.svg</logo>
                 <is_separate_panel>1</is_separate_panel>
             </layout_settings>
             <product_flag>
