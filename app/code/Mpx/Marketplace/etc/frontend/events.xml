@@ -20,4 +20,7 @@
     <event name="controller_action_predispatch_marketplace_account_review">
         <observer name="mpx_account_review_controller_before" instance="Mpx\Marketplace\Observer\Account\NoRoute" />
     </event>
+    <event name="controller_action_predispatch_marketplace_order_shipment_email">
+        <observer name="mpx_account_review_controller_before" instance="Mpx\Marketplace\Observer\Account\NoRoute" />
+    </event>
 </config>

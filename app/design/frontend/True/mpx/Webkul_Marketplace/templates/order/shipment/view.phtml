@@ -29,7 +29,7 @@ if ($isPartner == 1) {
                 <div class="page-title-wrapper">
                     <h1 class="page-title">
                         <span data-ui-id="page-title-wrapper" class="base">
-                            <?= /* @noEscape */ __('Shipment #%1', $shipment->getIncrementId()) ?>
+                            <?= /* @noEscape */ __('Order Number #%1', $order->getIncrementId()) ?>
                         </span>
                     </h1>
                     <div class="order-date">
@@ -37,11 +37,6 @@ if ($isPartner == 1) {
                     </div>
                     <div class="actions-toolbar order-actions-toolbar">
                         <div class="actions">
-                            <a href="<?= $block->escapeUrl($block->getUrl('marketplace/order_shipment/email', ['order_id'=>$orderId,'shipment_id'=>$shipmentId, '_secure' => $this->getRequest()->isSecure()]))?>" onclick="return confirm('<?= /* @noEscape */ __("Are you sure you want to send shipment email to customer?") ?>')" class="action">
-                                <button class="button wk-mp-btn" title="<?= /* @noEscape */ __('Send Email To Customer') ?>" type="button">
-                                    <span><span><?= /* @noEscape */ __('Send Tracking Information') ?></span></span>
-                                </button>
-                            </a>
                             <a href="<?= $block->escapeUrl($block->getUrl('marketplace/order_shipment/printpdf', ['order_id'=>$orderId,'shipment_id'=>$shipmentId, '_secure' => $this->getRequest()->isSecure()]));?>" class="action">
                                 <button class="button wk-mp-btn" title="<?= /* @noEscape */ __('Shipment Slip') ?>">
                                     <span><span><?= /* @noEscape */ __('Print Shipment') ?></span></span>
@@ -63,11 +58,6 @@ if ($isPartner == 1) {
                     <div class="block-content">
                         <div class="box-content">
                             <div class="box wk-box">
-                                <strong class="box-title wk-order-info-title">
-                                    <a href="<?= $block->escapeUrl($block->getUrl('marketplace/order/view', ['id'=>$orderId, '_secure' => $this->getRequest()->isSecure()]));?>">
-                                        <?= /* @noEscape */ __('Order # %1', $order->getIncrementId()) ?>
-                                    </a>
-                                </strong>
                                 <div class="box-content">
                                     <div class="wk-row">
                                         <span class="label"><?= /* @noEscape */ __('Order Status')?> : </span>
