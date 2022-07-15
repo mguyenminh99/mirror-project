@@ -117,9 +117,17 @@ Shipped,出荷数
 "Total Tax","内消費税[10%]"
 "Price","単価"
 "Qty","数量"
+"Internal Consumption Tax [10%]","内消費税[10%]"
+"Amount Of Money","金額"
+"Delivery","配送"
+"Phone Number","電話番号"
+"Order Number","注文番号"
 "View Shipment Details","配送詳細"
 "Payment & Shipping Method","支払方法・配送方法"
 "Order Number #%1","注文番号 #%1"
 "Terms Of Service","利用規約"
-"Inquiry","問い合わせ"
+"Inquiry","問い合わせ",
+"Order Date","注文日",
+"Total Payment","支払金額"
+
 
