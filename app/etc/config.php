@@ -269,6 +269,7 @@ return [
         'Mpx_Marketplace' => 1,
         'Webkul_MpAssignProduct' => 1,
         'Webkul_Mpshipping' => 1,
+        'Mpx_Sales' => 1,
         'Mpx_PaypalJs' => 1,
         'Webkul_MpTimeDelivery' => 1,
         'Temando_ShippingRemover' => 1,
