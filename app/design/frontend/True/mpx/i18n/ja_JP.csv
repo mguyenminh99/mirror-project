@@ -114,6 +114,8 @@ Shipped,出荷数
 "Tracking Number(s):","送り状番号"
 "Print Shipment","納品書を出力"
 "Number","送り状番号"
+"Custom Value","その他"
+"custom","その他"
 "Total Tax","内消費税[10%]"
 "Price","単価"
 "Qty","数量"

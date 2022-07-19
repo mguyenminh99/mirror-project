@@ -127,11 +127,10 @@ class Shipment extends \Webkul\Marketplace\Controller\Order\Shipment
             if (!empty($paramData['number'])) {
                 $trackingId = $paramData['number'];
                 $trackingData[1]['number'] = $trackingId;
-                $trackingData[1]['carrier_code'] = 'custom';
+                $trackingData[1]['carrier_code'] = $paramData['carrier'];
             }
             if (!empty($paramData['carrier'])) {
-                $carrier = $paramData['carrier'];
-                $trackingData[1]['title'] = $carrier;
+                $trackingData[1]['title'] = $paramData['title'];
             }
             if ($order->canUnhold()) {
                 $this->messageManager->addError(
@@ -220,6 +219,8 @@ class Shipment extends \Webkul\Marketplace\Controller\Order\Shipment
                 if (!empty($paramData['shipment']['send_email'])) {
                     $this->_shipmentSender->send($shipment);
                 }
+                $this->_customerSession->setData('tracking_code', $paramData['carrier']);
+                $this->_customerSession->setData('tracking_title', $paramData['title']);
                 $shipmentCreatedMessage = __('The shipment has been created.');
                 $labelMessage = __('The shipping label has been created.');
                 $this->messageManager->addSuccess(

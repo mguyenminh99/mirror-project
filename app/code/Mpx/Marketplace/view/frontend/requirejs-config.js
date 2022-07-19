@@ -11,7 +11,15 @@ var config = {
         mixins: {
             'mage/validation': {
                 'Mpx_Marketplace/js/validation-mixins/japan-date-validation': true
-            }
+            },
+            'Webkul_Marketplace/js/order/shipment': {
+                'Mpx_Marketplace/js/order/shipment': true
+            },
         }
-    }
+    },
+    map: {
+        '*': {
+            sellerOrderShipment: 'Mpx_Marketplace/js/order/shipment',
+        }
+    },
 }

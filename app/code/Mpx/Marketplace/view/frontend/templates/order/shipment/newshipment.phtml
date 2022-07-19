@@ -3,6 +3,15 @@
 $helper = $this->helper(\Webkul\Marketplace\Helper\Data::class);
 $orderHelper = $this->helper(\Webkul\Marketplace\Helper\Orders::class);
 $isPartner = $helper->isSeller();
+$trackingCode = $block->_customerSession->getTrackingCode();
+$customSelectedFlag = false;
+if (!$trackingCode) {
+    $trackingCode = $block->getDefaultCarrierCode();
+}
+$trackingTitle = $block->_customerSession->getTrackingTitle();
+if (!$trackingTitle) {
+    $trackingTitle = $block->getDefaultCarrierTitle();
+}
 if ($isPartner == 1) {
     $orderId = $this->getRequest()->getParam('order_id');
     $shipmentId = $this->getRequest()->getParam('shipment_id');
@@ -145,7 +154,7 @@ if ($isPartner == 1) {
                                             <thead>
                                             <tr class="headings">
                                                 <th><?= /* @noEscape */ __('Carrier') ?></th>
-                                                <th hidden="hidden"><?= /* @noEscape */ __('Title') ?></th>
+                                                <th><?= /* @noEscape */ __('') ?></th>
                                                 <th><?= /* @noEscape */ __('Number') ?></th>
 
                                             </tr>
@@ -156,10 +165,20 @@ if ($isPartner == 1) {
                                                     <select name="carrier"
                                                             class="select"
                                                             id="wk-mp-tracking-carrier">
-                                                        <?php foreach ($block->getCarriers() as $_code => $_name): ?>
-                                                            <option value="<?= $block->escapeHtml($_code) ?>">
-                                                                <?= $block->escapeHtml($_name) ?>
-                                                            </option>
+                                                         <?php foreach ($block->getCarriers() as $_code => $_name): ?>
+                                                            <?php if ($trackingCode == $_code): ?>
+                                                                 <?php if ($_code == 'custom') {
+                                                                     $customSelectedFlag = true;
+                                                                 }
+                                                                 ?>
+                                                                <option selected value="<?= $block->escapeHtml($_code) ?>">
+                                                                    <?= $block->escapeHtml($_name) ?>
+                                                                </option>
+                                                            <?php else : ?>
+                                                                <option value="<?= $block->escapeHtml($_code) ?>">
+                                                                    <?= $block->escapeHtml($_name) ?>
+                                                                </option>
+                                                            <?php endif  ?>
                                                         <?php endforeach; ?>
                                                     </select>
                                                 </td>
@@ -168,7 +187,9 @@ if ($isPartner == 1) {
                                                            type="text"
                                                            id="wk-mp-tracking-title"
                                                            name="title"
-                                                           value="" />
+                                                           value="<?= $trackingTitle ?>"
+                                                            <?php echo (!$customSelectedFlag) ? 'style="display:none;"' : ''; ?>
+                                                    />
                                                 </td>
                                                 <td >
                                                     <input class="input-text required"
