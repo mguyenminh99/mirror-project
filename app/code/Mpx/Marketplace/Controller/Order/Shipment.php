@@ -34,7 +34,7 @@ class Shipment extends \Webkul\Marketplace\Controller\Order\Shipment
         }
         if ($order = $this->_initOrder()) {
             $shipment = $this->doShipmentExecution($order);
-            if ($shipment->getId()) {
+            if ($shipment && $shipment->getId()) {
                 return $this->resultRedirectFactory->create()->setPath(
                     'marketplace/order_shipment/view/order_id/' . $orderId . '/shipment_id/' . $shipment->getId() . '/',
                     [
@@ -45,9 +45,9 @@ class Shipment extends \Webkul\Marketplace\Controller\Order\Shipment
             }
         }
         return $this->resultRedirectFactory->create()->setPath(
-            '*/*/view',
+            'mpx/order_shipment/newshipment',
             [
-                'id' => $order->getEntityId(),
+                'order_id' => $order->getEntityId(),
                 '_secure' => $this->getRequest()->isSecure(),
             ]
         );
@@ -111,7 +111,7 @@ class Shipment extends \Webkul\Marketplace\Controller\Order\Shipment
      * Create Shipment
      *
      * @param OrderInterface $order
-     * @return \Magento\Sales\Model\Order\Shipment|void
+     * @return false
      */
     protected function doShipmentExecution($order)
     {
@@ -193,7 +193,14 @@ class Shipment extends \Webkul\Marketplace\Controller\Order\Shipment
                 )->addObject(
                     $shipment->getOrder()
                 );
-                $transactionSave->save();
+                try {
+                    $transactionSave->save();
+                }catch (\Exception $e){
+                    $this->messageManager->addErrorMessage('Error cannot save shipment');
+                    return false;
+                }
+
+
                 $sellerCollection = $this->mpOrdersModel->create()
                     ->getCollection()
                     ->addFieldToFilter(

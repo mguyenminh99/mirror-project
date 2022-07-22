@@ -13,6 +13,7 @@ interface PaypalAuthorizationInfoInterface
     const CREATE_AT = 'create_at';
     const UPDATE_AT = 'update_at';
     const PAYPAL_AUTHORIZED_AT = 'paypal_authorized_at';
+    const ALL_SHIPPING_AT = 'all_shipped_at';
 
     /**
      * Get ID
@@ -56,7 +57,6 @@ interface PaypalAuthorizationInfoInterface
      */
     public function getPayPalStatus();
 
-
     /**
      * Get create at
      *
@@ -79,6 +79,14 @@ interface PaypalAuthorizationInfoInterface
     public function getPayPalAuthorizeAt();
 
     /**
+     * get all shipping at
+     *
+     * @return mixed
+     */
+    public function getAllShippingAt();
+
+
+    /**
      * Set Order Increment ID
      *
      * @param $orderIncrementId
@@ -93,6 +101,7 @@ interface PaypalAuthorizationInfoInterface
      * @return PaypalAuthorizationInfoInterface
      */
     public function setPayPalAuthorizationId($authorizationId);
+
 
     /**
      * Set authorization id
@@ -118,7 +127,6 @@ interface PaypalAuthorizationInfoInterface
      */
     public function setPayPalStatus($status);
 
-
     /**
      * Set create at
      *
@@ -142,5 +150,13 @@ interface PaypalAuthorizationInfoInterface
      * @return mixed
      */
     public function setPayPalAuthorizeAt($authorizeAt);
+
+    /**
+     * set all shipping at
+     *
+     * @param $allShippingAt
+     * @return mixed
+     */
+    public function setAllShippingAt($allShippingAt);
 
 }
