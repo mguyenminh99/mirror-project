@@ -88,7 +88,7 @@ if (count($marketplaceOrders)) {
                                         __('Print') ?></span></span>
                             </button>
                         </a>
-                        <?php if ($itemCancelStatus != "1" && $order->canCancel() && $itemInvoiceStatus != "Invoiced") { ?>
+                        <?php if ($itemCancelStatus != "1" && $block->canWkOrderCancel($order) && $itemInvoiceStatus != "Invoiced" ) { ?>
                             <a href="<?= $block->escapeUrl($block->getUrl('marketplace/order/cancel', ['id' => $orderId, '_secure' => $this->getRequest()->isSecure()])) ?>"
                                onclick="return confirm('<?= /* @noEscape */
                                __("Are you sure you want to cancel this order?") ?>')" class="action">

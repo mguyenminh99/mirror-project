@@ -2,6 +2,8 @@
 
 namespace Mpx\Marketplace\Block\Order;
 
+use Magento\Sales\Model\Order;
+
 /**
  * Save shipment order
  *
@@ -19,6 +21,35 @@ class View extends \Webkul\Marketplace\Block\Order\View
         'niigata_unyu','chuetsu_group','okayama_shipping','kurume_transport','sanyo_auto_delivery',
         'nx_transport','eco_distribution','ems','dhl','fedex','ups','nippon_express','tnt','ocs',
         'usps','sf_express','aramex','sgh_global_japan'];
+    
+    /**
+     * Check CanShip and Shipment
+     *
+     * @param Order $order
+     * @return bool
+     */
+    public function canWkOrderCancel(Order $order):bool
+    {
+        if (!$order->canCancel()) {
+            return false;
+        }
+        if ($this->isOrderHavingShipment($order)) {
+            return false;
+        }
+
+        return true;
+    }
+
+    /**
+     * Check Shipment
+     *
+     * @param Order $order
+     * @return bool
+     */
+    public function isOrderHavingShipment(Order $order): bool
+    {
+        return $order->getShipmentsCollection()->getSize() > 0;
+    }
 
     /**
      * Get All Carriers
