@@ -84,6 +84,15 @@ class PaypalAuthorization extends AbstractModel implements PaypalAuthorizationIn
     }
 
     /**
+     * @param $incrementId
+     * @return PaypalAuthorization
+     */
+    public function getByIncrementId($incrementId): PaypalAuthorization
+    {
+        return $this->load($incrementId, PaypalAuthorizationInfoInterface::ORDER_INCREMENT_ID);
+    }
+
+    /**
      * Get order increment ID
      *
      * @return int
@@ -218,7 +227,6 @@ class PaypalAuthorization extends AbstractModel implements PaypalAuthorizationIn
         return $this->setData(PaypalAuthorizationInfoInterface::PAYPAL_STATUS, $status);
     }
 
-
     /**
      * Set create at
      *
@@ -250,5 +258,15 @@ class PaypalAuthorization extends AbstractModel implements PaypalAuthorizationIn
     public function setPayPalAuthorizeAt($authorizeAt): PaypalAuthorizationInfoInterface
     {
         return $this->setData(PaypalAuthorizationInfoInterface::PAYPAL_AUTHORIZED_AT, $authorizeAt);
+    }
+
+    public function getAllShippingAt()
+    {
+        return $this->getData(PaypalAuthorizationInfoInterface::ALL_SHIPPING_AT);
+    }
+
+    public function setAllShippingAt($allShippingAt)
+    {
+        return $this->setData(PaypalAuthorizationInfoInterface::ALL_SHIPPING_AT, $allShippingAt);
     }
 }
