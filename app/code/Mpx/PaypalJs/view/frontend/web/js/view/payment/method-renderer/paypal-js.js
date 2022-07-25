@@ -154,7 +154,7 @@ define(
                                         }
                                     },
                                 },
-                                invoice_id:self.paypalConfigs.reserved_order_id
+                                invoice_id:self.paypalConfigs.invoice_id
                             }]
                         });
                     },

@@ -3,7 +3,10 @@
 namespace Mpx\PaypalJs\Model;
 
 use Magento\Customer\Model\Session;
+use Magento\Framework\Exception\LocalizedException;
+use Magento\Framework\Exception\NoSuchEntityException;
 use Mpx\PaypalJs\Logger\Handler;
+use Webkul\Marketplace\Helper\Data;
 
 /**
  * Class PayPalJsConfigProvider
@@ -43,24 +46,34 @@ class PayPalJsConfigProvider implements \Magento\Checkout\Model\ConfigProviderIn
     protected $_logger;
 
     /**
+     * @var Data
+     */
+    protected $data;
+
+    /**
      * @param Config $paypalConfig
      * @param Session $customerSession
      * @param \Magento\Checkout\Model\Session $checkoutSession
      * @param Handler $logger
+     * @param Data $data
      */
     public function __construct(
         Config                          $paypalConfig,
         Session $customerSession,
         \Magento\Checkout\Model\Session $checkoutSession,
-        Handler    $logger
+        Handler    $logger,
+        Data $data
     ) {
         $this->_paypalConfig    = $paypalConfig;
         $this->_customerSession = $customerSession;
         $this->_checkoutSession = $checkoutSession;
         $this->_logger          = $logger;
+        $this->data = $data;
     }
 
     /**
+     * Get data config  PaypalJs
+     *
      * @return array|\array[][]
      */
     public function getConfig(): array
@@ -69,6 +82,11 @@ class PayPalJsConfigProvider implements \Magento\Checkout\Model\ConfigProviderIn
             return [];
         }
         $quote = $this->_checkoutSession->getQuote();
+        $firstItem = $quote->getItemsCollection()->getFirstItem();
+        $sellerId = $this->data->getSellerIdByProductId($firstItem->getProductId());
+        $sellerIdZeroFill = str_pad($sellerId, 3, "0", STR_PAD_LEFT);
+        $invoiceID = $sellerIdZeroFill . "-" . $quote->getReservedOrderId();
+
         $config = [
             'payment' => [
                 $this->_payment_code => [
@@ -80,18 +98,20 @@ class PayPalJsConfigProvider implements \Magento\Checkout\Model\ConfigProviderIn
                     self::SDK_CONFIG_INTENT => $this->_paypalConfig->getIntent(),
                     self::SDK_CONFIG_DEBUG => $this->_paypalConfig->isSetFLag(Config::CONFIG_XML_DEBUG_MODE),
                     'activeCard' => $this->_paypalConfig->getActiveCard(),
-                    'reserved_order_id' => $quote->getReservedOrderId(),
+                    'invoice_id' => $invoiceID,
                     'credit_card_title' => $this->_paypalConfig->getConfigValue(Config::CONFIG_XML_CREDIT_CARD_TITLE),
-                    self::SDK_CONFIG_CURRENCY   => $this->_paypalConfig->getCurrency(),
+                    self::SDK_CONFIG_CURRENCY => $this->_paypalConfig->getCurrency(),
                 ]
             ]
         ];
-        $this->_logger->debug(__METHOD__ . ' | CONFIG ' . json_encode($config, true));
+        $this->_logger->debug(__METHOD__ . ' | CONFIG ' . var_export($config, true));
 
         return $config;
     }
 
     /**
+     * Get Url Sdk
+     *
      * @return string
      */
     public function getUrlSdk(): string
@@ -103,6 +123,8 @@ class PayPalJsConfigProvider implements \Magento\Checkout\Model\ConfigProviderIn
 
     /**
      * Build params for js sdk
+     *
+     * @return void
      */
     private function buildParams(): void
     {
@@ -118,6 +140,8 @@ class PayPalJsConfigProvider implements \Magento\Checkout\Model\ConfigProviderIn
     }
 
     /**
+     * Validate CustomerId
+     *
      * @return int|void|null
      */
     private function validateCustomerId()
