@@ -25,6 +25,7 @@ $weightUnit = $helper->getWeightUnit();
 $tax10Percent = $helper->getTaxClassModel()->addFieldToFilter('class_name','消費税10%')->getFirstItem();
 $taxId = $tax10Percent->getClassId();
 $taxName = $tax10Percent->getClassName();
+$sku = $block->getUnformattedSku($product_coll->getSku());
 ?>
 <form action="<?= $block->escapeUrl($block->getUrl('marketplace/product/save', ['_secure' => $this->getRequest()->isSecure()])) ?>" enctype="multipart/form-data" method="post" id="edit-product" data-form="edit-product" data-mage-init='{"validation":{}}'>
     <div class="wk-mp-design" id="wk-bodymain">
@@ -259,7 +260,7 @@ $taxName = $tax10Percent->getClassName();
                         <?php
                     } ?>
                     <div class="control">
-                        <input name="product[sku]" id="sku" class="required-entry validate-length maximum-length-64 input-text" type="text" value="<?= $block->escapeHtml($product_coll->getsku()); ?>"/>
+                        <input name="product[sku]" id="sku" class="required-entry validate-length maximum-length-64 input-text" type="text" value="<?= $block->escapeHtml($sku); ?>"/>
                     </div>
                     <div id="skuavail" >
                         <span class="success-msg skuavailable"><?= $block->escapeHtml(__('SKU Available')) ?></span>

@@ -65,9 +65,9 @@ define([
                 $(this).val(mainvald);
             });
             $('input#sku').change(function () {
-                var len=$('input#sku').val();
-                var len2=len.length;
-                if (len2 === 0) {
+                var sku=$('input#sku').val();
+                var sku_length=sku.length;
+                if (sku_length === 0) {
                     alert({
                         content: self.options.errorMessageSku
                     });
