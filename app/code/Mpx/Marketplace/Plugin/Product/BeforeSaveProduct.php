@@ -40,6 +40,10 @@ class BeforeSaveProduct
     const SHORT_DESCRIPTION_LENGTH_ERROR_CODE =  "lenght_short_description";
     const SHORT_DESCRIPTION_LENGTH_ERROR_MESSAGE = "Please enter no more than 128 characters.";
     const SHORT_DESCRIPTION_MAX_LENGTH = 128;
+    const SKU_LENGTH_ERROR_CODE =  "length_sku";
+    const SKU_LENGTH_ERROR_MESSAGE = "Please enter the sku within 32 characters.";
+    const SKU_MAX_LENGTH = 32;
+    const UNICODE_HYPHEN_MINUS = "\u{002D}";
 
     /**
      * @var ManagerInterface
@@ -80,24 +84,32 @@ class BeforeSaveProduct
     protected $errors = [];
 
     /**
+     * @var \Magento\Customer\Model\Session
+     */
+    protected $customerSession;
+
+    /**
      * @param ManagerInterface $messageManager
      * @param RedirectFactory $redirectFactory
      * @param DataPersistorInterface $dataPersistor
      * @param MpxValidator $mpxValidator
      * @param LoggerInterface $logger
+     * @param \Magento\Customer\Model\Session $customerSession
      */
     public function __construct(
         ManagerInterface       $messageManager,
         RedirectFactory        $redirectFactory,
         DataPersistorInterface $dataPersistor,
         MpxValidator           $mpxValidator,
-        LoggerInterface        $logger
+        LoggerInterface        $logger,
+        \Magento\Customer\Model\Session $customerSession
     ) {
         $this->messageManager = $messageManager;
         $this->redirectFactory = $redirectFactory;
         $this->dataPersistor = $dataPersistor;
         $this->mpxValidator = $mpxValidator;
         $this->logger = $logger;
+        $this->customerSession = $customerSession;
     }
 
     /**
@@ -122,6 +134,7 @@ class BeforeSaveProduct
         }
         $this->validateDateTime($wholeData);
         $this->validateShortDescription($wholeData);
+        $this->validateSku($wholeData);
         //End validate rule call
 
         if (!empty($this->errors)) {
@@ -155,7 +168,32 @@ class BeforeSaveProduct
             }
         }
 
+        $skuFormat = $this->setSkuFormat($wholeData);
+        $subject->getRequest()->setParams($skuFormat);
+
         return $process();
+    }
+
+    /**
+     * Set sku format simple product and simple product of Configurable Product
+     *
+     * @param array $wholeData
+     * @return array
+     */
+    private function setSkuFormat(array $wholeData)
+    {
+        $formattedSku = $this->formatSku($wholeData['product']['sku']);
+        $wholeData['product']['sku'] = $formattedSku;
+
+        if (isset($wholeData['variations-matrix']) && !empty($wholeData['variations-matrix'])) {
+            $dataSimpleProduct =  $wholeData['variations-matrix'];
+            foreach ($dataSimpleProduct as $key => $value) {
+                $formattedSku = $this->formatSku($value['sku']);
+                $wholeData['variations-matrix'][$key]['sku'] = $formattedSku;
+            }
+        }
+
+        return $wholeData;
     }
 
     /**
@@ -263,6 +301,39 @@ class BeforeSaveProduct
                 ];
             }
         }
+    }
+
+    /**
+     * Validate Sku
+     *
+     * @param array $wholeData
+     * @return void
+     */
+    protected function validateSku(array $wholeData): void
+    {
+        if (isset($wholeData['product']['sku'])) {
+            $sku = $wholeData['product']['sku'];
+            if (mb_strlen($sku) > self::SKU_MAX_LENGTH) {
+                $this->errors[] = [
+                    'type' => self::SKU_LENGTH_ERROR_CODE,
+                    'message' => self::SKU_LENGTH_ERROR_MESSAGE
+                ];
+            }
+        }
+    }
+
+    /**
+     * Format Sku
+     *
+     * @param string $sku
+     * @return string
+     */
+    public function formatSku($sku)
+    {
+        $sellerId = $this->customerSession->getCustomer()->getId();
+        $skuPrefix = str_pad($sellerId, 3, "0", STR_PAD_LEFT);
+
+        return $skuPrefix.self::UNICODE_HYPHEN_MINUS.$sku;
     }
 
     /**
