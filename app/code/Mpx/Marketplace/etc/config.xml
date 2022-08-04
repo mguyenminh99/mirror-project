@@ -5,6 +5,9 @@
             <general_settings>
                 <percent>0</percent>
             </general_settings>
+            <profile_settings>
+                <seller_policy_approval>1</seller_policy_approval>
+            </profile_settings>
         </marketplace>
         <carriers>
             <yamato_transport>
