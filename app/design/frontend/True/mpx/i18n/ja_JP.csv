@@ -136,6 +136,7 @@ Shipped,出荷数
 "Tax","内消費税[10%]"
 "Order Date","注文日",
 "Total Payment","支払金額"
+"Display based on the Act on Specified Commercial Transactions","特定商取引に関する法律に基づく表示"
 "Edit Comment","コメントを編集"
 "Delete Comment","コメントを削除"
 "(Comment Edited)","(編集済み)"
@@ -146,3 +147,4 @@ Shipped,出荷数
 "Failed to delete the comment.","コメントの削除に失敗しました。"
 "Message","メッセージ"
 "Close","閉じる"
+
