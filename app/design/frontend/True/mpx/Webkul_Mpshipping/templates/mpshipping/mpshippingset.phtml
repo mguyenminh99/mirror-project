@@ -62,6 +62,7 @@ $saveUrl = $block->getUrl(
             </div>
             <div class="field required">
                 <label class="label"><span><?= /* @noEscape */__("Price From")." (".$currecySymbol.")"; ?></span></label>
+                <span class="text-tax-excluded"><?= /* @noEscape */__("(Tax Excluded)") ?></span>
                 <div class="control">
                     <input id="price_from" type="text" name="price_from"
                            data-validate="{required:true,'validate-not-negative-number':true}" />
@@ -69,6 +70,7 @@ $saveUrl = $block->getUrl(
             </div>
             <div class="field required">
                 <label class="label"><span><?= /* @noEscape */__("Price To")." (".$currecySymbol.")"; ?></span></label>
+                <span class="text-tax-excluded"><?= /* @noEscape */__("(Tax Excluded)") ?></span>
                 <div class="control">
                     <input id="price_to" type="text" name="price_to"
                            data-validate="{required:true,'validate-not-negative-number':true}" />
@@ -186,11 +188,13 @@ $saveUrl = $block->getUrl(
                                         <span class="label name">
                                             <?= /* @noEscape */__('Price From')." (".$currecySymbol.")"?>
                                         </span>
+                                        <span class="text-tax-excluded"><?= /* @noEscape */__("(Tax Excluded)") ?></span>
                                 </th>
                                 <th>
                                         <span class="label pro-status">
                                             <?= /* @noEscape */__('Price To')." (".$currecySymbol.")"?>
                                         </span>
+                                        <span class="text-tax-excluded"><?= /* @noEscape */__("(Tax Excluded)") ?></span>
                                 </th>
                                 <th>
                                         <span class="label pro-status">
