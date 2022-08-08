@@ -43,5 +43,9 @@
         </type>
     <preference for="Webkul\Marketplace\Block\Order\View" type="Mpx\Marketplace\Block\Order\View" />
     <preference for="Webkul\Marketplace\Controller\Order\Shipment\Tracking\Add" type="Mpx\Marketplace\Controller\Order\Shipment\Tracking\Add" />
+    <preference for="Webkul\Marketplace\Controller\Order\Shipment\View" type="Mpx\Marketplace\Controller\Order\Shipment\View" />
+    <preference for="Webkul\Marketplace\Controller\Order\Shipment\Printpdf" type="Mpx\Marketplace\Controller\Order\Shipment\Printpdf" />
     <preference for="Webkul\Marketplace\Block\Policy" type="Mpx\Marketplace\Block\Policy" />
+    <preference for="Webkul\Marketplace\Controller\Order\Shipment\Tracking\Delete" type="Mpx\Marketplace\Controller\Order\Shipment\Tracking\Delete" />
+
 </config>

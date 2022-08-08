@@ -6,6 +6,8 @@
  * @package   Mpx_Marketplace
  * @author    Mpx
  */
+/** @var $block \Webkul\Marketplace\Block\Order\View */
+
 $helper = $this->helper(\Webkul\Marketplace\Helper\Data::class);
 $orderHelper = $this->helper(\Webkul\Marketplace\Helper\Orders::class);
 $orderId = $this->getRequest()->getParam('id');
@@ -264,7 +266,7 @@ if (count($marketplaceOrders)) {
                                         <tbody>
                                         <?php
                                         foreach ($block->getChildNames() as $key => $blockName) {
-                                            if ($blockName != 'marketplace_order_items') {
+                                            if ($blockName != 'marketplace_order_items' && $blockName != 'marketplace_order_shipment_items' ) {
                                                 /* @noEscape */
                                                 echo $block->getChildHtml($blockName, false);
                                             }
@@ -317,6 +319,12 @@ if (count($marketplaceOrders)) {
                         </div>
                     </div>
                 </div>
+            </div>
+            <div class="order-details-items ordered order-shipment-item">
+                <div class="order-title">
+                    <strong><?= /* @noEscape */ __('Items Shipped') ?></strong>
+                </div>
+                <?= $block->getChildHtml('marketplace_order_shipment_items') ?>
             </div>
         </div>
     </div>

@@ -190,7 +190,7 @@ if ($isPartner == 1) {
                                                                 <?php endforeach; ?>
                                                             </select>
                                                         </td>
-                                                        <td hidden="hidden">
+                                                        <td>
                                                             <input class="input-text"
                                                                 type="text"
                                                                 id="wk-mp-tracking-title"
@@ -294,7 +294,7 @@ if ($isPartner == 1) {
         <script id="sellerOrderShipmentTemplate" type="text/x-jquery-tmpl">
             <tr>
                 <td><%- data.carrier %></td>
-                <td hidden="hidden"><%- data.title %></td>
+                <td><%- data.title %></td>
                 <td class="<%- data.numberclass %>">
                     <%- data.number %>
                 </td>

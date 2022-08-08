@@ -112,4 +112,84 @@ class View extends \Webkul\Marketplace\Block\Order\View
     {
         return self::DEFAULT_CARRIER_TITLE;
     }
+    
+    
+    /**
+     * Get links
+     *
+     * @return array
+     */
+    public function getLinks()
+    {
+        $this->checkLinks();
+
+        return $this->_links;
+    }
+
+    /**
+     * Check link
+     *
+     * @return void
+     */
+    private function checkLinks()
+    {
+        $order = $this->getOrder();
+        $orderId = $order->getId();
+        $shipmentId = '';
+        $invoiceId = '';
+        $creditmemoId = '';
+        $tracking = $this->ordersHelper->getOrderinfo($orderId);
+        if ($tracking) {
+            $shipmentId = $tracking->getShipmentId();
+            $invoiceId = $tracking->getInvoiceId();
+            $creditmemoId = $tracking->getCreditmemoId();
+        }
+        $this->_links['order'] = [
+            'name' => 'order',
+            'label' => __('Items Ordered'),
+            'url' => $this->_urlBuilder->getUrl(
+                'marketplace/order/view',
+                [
+                    'order_id' => $orderId,
+                    '_secure' => $this->getRequest()->isSecure()
+                ]
+            ),
+        ];
+        if (!$order->hasInvoices()) {
+            unset($this->_links['invoice']);
+        } else {
+            if ($invoiceId) {
+                $this->_links['invoice'] = [
+                    'name' => 'invoice',
+                    'label' => __('Invoices'),
+                    'url' => $this->_urlBuilder->getUrl(
+                        'marketplace/order_invoice/view',
+                        [
+                            'order_id' => $orderId,
+                            'invoice_id' => $invoiceId,
+                            '_secure' => $this->getRequest()->isSecure()
+                        ]
+                    ),
+                ];
+            }
+        }
+
+        if (!$order->hasCreditmemos()) {
+            unset($this->_links['creditmemo']);
+        } else {
+            if ($creditmemoId) {
+                $this->_links['creditmemo'] = [
+                    'name' => 'creditmemo',
+                    'label' => __('Refunds'),
+                    'url' => $this->_urlBuilder->getUrl(
+                        'marketplace/order_creditmemo/viewlist',
+                        [
+                            'order_id' => $orderId,
+                            '_secure' => $this->getRequest()->isSecure()
+                        ]
+                    ),
+                ];
+            }
+        }
+    }
 }
