@@ -60,15 +60,6 @@ $transactionCount = $block->getTransactionNotificationCount();
                                                 </a>
                                             </li>
                                         <?php endif; ?>
-                                        <?php if ($_helper->isAllowed('marketplace/product_attribute/new')): ?>
-                                            <?php if (strpos($allow_pro_type, 'configurable') !== false): ?>
-                                                <li class="level-2">
-                                                    <a href="<?= $block->escapeUrl($block->getUrl('marketplace/product_attribute/new', ['_secure' => $this->getRequest()->isSecure()])); ?>">
-                                                        <span><?= /* @noEscape */ __('Configurable Attribute') ?></span>
-                                                    </a>
-                                                </li>
-                                            <?php endif; ?>
-                                        <?php endif; ?>
                                     </ul>
                                 </div>
                             </li>
