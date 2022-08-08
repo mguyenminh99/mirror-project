@@ -73,15 +73,6 @@ class PaypalAuthorization extends AbstractModel implements PaypalAuthorizationIn
         return [self::CACHE_TAG . '_' . $this->getId()];
     }
 
-    /**
-     * @return PaypalAuthorization
-     */
-    public function beforeSave(): PaypalAuthorization
-    {
-        $time = $this->time->gmtDate();
-        $this->setUpdateAt($time);
-        return parent::beforeSave();
-    }
 
     /**
      * @param $incrementId
@@ -184,6 +175,28 @@ class PaypalAuthorization extends AbstractModel implements PaypalAuthorizationIn
     }
 
     /**
+     * Set Settlement Amount
+     *
+     * @param $settlementAmount
+     * @return PaypalAuthorizationInfoInterface
+     */
+    public function setSettlementAmount($settlementAmount) : PaypalAuthorizationInfoInterface
+    {
+        return $this->setData(PaypalAuthorizationInfoInterface::ORDER_SETTLEMENT_AMOUNT, $settlementAmount);
+    }
+
+    /**
+     * Set capture id
+     *
+     * @param $captureId
+     * @return PaypalAuthorizationInfoInterface
+     */
+    public function setPayPalCaptureId($captureId): PaypalAuthorizationInfoInterface
+    {
+        return $this->setData(PaypalAuthorizationInfoInterface::PAYPAL_CAPTURE_ID, $captureId);
+    }
+
+    /**
      * Set authorization id
      *
      * @param $authorizationId
@@ -246,7 +259,7 @@ class PaypalAuthorization extends AbstractModel implements PaypalAuthorizationIn
      */
     public function setUpdateAt($updateAt): PaypalAuthorizationInfoInterface
     {
-        return $this->setData(PaypalAuthorizationInfoInterface::UPDATE_AT, $updateAt);
+        return $this->setData(PaypalAuthorizationInfoInterface::UPDATED_AT, $updateAt);
     }
 
     /**
@@ -258,6 +271,16 @@ class PaypalAuthorization extends AbstractModel implements PaypalAuthorizationIn
     public function setPayPalAuthorizeAt($authorizeAt): PaypalAuthorizationInfoInterface
     {
         return $this->setData(PaypalAuthorizationInfoInterface::PAYPAL_AUTHORIZED_AT, $authorizeAt);
+    }
+    /**
+     * Set captured at
+     *
+     * @param $capturedAt
+     * @return PaypalAuthorizationInfoInterface
+     */
+    public function setPayPalCapturedAt($capturedAt): PaypalAuthorizationInfoInterface
+    {
+        return $this->setData(PaypalAuthorizationInfoInterface::PAYPAL_CAPTURED_AT, $capturedAt);
     }
 
     public function getAllShippingAt()

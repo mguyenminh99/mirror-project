@@ -196,6 +196,7 @@ define(
                         status: res.status,
                         intent: res.intent,
                         authorization_id:  res.purchase_units[0].payments.authorizations[0].id,
+                        settlement_amount:  self.grandTotal()
                     };
                 }else {
                     return {
@@ -204,12 +205,14 @@ define(
                         invoice_id: res.purchase_units[0].invoice_id,
                         status: res.status,
                         intent: res.intent,
+                        captured_id: res.purchase_units[0].payments.captures[0].id,
+                        settlement_amount: self.grandTotal()
                     };
                 }
             },
             loadSdk: function () {
                 var self = this;
-                self.logger('loadSDK')
+                self.logger('loadSDK');
 
                 if ((typeof paypal === 'undefined')) {
                     var body = $('body').loader();

@@ -105,19 +105,26 @@ class OrderSaveBefore implements ObserverInterface
         $paypalAuthorization = $this->paypalAuthorizationFactory->create();
         $orderIncrementId = $order->getIncrementId();
         $payment = $order->getPayment();
-        $authorizationID = $payment->getAdditionalInformation('authorization_id');
+        $settlementAmount = $payment->getAdditionalInformation('settlement_amount');
         $createTime = $payment->getAdditionalInformation('create_time');
         $authorizationPeriod = $this->getAuthorizationPeriod($createTime);
         $honorPeriod = $this->getHonorPeriod($createTime);
+        $paypalAuthorization->setOrderIncrementId($orderIncrementId);
+        $paypalAuthorization->setSettlementAmount($settlementAmount);
         if ($payment->getAdditionalInformation('intent') === self::INTENT_AUTHORIZE) {
-            $paypalAuthorization->setOrderIncrementId($orderIncrementId);
+            $authorizationID = $payment->getAdditionalInformation('authorization_id');
             $paypalAuthorization->setPayPalAuthorizationId($authorizationID);
             $paypalAuthorization->setPayPalAuthorizationPeriod($authorizationPeriod);
             $paypalAuthorization->setPayPalHonorPeriod($honorPeriod);
             $paypalAuthorization->setPayPalStatus(self::PAYPAL_STATUS['Authorized']);
             $paypalAuthorization->setPayPalAuthorizeAt($createTime);
-            $this->paypalAuthorizationInfoRepository->save($paypalAuthorization);
+        } else {
+            $capturedID = $payment->getAdditionalInformation('captured_id');
+            $paypalAuthorization->setPayPalCaptureId($capturedID);
+            $paypalAuthorization->setPayPalStatus(self::PAYPAL_STATUS['Captured']);
+            $paypalAuthorization->setPayPalCapturedAt($createTime);
         }
+        $this->paypalAuthorizationInfoRepository->save($paypalAuthorization);
     }
 
     /**

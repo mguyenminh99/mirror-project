@@ -6,13 +6,16 @@ interface PaypalAuthorizationInfoInterface
 {
     const ID = 'id';
     const ORDER_INCREMENT_ID = 'order_increment_id';
+    const ORDER_SETTLEMENT_AMOUNT = 'settlement_amount';
+    const PAYPAL_CAPTURE_ID = 'paypal_capture_id';
     const PAYPAL_AUTHORIZATION_ID = 'paypal_authorization_id';
     const PAYPAL_AUTHORIZATION_PERIOD = 'paypal_authorization_period';
     const PAYPAL_HONOR_PERIOD = 'paypal_honor_period';
     const PAYPAL_STATUS = 'paypal_status';
-    const CREATE_AT = 'create_at';
-    const UPDATE_AT = 'update_at';
+    const CREATE_AT = 'created_at';
+    const UPDATED_AT = 'updated_at';
     const PAYPAL_AUTHORIZED_AT = 'paypal_authorized_at';
+    const PAYPAL_CAPTURED_AT = 'paypal_captured_at';
     const ALL_SHIPPING_AT = 'all_shipped_at';
 
     /**
