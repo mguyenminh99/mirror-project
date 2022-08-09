@@ -1,13 +1,11 @@
 <?php
 // @codingStandardsIgnoreFile
 /**
- * Webkul Software.
+ * Mpx Software.
  *
- * @category  Webkul
- * @package   Webkul_Marketplace
- * @author    Webkul
- * @copyright Copyright (c) Webkul Software Private Limited (https://webkul.com)
- * @license   https://store.webkul.com/license.html
+ * @category  Mpx
+ * @package   Mpx_Marketplace
+ * @author    Mpx
  */
 /** @var $block \Webkul\Marketplace\Block\Account\Editprofile */
 $helper = $this->helper(\Webkul\Marketplace\Helper\Data::class);
@@ -259,7 +257,7 @@ $currencySymbol = $helper->getCurrencySymbol();
             <?php
             if ($helper->getSellerPolicyApproval()) {?>
                 <div class="field profile">
-                    <label><?= /* @noEscape */ __('Return Policy') ?></label>
+                    <label><?= /* @noEscape */ __('Cancellation/return') ?></label>
                     <?php
                     if ($profile_hint_status && $helper->getProfileHintReturnPolicy()) {?>
                         <img src="<?= $block->escapeUrl($this->getViewFileUrl('Webkul_Marketplace::images/quest.png')); ?>" class='questimg' title="<?= $block->escapeHtml($helper->getProfileHintReturnPolicy()) ?>"/>
@@ -270,7 +268,7 @@ $currencySymbol = $helper->getCurrencySymbol();
                     </div>
                 </div>
                 <div class="field profile">
-                    <label><?= /* @noEscape */ __('Shipping Policy') ?></label>
+                    <label><?= /* @noEscape */ __('Regarding delivery') ?></label>
                     <?php
                     if ($profile_hint_status && $helper->getProfileHintShippingPolicy()) {?>
                         <img src="<?= $block->escapeUrl($this->getViewFileUrl('Webkul_Marketplace::images/quest.png')); ?>" class='questimg' title="<?= $block->escapeHtml($helper->getProfileHintShippingPolicy()) ?>"/>
