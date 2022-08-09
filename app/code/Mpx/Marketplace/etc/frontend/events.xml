@@ -29,4 +29,7 @@
     <event name="controller_action_predispatch_marketplace_order_cancel">
         <observer name="mpx_order_cancel_controller_before" instance="Mpx\Marketplace\Observer\Order\OrderCancelNoRoute" />
     </event>
+    <event name="controller_action_predispatch_marketplace_product_attribute_new">
+        <observer name="mpx_product_attribute_new_controller_before" instance="Mpx\Marketplace\Observer\Product\Attribute\NoRoute" />
+    </event>
 </config>
