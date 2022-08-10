@@ -32,7 +32,7 @@ if ($isPartner == 1) {
                     <div class="actions-toolbar order-actions-toolbar">
                         <div class="actions">
                             <a href="<?= $block->escapeUrl($block->getUrl('mpx/order/shipment', ['order_id'=>$orderId, '_secure' => $this->getRequest()->isSecure()]));?>" class="action">
-                                <button class="button wk-mp-btn" title="<?= /* @noEscape */ __('Submit Shipment') ?>">
+                                <button  class="button wk-mp-btn" id="wk-mp-btn-shipment"  title="<?= /* @noEscape */ __('Submit Shipment') ?>">
                                     <span><span><?= /* @noEscape */ __('Submit Shipment') ?></span></span>
                                 </button>
                             </a>
@@ -313,6 +313,11 @@ if ($isPartner == 1) {
                     dataForm.submit();
                 });
 
+                $('form').submit(function() {
+                    if (dataForm.valid()) {
+                        $(this).find("button[id='wk-mp-btn-shipment']").prop('disabled', true);
+                    }
+                });
             });
             $('#back_history').click(function() {
                 var confimation = confirm('<?= /* @noEscape */ __("Are you sure you want to create shipment?") ?>');
