@@ -37,17 +37,13 @@ if ($partner['shop_url']) {
                         <div class="wk-mp-policy-block-title">
                             <?= $block->escapeHtml(__("Regarding delivery"))?>
                         </div>
-                        <div class="wk-mp-policy-block-data">
-                            <?= /* @noEscape */ $partner['shipping_policy'];?>
-                        </div>
+                        <div class="wk-mp-policy-block-data"><?= /* @noEscape */ $partner['shipping_policy'];?></div>
                     </div>
                     <div class="wk-mp-policy-block wk-mp-return-policy" id="return-policy">
                         <div class="wk-mp-policy-block-title">
                             <?= /* @noEscape */ __("Cancellation/return")?>
                         </div>
-                        <div class="wk-mp-policy-block-data">
-                            <?= /* @noEscape */ $partner['return_policy'];?>
-                        </div>
+                        <div class="wk-mp-policy-block-data"><?= /* @noEscape */ $partner['return_policy'];?></div>
                     </div>
                 </div>
             <?php } ?>
