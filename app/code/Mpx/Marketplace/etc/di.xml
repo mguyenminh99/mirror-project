@@ -47,5 +47,7 @@
     <preference for="Webkul\Marketplace\Controller\Order\Shipment\Printpdf" type="Mpx\Marketplace\Controller\Order\Shipment\Printpdf" />
     <preference for="Webkul\Marketplace\Block\Policy" type="Mpx\Marketplace\Block\Policy" />
     <preference for="Webkul\Marketplace\Controller\Order\Shipment\Tracking\Delete" type="Mpx\Marketplace\Controller\Order\Shipment\Tracking\Delete" />
+    <preference for="Webkul\Marketplace\Observer\AdminhtmlCustomerSaveAfterObserver" type="Mpx\Marketplace\Observer\AdminhtmlCustomerSaveAfterObserver" />
+    <preference for="Webkul\Marketplace\Block\Adminhtml\Customer\Edit\AddSellerTab" type="Mpx\Marketplace\Block\Adminhtml\Customer\Edit\AddSellerTab" />
 
 </config>
