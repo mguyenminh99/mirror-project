@@ -16,7 +16,7 @@ if (empty($partner)) {
 $profile_hint_status = $helper->getProfileHintStatus();
 $currencySymbol = $helper->getCurrencySymbol();
 ?>
-<form action="<?= $block->escapeUrl($block->getUrl('marketplace/account/editProfilePost', ["_secure" => $this->getRequest()->isSecure()])) ?>" enctype="multipart/form-data" method="post" data-role="form-profile-validate" data-mage-init='{"validation":{}}'>
+<form id="edit-profile-seller" action="<?= $block->escapeUrl($block->getUrl('marketplace/account/editProfilePost', ["_secure" => $this->getRequest()->isSecure()])) ?>" enctype="multipart/form-data" method="post" data-role="form-profile-validate" data-mage-init='{"validation":{}}'>
     <div class="wk-mp-design">
         <fieldset class="fieldset info wk-mp-fieldset">
             <div data-mage-init='{"formButtonAction": {}}' class="wk-mp-page-title legend" id="wk-mp-editprofile-form">
@@ -158,7 +158,7 @@ $currencySymbol = $helper->getCurrencySymbol();
                     <?php
                 } ?>
                 <div class="control">
-                    <input type="text" id="shop_title" name="shop_title" value="<?= $block->escapeHtml($partner['shop_title']); ?>" title="<?= /* @noEscape */ __('Shop Title')?>" class="input-text" />
+                    <input type="text" id="shop_title" name="shop_title" value="<?= $block->escapeHtml($partner['shop_title']); ?>" title="<?= /* @noEscape */ __('Shop Title')?>" class="input-text validate-shop-title" />
                 </div>
             </div>
             <div class="field profile">
@@ -490,3 +490,15 @@ $serializedFormData = $this->helper(\Magento\Framework\Json\Helper\Data::class)-
         }
     }
 </script>
+
+<script type="text/javascript">
+    require([
+        'jquery',
+        'mage/mage'
+    ], function($){
+
+        var dataForm = $('#edit-profile-seller');
+        dataForm.mage('validation', {});
+    });
+</script>
+
