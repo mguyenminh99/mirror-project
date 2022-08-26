@@ -209,6 +209,7 @@ class AdminhtmlCustomerSaveAfterObserver extends \Webkul\Marketplace\Observer\Ad
      */
     public function execute(\Magento\Framework\Event\Observer $observer)
     {
+        try {
         $this->moveDirToMediaDir();
         $customer = $observer->getCustomer();
         $customerid = $customer->getId();
@@ -433,6 +434,22 @@ class AdminhtmlCustomerSaveAfterObserver extends \Webkul\Marketplace\Observer\Ad
                         $collection->setCreatedAt($this->_date->gmtDate());
                         $collection->setUpdatedAt($this->_date->gmtDate());
                         $collection->save();
+                        $storeId = $this->mpHelper->getCurrentStoreId();
+                        $sellerData = $this->mpSeller->create()
+                            ->getCollection()
+                            ->addFieldToFilter('seller_id', $customerid)
+                            ->addFieldToFilter('store_id', $storeId);
+                        if (empty($sellerData->getData())){
+                            $sellerAddData = $this->mpSeller->create();
+                            $sellerAddData->setIsSeller($sellerStatus);
+                            $sellerAddData->setShopUrl($profileurl);
+                            $sellerAddData->setShopTitle($profiletitle);
+                            $sellerAddData->setStoreId($storeId);
+                            $sellerAddData->setSellerId($customerid);
+                            $sellerAddData->setCreatedAt($this->_date->gmtDate());
+                            $sellerAddData->setUpdatedAt($this->_date->gmtDate());
+                            $sellerAddData->save();
+                        }
                     }
                     if ($sellerStatus) {
                         $helper = $this->mpHelper;
@@ -464,6 +481,11 @@ class AdminhtmlCustomerSaveAfterObserver extends \Webkul\Marketplace\Observer\Ad
                     );
                 }
             }
+        }
+        }catch (\Exception $exception){
+            $this->_messageManager->addError(
+                __('Failed to save the seller. Please try again.')
+            );
         }
 
         return $this;
