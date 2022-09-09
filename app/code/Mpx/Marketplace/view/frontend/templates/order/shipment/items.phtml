@@ -101,7 +101,7 @@
                     } else { ?>
                         <td class="col name" data-th="<?= $block->escapeHtml(__('Product Name')); ?>">
                             <strong class="product name product-item-name"><?= $block->escapeHtml($item->getName()) ?></strong>
-                            SKU: <?= $block->escapeHtml($item->getSku()) ?>
+                            <?= $block->escapeHtml(__('SKU')) ?>:<?= $block->escapeHtml($item->getSku()) ?>
                             <?php if ($options = $result): ?>
                                 <dl class="item-options">
                                     <?php foreach ($options as $option): ?>
