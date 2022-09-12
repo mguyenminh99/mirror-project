@@ -67,3 +67,14 @@ atlassian*
 /generated/*
 !/generated/.htaccess
 .DS_Store
+
+/app/code/*
+!/app/code/Mpx
+!/app/code/Webkul
+!/app/code/Magefan
+!/app/code/CommunityEngineering
+
+/app/design/adminhtml/*
+!/app/design/adminhtml/True
+/app/design/frontend/*
+!/app/design/frontend/True
