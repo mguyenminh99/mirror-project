@@ -159,6 +159,13 @@ Shipped,出荷数
 "Shop Title","ストア名"
 "Company Banner","ストアバナー"
 "Company Logo","ストアロゴ"
+"* This email is an automatic reply from the system.","※このメールはシステムからの自動返信です。"
+"A new order has been placed.","新しい注文が入りました。"
+"You can check the status of your order by logging in to <a href=""%account_url"">account</a>.","<a href=""%account_url"">アカウント</a> にログインすることで、注文のステータスを確認できます。"
+"Order Number <span class=""no-link"">#%increment_id</span>","注文番号 <span class=""no-link"">#%increment_id</span>"
+"Date/Time Order <span class=""no-link"">%created_at</span>","注文日時 <span class=""no-link"">%created_at</span>"
+"Sold By <span class=""no-link"">%shop_title</span>","販売店 <span class=""no-link"">%shop_title</span>"
+"Unit Price","単価"
 "Store Guide","ストア利用ガイド"
 
 
