@@ -34,10 +34,7 @@
                 {{trans '<a href="%account_url">アカウント</a>にログインすると注文のステータスを確認できます。' account_url=$this.getUrl($store,'customer/account/',[_nosid:1]) |raw}}
             </p>
             <p>
-                {{trans 'For inquiries regarding order details, Please use the inquiry form <a href="%shop_page_url">here</a>' shop_page_url=$shop_page_url |raw}}{{depend store_phone}} {{trans 'or call us at <a href="tel:%store_phone">%store_phone</a>' store_phone=$store_phone |raw}}{{/depend}}.
-                {{depend store_hours}}
-                {{trans 'Our hours are <span class="no-link">%store_hours</span>.' store_hours=$store_hours |raw}}
-                {{/depend}}
+                {{trans 'For inquiries regarding order details, Please use the inquiry form <a href="%shop_page_url">here</a>' shop_page_url=$shop_page_url |raw}}.
             </p>
         </td>
     </tr>

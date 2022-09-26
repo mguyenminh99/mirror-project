@@ -1,42 +1,39 @@
-<!--@subject {{trans "%store_name ご注文の商品が配送されました。" store_name=$store.frontend_name}} @-->
+<!--@subject {{trans "Credit memo for your %store_name order" store_name=$store.frontend_name}} @-->
 <!--@vars {
 "var formattedBillingAddress|raw":"Billing Address",
+"var comment|escape|nl2br":"Credit Memo Comment",
+"var creditmemo.increment_id":"Credit Memo Id",
+"layout handle=\"sales_email_order_creditmemo_items\" creditmemo=$creditmemo order=$order":"Credit Memo Items Grid",
 "var this.getUrl($store,'customer/account/',[_nosid:1])":"Customer Account URL",
 "var order_data.customer_name":"Customer Name",
 "var order.increment_id":"Order Id",
 "var payment_html|raw":"Payment Details",
-"var comment|escape|nl2br":"Shipment Comment",
-"var shipment.increment_id":"Shipment Id",
-"layout handle=\"sales_email_order_shipment_items\" shipment=$shipment order=$order":"Shipment Items Grid",
-"block class='Magento\\\\Framework\\\\View\\\\Element\\\\Template' area='frontend' template='Magento_Sales::email\/shipment\/track.phtml' shipment=$shipment order=$order":"Shipment Track Details",
 "var formattedShippingAddress|raw":"Shipping Address",
 "var order.shipping_description":"Shipping Description",
 "var store.frontend_name":"Store Frontend Name",
-"var store_phone":"Store Phone",
 "var store_email":"Store Email",
+"var store_phone":"Store Phone",
 "var store_hours":"Store Hours",
-"var order_data.is_not_virtual": "Order Type",
-"var shipment": "Shipment",
-"var order": "Order"
+"var creditmemo":"Credit Memo",
+"var order":"Order",
+"var order_data.is_not_virtual":"Order Type"
 } @-->
 {{template config_path="design/email/header_template"}}
 
 <table>
     <tr class="email-intro">
         <td>
-            <p class="greeting">{{trans "%name," name=$order_data.customer_name}} 様</p>
-            <p>※このメールはシステムからの自動返信です。</p>
+            <p class="greeting">{{trans "%name," name=$order_data.customer_name}}</p>
             <p>
-                {{trans "%store_name からのご注文ありがとうございます。" store_name=$store.frontend_name}}<br>
-                {{trans '<a href="%account_url">アカウント</a>にログインすると注文のステータスを確認できます。' account_url=$this.getUrl($store,'customer/account/',[_nosid:1]) |raw}}<br>
-                {{trans 'For inquiries regarding order details, Please use the inquiry form <a href="%shop_page_url">here</a>' shop_page_url=$shop_page_url |raw}}.
+                {{trans "Thank you for your order from %store_name." store_name=$store.frontend_name}}
+                {{trans 'You can check the status of your order by <a href="%account_url">logging into your account</a>.' account_url=$this.getUrl($store,'customer/account/',[_nosid:1]) |raw}}
+                {{trans 'If you have questions about your order, you can email us at <a href="mailto:%store_email">%store_email</a>' store_email=$store_email |raw}}.
             </p>
         </td>
     </tr>
     <tr class="email-summary">
         <td>
-            <p>{{trans "ご注文の商品が配送されました。"}}</p>
-            <h1>{{trans "注文番号 #%order_id の商品が配送されました" order_id=$order.increment_id}}</h1>
+            <h1>{{trans "Your Credit Memo #%creditmemo_id for Order #%order_id" creditmemo_id=$creditmemo.increment_id order_id=$order.increment_id}}</h1>
         </td>
     </tr>
     <tr class="email-information">
@@ -50,7 +47,6 @@
                 </tr>
             </table>
             {{/depend}}
-            {{layout handle="sales_email_order_shipment_track" shipment=$shipment order=$order}}
             <table class="order-details">
                 <tr>
                     <td class="address-details">
@@ -77,7 +73,7 @@
                     {{/depend}}
                 </tr>
             </table>
-            {{layout handle="sales_email_order_shipment_items" shipment=$shipment order=$order}}
+            {{layout handle="sales_email_order_creditmemo_items" creditmemo=$creditmemo order=$order}}
         </td>
     </tr>
 </table>
