@@ -12,6 +12,7 @@ namespace Mpx\Marketplace\Plugin\Product;
 use Exception;
 use Magento\Framework\Controller\Result\Redirect;
 use Magento\Framework\Message\ManagerInterface;
+use Magento\Store\Model\StoreManager;
 use Webkul\Marketplace\Controller\Product\Save;
 use Magento\Framework\Controller\Result\RedirectFactory;
 use Magento\Framework\App\Request\DataPersistorInterface;
@@ -44,6 +45,9 @@ class BeforeSaveProduct
     const SKU_LENGTH_ERROR_MESSAGE = "Please enter the sku within 32 characters.";
     const SKU_MAX_LENGTH = 32;
     const UNICODE_HYPHEN_MINUS = "\u{002D}";
+    const REQUIRED_CATEGORY_ERROR_CODE = "product_category";
+    const REQUIRED_CATEGORY_ERROR_MESSAGE = "Please select a category to register the product.";
+    const MINIMUM_QUANTITY_CATEGORY = 1;
 
     /**
      * @var ManagerInterface
@@ -89,12 +93,18 @@ class BeforeSaveProduct
     protected $customerSession;
 
     /**
+     * @var StoreManager
+     */
+    private $storeManager;
+
+    /**
      * @param ManagerInterface $messageManager
      * @param RedirectFactory $redirectFactory
      * @param DataPersistorInterface $dataPersistor
      * @param MpxValidator $mpxValidator
      * @param LoggerInterface $logger
      * @param \Magento\Customer\Model\Session $customerSession
+     * @param StoreManager $storeManager
      */
     public function __construct(
         ManagerInterface       $messageManager,
@@ -102,7 +112,8 @@ class BeforeSaveProduct
         DataPersistorInterface $dataPersistor,
         MpxValidator           $mpxValidator,
         LoggerInterface        $logger,
-        \Magento\Customer\Model\Session $customerSession
+        \Magento\Customer\Model\Session $customerSession,
+        StoreManager $storeManager
     ) {
         $this->messageManager = $messageManager;
         $this->redirectFactory = $redirectFactory;
@@ -110,6 +121,7 @@ class BeforeSaveProduct
         $this->mpxValidator = $mpxValidator;
         $this->logger = $logger;
         $this->customerSession = $customerSession;
+        $this->storeManager = $storeManager;
     }
 
     /**
@@ -135,6 +147,7 @@ class BeforeSaveProduct
         $this->validateDateTime($wholeData);
         $this->validateShortDescription($wholeData);
         $this->validateSku($wholeData);
+        $this->validateProductCategory($wholeData);
         //End validate rule call
 
         if (!empty($this->errors)) {
@@ -406,6 +419,29 @@ class BeforeSaveProduct
                     ];
                 }
             }
+        }
+    }
+
+    /**
+     * Validate Product Category
+     *
+     * @param array $wholeData
+     * @return void
+     */
+    protected function validateProductCategory(array $wholeData): void
+    {
+        try {
+            $defaultCategoryId = $this->storeManager->getStore()->getRootCategoryId();
+            if (!isset($wholeData['product']['category_ids']) ||
+                (count($wholeData['product']['category_ids']) == self::MINIMUM_QUANTITY_CATEGORY &&
+                    $wholeData['product']['category_ids'][0] == $defaultCategoryId)) {
+                $this->errors[] = [
+                    'type' => self::REQUIRED_CATEGORY_ERROR_CODE,
+                    'message' => self::REQUIRED_CATEGORY_ERROR_MESSAGE
+                ];
+            }
+        } catch (\Exception $exception) {
+            $this->messageManager->addError("Can't get default category.");
         }
     }
 }

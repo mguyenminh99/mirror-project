@@ -75,7 +75,7 @@ $sku = $block->getUnformattedSku($product_coll->getSku());
                 } ?>
 
                 <?php if ($helper->getIsAdminViewCategoryTree()) { ?>
-                    <div data-bind="scope: 'sellerCategory'">
+                    <div id="list-category" data-bind="scope: 'sellerCategory'">
                         <!-- ko template: getTemplate() --><!-- /ko -->
                     </div>
                     <?php $categories = $product_coll->getCategoryIds();?>
@@ -99,14 +99,14 @@ $sku = $block->getUnformattedSku($product_coll->getSku());
                     </script>
                 <?php } else { ?>
                     <div class="wk-field wk-category">
-                        <div class="wk-for-validation">
+                        <div class="wk-for-validation" id="list-category">
                             <div id="wk-category-label"><?= $block->escapeHtml(__("CATEGORIES")); ?></div>
                             <?php
                             $categories = $product_coll->getCategoryIds();
                             $cat_ids=implode(",", $categories);
                             foreach ($categories as $value) {
                                 ?>
-                                <input type="hidden" name="product[category_ids][]" value="<?= /* @noEscape */ $value; ?>" id="wk-cat-hide<?= /* @noEscape */ $value; ?>"/>
+                                <input class="values-category" type="hidden" name="product[category_ids][]" value="<?= /* @noEscape */ $value; ?>" id="wk-cat-hide<?= /* @noEscape */ $value; ?>"/>
                                 <?php
                             }
                             ?>
@@ -442,7 +442,8 @@ $formData = [
     'countryPicSelector' => '#country-pic',
     'verifySkuAjaxUrl' => $block->getUrl('marketplace/product/verifysku', ['_secure' => $this->getRequest()->isSecure()]),
     'productid'  => $product_id,
-    'categoryTreeAjaxUrl' => $block->getUrl('marketplace/product/categorytree/', ['_secure' => $this->getRequest()->isSecure()])
+    'categoryTreeAjaxUrl' => $block->getUrl('marketplace/product/categorytree/', ['_secure' => $this->getRequest()->isSecure()]),
+    'defaultCategoryId' => $block->getDefaultCategoryId()
 ];
 $serializedFormData = $this->helper(\Magento\Framework\Json\Helper\Data::class)->jsonEncode($formData);
 ?>

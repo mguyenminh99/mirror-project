@@ -66,7 +66,7 @@ $taxName = $tax10Percent->getClassName();
                     <img src="<?= $block->escapeUrl($this->getViewFileUrl('Webkul_Marketplace::images/quest.png')); ?>" class='questimg' title="<?= $block->escapeHtml($helper->getProductHintCategory()) ?>"/>
                 <?php endif; ?>
                 <?php if ($helper->getIsAdminViewCategoryTree()) { ?>
-                    <div data-bind="scope: 'sellerCategory'">
+                    <div id="list-category" data-bind="scope: 'sellerCategory'">
                         <!-- ko template: getTemplate() --><!-- /ko -->
                     </div>
                     <script type="text/x-magento-init">
@@ -89,12 +89,12 @@ $taxName = $tax10Percent->getClassName();
                     </script>
                 <?php } else { ?>
                     <div class="wk-field wk-category">
-                        <div class="wk-for-validation">
+                        <div class="wk-for-validation" id="list-category">
                             <div id="wk-category-label"><?= $block->escapeHtml(__("CATEGORIES")); ?></div>
                             <?php
                             $categories = $data['product']['category_ids'];
                             foreach ($categories as $value) { ?>
-                                <input type="hidden" name="product[category_ids][]" value="<?= $block->escapeHtml($value); ?>" id="wk-cat-hide<?= $block->escapeHtml($value); ?>"/>
+                                <input class="values-category" type="hidden" name="product[category_ids][]" value="<?= $block->escapeHtml($value); ?>" id="wk-cat-hide<?= $block->escapeHtml($value); ?>"/>
                             <?php } ?>
                             <?php
                             if ($helper->getAllowedCategoryIds()) {

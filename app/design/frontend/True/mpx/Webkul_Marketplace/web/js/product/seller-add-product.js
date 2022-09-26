@@ -16,6 +16,9 @@ define([
     'mage/calendar'
 ], function ($, $t, alert) {
     'use strict';
+
+    var messageRequired = $t("Please select a category to register the product.");
+
     $.widget('mage.sellerAddProduct', {
         options: {
             errorMessageSku: $t("SKU can\'t be left empty"),
@@ -41,12 +44,19 @@ define([
                 if ($("#edit-product").valid()!==false) {
                     if ($('#description_ifr').length) {
                         var desc = $('#description_ifr').contents().find('#tinymce').text();
+                        var category = $('.values-category').map((_,el) => el.value).get();
+                        $('#category-error').remove();
                         $('#description-error').remove();
                         if (desc === "" || desc === null) {
                             $('#description-error').remove();
                             $('#description').parent().append('<div class="mage-error" generated="true" id="description-error">This is a required field.</div>');
                         }
+                        // display error message validate category when check description
+                        if (!category.length) {
+                            $("#list-category").append('<div id="category-error">'+messageRequired+'</div>');
+                        }
                         if (desc !== "" && desc !== null) {
+                            $(".loading-mask").css('visibility', 'visible');
                             $('.button').css('opacity','0.7');
                             $('.button').css('cursor','default');
                             $('.button').attr('disabled','disabled');
@@ -56,6 +66,21 @@ define([
                             return false;
                         }
                     }
+                }
+            });
+            $('#edit-product').on('submit', function(e){
+                var category = $('.values-category').map((_,el) => el.value).get();
+                $('#category-error').remove();
+                if (!category.length) {
+                    $(".loading-mask").css('visibility', 'hidden');
+                    $("#list-category").append('<div id="category-error">'+messageRequired+'</div>');
+                    $("#save-btn").removeAttr("disabled");
+                    $("#save-btn").css("opacity","1");
+                    $("#wk-mp-save-duplicate-btn").removeAttr("disabled");
+                    $("#wk-mp-save-duplicate-btn").css("opacity","1");
+                    return false;
+                }else {
+                    $('#category-error').remove();
                 }
             });
             $('.input-text').change(function () {
@@ -80,7 +105,7 @@ define([
             $('body').on('change','.wk-elements',function () {
                 var category_id=$(this).val();
                 if (this.checked === true) {
-                    var $obj = $('<input/>').attr('type','hidden').attr('name','product[category_ids][]').attr('id','wk-cat-hide'+category_id).attr('value',category_id);
+                    var $obj = $('<input/>').attr('type','hidden').attr('name','product[category_ids][]').attr('id','wk-cat-hide'+category_id).attr('value',category_id).attr('class','values-category');
                     $('.wk-for-validation').append($obj);
                 } else {
                     $('#wk-cat-hide'+category_id).remove();

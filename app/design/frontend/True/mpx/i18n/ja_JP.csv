@@ -150,6 +150,10 @@ Shipped,出荷数
 "Close","閉じる"
 "(Tax Excluded)","（税抜）"
 "Estimated Total","支払金額"
+"Please select a category to register the product.","商品を登録するカテゴリを選択してください。"
+"Please enter the shop name","ショップ名は必ず入力してください"
+"Cancellation/return","キャンセル・返品について"
+"Regarding delivery","配送について"
 "Please enter the shop name","ストア名は必ず入力してください"
 "Cancellation/return","キャンセル・返品について"
 "Regarding delivery","配送について"
@@ -167,6 +171,3 @@ Shipped,出荷数
 "Sold By <span class=""no-link"">%shop_title</span>","販売店 <span class=""no-link"">%shop_title</span>"
 "Unit Price","単価"
 "Store Guide","ストア利用ガイド"
-
-
-
