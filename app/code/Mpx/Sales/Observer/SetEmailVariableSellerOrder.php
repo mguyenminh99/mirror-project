@@ -7,8 +7,9 @@ use Psr\Log\LoggerInterface;
 use Webkul\Marketplace\Model\SellerFactory;
 use Webkul\Marketplace\Helper\Data;
 use Magento\Store\Model\StoreManagerInterface;
+use Mpx\Sales\Helper\Data as MpxSalesHelperData;
 
-class AddCustomVariableSeller implements ObserverInterface
+class SetEmailVariableSellerOrder implements ObserverInterface
 {
     /**
      * @var SellerFactory
@@ -31,21 +32,29 @@ class AddCustomVariableSeller implements ObserverInterface
     protected $logger;
 
     /**
+     * @var MpxSalesHelperData
+     */
+    protected $mpxSalesHelperData;
+
+    /**
      * @param SellerFactory $seller
      * @param Data $data
      * @param StoreManagerInterface $storeManager
      * @param LoggerInterface $logger
+     * @param MpxSalesHelperData $mpxSalesHelperData
      */
     public function __construct(
         SellerFactory $seller,
         Data $data,
         StoreManagerInterface $storeManager,
-        LoggerInterface $logger
+        LoggerInterface $logger,
+        MpxSalesHelperData $mpxSalesHelperData
     ) {
         $this->seller = $seller;
         $this->data = $data;
         $this->storeManager = $storeManager;
         $this->logger = $logger;
+        $this->mpxSalesHelperData = $mpxSalesHelperData;
     }
 
     /**
@@ -66,27 +75,6 @@ class AddCustomVariableSeller implements ObserverInterface
         $shopTitle = $seller->getShopTitle();
         $shopUrl = $seller->getShopUrl();
         $transportObject['shop_title'] = $shopTitle ?? '';
-        $transportObject['shop_page_url'] = $this->getUrl($shopUrl ?? '');
-    }
-
-    /**
-     * Get Url
-     *
-     * @param string $shopPageUrl
-     * @return string
-     */
-    public function getUrl(string $shopPageUrl): string
-    {
-        try {
-            $store = $this->storeManager->getStore();
-            if ($store) {
-                $url =  $store->getBaseUrl();
-                return $url."marketplace/seller/profile/shop/".$shopPageUrl;
-            }
-        } catch (\Exception $exception) {
-            $this->logger->critical($exception);
-            return "";
-        }
-        return "";
+        $transportObject['shop_page_url'] = $this->mpxSalesHelperData->getUrl($shopUrl ?? '');
     }
 }
