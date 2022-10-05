@@ -75,15 +75,5 @@
                 <active>0</active>
             </general>
         </newsletter>
-        <customize_404_page>
-            <content_title>
-                <content><![CDATA[ <h1>ページが見つかりません</h1> ]]></content>
-            </content_title>
-            <content_body>
-                <content><![CDATA[<p>お探しいただいたページは、削除されたか、移動されました。</p>
-                    <p>お手数ですが、<a href="./">トップページ </a> からアクセスをお願いいたします。</p>]]>
-                </content>
-            </content_body>
-        </customize_404_page>
     </default>
 </config>
