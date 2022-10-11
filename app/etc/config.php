@@ -271,7 +271,7 @@ return [
         'Webkul_MpAssignProduct' => 1,
         'Webkul_Mpshipping' => 1,
         'Mpx_OrderComment' => 1,
-        'Mpx_PaypalJs' => 1,
+        'Mpx_PaypalCheckout' => 1,
         'Mpx_Sales' => 1,
         'Webkul_MpTimeDelivery' => 1,
         'Temando_ShippingRemover' => 1,
