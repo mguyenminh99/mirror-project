@@ -265,6 +265,7 @@ return [
         'Mpx_Customer' => 1,
         'Mpx_Customize404Page' => 1,
         'Mpx_DisableEditProduct' => 1,
+        'Mpx_Framework' => 1,
         'Mpx_InventorySales' => 1,
         'Mpx_InventoryShippingAdminUi' => 1,
         'Mpx_Marketplace' => 1,
