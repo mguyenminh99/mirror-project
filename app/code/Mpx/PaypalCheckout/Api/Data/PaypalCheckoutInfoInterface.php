@@ -2,7 +2,7 @@
 
 namespace Mpx\PaypalCheckout\Api\Data;
 
-interface PaypalAuthorizationInfoInterface
+interface PaypalCheckoutInfoInterface
 {
     const ID = 'id';
     const ORDER_INCREMENT_ID = 'order_increment_id';
@@ -93,7 +93,7 @@ interface PaypalAuthorizationInfoInterface
      * Set Order Increment ID
      *
      * @param $orderIncrementId
-     * @return PaypalAuthorizationInfoInterface
+     * @return PaypalCheckoutInfoInterface
      */
     public function setOrderIncrementId($orderIncrementId);
 
@@ -101,7 +101,7 @@ interface PaypalAuthorizationInfoInterface
      * Set authorization id
      *
      * @param $authorizationId
-     * @return PaypalAuthorizationInfoInterface
+     * @return PaypalCheckoutInfoInterface
      */
     public function setPayPalAuthorizationId($authorizationId);
 
@@ -110,7 +110,7 @@ interface PaypalAuthorizationInfoInterface
      * Set authorization id
      *
      * @param $authorizationPeriod
-     * @return PaypalAuthorizationInfoInterface
+     * @return PaypalCheckoutInfoInterface
      */
     public function setPayPalAuthorizationPeriod($authorizationPeriod);
 
@@ -118,7 +118,7 @@ interface PaypalAuthorizationInfoInterface
      * Set honor period
      *
      * @param $honorPeriod
-     * @return PaypalAuthorizationInfoInterface
+     * @return PaypalCheckoutInfoInterface
      */
     public function setPayPalHonorPeriod($honorPeriod);
 
@@ -126,7 +126,7 @@ interface PaypalAuthorizationInfoInterface
      * Set status
      *
      * @param $status
-     * @return PaypalAuthorizationInfoInterface
+     * @return PaypalCheckoutInfoInterface
      */
     public function setPayPalStatus($status);
 
@@ -134,7 +134,7 @@ interface PaypalAuthorizationInfoInterface
      * Set create at
      *
      * @param $createAt
-     * @return PaypalAuthorizationInfoInterface
+     * @return PaypalCheckoutInfoInterface
      */
     public function setCreateAt($createAt);
 
@@ -142,7 +142,7 @@ interface PaypalAuthorizationInfoInterface
      * Set update at
      *
      * @param $updateAt
-     * @return PaypalAuthorizationInfoInterface
+     * @return PaypalCheckoutInfoInterface
      */
     public function setUpdateAt($updateAt);
 

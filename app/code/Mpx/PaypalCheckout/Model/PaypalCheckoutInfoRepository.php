@@ -2,11 +2,11 @@
 
 namespace Mpx\PaypalCheckout\Model;
 
-use Mpx\PaypalCheckout\Api\Data\PaypalAuthorizationInfoInterface;
-use Mpx\PaypalCheckout\Api\PaypalAuthorizationInfoRepositoryInterface;
-use Mpx\PaypalCheckout\Model\PaypalAuthorizationFactory;
-use Mpx\PaypalCheckout\Model\ResourceModel\PaypalAuthorization as ObjectResourceModel;
-use Mpx\PaypalCheckout\Model\ResourceModel\PaypalAuthorization\CollectionFactory;
+use Mpx\PaypalCheckout\Api\Data\PaypalCheckoutInfoInterface;
+use Mpx\PaypalCheckout\Api\PaypalCheckoutInfoRepositoryInterface;
+use Mpx\PaypalCheckout\Model\PaypalCheckoutInfoFactory;
+use Mpx\PaypalCheckout\Model\ResourceModel\PaypalCheckoutInfo as ObjectResourceModel;
+use Mpx\PaypalCheckout\Model\ResourceModel\PaypalCheckoutInfo\CollectionFactory;
 use Magento\Framework\Api\SearchCriteriaInterface;
 use Magento\Framework\Api\SearchResultsInterfaceFactory;
 use Magento\Framework\Api\SortOrder;
@@ -16,10 +16,10 @@ use Magento\Framework\Exception\NoSuchEntityException;
 
 
 /**
- * class PaypalAuthorizationInfoRepository
+ * class PaypalCheckoutInfoRepository
  * Crud Api PayPal
  */
-class PaypalAuthorizationInfoRepository implements PaypalAuthorizationInfoRepositoryInterface
+class PaypalCheckoutInfoRepository implements PaypalCheckoutInfoRepositoryInterface
 {
     protected $objectFactory;
 
@@ -30,7 +30,7 @@ class PaypalAuthorizationInfoRepository implements PaypalAuthorizationInfoReposi
     protected $searchResultsFactory;
 
     public function __construct(
-        PaypalAuthorizationFactory $objectFactory,
+        PaypalCheckoutInfoFactory $objectFactory,
         ObjectResourceModel $objectResourceModel,
         CollectionFactory $collectionFactory,
         SearchResultsInterfaceFactory $searchResultsFactory
@@ -42,11 +42,11 @@ class PaypalAuthorizationInfoRepository implements PaypalAuthorizationInfoReposi
     }
 
     /**
-     * @param PaypalAuthorizationInfoInterface $object
-     * @return PaypalAuthorizationInfoInterface
+     * @param PaypalCheckoutInfoInterface $object
+     * @return PaypalCheckoutInfoInterface
      * @throws CouldNotSaveException
      */
-    public function save(PaypalAuthorizationInfoInterface $object): PaypalAuthorizationInfoInterface
+    public function save(PaypalCheckoutInfoInterface $object): PaypalCheckoutInfoInterface
     {
         try {
             $this->objectResourceModel->save($object);
@@ -58,10 +58,10 @@ class PaypalAuthorizationInfoRepository implements PaypalAuthorizationInfoReposi
 
     /**
      * @param $id
-     * @return PaypalAuthorizationInfoInterface
+     * @return PaypalCheckoutInfoInterface
      * @throws NoSuchEntityException
      */
-    public function getById($id): PaypalAuthorizationInfoInterface
+    public function getById($id): PaypalCheckoutInfoInterface
     {
         $object = $this->objectFactory->create();
         $this->objectResourceModel->load($object, $id);
@@ -72,10 +72,10 @@ class PaypalAuthorizationInfoRepository implements PaypalAuthorizationInfoReposi
     }
 
     /**
-     * Retrieve Paypal Authorization Info list.
+     * Retrieve Paypal Checkout Info list.
      *
      * @param SearchCriteriaInterface $criteria
-     * @return PaypalAuthorizationInfoInterface|\Magento\Framework\Api\SearchResultsInterface
+     * @return PaypalCheckoutInfoInterface|\Magento\Framework\Api\SearchResultsInterface
      */
     public function getList(SearchCriteriaInterface $criteria)
     {
@@ -116,13 +116,13 @@ class PaypalAuthorizationInfoRepository implements PaypalAuthorizationInfoReposi
     }
 
     /**
-     * Delete Paypal Authorization Info.
+     * Delete Paypal Checkout Info.
      *
-     * @param PaypalAuthorizationInfoInterface $object
+     * @param PaypalCheckoutInfoInterface $object
      * @return bool true on success
      * @throws CouldNotDeleteException
      */
-    public function delete(PaypalAuthorizationInfoInterface $object): bool
+    public function delete(PaypalCheckoutInfoInterface $object): bool
     {
         try {
             $this->objectResourceModel->delete($object);
@@ -133,7 +133,7 @@ class PaypalAuthorizationInfoRepository implements PaypalAuthorizationInfoReposi
     }
 
     /**
-     * Delete Paypal Authorization Info by ID.
+     * Delete Paypal Checkout Info by ID.
      *
      * @param $id
      * @return bool true on success

@@ -1,9 +1,9 @@
 <?php
 
-namespace Mpx\PaypalCheckout\Model\ResourceModel\PaypalAuthorization;
+namespace Mpx\PaypalCheckout\Model\ResourceModel\PaypalCheckoutInfo;
 
 use Magento\Framework\Model\ResourceModel\Db\Collection\AbstractCollection;
-use Mpx\PaypalCheckout\Model\PaypalAuthorization;
+use Mpx\PaypalCheckout\Model\PaypalCheckoutInfo;
 
 /**
  * class Collection
@@ -23,6 +23,6 @@ class Collection extends AbstractCollection
      */
     public function _construct()
     {
-        $this->_init(PaypalAuthorization::class, \Mpx\PaypalCheckout\Model\ResourceModel\PaypalAuthorization::class);
+        $this->_init(PaypalCheckoutInfo::class, \Mpx\PaypalCheckout\Model\ResourceModel\PaypalCheckoutInfo::class);
     }
 }
