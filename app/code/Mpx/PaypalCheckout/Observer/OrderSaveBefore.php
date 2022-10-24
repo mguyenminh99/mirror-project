@@ -11,9 +11,9 @@ use Magento\Framework\Exception\CouldNotSaveException;
 use Magento\Framework\Exception\LocalizedException;
 use Magento\Framework\Exception\NoSuchEntityException;
 use Magento\Sales\Model\Order;
-use Mpx\PaypalCheckout\Model\PaypalAuthorizationFactory;
-use Mpx\PaypalCheckout\Model\PaypalAuthorizationInfoRepository;
-use Mpx\PaypalCheckout\Model\ResourceModel\PaypalAuthorization\CollectionFactory;
+use Mpx\PaypalCheckout\Model\PaypalCheckoutInfoFactory;
+use Mpx\PaypalCheckout\Model\PaypalCheckoutInfoRepository;
+use Mpx\PaypalCheckout\Model\ResourceModel\PaypalCheckoutInfo\CollectionFactory;
 use Magento\Framework\Stdlib\DateTime\DateTime;
 
 /**
@@ -38,9 +38,9 @@ class OrderSaveBefore implements ObserverInterface
     protected $_checkoutSession;
 
     /**
-     * @var PaypalAuthorizationFactory
+     * @var PaypalCheckoutInfoFactory
      */
-    protected $paypalAuthorizationFactory;
+    protected $paypalCheckoutInfoFactory;
 
     /** @var ScopeConfigInterface */
     protected $_scopeConfig;
@@ -51,32 +51,32 @@ class OrderSaveBefore implements ObserverInterface
     protected $time;
 
     /**
-     * @var PaypalAuthorizationInfoRepository
+     * @var PaypalCheckoutInfoRepository
      */
-    protected $paypalAuthorizationInfoRepository;
+    protected $paypalCheckoutInfoRepository;
 
     protected $collectionFactory;
 
     /**
-     * @param PaypalAuthorizationFactory $paypalAuthorizationFactory
+     * @param PaypalCheckoutInfoFactory $paypalCheckoutInfoFactory
      * @param ScopeConfigInterface $scopeConfig
-     * @param PaypalAuthorizationInfoRepository $paypalAuthorizationInfoRepository
+     * @param PaypalCheckoutInfoRepository $paypalCheckoutInfoRepository
      * @param Session $checkoutSession
      * @param CollectionFactory $collectionFactory
      * @param DateTime $time
      */
     public function __construct(
-        PaypalAuthorizationFactory        $paypalAuthorizationFactory,
-        ScopeConfigInterface              $scopeConfig,
-        PaypalAuthorizationInfoRepository $paypalAuthorizationInfoRepository,
-        Session                           $checkoutSession,
-        CollectionFactory                 $collectionFactory,
-        DateTime $time
+        PaypalCheckoutInfoFactory    $paypalCheckoutInfoFactory,
+        ScopeConfigInterface         $scopeConfig,
+        PaypalCheckoutInfoRepository $paypalCheckoutInfoRepository,
+        Session                      $checkoutSession,
+        CollectionFactory            $collectionFactory,
+        DateTime                     $time
     )
     {
-        $this->paypalAuthorizationFactory = $paypalAuthorizationFactory;
+        $this->paypalCheckoutInfoFactory = $paypalCheckoutInfoFactory;
         $this->_scopeConfig = $scopeConfig;
-        $this->paypalAuthorizationInfoRepository = $paypalAuthorizationInfoRepository;
+        $this->paypalCheckoutInfoRepository = $paypalCheckoutInfoRepository;
         $this->_checkoutSession = $checkoutSession;
         $this->collectionFactory = $collectionFactory;
         $this->time = $time;
@@ -102,29 +102,29 @@ class OrderSaveBefore implements ObserverInterface
             return;
         }
 
-        $paypalAuthorization = $this->paypalAuthorizationFactory->create();
+        $paypalCheckoutInfo = $this->paypalCheckoutInfoFactory->create();
         $orderIncrementId = $order->getIncrementId();
         $payment = $order->getPayment();
         $settlementAmount = $payment->getAdditionalInformation('settlement_amount');
         $createTime = $payment->getAdditionalInformation('create_time');
         $authorizationPeriod = $this->getAuthorizationPeriod($createTime);
         $honorPeriod = $this->getHonorPeriod($createTime);
-        $paypalAuthorization->setOrderIncrementId($orderIncrementId);
-        $paypalAuthorization->setSettlementAmount($settlementAmount);
+        $paypalCheckoutInfo->setOrderIncrementId($orderIncrementId);
+        $paypalCheckoutInfo->setSettlementAmount($settlementAmount);
         if ($payment->getAdditionalInformation('intent') === self::INTENT_AUTHORIZE) {
             $authorizationID = $payment->getAdditionalInformation('authorization_id');
-            $paypalAuthorization->setPayPalAuthorizationId($authorizationID);
-            $paypalAuthorization->setPayPalAuthorizationPeriod($authorizationPeriod);
-            $paypalAuthorization->setPayPalHonorPeriod($honorPeriod);
-            $paypalAuthorization->setPayPalStatus(self::PAYPAL_STATUS['Authorized']);
-            $paypalAuthorization->setPayPalAuthorizeAt($createTime);
+            $paypalCheckoutInfo->setPayPalAuthorizationId($authorizationID);
+            $paypalCheckoutInfo->setPayPalAuthorizationPeriod($authorizationPeriod);
+            $paypalCheckoutInfo->setPayPalHonorPeriod($honorPeriod);
+            $paypalCheckoutInfo->setPayPalStatus(self::PAYPAL_STATUS['Authorized']);
+            $paypalCheckoutInfo->setPayPalAuthorizeAt($createTime);
         } else {
             $capturedID = $payment->getAdditionalInformation('captured_id');
-            $paypalAuthorization->setPayPalCaptureId($capturedID);
-            $paypalAuthorization->setPayPalStatus(self::PAYPAL_STATUS['Captured']);
-            $paypalAuthorization->setPayPalCapturedAt($createTime);
+            $paypalCheckoutInfo->setPayPalCaptureId($capturedID);
+            $paypalCheckoutInfo->setPayPalStatus(self::PAYPAL_STATUS['Captured']);
+            $paypalCheckoutInfo->setPayPalCapturedAt($createTime);
         }
-        $this->paypalAuthorizationInfoRepository->save($paypalAuthorization);
+        $this->paypalCheckoutInfoRepository->save($paypalCheckoutInfo);
     }
 
     /**

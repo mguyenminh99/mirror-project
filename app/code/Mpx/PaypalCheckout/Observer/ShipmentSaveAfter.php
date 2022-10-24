@@ -6,8 +6,8 @@ use Magento\Framework\Event\Observer;
 use Magento\Framework\Exception\LocalizedException;
 use \Magento\Framework\Stdlib\DateTime\DateTime;
 use Magento\Sales\Model\Order;
-use Mpx\PaypalCheckout\Model\PaypalAuthorizationFactory;
-use Mpx\PaypalCheckout\Model\ResourceModel\PaypalAuthorization;
+use Mpx\PaypalCheckout\Model\PaypalCheckoutInfoFactory;
+use Mpx\PaypalCheckout\Model\ResourceModel\PaypalCheckoutInfo;
 use Magento\Framework\Message\ManagerInterface;
 use Psr\Log\LoggerInterface;
 
@@ -24,14 +24,14 @@ class ShipmentSaveAfter implements \Magento\Framework\Event\ObserverInterface
     protected $timezoneInterface;
 
     /**
-     * @var PaypalAuthorizationFactory
+     * @var PaypalCheckoutInfoFactory
      */
-    private $_paypalAuthorizationFactory;
+    private $_paypalCheckoutInfoFactory;
 
     /**
-     * @var PaypalAuthorization
+     * @var PaypalCheckoutInfo
      */
-    private $_paypalAuthorizationResource;
+    private $_paypalCheckoutInfoResource;
 
     /**
      * @var ManagerInterface
@@ -44,21 +44,21 @@ class ShipmentSaveAfter implements \Magento\Framework\Event\ObserverInterface
     private $logger;
 
     /**
-     * @param PaypalAuthorizationFactory $paypalAuthorizationFactory
-     * @param PaypalAuthorization $paypalAuthorizationResource
+     * @param PaypalCheckoutInfoFactory $paypalCheckoutInfoFactory
+     * @param PaypalCheckoutInfo $paypalCheckoutInfoResource
      * @param DateTime $timezoneInterface
      * @param LoggerInterface $logger
      * @param ManagerInterface $_message
      */
     public function __construct(
-        PaypalAuthorizationFactory $paypalAuthorizationFactory,
-        PaypalAuthorization        $paypalAuthorizationResource,
+        PaypalCheckoutInfoFactory  $paypalCheckoutInfoFactory,
+        PaypalCheckoutInfo         $paypalCheckoutInfoResource,
         DateTime                   $timezoneInterface,
         LoggerInterface            $logger,
         ManagerInterface           $_message
     ) {
-        $this->_paypalAuthorizationFactory = $paypalAuthorizationFactory;
-        $this->_paypalAuthorizationResource = $paypalAuthorizationResource;
+        $this->_paypalCheckoutInfoFactory = $paypalCheckoutInfoFactory;
+        $this->_paypalCheckoutInfoResource = $paypalCheckoutInfoResource;
         $this->timezoneInterface = $timezoneInterface;
         $this->logger = $logger;
         $this->_message = $_message;
@@ -75,7 +75,7 @@ class ShipmentSaveAfter implements \Magento\Framework\Event\ObserverInterface
     {
         $shipment = $observer->getShipment();
         $order = $shipment->getOrder();
-        $paypalFactory = $this->_paypalAuthorizationFactory->create();
+        $paypalFactory = $this->_paypalCheckoutInfoFactory->create();
         $paypalFactory->getByIncrementId($order->getIncrementId());
         if ($this->isAllItemShipped($order)) {
             $dateTime = $this->timezoneInterface->gmtDate('Y-m-d H:i:s');
@@ -83,7 +83,7 @@ class ShipmentSaveAfter implements \Magento\Framework\Event\ObserverInterface
         } else {
             $paypalFactory->setAllShippingAt(null);
         }
-        $this->_paypalAuthorizationResource->save($paypalFactory);
+        $this->_paypalCheckoutInfoResource->save($paypalFactory);
     }
 
     /**

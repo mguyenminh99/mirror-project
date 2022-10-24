@@ -6,10 +6,10 @@ use Magento\Framework\Model\ResourceModel\Db\Context;
 use Magento\Framework\Model\ResourceModel\Db\AbstractDb;
 
 /**
- * class PaypalAuthorization
- * Model PaypalAuthorization
+ * class PaypalCheckoutInfo
+ * Model PaypalCheckoutInfo
  */
-class PaypalAuthorization extends AbstractDb
+class PaypalCheckoutInfo extends AbstractDb
 {
     /**
      * @param Context $context
