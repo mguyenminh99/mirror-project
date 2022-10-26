@@ -116,6 +116,7 @@ define(
                                     address_line_1: quote.billingAddress().street[0],
                                     address_line_2: quote.billingAddress().street[1],
                                     admin_area_2: quote.billingAddress().city,
+                                    admin_area_1: quote.billingAddress().region,
                                     postal_code: quote.billingAddress().postcode,
                                     country_code: quote.billingAddress().countryId,
                                 },
