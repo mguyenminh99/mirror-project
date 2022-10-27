@@ -122,6 +122,19 @@ define(
                                 },
                             },
                             purchase_units: [{
+                                shipping: {
+                                    name:{
+                                        full_name: quote.shippingAddress().firstname + ' ' + quote.shippingAddress().lastname
+                                    },
+                                    address: {
+                                        address_line_1: quote.shippingAddress().street[0],
+                                        address_line_2: quote.shippingAddress().street[1],
+                                        admin_area_1: quote.shippingAddress().region,
+                                        admin_area_2: quote.shippingAddress().city,
+                                        postal_code: quote.shippingAddress().postcode,
+                                        country_code: quote.shippingAddress().countryId
+                                    }
+                                },
                                 amount: {
                                     value: self.grandTotal(),
                                     breakdown: {
