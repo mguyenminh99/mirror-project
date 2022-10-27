@@ -92,5 +92,28 @@
                 </admin>
             </policies>
         </csp>
+        <carriers>
+            <flatrate>
+                <active>0</active>
+            </flatrate>
+            <freeshipping>
+                <active>0</active>
+            </freeshipping>
+            <tablerate>
+                <active>0</active>
+            </tablerate>
+            <ups>
+                <active>0</active>
+            </ups>
+            <usps>
+                <active>0</active>
+            </usps>
+            <fedex>
+                <active>0</active>
+            </fedex>
+            <dhl>
+                <active>0</active>
+            </dhl>
+        </carriers>
     </default>
 </config>
