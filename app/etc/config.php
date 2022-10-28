@@ -262,6 +262,7 @@ return [
         'Mpx_Base' => 1,
         'Mpx_Checkout' => 1,
         'Webkul_Marketplace' => 1,
+        'Mpx_Contact' => 1,
         'Mpx_Customer' => 1,
         'Mpx_Customize404Page' => 1,
         'Mpx_DisableEditProduct' => 1,
