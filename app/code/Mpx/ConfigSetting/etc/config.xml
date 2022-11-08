@@ -115,5 +115,10 @@
                 <active>0</active>
             </dhl>
         </carriers>
+        <analytics>
+            <subscription>
+                <enabled>0</enabled>
+            </subscription>
+        </analytics>
     </default>
 </config>
