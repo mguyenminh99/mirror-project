@@ -50,5 +50,6 @@
     <preference for="Webkul\Marketplace\Observer\AdminhtmlCustomerSaveAfterObserver" type="Mpx\Marketplace\Observer\AdminhtmlCustomerSaveAfterObserver" />
     <preference for="Webkul\Marketplace\Block\Adminhtml\Customer\Edit\AddSellerTab" type="Mpx\Marketplace\Block\Adminhtml\Customer\Edit\AddSellerTab" />
     <preference for="Webkul\Marketplace\Controller\Account\RewriteUrlPost" type="Mpx\Marketplace\Controller\Account\RewriteUrlPost" />
+    <preference for="Webkul\Marketplace\Ui\Component\Listing\Columns\Sellerdeny" type="Mpx\Marketplace\Ui\Component\Listing\Columns\Sellerdeny" />
 
 </config>
