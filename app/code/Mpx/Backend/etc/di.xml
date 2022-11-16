@@ -16,4 +16,7 @@
             </argument>
         </arguments>
     </type>
+    <type name="Magento\Framework\View\Element\UiComponentInterface">
+        <plugin name="crossVersionCompatibility" type="Mpx\Backend\Plugin\Ui\View\Element\PartiallyConfiguredUiComponent"/>
+    </type>
 </config>
