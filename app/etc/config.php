@@ -269,6 +269,7 @@ return [
         'Mpx_Framework' => 1,
         'Mpx_InventorySales' => 1,
         'Mpx_InventoryShippingAdminUi' => 1,
+        'Mpx_LoginAsCustomer' => 1,
         'Mpx_Marketplace' => 1,
         'Webkul_MpAssignProduct' => 1,
         'Webkul_Mpshipping' => 1,

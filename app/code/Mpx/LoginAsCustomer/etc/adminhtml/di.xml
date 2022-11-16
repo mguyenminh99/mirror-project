@@ -1,0 +1,9 @@
+<?xml version="1.0" ?>
+
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
+    <type name="Magefan\LoginAsCustomer\Block\Adminhtml\Customer\Edit\Login">
+        <plugin name="Mpx_LoginAsCustomer::ToolbarCustomer" type="Mpx\LoginAsCustomer\Plugin\Button\ToolbarCustomer" sortOrder="1" disabled="false"/>
+    </type>
+    <preference for="Magefan\LoginAsCustomer\Controller\Adminhtml\Login\Login" type="Mpx\LoginAsCustomer\Controller\Adminhtml\Login\Login" />
+    <preference for="Magefan\LoginAsCustomer\Plugin\Button\ToolbarPlugin" type="Mpx\LoginAsCustomer\Plugin\Button\ToolbarPlugin" />
+</config>
