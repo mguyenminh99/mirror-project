@@ -78,3 +78,5 @@ atlassian*
 !/app/design/adminhtml/True
 /app/design/frontend/*
 !/app/design/frontend/True
+
+.rnd
