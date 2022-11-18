@@ -13,4 +13,11 @@
     <type name="Magento\Sales\Block\Order\Totals">
       <plugin name="change_position_tax_total_customer" type="Mpx\Sales\Plugin\Order\BeforeTotals" sortOrder="1" disabled="false" />
     </type>
+    <type name="Magento\Framework\View\Element\UiComponent\DataProvider\CollectionFactory">
+        <arguments>
+            <argument name="collections" xsi:type="array">
+                <item name="mpx_sales_order_grid_data_source" xsi:type="string">Mpx\Sales\Model\ResourceModel\Order\Grid\Collection</item>
+            </argument>
+        </arguments>
+    </type>
 </config>
