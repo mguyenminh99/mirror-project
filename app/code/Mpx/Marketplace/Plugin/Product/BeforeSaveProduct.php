@@ -88,11 +88,6 @@ class BeforeSaveProduct
     protected $errors = [];
 
     /**
-     * @var \Magento\Customer\Model\Session
-     */
-    protected $customerSession;
-
-    /**
      * @var StoreManager
      */
     private $storeManager;
@@ -103,7 +98,6 @@ class BeforeSaveProduct
      * @param DataPersistorInterface $dataPersistor
      * @param MpxValidator $mpxValidator
      * @param LoggerInterface $logger
-     * @param \Magento\Customer\Model\Session $customerSession
      * @param StoreManager $storeManager
      */
     public function __construct(
@@ -112,7 +106,6 @@ class BeforeSaveProduct
         DataPersistorInterface $dataPersistor,
         MpxValidator           $mpxValidator,
         LoggerInterface        $logger,
-        \Magento\Customer\Model\Session $customerSession,
         StoreManager $storeManager
     ) {
         $this->messageManager = $messageManager;
@@ -120,7 +113,6 @@ class BeforeSaveProduct
         $this->dataPersistor = $dataPersistor;
         $this->mpxValidator = $mpxValidator;
         $this->logger = $logger;
-        $this->customerSession = $customerSession;
         $this->storeManager = $storeManager;
     }
 
@@ -181,32 +173,7 @@ class BeforeSaveProduct
             }
         }
 
-        $skuFormat = $this->setSkuFormat($wholeData);
-        $subject->getRequest()->setParams($skuFormat);
-
         return $process();
-    }
-
-    /**
-     * Set sku format simple product and simple product of Configurable Product
-     *
-     * @param array $wholeData
-     * @return array
-     */
-    private function setSkuFormat(array $wholeData)
-    {
-        $formattedSku = $this->formatSku($wholeData['product']['sku']);
-        $wholeData['product']['sku'] = $formattedSku;
-
-        if (isset($wholeData['variations-matrix']) && !empty($wholeData['variations-matrix'])) {
-            $dataSimpleProduct =  $wholeData['variations-matrix'];
-            foreach ($dataSimpleProduct as $key => $value) {
-                $formattedSku = $this->formatSku($value['sku']);
-                $wholeData['variations-matrix'][$key]['sku'] = $formattedSku;
-            }
-        }
-
-        return $wholeData;
     }
 
     /**
@@ -333,20 +300,6 @@ class BeforeSaveProduct
                 ];
             }
         }
-    }
-
-    /**
-     * Format Sku
-     *
-     * @param string $sku
-     * @return string
-     */
-    public function formatSku($sku)
-    {
-        $sellerId = $this->customerSession->getCustomer()->getId();
-        $skuPrefix = str_pad($sellerId, 3, "0", STR_PAD_LEFT);
-
-        return $skuPrefix.self::UNICODE_HYPHEN_MINUS.$sku;
     }
 
     /**

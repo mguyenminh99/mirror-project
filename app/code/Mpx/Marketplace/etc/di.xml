@@ -22,6 +22,11 @@
                 type="Mpx\Marketplace\Plugin\Product\BeforeSaveProduct"
                 sortOrder="1" />
     </type>
+    <type name="Webkul\Marketplace\Controller\Product\SaveProduct">
+        <plugin name="Mpx_Marketplace::CustomDataBeforeSaveProduct"
+                type="Mpx\Marketplace\Plugin\Product\BeforeSaveProductData"
+                sortOrder="1" />
+    </type>
     <preference for="Webkul\Marketplace\Ui\DataProvider\OrdersHistoryDataProvider" type="Mpx\Marketplace\Ui\DataProvider\OrdersHistoryDataProvider" />
     <preference for="Webkul\Marketplace\Ui\DataProvider\LatestOrdersDataProvider" type="Mpx\Marketplace\Ui\DataProvider\LatestOrdersDataProvider" />
     <preference for="Webkul\Marketplace\Ui\Component\Listing\Columns\Frontend\OrderHistoryProDetails" type="Mpx\Marketplace\Ui\Component\Listing\Columns\Frontend\OrderHistoryProDetails" />
