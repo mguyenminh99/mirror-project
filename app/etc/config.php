@@ -260,6 +260,7 @@ return [
         'Magefan_LoginAsCustomer' => 1,
         'Mpx_Backend' => 1,
         'Mpx_Base' => 1,
+        'Mpx_Catalog' => 1,
         'Mpx_Checkout' => 1,
         'Webkul_Marketplace' => 1,
         'Mpx_Contact' => 1,

@@ -1,39 +1,44 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <listing xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Ui:etc/ui_configuration.xsd">
     <listingToolbar name="listing_top">
-        <bookmark name="bookmarks"/>
-        <columnsControls name="columns_controls"/>
+        <bookmark name="bookmarks">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="componentDisabled" xsi:type="boolean">true</item>
+                </item>
+            </argument>
+        </bookmark>
+        <columnsControls name="columns_controls">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="componentDisabled" xsi:type="boolean">true</item>
+                </item>
+            </argument>
+        </columnsControls>
         <filters name="listing_filters">
             <filterSelect name="store_id" provider="${ $.parentName }">
-                <settings>
-                    <options class="Magento\Store\Ui\Component\Listing\Column\Store\Options"/>
-                    <caption translate="true">All Store Views</caption>
-                    <label translate="true">Store View</label>
-                    <dataScope>store_id</dataScope>
-                </settings>
+                <argument name="data" xsi:type="array">
+                    <item name="config" xsi:type="array">
+                        <item name="componentDisabled" xsi:type="boolean">true</item>
+                    </item>
+                </argument>
             </filterSelect>
         </filters>
     </listingToolbar>
     <columns name="product_columns" class="Magento\Catalog\Ui\Component\Listing\Columns">
-        <column name="qty" sortOrder="75">
+        <column name="qty" sortOrder="75" class="Mpx\Catalog\Ui\Component\Listing\Columns\Quantity">
             <settings>
-                <addField>true</addField>
-                <filter>textRange</filter>
-                <label translate="true">Quantity</label>
+                <filter>customTextRange</filter>
             </settings>
         </column>
         <column name="entity_id" sortOrder="10">
             <settings>
-                <filter>textRange</filter>
-                <label translate="true">ID</label>
-                <sorting>asc</sorting>
+                <filter>customTextRange</filter>
             </settings>
         </column>
         <column name="price" class="Magento\Catalog\Ui\Component\Listing\Columns\Price" sortOrder="70">
             <settings>
-                <addField>true</addField>
-                <filter>textRange</filter>
-                <label translate="true">Price</label>
+                <filter>customTextRange</filter>
             </settings>
         </column>
     </columns>
