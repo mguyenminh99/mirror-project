@@ -1,0 +1,18 @@
+<?php
+
+/** @var $block \Magento\Backend\Block\Widget\Form */
+?>
+<div class="entry-edit form-inline">
+    <?= $block->getFormHtml() ?>
+</div>
+<?= $block->getChildHtml('form_after') ?>
+<div id="modal_remove_seller">
+    <div class="modal-body-content">
+        <p><?= $block->escapeHtml(__('Is it ok if all store data will be deleted ?')) ?></p>
+    </div>
+</div>
+<script>
+    require(['jquery', 'removeSeller'], function($, modal) {
+        removeSeller();
+    });
+</script>
