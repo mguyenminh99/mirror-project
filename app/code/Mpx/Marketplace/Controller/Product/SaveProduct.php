@@ -115,6 +115,8 @@ class SaveProduct extends \Webkul\Marketplace\Controller\Product\SaveProduct
 
         $resultData = $this->buildConfigurableProduct($catalogProduct, $wholedata);
         $catalogProduct->save();
+        $catalogProduct->setUrlKey('item-'.$catalogProduct->getEntityId());
+        $catalogProduct->save();
         $catalogProduct = $resultData['catalogProduct'];
         $associatedProductIds = $resultData['associatedProductIds'];
 
