@@ -15,6 +15,7 @@
             <module name="Webkul_Marketplace"/>
             <module name="Magento_Customer"/>
             <module name="Magento_Catalog"/>
+            <module name="Magento_Theme"/>
         </sequence>
     </module>
 </config>
