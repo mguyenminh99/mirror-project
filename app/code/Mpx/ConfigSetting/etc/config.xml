@@ -126,6 +126,7 @@
         </analytics>
         <admin>
             <security>
+                <admin_account_sharing>1</admin_account_sharing>
                 <password_lifetime>0</password_lifetime>
                 <password_is_forced>0</password_is_forced>
             </security>
