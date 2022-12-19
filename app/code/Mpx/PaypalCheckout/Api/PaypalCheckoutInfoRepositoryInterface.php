@@ -1,14 +1,4 @@
 <?php
-/**
- * Copyright © 2019 Magenest. All rights reserved.
- * See COPYING.txt for license details.
- *
- * Magenest_mee231 extension
- * NOTICE OF LICENSE
- *
- * @category Magenest
- * @package Magenest_mee231
- */
 
 namespace Mpx\PaypalCheckout\Api;
 
@@ -18,20 +8,20 @@ use Magento\Framework\Api\SearchCriteriaInterface;
 interface PaypalCheckoutInfoRepositoryInterface
 {
     /**
-     * Save Paypal Checkout Info.
+     * Save PayPal Checkout Info.
      *
      * @param PaypalCheckoutInfoInterface $object
      * @return PaypalCheckoutInfoInterface
      */
-    public function save(PaypalCheckoutInfoInterface $object);
+    public function save(PaypalCheckoutInfoInterface $object): PaypalCheckoutInfoInterface;
 
     /**
-     * Retrieve Paypal Checkout Info.
+     * Retrieve PayPal Checkout Info.
      *
-     * @param $id
+     * @param int $id
      * @return PaypalCheckoutInfoInterface
      */
-    public function getById($id);
+    public function getById(int $id): PaypalCheckoutInfoInterface;
 
     /**
      * Retrieve Checkout Info list.
@@ -39,21 +29,21 @@ interface PaypalCheckoutInfoRepositoryInterface
      * @param SearchCriteriaInterface $criteria
      * @return PaypalCheckoutInfoInterface
      */
-    public function getList(SearchCriteriaInterface $criteria);
+    public function getList(SearchCriteriaInterface $criteria): PaypalCheckoutInfoInterface;
 
     /**
-     * Delete Paypal Checkout Info.
+     * Delete PayPal Checkout Info.
      *
      * @param PaypalCheckoutInfoInterface $object
      * @return bool true on success
      */
-    public function delete(PaypalCheckoutInfoInterface $object);
+    public function delete(PaypalCheckoutInfoInterface $object): bool;
 
     /**
-     * Delete Paypal Checkout Info by ID.
+     * Delete PayPal Checkout Info by ID.
      *
-     * @param $id
+     * @param int $id
      * @return bool true on success
      */
-    public function deleteById($id);
+    public function deleteById(int $id): bool;
 }

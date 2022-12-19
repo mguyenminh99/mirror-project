@@ -4,7 +4,6 @@ namespace Mpx\PaypalCheckout\Model;
 
 use Mpx\PaypalCheckout\Api\Data\PaypalCheckoutInfoInterface;
 use Mpx\PaypalCheckout\Api\PaypalCheckoutInfoRepositoryInterface;
-use Mpx\PaypalCheckout\Model\PaypalCheckoutInfoFactory;
 use Mpx\PaypalCheckout\Model\ResourceModel\PaypalCheckoutInfo as ObjectResourceModel;
 use Mpx\PaypalCheckout\Model\ResourceModel\PaypalCheckoutInfo\CollectionFactory;
 use Magento\Framework\Api\SearchCriteriaInterface;
@@ -14,21 +13,38 @@ use Magento\Framework\Exception\CouldNotDeleteException;
 use Magento\Framework\Exception\CouldNotSaveException;
 use Magento\Framework\Exception\NoSuchEntityException;
 
-
 /**
  * class PaypalCheckoutInfoRepository
  * Crud Api PayPal
  */
 class PaypalCheckoutInfoRepository implements PaypalCheckoutInfoRepositoryInterface
 {
+    /**
+     * @var PaypalCheckoutInfoFactory
+     */
     protected $objectFactory;
 
+    /**
+     * @var ObjectResourceModel
+     */
     protected $objectResourceModel;
 
+    /**
+     * @var CollectionFactory
+     */
     protected $collectionFactory;
 
+    /**
+     * @var SearchResultsInterfaceFactory
+     */
     protected $searchResultsFactory;
 
+    /**
+     * @param PaypalCheckoutInfoFactory $objectFactory
+     * @param ObjectResourceModel $objectResourceModel
+     * @param CollectionFactory $collectionFactory
+     * @param SearchResultsInterfaceFactory $searchResultsFactory
+     */
     public function __construct(
         PaypalCheckoutInfoFactory $objectFactory,
         ObjectResourceModel $objectResourceModel,
@@ -42,6 +58,8 @@ class PaypalCheckoutInfoRepository implements PaypalCheckoutInfoRepositoryInterf
     }
 
     /**
+     * Save Data PayPayCheckout
+     *
      * @param PaypalCheckoutInfoInterface $object
      * @return PaypalCheckoutInfoInterface
      * @throws CouldNotSaveException
@@ -57,27 +75,12 @@ class PaypalCheckoutInfoRepository implements PaypalCheckoutInfoRepositoryInterf
     }
 
     /**
-     * @param $id
-     * @return PaypalCheckoutInfoInterface
-     * @throws NoSuchEntityException
-     */
-    public function getById($id): PaypalCheckoutInfoInterface
-    {
-        $object = $this->objectFactory->create();
-        $this->objectResourceModel->load($object, $id);
-        if (!$object->getId()) {
-            throw new NoSuchEntityException(__('Paypal Authorization Info with id "%1" does not exist.', $id));
-        }
-        return $object;
-    }
-
-    /**
-     * Retrieve Paypal Checkout Info list.
+     * Retrieve Checkout Info list.
      *
      * @param SearchCriteriaInterface $criteria
-     * @return PaypalCheckoutInfoInterface|\Magento\Framework\Api\SearchResultsInterface
+     * @return PaypalCheckoutInfoInterface
      */
-    public function getList(SearchCriteriaInterface $criteria)
+    public function getList(SearchCriteriaInterface $criteria): PaypalCheckoutInfoInterface
     {
         $searchResults = $this->searchResultsFactory->create();
         $searchResults->setSearchCriteria($criteria);
@@ -116,7 +119,24 @@ class PaypalCheckoutInfoRepository implements PaypalCheckoutInfoRepositoryInterf
     }
 
     /**
-     * Delete Paypal Checkout Info.
+     * Get By Id PayPalCheckout
+     *
+     * @param  $id
+     * @return PaypalCheckoutInfoInterface
+     * @throws NoSuchEntityException
+     */
+    public function getById($id): PaypalCheckoutInfoInterface
+    {
+        $object = $this->objectFactory->create();
+        $this->objectResourceModel->load($object, $id);
+        if (!$object->getId()) {
+            throw new NoSuchEntityException(__('Paypal Authorization Info with id "%1" does not exist.', $id));
+        }
+        return $object;
+    }
+
+    /**
+     * Delete PayPal Checkout Info.
      *
      * @param PaypalCheckoutInfoInterface $object
      * @return bool true on success
@@ -133,9 +153,9 @@ class PaypalCheckoutInfoRepository implements PaypalCheckoutInfoRepositoryInterf
     }
 
     /**
-     * Delete Paypal Checkout Info by ID.
+     * Delete PayPal Checkout Info by ID.
      *
-     * @param $id
+     * @param  $id
      * @return bool true on success
      * @throws CouldNotDeleteException
      * @throws NoSuchEntityException

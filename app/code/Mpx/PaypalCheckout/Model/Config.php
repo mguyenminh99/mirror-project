@@ -20,15 +20,18 @@ class Config
     const CONFIG_XML_INTENT               = 'payment_action';
     const CONFIG_XML_CURRENCY_CODE        = 'currency';
     const CONFIG_XML_COUNTRY_CODE         = 'country_code';
-    const CONFIG_XML_DEBUG_MODE           = 'debug_mode';
+    const CONFIG_XML_OUTPUT_DEBUG_LOG     = 'output_debug_log';
     const CONFIG_XML_ACTIVE_CARD          = 'enabled_card';
+    const CONFIG_XML_SANBOX_FLAG          = 'sandbox_flag';
+    const CONFIG_XML_SECRET               = 'Secret';
+
     /**
      * @var ScopeConfigInterface
      */
-    protected $_scopeConfig;
+    public $_scopeConfig;
 
     /** @var LoggerInterface */
-    protected $_logger;
+    public $_logger;
 
     /**
      * @param ScopeConfigInterface $scopeConfig
@@ -103,6 +106,16 @@ class Config
     }
 
     /**
+     * Get Secret
+     *
+     * @return mixed
+     */
+    public function getSecret()
+    {
+        return $this->getConfigValue(self::CONFIG_XML_SECRET);
+    }
+
+    /**
      * @return mixed
      */
     public function getCurrency()
@@ -136,5 +149,13 @@ class Config
     public function getActiveCard()
     {
         return $this->getConfigValue(self::CONFIG_XML_ACTIVE_CARD);
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getSandboxFlag()
+    {
+        return $this->getConfigValue(self::CONFIG_XML_SANBOX_FLAG);
     }
 }
