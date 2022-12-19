@@ -14,5 +14,9 @@ var config = {
             },
         }
     },
-
+    map: {
+        "*": {
+            'Magento_Customer/js/form/components/insert-form': 'Mpx_Customer/js/form/components/insert-form'
+        }
+    }
 }
