@@ -124,6 +124,11 @@
                 <enabled>0</enabled>
             </subscription>
         </analytics>
+        <customer>
+            <password>
+                <required_character_classes_number>2</required_character_classes_number>
+            </password>
+        </customer>
         <admin>
             <security>
                 <admin_account_sharing>1</admin_account_sharing>
