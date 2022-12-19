@@ -6,22 +6,12 @@ use Magento\Framework\Model\ResourceModel\Db\Context;
 use Magento\Framework\Model\ResourceModel\Db\AbstractDb;
 
 /**
- * class PaypalCheckoutInfo
+ * Class PaypalCheckoutInfo
+ *
  * Model PaypalCheckoutInfo
  */
 class PaypalCheckoutInfo extends AbstractDb
 {
-    /**
-     * @param Context $context
-     * @param null $connectionName
-     */
-    public function __construct(
-        Context $context,
-        $connectionName = null
-    ) {
-        parent::__construct($context, $connectionName);
-    }
-
     /**
      * @return void
      */

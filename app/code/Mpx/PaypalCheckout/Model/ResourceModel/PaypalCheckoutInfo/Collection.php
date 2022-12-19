@@ -6,7 +6,8 @@ use Magento\Framework\Model\ResourceModel\Db\Collection\AbstractCollection;
 use Mpx\PaypalCheckout\Model\PaypalCheckoutInfo;
 
 /**
- * class Collection
+ * Class Collection
+ *
  * Get Data DB
  */
 class Collection extends AbstractCollection
