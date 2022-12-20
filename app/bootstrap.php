@@ -70,7 +70,7 @@ if (
     );
 }
 
-date_default_timezone_set('Asia/Tokyo');
+date_default_timezone_set('UTC');
 
 /*  For data consistency between displaying (printing) and serialization a float number */
 ini_set('precision', 14);
