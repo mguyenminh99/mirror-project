@@ -70,7 +70,7 @@ if ($partner['shop_url']) {
             <?php if ($helper->getSellerFlagStatus() && (
                     ($flagReasons->getSize() && $helper->getSellerFlagData('reason')) || $helper->getSellerFlagData('other_reason'))
             ) { ?>
-                <div class="wk-mp-collection-seller-title">
+                <div class="wk-mp-collection-seller-title" hidden="hidden">
                     <span class="wk-report-flag-link"><a id="reportflag"><?= $helper->getSellerFlagData('seller_flag_label') ?></a></span>
                 </div>
             <?php } ?>
@@ -93,8 +93,8 @@ if ($partner['shop_url']) {
                     </div>
                     <?php if (trim($partner['privacy_policy'])) { ?>
                         <div class="wk-mp-seller-profile-box wk-mp-collection-header-bottom-txt">
-                            <a href="<?= /* @noEscape */ $helper->getRewriteUrl('marketplace/seller/policy/shop/'.$shopUrl);?>">
-                                <?= $block->escapeHtml(__('Privacy Policy'))?>
+                            <a href="<?= /* @noEscape */ $helper->getRewriteUrl('marketplace/seller/tokuteitorihiki/shop/'.$shopUrl);?>">
+                                <?= $block->escapeHtml(__('Display based on the Act on Specified Commercial Transactions'))?>
                             </a>
                         </div>
                     <?php } ?>

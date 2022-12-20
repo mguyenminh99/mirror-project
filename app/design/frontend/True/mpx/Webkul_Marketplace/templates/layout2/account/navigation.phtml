@@ -21,13 +21,6 @@ $transactionCount = $block->getTransactionNotificationCount();
 <nav data-mage-init='{"Webkul_Marketplace/js/sellerNavigation": {}}' class="wk-mp-menu wk-mp-main">
     <ul id="wk-mp-nav">
         <?php if ($isPartner): ?>
-            <?php if ($_helper->isAllowed('marketplace/account/dashboard')): ?>
-                <li class="wk-mp-item-dashboard level-0 <?= /* @noEscape */ strpos($magentoCurrentUrl, 'marketplace/account/dashboard')? "current active":"";?>" id="wk-mp-menu-dashboard" >
-                    <a href="<?= $block->escapeUrl($block->getUrl('marketplace/account/dashboard', ['_secure' => $this->getRequest()->isSecure()])); ?>" class="<?= /* @noEscape */ strpos($magentoCurrentUrl, 'marketplace/account/dashboard')? "active":"";?>">
-                        <span><?= /* @noEscape */ __('Dashboard') ?></span>
-                    </a>
-                </li>
-            <?php endif; ?>
             <?php if ($_helper->isAllowed('marketplace/order/history')): ?>
                 <li class="nav item notification-link wk-mp-item-order level-0 <?= /* @noEscape */ strpos($magentoCurrentUrl, 'marketplace/order') && (!strpos($magentoCurrentUrl, 'marketplace/order/shipping/'))? "current active":"";?>" id="wk-mp-menu-order" >
                     <a href="<?= $block->escapeUrl($block->getUrl('marketplace/order/history', ['_secure' => $this->getRequest()->isSecure()])); ?>" class="<?= /* @noEscape */ strpos($magentoCurrentUrl, 'marketplace/order') && (!strpos($magentoCurrentUrl, 'marketplace/order/shipping/'))? "active":"";?>">
@@ -67,15 +60,6 @@ $transactionCount = $block->getTransactionNotificationCount();
                                                 </a>
                                             </li>
                                         <?php endif; ?>
-                                        <?php if ($_helper->isAllowed('marketplace/product_attribute/new')): ?>
-                                            <?php if (strpos($allow_pro_type, 'configurable') !== false): ?>
-                                                <li class="level-2">
-                                                    <a href="<?= $block->escapeUrl($block->getUrl('marketplace/product_attribute/new', ['_secure' => $this->getRequest()->isSecure()])); ?>">
-                                                        <span><?= /* @noEscape */ __('Configurable Attribute') ?></span>
-                                                    </a>
-                                                </li>
-                                            <?php endif; ?>
-                                        <?php endif; ?>
                                     </ul>
                                 </div>
                             </li>
@@ -93,28 +77,9 @@ $transactionCount = $block->getTransactionNotificationCount();
                 <?php endif; ?>
             <?php endif; ?>
             <?php if ($_helper->isAllowed('marketplace/account/earning')): ?>
-                <li class="nav item notification-link wk-mp-item-earning level-0 <?= /* @noEscape */ strpos($magentoCurrentUrl, 'marketplace/account/earning')? "current active":"";?>" id="wk-mp-menu-earning" >
-                    <a href="<?= $block->escapeUrl($block->getUrl('marketplace/account/earning', ['_secure' => $this->getRequest()->isSecure()])); ?>" class="<?= /* @noEscape */ strpos($magentoCurrentUrl, 'marketplace/account/earning')? "active":"";?>">
-                        <span><?= /* @noEscape */ __('Earnings') ?></span>
-                    </a>
-                </li>
-            <?php endif; ?>
-            <?php if ($_helper->isAllowed('marketplace/order/shipping')): ?>
-                <?php if ($_helper->getIsOrderManage()=="1"): ?>
-                    <li class="wk-mp-item-order-shipping level-0 <?= /* @noEscape */ strpos($magentoCurrentUrl, 'marketplace/order/shipping')? "current active":"";?>" id="wk-mp-menu-order-shipping" >
-                        <a href="<?= $block->escapeUrl($block->getUrl('marketplace/order/shipping', ['_secure' => $this->getRequest()->isSecure()])); ?>" class="<?= /* @noEscape */ strpos($magentoCurrentUrl, 'marketplace/order/shipping')? "active":"";?>">
-                            <span><?= /* @noEscape */ __('Manage Print PDF Header Info') ?></span>
-                        </a>
-                    </li>
-                <?php endif; ?>
             <?php endif; ?>
             <?php if ($_helper->isAllowed('marketplace/account/review')): ?>
                 <?php if ($_helper->getSellerProfileDisplayFlag()): ?>
-                    <li class="wk-mp-item-review level-0 <?= /* @noEscape */ strpos($magentoCurrentUrl, 'marketplace/account/review')? "current active":"";?>" id="wk-mp-menu-review" >
-                        <a href="<?= $block->escapeUrl($block->getUrl('marketplace/account/review', ['_secure' => $this->getRequest()->isSecure()])); ?>" class="<?= /* @noEscape */ strpos($magentoCurrentUrl, 'marketplace/account/review')? "active":"";?>">
-                            <span><?= /* @noEscape */ __('Review') ?></span>
-                        </a>
-                    </li>
                 <?php endif; ?>
             <?php endif; ?>
             <?= $block->getChildHtml('layout2_seller_account_navigation');?>

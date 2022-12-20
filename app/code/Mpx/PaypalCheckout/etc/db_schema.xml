@@ -1,0 +1,60 @@
+<?xml version="1.0"?>
+
+<schema xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:framework:Setup/Declaration/Schema/etc/schema.xsd">
+    <table name="paypal_checkout_info" resource="default" engine="innodb">
+        <column xsi:type="int" name="id" unsigned="true" padding="10" nullable="false" identity="true"/>
+        <column xsi:type="varchar" name="order_increment_id" length="32" nullable="false"
+                comment="セラーや顧客に提示されるmagentoの注文番号"/>
+        <column xsi:type="varchar" name="action" length="20" nullable="false"
+                comment="実行するPaypal REST APIのタイプ authorize capture refund void"/>
+        <column xsi:type="varchar" name="status" length="20" nullable="false"
+                comment="連携ステータス unprocessed:未処理 authorized:オーソリ済 captured:キャプチャ済 capture_failed:キャプチャ失敗 refunded:返金済 refund_failed:返金失敗 voided:オーソリ取消済 void_failed:オーソリ取消失敗"/>
+        <column xsi:type="varchar" name="paypal_api_request_id" length="38"
+                comment="PayPal APIのリクエスト時に渡すID  冪等性の実現のために使用する"/>
+        <column xsi:type="decimal" name="paypal_authorization_amount" scale="4" precision="20"
+                comment="PayPal Authorization処理の対象金額"/>
+        <column xsi:type="varchar" name="paypal_authorization_id" length="50"
+                comment="PayPal Authorization処理のID  Capture処理、Void処理に使用する"/>
+        <column xsi:type="timestamp" name="paypal_authorization_period" comment="オーソリ最終期限"/>
+        <column xsi:type="timestamp" name="paypal_honor_period"
+                comment="オーソリ取得後、captureの成功が保証される期限 この期限内にcaptureすることが推奨されている"/>
+        <column xsi:type="timestamp" name="paypal_authorized_at" comment="PayPal Authorization処理を行った日時"/>
+        <column xsi:type="varchar" name="paypal_void_id" length="50" comment="PayPal Void処理のID"/>
+        <column xsi:type="timestamp" name="paypal_voided_at" comment="PayPal Void処理を行った日時"/>
+        <column xsi:type="decimal" name="paypal_capture_amount" scale="4" precision="20"
+                comment="Capture処理の対象金額"/>
+        <column xsi:type="varchar" name="paypal_capture_id" length="50"
+                comment="PayPal Capture処理のID  Refund処理に使用する"/>
+        <column xsi:type="timestamp" name="paypal_captured_at" comment="PayPal Capture処理を行った日時"/>
+        <column xsi:type="decimal" name="paypal_refund_amount" scale="4" precision="20"
+                comment="PayPal Refund処理の対象金額"/>
+        <column xsi:type="varchar" name="paypal_refund_id" length="50" comment="PayPal Refund処理のID"/>
+        <column xsi:type="timestamp" name="paypal_refunded_at" comment="PayPal Refund処理を行った日時"/>
+        <column xsi:type="timestamp" name="created_at" on_update="false" default="CURRENT_TIMESTAMP"/>
+        <column xsi:type="timestamp" name="updated_at"/>
+        <!--Delete Column-->
+        <column xsi:type="varchar" name="paypal_status"  disabled="true"/>
+        <column xsi:type="timestamp" name="all_shipped_at" disabled="true"/>
+        <column xsi:type="timestamp" name="authorization_period" disabled="true"/>
+        <column xsi:type="timestamp" name="honor_period" disabled="true"/>
+        <column xsi:type="timestamp" name="authorized_at" disabled="true"/>
+        <column xsi:type="timestamp" name="authority_extended_at" disabled="true"/>
+        <column xsi:type="timestamp" name="captured_at" disabled="true"/>
+        <column xsi:type="decimal" name="settlement_amount" scale="4" precision="20" disabled="true"/>
+        <column xsi:type="timestamp" name="canceled_at" disabled="true"/>
+        <column xsi:type="varchar" name="authorization_id" length="50" disabled="true"/>
+        <!--Delete Column-->
+        <constraint xsi:type="primary" referenceId="PRIMARY">
+            <column name="id"/>
+        </constraint>
+        <!-- add index-->
+        <index referenceId="paypal_checkout_info_order_increment_id" indexType="btree">
+            <column name="order_increment_id"/>
+        </index>
+        <index referenceId="paypal_checkout_info_status" indexType="btree">
+            <column name="status"/>
+        </index>
+        <!-- end add index -->
+    </table>
+</schema>

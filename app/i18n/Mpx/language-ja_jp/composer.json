@@ -1,0 +1,21 @@
+{
+    "name": "mpx/language-ja_jp",
+    "version": "1.0.0",
+    "type": "magento2-language",
+    "description": "Mpx Japan (Japanese) language",
+    "license": [
+        "OSL-3.0",
+        "AFL-3.0"
+    ],
+    "config": {
+        "sort-packages": true
+    },
+    "require": {
+        "magento/framework": "^102.0.0"
+    },
+    "autoload": {
+        "files": [
+            "registration.php"
+        ]
+    }
+}

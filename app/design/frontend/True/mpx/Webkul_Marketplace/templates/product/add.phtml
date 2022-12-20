@@ -66,7 +66,7 @@ $taxName = $tax10Percent->getClassName();
                     <img src="<?= $block->escapeUrl($this->getViewFileUrl('Webkul_Marketplace::images/quest.png')); ?>" class='questimg' title="<?= $block->escapeHtml($helper->getProductHintCategory()) ?>"/>
                 <?php endif; ?>
                 <?php if ($helper->getIsAdminViewCategoryTree()) { ?>
-                    <div data-bind="scope: 'sellerCategory'">
+                    <div id="list-category" data-bind="scope: 'sellerCategory'">
                         <!-- ko template: getTemplate() --><!-- /ko -->
                     </div>
                     <script type="text/x-magento-init">
@@ -89,12 +89,12 @@ $taxName = $tax10Percent->getClassName();
                     </script>
                 <?php } else { ?>
                     <div class="wk-field wk-category">
-                        <div class="wk-for-validation">
+                        <div class="wk-for-validation" id="list-category">
                             <div id="wk-category-label"><?= $block->escapeHtml(__("CATEGORIES")); ?></div>
                             <?php
                             $categories = $data['product']['category_ids'];
                             foreach ($categories as $value) { ?>
-                                <input type="hidden" name="product[category_ids][]" value="<?= $block->escapeHtml($value); ?>" id="wk-cat-hide<?= $block->escapeHtml($value); ?>"/>
+                                <input class="values-category" type="hidden" name="product[category_ids][]" value="<?= $block->escapeHtml($value); ?>" id="wk-cat-hide<?= $block->escapeHtml($value); ?>"/>
                             <?php } ?>
                             <?php
                             if ($helper->getAllowedCategoryIds()) {
@@ -211,28 +211,7 @@ $taxName = $tax10Percent->getClassName();
                     <img src="<?= $block->escapeUrl($this->getViewFileUrl('Webkul_Marketplace::images/quest.png')); ?>" class='questimg' title="<?= $block->escapeHtml($helper->getProductHintShortDesc()) ?>"/>
                 <?php } ?>
                 <div class="control wk-border-box-sizing">
-                    <textarea name="product[short_description]" class="input-text" id="short_description" rows="5" cols="75" ><?= /* @noEscape */ $data['product']['short_description']?></textarea>
-                    <?php if ($helper->isWysiwygEnabled()): ?>
-                        <script>
-                            require([
-                                "jquery",
-                                "mage/translate",
-                                "mage/adminhtml/events",
-                                "mage/adminhtml/wysiwyg/tiny_mce/setup"
-                            ], function(jQuery) {
-                                wysiwygShortDescription = new wysiwygSetup("short_description", {
-                                    "width" : "100%",
-                                    "height" : "200px",
-                                    "plugins" : [{"name":"image"}],
-                                    "tinymce4" : {
-                                        "toolbar":"formatselect | bold italic underline | alignleft aligncenter alignright | bullist numlist | link table charmap","plugins":"advlist autolink lists link charmap media noneditable table contextmenu paste code help table",
-                                    },
-                                    files_browser_window_url: "<?=$block->getWysiwygUrl();?>"
-                                });
-                                wysiwygShortDescription.setup("exact");
-                            });
-                        </script>
-                    <?php endif; ?>
+                    <input type="text" name="product[short_description]" data-validate='{"maxlength":128}' class="input-text" id="short_description"></input>
                 </div>
             </div>
             <?php if ($skuType == 'static'): ?>

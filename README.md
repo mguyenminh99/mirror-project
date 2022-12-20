@@ -1,4 +1,4 @@
-# Marketplace Template Reposotory
+# x-shopping-st Template Reposotory
 
 ## Expected system versions
 - ubuntu18.04
@@ -42,31 +42,3 @@ Imstall Magento2 by using following command with options
 or
 from browser.
 Go to http://your_project_url
-
-## Included extension list
-
-### Magento
-
-- Paypal
-Magento/Paypal module modified to use it for JP Yen.
-
-### CommunityEngineering JP Localization
-https://github.com/magento/magento2-jp
-
-- Kuromoji
-(For elasticsearch kuromoji)
-
-### Webkul
-
-- Marketplace
-Marketplace extension.
-- Marketplace API
-Marketplace API extension.
-- MarketPlaceBaseShipping
-Extension to enable sellers to set Table Rate Shipping for them.
-- MarketPlaceAssignProduct
-Extension to enable sellers to sell common products.
-- MarketPlaceTimeDelivery
-Extension to enable sellers to set Delivery Time for them.
-- MarketPlaceShipping
-Extension to enable sellers to set Shipping Method for them.

@@ -1,0 +1,14 @@
+<?php
+/** @var $block \Mpx\Backend\Block\Adminhtml\Customer\Edit\RemoveSellerTab */
+
+?>
+<div id="modal_remove_seller">
+    <div class="modal-body-content">
+        <p><?= $block->escapeHtml(__('Is it ok if all store data will be deleted ?')) ?></p>
+    </div>
+</div>
+<script>
+    require(['jquery', 'removeSeller'], function($, modal) {
+        removeSeller();
+    });
+</script>

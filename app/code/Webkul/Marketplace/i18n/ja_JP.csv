@@ -4,7 +4,7 @@
 "My Products List","商品リスト"
 "My Transaction List","取引履歴"
 "Earnings","売上"
-"Manage Print PDF Header Info","出力するPDFヘッダの編集"
+"Edit PDF Header","PDFヘッダの編集"
 "Manage Assign Product","商品の割り当て"
 "Shipping Setting","配送設定"
 "Time Slots Configuration","指定可能な配送日時の設定"
@@ -115,7 +115,8 @@
 
 "Time Slots","配送希望日時"
 "Date/Day","配送希望日"
-
+"Edit Product","商品を編集"
+"Your product has been successfully saved","商品情報を更新しました。"
 
 
 

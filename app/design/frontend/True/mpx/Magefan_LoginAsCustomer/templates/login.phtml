@@ -1,0 +1,14 @@
+<?php
+
+/** @var \Magento\Framework\View\Element\Template $block */
+?>
+
+<script type="text/x-magento-init">
+{
+    "*": {
+        "Magefan_LoginAsCustomer/js/login": {
+            "redirectUrl": "<?= $block->getUrl('marketplace/account/dashboard/') ?>"
+        }
+    }
+}
+</script>

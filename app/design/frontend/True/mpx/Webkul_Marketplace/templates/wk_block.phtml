@@ -1,13 +1,17 @@
 <?php
+// @codingStandardsIgnoreFile
+
 /**
- * Webkul Software.
+ * Mpx Software.
  *
- * @category  Webkul
- * @package   Webkul_Marketplace
- * @author    Webkul
- * @copyright Copyright (c) Webkul Software Private Limited (https://webkul.com)
- * @license   https://store.webkul.com/license.html
+ * @category  Mpx
+ * @package   Mpx_Marketplace
+ * @author    Mpx
  */
+
+/** @var $block \Webkul\Marketplace\Block\Sellerblock */
+
+
 $helper = $this->helper(\Webkul\Marketplace\Helper\Data::class);
 $product = $block->getProduct();
 $sellerId = '';
@@ -113,18 +117,6 @@ $cardType = $helper->getDisplayCardType();
                                 </div>
                             <?php endif; ?>
                         </div>
-                        <?php if ($companyLocality != ""): ?>
-                            <div class="wk-seller-card-row">
-                                <a class="wk-seller-location-link" title="<?= $block->escapeHtml(__($companyLocality)); ?>" href="<?= $block->escapeUrl($helper->getRewriteUrl('marketplace/seller/location/shop/'.$shopUrl)."?loc=".$companyLocality)?>" target="_blank">
-                                    <?= $block->escapeHtml(__($companyLocality)); ?>
-                                </a>
-                            </div>
-                        <?php endif; ?>
-
-                        <div class="wk-seller-card-row">
-                            <span class="wk-ask-question-link"><a id="askque"><?= $block->escapeHtml(__('Contact Seller')) ?></a></span>
-                            <?= $block->getChildHtml();?>
-                        </div>
                         <?php if ($helper->getProductFlagStatus() && (
                                 ($flagReasons->getSize() && $helper->getProductFlagData('reason')) || $helper->getProductFlagData('other_reason'))
                         ): ?>
@@ -167,13 +159,6 @@ $cardType = $helper->getDisplayCardType();
                         </a>
                     </span>
                 </div>
-                <?php if ($companyLocality != ""): ?>
-                    <div class="wk-seller-card-row">
-                        <a class="wk-seller-location-link" title="<?= $block->escapeHtml(__($companyLocality)); ?>" href="<?= $block->escapeUrl($helper->getRewriteUrl('marketplace/seller/location/shop/'.$shopUrl)."?loc=".$companyLocality)?>" target="_blank">
-                            <?= $block->escapeHtml(__($companyLocality)); ?>
-                        </a>
-                    </div>
-                <?php endif; ?>
                 <div class="wk-seller-card-row">
                     <?php if ($rating > 0):?>
                         <div class="wk-seller-card-col">
@@ -224,17 +209,8 @@ $cardType = $helper->getDisplayCardType();
                             </div>
                         </div>
                     <?php endif; ?>
-                    <div class="wk-seller-card-col">
-                        <a class="wk-seller-product-count" href="<?= $block->escapeUrl($collectionPageUrl); ?>" target="_blank">
-                            <?= $block->escapeHtml($productLabel); ?>
-                        </a>
-                    </div>
                 </div>
 
-                <div class="wk-seller-card-row">
-                    <span class="wk-ask-question-link"><a id="askque"><?= $block->escapeHtml(__('Contact Seller')) ?></a></span>
-                    <?= $block->getChildHtml();?>
-                </div>
             <?php endif; ?>
         </div>
     </div>

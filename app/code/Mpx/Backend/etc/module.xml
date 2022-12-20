@@ -13,6 +13,9 @@
     <module name="Mpx_Backend">
         <sequence>
             <module name="Magento_Theme"/>
+            <module name="Magento_Ui"/>
+            <module name="CommunityEngineering_JapaneseAddress"/>
+            <module name="Webkul_Marketplace"/>
         </sequence>
     </module>
 </config>

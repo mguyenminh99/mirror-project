@@ -1,13 +1,11 @@
 <?php
 // @codingStandardsIgnoreFile
 /**
- * Webkul Software.
+ * Mpx Software.
  *
- * @category  Webkul
- * @package   Webkul_Marketplace
- * @author    Webkul
- * @copyright Copyright (c) Webkul Software Private Limited (https://webkul.com)
- * @license   https://store.webkul.com/license.html
+ * @category  Mpx
+ * @package   Mpx_Marketplace
+ * @author    Mpx
  */
 /** @var $block \Webkul\Marketplace\Block\Account\Editprofile */
 $helper = $this->helper(\Webkul\Marketplace\Helper\Data::class);
@@ -18,7 +16,7 @@ if (empty($partner)) {
 $profile_hint_status = $helper->getProfileHintStatus();
 $currencySymbol = $helper->getCurrencySymbol();
 ?>
-<form action="<?= $block->escapeUrl($block->getUrl('marketplace/account/editProfilePost', ["_secure" => $this->getRequest()->isSecure()])) ?>" enctype="multipart/form-data" method="post" data-role="form-profile-validate" data-mage-init='{"validation":{}}'>
+<form id="edit-profile-seller" action="<?= $block->escapeUrl($block->getUrl('marketplace/account/editProfilePost', ["_secure" => $this->getRequest()->isSecure()])) ?>" enctype="multipart/form-data" method="post" data-role="form-profile-validate" data-mage-init='{"validation":{}}'>
     <div class="wk-mp-design">
         <fieldset class="fieldset info wk-mp-fieldset">
             <div data-mage-init='{"formButtonAction": {}}' class="wk-mp-page-title legend" id="wk-mp-editprofile-form">
@@ -160,7 +158,7 @@ $currencySymbol = $helper->getCurrencySymbol();
                     <?php
                 } ?>
                 <div class="control">
-                    <input type="text" id="shop_title" name="shop_title" value="<?= $block->escapeHtml($partner['shop_title']); ?>" title="<?= /* @noEscape */ __('Shop Title')?>" class="input-text" />
+                    <input type="text" id="shop_title" name="shop_title" value="<?= $block->escapeHtml($partner['shop_title']); ?>" title="<?= /* @noEscape */ __('Shop Title')?>" class="input-text validate-shop-title" />
                 </div>
             </div>
             <div class="field profile">
@@ -259,7 +257,7 @@ $currencySymbol = $helper->getCurrencySymbol();
             <?php
             if ($helper->getSellerPolicyApproval()) {?>
                 <div class="field profile">
-                    <label><?= /* @noEscape */ __('Return Policy') ?></label>
+                    <label><?= /* @noEscape */ __('Cancellation/return') ?></label>
                     <?php
                     if ($profile_hint_status && $helper->getProfileHintReturnPolicy()) {?>
                         <img src="<?= $block->escapeUrl($this->getViewFileUrl('Webkul_Marketplace::images/quest.png')); ?>" class='questimg' title="<?= $block->escapeHtml($helper->getProfileHintReturnPolicy()) ?>"/>
@@ -270,7 +268,7 @@ $currencySymbol = $helper->getCurrencySymbol();
                     </div>
                 </div>
                 <div class="field profile">
-                    <label><?= /* @noEscape */ __('Shipping Policy') ?></label>
+                    <label><?= /* @noEscape */ __('Regarding delivery') ?></label>
                     <?php
                     if ($profile_hint_status && $helper->getProfileHintShippingPolicy()) {?>
                         <img src="<?= $block->escapeUrl($this->getViewFileUrl('Webkul_Marketplace::images/quest.png')); ?>" class='questimg' title="<?= $block->escapeHtml($helper->getProfileHintShippingPolicy()) ?>"/>
@@ -281,7 +279,7 @@ $currencySymbol = $helper->getCurrencySymbol();
                     </div>
                 </div>
                 <div class="field profile">
-                    <label><?= /* @noEscape */ __('Privacy Policy') ?></label>
+                    <label><?= /* @noEscape */ __('Display based on the Act on Specified Commercial Transactions') ?></label>
                     <div class="control">
                         <textarea type="text" id="privacy_policy" name="privacy_policy" title="<?= /* @noEscape */ __('Privacy Policy') ?>" class="input-text compdesi" ><?= /* @noEscape */ $partner['privacy_policy']; ?> </textarea>
                     </div>
@@ -381,7 +379,7 @@ if ($helper->getUrlRewrite()) { ?>
                 <div class="field">
                     <label><?= /* @noEscape */ __('Privacy Policy Page Request Url Path') ?></label>
                     <div class="control">
-                        <input type="text" class="input-text" name="policy_request_url" id="policy_request_url" value="<?= /* @noEscape */ $helper->getRewriteUrlPath('marketplace/seller/policy/shop/'.$partner['shop_url']) ?>"/>
+                        <input type="text" class="input-text" name="policy_request_url" id="policy_request_url" value="<?= /* @noEscape */ $helper->getRewriteUrlPath('marketplace/seller/tokuteitorihiki/shop/'.$partner['shop_url']) ?>"/>
                     </div>
                 </div>
             </fieldset>
@@ -492,3 +490,15 @@ $serializedFormData = $this->helper(\Magento\Framework\Json\Helper\Data::class)-
         }
     }
 </script>
+
+<script type="text/javascript">
+    require([
+        'jquery',
+        'mage/mage'
+    ], function($){
+
+        var dataForm = $('#edit-profile-seller');
+        dataForm.mage('validation', {});
+    });
+</script>
+
