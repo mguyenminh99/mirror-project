@@ -174,5 +174,8 @@ Shipped,出荷数
 "Create new account","新規アカウント作成"
 "Member registration is required to shop on this site.","本サイトでお買い物いただくにはアカウント作成が必須となります。"
 "Thanks for contacting us with your comments and questions. We'll respond to you very soon.","送信しました"
+"Your %store_name login password has been changed","%store_name お客様のログインパスワードが変更されました"
+"The login password for your account has been changed.","お客様のアカウントのログインパスワードが変更されました。"
+"If you do not recognize this email, please contact us at <a href=""mailto:%xsAdminEmail"">%xsAdminEmail</a>","このメールに心当たりがない場合は、<a href=""mailto:%xsAdminEmail"">%xsAdminEmail</a>までご連絡ください。"
 "Postal code is not correct.","郵便番号が正しくありません。"
 "Post code is empty","郵便番号が入力されていません。"
