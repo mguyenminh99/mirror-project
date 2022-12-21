@@ -48,7 +48,7 @@ define([
             //ログインしていない=>ログインリンクを表示
             deferred.resolve(isLoggedIn(customerInfo));
             $("#footer-login-logout").html(
-                '<a href="' + href + '">' + $t('Login') + '</a>'
+                '<a href="/customer/account/login/">' + $t('Login') + '</a>'
             );
         }
         return deferred;
