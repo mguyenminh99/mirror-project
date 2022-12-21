@@ -1,6 +1,7 @@
 <?php
 namespace Mpx\Customer\Model;
 
+use Magento\Customer\Model\CustomerRegistry;
 use Magento\Framework\App\Config\ScopeConfigInterface;
 use Magento\Framework\App\ObjectManager;
 use Magento\Framework\Mail\Template\SenderResolverInterface;
@@ -9,6 +10,7 @@ use Magento\Framework\Mail\Template\TransportBuilder;
 use Magento\Customer\Helper\View as CustomerViewHelper;
 use Magento\Customer\Api\Data\CustomerInterface;
 use Magento\Framework\Reflection\DataObjectProcessor;
+use Magento\User\Model\User;
 
 /**
  * Customer email notification
@@ -17,9 +19,9 @@ use Magento\Framework\Reflection\DataObjectProcessor;
  */
 class EmailNotification extends \Magento\Customer\Model\EmailNotification
 {
-    /**#@-*/
-
-    /**#@-*/
+    /**
+     * @var CustomerRegistry
+     */
     private $customerRegistry;
 
     /**
@@ -53,6 +55,11 @@ class EmailNotification extends \Magento\Customer\Model\EmailNotification
     private $senderResolver;
 
     /**
+     * @var User
+     */
+    private $user;
+
+    /**
      * @param CustomerRegistry $customerRegistry
      * @param StoreManagerInterface $storeManager
      * @param TransportBuilder $transportBuilder
@@ -60,6 +67,7 @@ class EmailNotification extends \Magento\Customer\Model\EmailNotification
      * @param DataObjectProcessor $dataProcessor
      * @param ScopeConfigInterface $scopeConfig
      * @param SenderResolverInterface|null $senderResolver
+     * @param User $user
      */
     public function __construct(
         CustomerRegistry $customerRegistry,
@@ -68,7 +76,8 @@ class EmailNotification extends \Magento\Customer\Model\EmailNotification
         CustomerViewHelper $customerViewHelper,
         DataObjectProcessor $dataProcessor,
         ScopeConfigInterface $scopeConfig,
-        SenderResolverInterface $senderResolver = null
+        SenderResolverInterface $senderResolver = null,
+        User $user
     ) {
         $this->customerRegistry = $customerRegistry;
         $this->storeManager = $storeManager;
@@ -77,6 +86,16 @@ class EmailNotification extends \Magento\Customer\Model\EmailNotification
         $this->dataProcessor = $dataProcessor;
         $this->scopeConfig = $scopeConfig;
         $this->senderResolver = $senderResolver ?: ObjectManager::getInstance()->get(SenderResolverInterface::class);
+        $this->user = $user;
+        parent::__construct(
+            $customerRegistry,
+            $storeManager,
+            $transportBuilder,
+            $customerViewHelper,
+            $dataProcessor,
+            $scopeConfig,
+            $senderResolver
+        );
     }
 
     /**
@@ -89,8 +108,8 @@ class EmailNotification extends \Magento\Customer\Model\EmailNotification
      */
     public function credentialsChanged(
         CustomerInterface $savedCustomer,
-                          $origCustomerEmail,
-                          $isPasswordChanged = false
+        $origCustomerEmail,
+        $isPasswordChanged = false
     ) {
         if ($origCustomerEmail != $savedCustomer->getEmail()) {
             if ($isPasswordChanged) {
@@ -170,6 +189,7 @@ class EmailNotification extends \Magento\Customer\Model\EmailNotification
     private function passwordReset(CustomerInterface $customer)
     {
         $storeId = $customer->getStoreId();
+        $xsAdminEmail = $this->user->loadByUsername('xs-admin')->getEmail();
         if (!$storeId) {
             $storeId = $this->getWebsiteStoreId($customer);
         }
@@ -180,7 +200,8 @@ class EmailNotification extends \Magento\Customer\Model\EmailNotification
             $customer,
             self::XML_PATH_RESET_PASSWORD_TEMPLATE,
             self::XML_PATH_FORGOT_EMAIL_IDENTITY,
-            ['customer' => $customerEmailData, 'store' => $this->storeManager->getStore($storeId)],
+            ['customer' => $customerEmailData, 'store' => $this->storeManager->getStore($storeId),
+                'xsAdminEmail' => $xsAdminEmail],
             $storeId
         );
     }
