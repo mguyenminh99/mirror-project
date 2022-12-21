@@ -9,7 +9,6 @@ use Magento\Framework\App\Config\ScopeConfigInterface;
 use Magento\Framework\Data\Collection\AbstractDb;
 use Magento\Framework\DataObject;
 use Magento\Framework\Event\ManagerInterface;
-use Magento\Framework\Exception\CouldNotSaveException;
 use Magento\Framework\Exception\LocalizedException;
 use Magento\Framework\Mail\Template\TransportBuilder;
 use Magento\Framework\Model\Context;
@@ -20,7 +19,6 @@ use Magento\Payment\Helper\Data;
 use Magento\Payment\Model\InfoInterface;
 use Magento\Payment\Model\Method\AbstractMethod;
 use Magento\Payment\Model\Method\Logger;
-use Magento\Quote\Api\Data\CartInterface;
 use Magento\Sales\Model\Order;
 use Magento\Store\Model\StoreManagerInterface;
 use Mpx\PaypalCheckout\Logger\Handler;
@@ -37,7 +35,6 @@ class Payment extends AbstractMethod
     const GATEWAY_NOT_TXN_ID_PRESENT = 'The transaction id is not present';
     const INTENT_CAPTURE             = 'CAPTURE';
     const INTENT_AUTHORIZE           = 'AUTHORIZE';
-
 
     /**
      * @var string
@@ -93,9 +90,6 @@ class Payment extends AbstractMethod
      * @var Config
      */
     protected $paypalConfig;
-
-
-    private $_checkoutSession;
 
     /**
      * @param Context $context
@@ -163,7 +157,7 @@ class Payment extends AbstractMethod
      * @return $this
      * @throws Exception|\Exception
      */
-    public function authorize(\Magento\Payment\Model\InfoInterface $payment, $amount): Payment
+    public function authorize(InfoInterface $payment, $amount): Payment
     {
         $this->processTransaction($payment);
         return $this;
@@ -198,9 +192,17 @@ class Payment extends AbstractMethod
      * @return $this|Payment
      * @throws \Exception
      */
-    public function capture(\Magento\Payment\Model\InfoInterface $payment, $amount): Payment
+    public function capture(InfoInterface $payment, $amount): Payment
     {
-        $this->processTransaction($payment);
+        $captureTransactionId = $payment->getAdditionalInformation('transaction_capture_id');
+        if ($captureTransactionId) {
+            $authorizationTransaction = $payment->getAuthorizationTransaction();
+            $payment->setTransactionId($captureTransactionId)
+                ->setParentTransactionId($authorizationTransaction->getTxnId())
+                ->setIsTransactionClosed(true);
+        } else {
+            $this->processTransaction($payment);
+        }
         return $this;
     }
 
@@ -297,5 +299,17 @@ class Payment extends AbstractMethod
             $path = 'payment/' . $this->_code . '/' . $field;
         }
         return $this->_scopeConfig->getValue($path, \Magento\Store\Model\ScopeInterface::SCOPE_STORE, $storeId);
+    }
+
+    /**
+     * Get PayPal Capture TransactionId
+     *
+     * @param InfoInterface $payment
+     * @param $transactionId
+     * @return void
+     */
+    public function setPayPalCaptureTransactionId(InfoInterface $payment, $transactionId): void
+    {
+        $payment->setAdditionalInformation('transaction_capture_id', $transactionId);
     }
 }

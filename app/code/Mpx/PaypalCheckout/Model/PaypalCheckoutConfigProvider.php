@@ -96,7 +96,7 @@ class PaypalCheckoutConfigProvider implements \Magento\Checkout\Model\ConfigProv
                         'id' => $this->validateCustomerId(),
                     ],
                     self::SDK_CONFIG_INTENT => $this->_paypalConfig->getIntent(),
-                    self::SDK_CONFIG_DEBUG => $this->_paypalConfig->isSetFLag(Config::CONFIG_XML_DEBUG_MODE),
+                    self::SDK_CONFIG_DEBUG => $this->_paypalConfig->isSetFLag(Config::CONFIG_XML_OUTPUT_DEBUG_LOG),
                     'activeCard' => $this->_paypalConfig->getActiveCard(),
                     'invoice_id' => $invoiceID,
                     'credit_card_title' => $this->_paypalConfig->getConfigValue(Config::CONFIG_XML_CREDIT_CARD_TITLE),
@@ -132,7 +132,7 @@ class PaypalCheckoutConfigProvider implements \Magento\Checkout\Model\ConfigProv
             self::SDK_CONFIG_CLIENT_ID  => $this->_paypalConfig->getClientId(),
             self::SDK_CONFIG_CURRENCY   => $this->_paypalConfig->getCurrency(),
             self::SDK_CONFIG_DEBUG      => $this->_paypalConfig
-                                                ->isSetFLag(Config::CONFIG_XML_DEBUG_MODE) ? 'true' : 'false',
+                                                ->isSetFLag(Config::CONFIG_XML_OUTPUT_DEBUG_LOG) ? 'true' : 'false',
             self::SDK_CONFIG_COMPONENTS => 'hosted-fields,buttons,funding-eligibility',
             self::SDK_CONFIG_LOCALE     => 'ja_JP',
             self::SDK_CONFIG_INTENT     => $this->_paypalConfig->getIntent(),

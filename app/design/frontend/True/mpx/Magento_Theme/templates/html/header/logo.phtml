@@ -1,0 +1,30 @@
+<?php
+/**
+ * @var \Mpx\Marketplace\Block\Html\Header\Logo $block
+ */
+$storeName = $block->getThemeName() ? $block->getThemeName() : $block->getLogoAlt()
+?>
+<span data-action="toggle-nav" class="action nav-toggle"><span><?= $block->escapeHtml(__('Toggle Nav')) ?></span></span>
+<a
+    class="logo"
+    href="<?= $block->escapeUrl($block->getUrl('')) ?>"
+    title="<?= $block->escapeHtmlAttr($storeName) ?>"
+    aria-label="store logo">
+    <?php if ($block->getFullActionName() === "marketplace_account_login") :?>
+
+        <img src="<?= $block->escapeUrl($block->getViewFileUrl('images/logo_seller.svg')) ?>"
+             title="<?= $block->escapeHtmlAttr($block->getLogoAlt()) ?>"
+             alt="<?= $block->escapeHtmlAttr($block->getLogoAlt()) ?>"
+            <?= $block->getLogoWidth() ? 'width="' . $block->escapeHtmlAttr($block->getLogoWidth()) . '"' : '' ?>
+            <?= $block->getLogoHeight() ? 'height="' . $block->escapeHtmlAttr($block->getLogoHeight()) . '"' : '' ?>
+        />
+    <?php else: ?>
+        <img src="<?= $block->escapeUrl($block->getLogoSrc()) ?>"
+             title="<?= $block->escapeHtmlAttr($block->getLogoAlt()) ?>"
+             alt="<?= $block->escapeHtmlAttr($block->getLogoAlt()) ?>"
+            <?= $block->getLogoWidth() ? 'width="' . $block->escapeHtmlAttr($block->getLogoWidth()) . '"' : '' ?>
+            <?= $block->getLogoHeight() ? 'height="' . $block->escapeHtmlAttr($block->getLogoHeight()) . '"' : '' ?>
+        />
+    <?php endif;?>
+
+</a>

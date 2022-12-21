@@ -1,0 +1,7 @@
+<config>
+    <group id="paypal_capture">
+        <job name="paypal_capture_job" instance="Mpx\PaypalCheckout\Cron\PaypalCapture" method="execute_paypal_capture_batch">
+            <schedule>0,10,20,30,40,50 * * * *</schedule>
+        </job>
+    </group>
+</config>

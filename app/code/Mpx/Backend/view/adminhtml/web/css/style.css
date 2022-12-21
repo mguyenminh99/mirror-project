@@ -1,0 +1,8 @@
+.customer-index-edit .modal-popup .modal-inner-wrap {
+    width: 33% !important;
+}
+@media screen and (max-width: 1050px) {
+    .customer-index-edit  .modal-popup .modal-inner-wrap{
+        width: 60% !important;
+    }
+}

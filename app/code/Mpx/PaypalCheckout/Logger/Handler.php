@@ -34,7 +34,7 @@ class Handler
      */
     public function debug(string $message, array $context = []): void
     {
-        if ($this->_paypalConfig->isSetFlag(Config::CONFIG_XML_DEBUG_MODE)) {
+        if ($this->_paypalConfig->isSetFlag(Config::CONFIG_XML_OUTPUT_DEBUG_LOG)) {
             $this->_logger->debug($message, $context);
         }
     }
