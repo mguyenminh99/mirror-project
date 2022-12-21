@@ -14,11 +14,27 @@ use Magento\Framework\Stdlib\DateTime\DateTime;
 
 class PaypalCheckoutInfo extends AbstractModel implements PaypalCheckoutInfoInterface, IdentityInterface
 {
+    /**
+     * PayPal Action
+     */
+    public const PAYPAL_CHECKOUT_ACTION = [
+        "CAPTURE" => "capture",
+        "AUTHORIZE" => "authorize"
+    ];
 
     /**
-    * Cache tag paypal
-    */
-    const CACHE_TAG = 'paypal_checkout_info';
+     * PaypalCheckout status
+     */
+    public const PAYPAL_CHECKOUT_STATUS = [
+        "AUTHORIZED" => "authorized",
+        "UNPROCESSED" => "unprocessed",
+        'CAPTURED' => 'captured'
+    ];
+
+    /**
+     * Cache tag paypal
+     */
+    public const CACHE_TAG = 'paypal_checkout_info';
 
     /**
      * @var DateTime
@@ -41,13 +57,14 @@ class PaypalCheckoutInfo extends AbstractModel implements PaypalCheckoutInfoInte
      * @param array $data
      */
     public function __construct(
-        Context $context,
-        Registry $registry,
-        DateTime $time,
+        Context          $context,
+        Registry         $registry,
+        DateTime         $time,
         AbstractResource $resource = null,
-        AbstractDb $resourceCollection = null,
-        array $data = []
-    ) {
+        AbstractDb       $resourceCollection = null,
+        array            $data = []
+    )
+    {
         $this->time = $time;
         parent::__construct($context, $registry, $resource, $resourceCollection, $data);
     }
@@ -59,8 +76,19 @@ class PaypalCheckoutInfo extends AbstractModel implements PaypalCheckoutInfoInte
      */
     public function _construct()
     {
-        $this->_init(\Mpx\PaypalCheckout\Model\ResourceModel\PaypalCheckoutInfo::class);
+        $this->_init(ResourceModel\PaypalCheckoutInfo::class);
         $this->setIdFieldName('id');
+    }
+
+    /**
+     * Get By IncrementId
+     *
+     * @param $incrementId
+     * @return PaypalCheckoutInfo
+     */
+    public function getByIncrementId($incrementId): PaypalCheckoutInfo
+    {
+        return $this->load($incrementId, PaypalCheckoutInfoInterface::ORDER_INCREMENT_ID);
     }
 
     /**
@@ -73,28 +101,28 @@ class PaypalCheckoutInfo extends AbstractModel implements PaypalCheckoutInfoInte
         return [self::CACHE_TAG . '_' . $this->getId()];
     }
 
-
     /**
-     * @param $incrementId
-     * @return PaypalCheckoutInfo
-     */
-    public function getByIncrementId($incrementId): PaypalCheckoutInfo
-    {
-        return $this->load($incrementId, PaypalCheckoutInfoInterface::ORDER_INCREMENT_ID);
-    }
-
-    /**
-     * Get order increment ID
+     * Get Order Increment Id
      *
-     * @return int
+     * @return string
      */
-    public function getOrderIncrementId(): int
+    public function getOrderIncrementId(): string
     {
         return $this->getData(PaypalCheckoutInfoInterface::ORDER_INCREMENT_ID);
     }
 
     /**
-     * Get authorization id
+     * Get PayPal Capture Id
+     *
+     * @return string
+     */
+    public function getPayPalCaptureId(): string
+    {
+        return $this->getData(PaypalCheckoutInfoInterface::PAYPAL_CAPTURE_ID);
+    }
+
+    /**
+     * Get PayPal Authorization ID
      *
      * @return string
      */
@@ -124,172 +152,351 @@ class PaypalCheckoutInfo extends AbstractModel implements PaypalCheckoutInfoInte
     }
 
     /**
-     * Get paypal status
+     * Get PayPal Authorized At
      *
      * @return string
      */
-    public function getPayPalStatus(): string
-    {
-        return $this->getData(PaypalCheckoutInfoInterface::PAYPAL_STATUS);
-    }
-
-    /**
-     * Get create at
-     *
-     * @return string
-     */
-    public function getCreateAt(): string
-    {
-        return $this->getData(PaypalCheckoutInfoInterface::CREATE_AT);
-    }
-
-    /**
-     * Get update at
-     *
-     * @return string
-     */
-    public function getUpdateAt(): string
-    {
-        return $this->getData(PaypalCheckoutInfoInterface::UPDATE_AT);
-    }
-
-    /**
-     * Get authorize at
-     *
-     * @return string
-     */
-    public function getPayPalAuthorizeAt(): string
+    public function getPayPalAuthorizedAt(): string
     {
         return $this->getData(PaypalCheckoutInfoInterface::PAYPAL_AUTHORIZED_AT);
     }
 
     /**
+     * Get Capture At
+     *
+     * @return string
+     */
+    public function getPayPalCapturedAt(): string
+    {
+        return $this->getData(PaypalCheckoutInfoInterface::PAYPAL_CAPTURED_AT);
+    }
+
+    /**
+     * Get Created At
+     *
+     * @return string
+     */
+    public function getCreatedAt(): string
+    {
+        return $this->getData(PaypalCheckoutInfoInterface::CREATED_AT);
+    }
+
+    /**
+     * Get Updated At
+     *
+     * @return string
+     */
+    public function getUpdatedAt(): string
+    {
+        return $this->getData(PaypalCheckoutInfoInterface::UPDATED_AT);
+    }
+
+    /**
+     * Get Action
+     *
+     * @return string
+     */
+    public function getAction(): string
+    {
+        return $this->getData(PaypalCheckoutInfoInterface::ACTION);
+    }
+
+    /**
+     * Get Status
+     *
+     * @return string
+     */
+    public function getStatus(): string
+    {
+        return $this->getData(PaypalCheckoutInfoInterface::STATUS);
+    }
+
+    /**
+     * Get PayPal Api Request Id
+     *
+     * @return string
+     */
+    public function getPayPalApiRequestId(): string
+    {
+        return $this->getData(PaypalCheckoutInfoInterface::PAYPAL_API_REQUEST_ID);
+    }
+
+    /**
+     * Get PayPal Authorization Amount
+     *
+     * @return string
+     */
+    public function getPayPalAuthorizationAmount(): string
+    {
+        return $this->getData(PaypalCheckoutInfoInterface::PAYPAL_AUTHORIZATION_AMOUNT);
+    }
+
+    /**
+     * Get PayPal Void Id
+     *
+     * @return string
+     */
+    public function getPayPalVoidId(): string
+    {
+        return $this->getData(PaypalCheckoutInfoInterface::PAYPAL_VOID_ID);
+    }
+
+    /**
+     * Get PayPal Voided At
+     *
+     * @return string
+     */
+    public function getPayPalVoidedAt(): string
+    {
+        return $this->getData(PaypalCheckoutInfoInterface::PAYPAL_VOIDED_AT);
+    }
+
+    /**
+     * Get Capture Amount
+     *
+     * @return string
+     */
+    public function getPayPalCapturedAmount(): string
+    {
+        return $this->getData(PaypalCheckoutInfoInterface::PAYPAL_CAPTURE_AMOUNT);
+    }
+
+    /**
+     * Get Refund Amount
+     *
+     * @return string
+     */
+    public function getPayPalRefundAmount(): string
+    {
+        return $this->getData(PaypalCheckoutInfoInterface::PAYPAL_REFUND_AMOUNT);
+    }
+
+    /**
+     * Get Refund Id
+     *
+     * @return string
+     */
+    public function getPayPalRefundId(): string
+    {
+        return $this->getData(PaypalCheckoutInfoInterface::PAYPAL_REFUND_ID);
+    }
+
+    /**
+     * Get Refund At
+     *
+     * @return string
+     */
+    public function getPayPalRefundedAt(): string
+    {
+        return $this->getData(PaypalCheckoutInfoInterface::PAYPAL_REFUNDED_AT);
+    }
+
+    /**
      * Set Order Increment ID
      *
-     * @param $orderIncrementId
+     * @param string $orderIncrementId
      * @return PaypalCheckoutInfoInterface
      */
-    public function setOrderIncrementId($orderIncrementId)
+    public function setOrderIncrementId($orderIncrementId): PaypalCheckoutInfoInterface
     {
         return $this->setData(PaypalCheckoutInfoInterface::ORDER_INCREMENT_ID, $orderIncrementId);
     }
 
     /**
-     * Set Settlement Amount
+     * Set PayPal Capture Id
      *
-     * @param $settlementAmount
+     * @param string $paypalCaptureId
      * @return PaypalCheckoutInfoInterface
      */
-    public function setSettlementAmount($settlementAmount) : PaypalCheckoutInfoInterface
+    public function setPayPalCaptureId($paypalCaptureId): PaypalCheckoutInfoInterface
     {
-        return $this->setData(PaypalCheckoutInfoInterface::ORDER_SETTLEMENT_AMOUNT, $settlementAmount);
+        return $this->setData(PaypalCheckoutInfoInterface::PAYPAL_CAPTURE_ID, $paypalCaptureId);
     }
 
     /**
-     * Set capture id
+     * Set PayPal Authorization ID
      *
-     * @param $captureId
+     * @param string $paypalAuthorizationId
      * @return PaypalCheckoutInfoInterface
      */
-    public function setPayPalCaptureId($captureId): PaypalCheckoutInfoInterface
+    public function setPayPalAuthorizationId($paypalAuthorizationId): PaypalCheckoutInfoInterface
     {
-        return $this->setData(PaypalCheckoutInfoInterface::PAYPAL_CAPTURE_ID, $captureId);
+        return $this->setData(PaypalCheckoutInfoInterface::PAYPAL_AUTHORIZATION_ID, $paypalAuthorizationId);
     }
 
     /**
-     * Set authorization id
+     * Set PayPal Authorization Period
      *
-     * @param $authorizationId
+     * @param string $paypalAuthorizationPeriod
      * @return PaypalCheckoutInfoInterface
      */
-    public function setPayPalAuthorizationId($authorizationId): PaypalCheckoutInfoInterface
+    public function setPayPalAuthorizationPeriod($paypalAuthorizationPeriod): PaypalCheckoutInfoInterface
     {
-        return $this->setData(PaypalCheckoutInfoInterface::PAYPAL_AUTHORIZATION_ID, $authorizationId);
+        return $this->setData(PaypalCheckoutInfoInterface::PAYPAL_AUTHORIZATION_PERIOD, $paypalAuthorizationPeriod);
     }
 
     /**
-     * Set authorization id
+     * Set Honor Period
      *
-     * @param $authorizationPeriod
+     * @param string $paypalHonorPeriod
      * @return PaypalCheckoutInfoInterface
      */
-    public function setPayPalAuthorizationPeriod($authorizationPeriod): PaypalCheckoutInfoInterface
+    public function setPayPalHonorPeriod($paypalHonorPeriod): PaypalCheckoutInfoInterface
     {
-        return $this->setData(PaypalCheckoutInfoInterface::PAYPAL_AUTHORIZATION_PERIOD, $authorizationPeriod);
+        return $this->setData(PaypalCheckoutInfoInterface::PAYPAL_HONOR_PERIOD, $paypalHonorPeriod);
     }
 
     /**
-     * Set honor period
+     * Set PayPal Authorized At
      *
-     * @param $honorPeriod
+     * @param string $paypalAuthorizedAt
      * @return PaypalCheckoutInfoInterface
      */
-    public function setPayPalHonorPeriod($honorPeriod): PaypalCheckoutInfoInterface
+    public function setPayPalAuthorizedAt($paypalAuthorizedAt): PaypalCheckoutInfoInterface
     {
-        return $this->setData(PaypalCheckoutInfoInterface::PAYPAL_HONOR_PERIOD, $honorPeriod);
+        return $this->setData(PaypalCheckoutInfoInterface::PAYPAL_AUTHORIZED_AT, $paypalAuthorizedAt);
     }
 
     /**
-     * Set paypal status
+     * SetPayPal Captured At
      *
-     * @param $status
+     * @param string $paypalCapturedAt
      * @return PaypalCheckoutInfoInterface
      */
-    public function setPayPalStatus($status): PaypalCheckoutInfoInterface
+    public function setPayPalCapturedAt($paypalCapturedAt): PaypalCheckoutInfoInterface
     {
-        return $this->setData(PaypalCheckoutInfoInterface::PAYPAL_STATUS, $status);
+        return $this->setData(PaypalCheckoutInfoInterface::PAYPAL_CAPTURED_AT, $paypalCapturedAt);
     }
 
     /**
-     * Set create at
+     * Set Create At
      *
-     * @param $createAt
+     * @param string $createdAt
      * @return PaypalCheckoutInfoInterface
      */
-    public function setCreateAt($createAt): PaypalCheckoutInfoInterface
+    public function setCreatedAt($createdAt): PaypalCheckoutInfoInterface
     {
-        return $this->setData(PaypalCheckoutInfoInterface::CREATE_AT, $createAt);
+        return $this->setData(PaypalCheckoutInfoInterface::CREATED_AT, $createdAt);
     }
 
     /**
-     * Set update at
+     * Set Updated At
      *
-     * @param $updateAt
+     * @param string $updatedAt
      * @return PaypalCheckoutInfoInterface
      */
-    public function setUpdateAt($updateAt): PaypalCheckoutInfoInterface
+    public function setUpdatedAt($updatedAt): PaypalCheckoutInfoInterface
     {
-        return $this->setData(PaypalCheckoutInfoInterface::UPDATED_AT, $updateAt);
+        return $this->setData(PaypalCheckoutInfoInterface::UPDATED_AT, $updatedAt);
     }
 
     /**
-     * Set authorize at
+     * Set Action
      *
-     * @param $authorizeAt
+     * @param string $action
      * @return PaypalCheckoutInfoInterface
      */
-    public function setPayPalAuthorizeAt($authorizeAt): PaypalCheckoutInfoInterface
+    public function setAction($action): PaypalCheckoutInfoInterface
     {
-        return $this->setData(PaypalCheckoutInfoInterface::PAYPAL_AUTHORIZED_AT, $authorizeAt);
+        return $this->setData(PaypalCheckoutInfoInterface::ACTION, $action);
     }
+
     /**
-     * Set captured at
+     * Set Status
      *
-     * @param $capturedAt
+     * @param string $status
      * @return PaypalCheckoutInfoInterface
      */
-    public function setPayPalCapturedAt($capturedAt): PaypalCheckoutInfoInterface
+    public function setStatus($status): PaypalCheckoutInfoInterface
     {
-        return $this->setData(PaypalCheckoutInfoInterface::PAYPAL_CAPTURED_AT, $capturedAt);
+        return $this->setData(PaypalCheckoutInfoInterface::STATUS, $status);
     }
 
-    public function getAllShippingAt()
+    /**
+     * Set PayPal Api Request Id
+     *
+     * @param string $paypalApiRequestId
+     * @return PaypalCheckoutInfoInterface
+     */
+    public function setPayPalApiRequestId($paypalApiRequestId): PaypalCheckoutInfoInterface
     {
-        return $this->getData(PaypalCheckoutInfoInterface::ALL_SHIPPING_AT);
+        return $this->setData(PaypalCheckoutInfoInterface::PAYPAL_API_REQUEST_ID, $paypalApiRequestId);
     }
 
-    public function setAllShippingAt($allShippingAt)
+    /**
+     * Set PayPal Authorization Amount
+     *
+     * @param string $paypalAuthorizationAmount
+     * @return PaypalCheckoutInfoInterface
+     */
+    public function setPayPalAuthorizationAmount($paypalAuthorizationAmount): PaypalCheckoutInfoInterface
     {
-        return $this->setData(PaypalCheckoutInfoInterface::ALL_SHIPPING_AT, $allShippingAt);
+        return $this->setData(PaypalCheckoutInfoInterface::PAYPAL_AUTHORIZATION_AMOUNT, $paypalAuthorizationAmount);
+    }
+
+    /**
+     * Set PayPal Void Id
+     *
+     * @param string $paypalVoidId
+     * @return PaypalCheckoutInfoInterface
+     */
+    public function setPayPalVoidId($paypalVoidId): PaypalCheckoutInfoInterface
+    {
+        return $this->setData(PaypalCheckoutInfoInterface::PAYPAL_VOID_ID, $paypalVoidId);
+    }
+
+    /**
+     * Set PayPal Voided At
+     *
+     * @param string $paypalVoidedAt
+     * @return PaypalCheckoutInfoInterface
+     */
+    public function setPayPalVoidedAt($paypalVoidedAt): PaypalCheckoutInfoInterface
+    {
+        return $this->setData(PaypalCheckoutInfoInterface::PAYPAL_VOIDED_AT, $paypalVoidedAt);
+    }
+
+    /**
+     * Set Capture Amount
+     *
+     * @param string $paypalCapturedAmount
+     * @return PaypalCheckoutInfoInterface
+     */
+    public function setPayPalCapturedAmount($paypalCapturedAmount): PaypalCheckoutInfoInterface
+    {
+        return $this->setData(PaypalCheckoutInfoInterface::PAYPAL_CAPTURE_AMOUNT, $paypalCapturedAmount);
+    }
+
+    /**
+     * Set Refund Amount
+     *
+     * @param string $paypalRefundAmount
+     * @return PaypalCheckoutInfoInterface
+     */
+    public function setPayPalRefundAmount($paypalRefundAmount): PaypalCheckoutInfoInterface
+    {
+        return $this->setData(PaypalCheckoutInfoInterface::PAYPAL_REFUND_AMOUNT, $paypalRefundAmount);
+    }
+
+    /**
+     * Set Refund Id
+     *
+     * @param string $paypalRefundId
+     * @return PaypalCheckoutInfoInterface
+     */
+    public function setPayPalRefundId($paypalRefundId): PaypalCheckoutInfoInterface
+    {
+        return $this->setData(PaypalCheckoutInfoInterface::PAYPAL_REFUND_ID, $paypalRefundId);
+    }
+
+    /**
+     * Set Refunded At
+     *
+     * @param string $paypalRefundedAt
+     * @return PaypalCheckoutInfoInterface
+     */
+    public function setPayPalRefundedAt($paypalRefundedAt): PaypalCheckoutInfoInterface
+    {
+        return $this->setData(PaypalCheckoutInfoInterface::PAYPAL_REFUNDED_AT, $paypalRefundedAt);
     }
 }

@@ -4,4 +4,13 @@
         <plugin name="custom_validate_customer_address" type="Mpx\Customer\Plugin\Model\Address\Validator\General" sortOrder="1" disabled="false"/>
     </type>
     <preference for="Magento\Customer\Model\EmailNotification" type="Mpx\Customer\Model\EmailNotification" />
+    <type name="Magento\Customer\Controller\Account\CreatePost">
+        <plugin name="custom_register_account_post_code" type="Mpx\Customer\Plugin\Account\BeforeCreatePost" sortOrder="1"/>
+    </type>
+    <type name="Magento\Customer\Controller\Address\FormPost">
+        <plugin name="custom_edit_account_post_code" type="Mpx\Customer\Plugin\Address\BeforeSaveFormPost" sortOrder="1"/>
+    </type>
+    <type name="Magento\Customer\Controller\Adminhtml\Address\Save">
+        <plugin name="custom_edit_account_post_code_admin" type="Mpx\Customer\Plugin\Adminhtml\Address\BeforeSave" sortOrder="1"/>
+    </type>
 </config>

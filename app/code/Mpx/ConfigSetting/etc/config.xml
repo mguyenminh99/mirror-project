@@ -124,11 +124,17 @@
                 <enabled>0</enabled>
             </subscription>
         </analytics>
+        <customer>
+            <password>
+                <required_character_classes_number>2</required_character_classes_number>
+            </password>
+        </customer>
         <admin>
             <security>
                 <admin_account_sharing>1</admin_account_sharing>
                 <password_lifetime>0</password_lifetime>
                 <password_is_forced>0</password_is_forced>
+                <session_lifetime>86400</session_lifetime>
             </security>
         </admin>
     </default>
