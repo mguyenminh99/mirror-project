@@ -9,7 +9,7 @@ define([
     'Magento_Ui/js/grid/columns/column',
     'jquery',
     'mage/template',
-    'text!Webkul_Marketplace/templates/grid/cells/deny/seller.html',
+    'text!Mpx_Marketplace/templates/grid/cells/deny/seller.html',
     'Magento_Ui/js/modal/modal'
 ], function (Column, $, mageTemplate, denyPreviewTemplate) {
     'use strict';
@@ -42,6 +42,13 @@ define([
         getCancellabel: function (row) {
             return row[this.index + '_cancellabel']
         },
+        getIsSeller: function (row) {
+            const DISABLED_SELLER_ID = 3;
+            if(row['is_seller'] == DISABLED_SELLER_ID){
+                return true;
+            }
+            return false;
+        },
         preview: function (row) {
             var modalHtml = mageTemplate(
                 denyPreviewTemplate,
@@ -54,7 +61,8 @@ define([
                     submitlabel: this.getSubmitlabel(row),
                     cancellabel: this.getCancellabel(row),
                     linkText: $.mage.__('Go to Details Page'),
-                    notifyMsg: $.mage.__('Notify Seller by Email')
+                    notifyMsg: $.mage.__('Notify Seller by Email'),
+                    isseller : this.getIsSeller(row)
                 }
             );
             var previewPopup = $('<div/>').html(modalHtml);

@@ -51,5 +51,6 @@
     <preference for="Webkul\Marketplace\Block\Adminhtml\Customer\Edit\AddSellerTab" type="Mpx\Marketplace\Block\Adminhtml\Customer\Edit\AddSellerTab" />
     <preference for="Webkul\Marketplace\Controller\Account\RewriteUrlPost" type="Mpx\Marketplace\Controller\Account\RewriteUrlPost" />
     <preference for="Webkul\Marketplace\Ui\Component\Listing\Columns\Sellerdeny" type="Mpx\Marketplace\Ui\Component\Listing\Columns\Sellerdeny" />
+    <preference for="Webkul\Marketplace\Controller\Adminhtml\Seller\Deny" type="Mpx\Marketplace\Controller\Adminhtml\Seller\Deny" />
 
 </config>

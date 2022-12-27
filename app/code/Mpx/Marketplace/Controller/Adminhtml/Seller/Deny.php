@@ -10,124 +10,14 @@
 namespace Mpx\Marketplace\Controller\Adminhtml\Seller;
 
 use Magento\Framework\Controller\ResultFactory;
-use Magento\Backend\App\Action\Context;
-use Magento\Ui\Component\MassAction\Filter;
-use Webkul\Marketplace\Model\ResourceModel\Product\CollectionFactory;
-use Magento\Catalog\Model\Indexer\Product\Price\Processor;
-use Webkul\Marketplace\Model\SellerFactory;
-use Magento\Catalog\Model\Product\Action as ProductAction;
-use Webkul\Marketplace\Helper\Data as MpHelper;
-use Webkul\Marketplace\Helper\Email as MpEmailHelper;
 
 /**
  * Class massDisapprove
  */
 class Deny extends \Webkul\Marketplace\Controller\Adminhtml\Seller\Deny
 {
-    /**
-     * @var Filter
-     */
-    protected $filter;
-
-    /**
-     * @var CollectionFactory
-     */
-    protected $collectionFactory;
-
-    /**
-     * @var \Magento\Framework\Stdlib\DateTime\DateTime
-     */
-    protected $_date;
-
-    /**
-     * @var \Magento\Framework\Stdlib\DateTime
-     */
-    protected $dateTime;
-
-    /**
-     * Store manager
-     *
-     * @var \Magento\Store\Model\StoreManagerInterface
-     */
-    protected $_storeManager;
-
-    /**
-     * @var \Magento\Catalog\Api\ProductRepositoryInterface
-     */
-    protected $_productRepository;
-
-    /**
-     * @var \Magento\Catalog\Model\Indexer\Product\Price\Processor
-     */
-    protected $_productPriceIndexerProcessor;
-
-    /**
-     * @var SellerFactory
-     */
-    protected $sellerModel;
-
-    /**
-     * @var ProductAction
-     */
-    protected $productAction;
-
-    /**
-     * @var MpHelper
-     */
-    protected $mpHelper;
-
-    /**
-     * @var MpEmailHelper
-     */
-    protected $mpEmailHelper;
-
-    /**
-     * @var \Magento\Customer\Model\CustomerFactory
-     */
-    protected $customerModel;
-
-    /**
-     * @param Context                                     $context
-     * @param Filter                                      $filter
-     * @param \Magento\Framework\Stdlib\DateTime\DateTime $date
-     * @param \Magento\Framework\Stdlib\DateTime          $dateTime
-     * @param CollectionFactory                           $collectionFactory
-     * @param Processor                                   $productPriceIndexerProcessor
-     * @param SellerFactory                               $sellerModel
-     * @param ProductAction                               $productAction
-     * @param MpHelper                                    $mpHelper
-     * @param MpEmailHelper                               $mpEmailHelper
-     * @param \Magento\Customer\Model\CustomerFactory     $customerModel
-     */
-    public function __construct(
-        Context $context,
-        Filter $filter,
-        \Magento\Framework\Stdlib\DateTime\DateTime $date,
-        \Magento\Framework\Stdlib\DateTime $dateTime,
-        \Magento\Store\Model\StoreManagerInterface $storeManager,
-        \Magento\Catalog\Api\ProductRepositoryInterface $productRepository,
-        CollectionFactory $collectionFactory,
-        Processor $productPriceIndexerProcessor,
-        SellerFactory $sellerModel,
-        ProductAction $productAction,
-        MpHelper $mpHelper,
-        MpEmailHelper $mpEmailHelper,
-        \Magento\Customer\Model\CustomerFactory $customerModel
-    ) {
-        $this->filter = $filter;
-        $this->collectionFactory = $collectionFactory;
-        parent::__construct($context);
-        $this->_date = $date;
-        $this->_storeManager = $storeManager;
-        $this->_productRepository = $productRepository;
-        $this->dateTime = $dateTime;
-        $this->_productPriceIndexerProcessor = $productPriceIndexerProcessor;
-        $this->sellerModel = $sellerModel;
-        $this->productAction = $productAction;
-        $this->mpHelper = $mpHelper;
-        $this->mpEmailHelper = $mpEmailHelper;
-        $this->customerModel = $customerModel;
-    }
+    const DISABLED_SELLER_ID = 3;
+    const ENABLED_SELLER_ID = 1;
 
     /**
      * Execute action
@@ -140,46 +30,95 @@ class Deny extends \Webkul\Marketplace\Controller\Adminhtml\Seller\Deny
         $data = $this->getRequest()->getParams();
         $allStores = $this->_storeManager->getStores();
         $status = \Magento\Catalog\Model\Product\Attribute\Source\Status::STATUS_DISABLED;
-        $sellerStatus = \Webkul\Marketplace\Model\Seller::STATUS_DISABLED;
+        $enabledProductStatus = \Magento\Catalog\Model\Product\Attribute\Source\Status::STATUS_ENABLED;
 
         $collection = $this->sellerModel->create()
             ->getCollection()
             ->addFieldToFilter('seller_id', $data['seller_id']);
         foreach ($collection as $item) {
-            $item->setIsSeller($sellerStatus);
-            $item->save();
+            $item->getIsSeller();
         }
 
-        $sellerProduct = $this->collectionFactory->create()
-            ->addFieldToFilter(
-                'seller_id',
-                $data['seller_id']
-            );
+        if ($item->getIsSeller() == self::DISABLED_SELLER_ID) {
 
-        if ($sellerProduct->getSize()) {
-            $productIds = $sellerProduct->getAllIds();
-            $coditionArr = [];
-            foreach ($productIds as $key => $id) {
-                $condition = "`mageproduct_id`=".$id;
-                array_push($coditionArr, $condition);
-            }
-            $coditionData = implode(' OR ', $coditionArr);
-
-            $sellerProduct->setProductData(
-                $coditionData,
-                ['status' => $status]
-            );
-            foreach ($allStores as $eachStoreId => $storeId) {
-                $this->productAction->updateAttributes(
-                    $productIds,
-                    ['status' => $status],
-                    $storeId
+            $sellerProduct = $this->collectionFactory->create()
+                ->addFieldToFilter(
+                    'seller_id',
+                    $data['seller_id']
                 );
+            foreach ($collection as $value) {
+                $autoId = $value->getId();
+                $value = $this->sellerModel->create()->load($autoId);
+                $value->setIsSeller(self::ENABLED_SELLER_ID);
+                $value->save();
             }
 
-            $this->productAction->updateAttributes($productIds, ['status' => $status], 0);
+            /** Enable product */
+            if ($sellerProduct->getSize()) {
+                $productIds = $sellerProduct->getAllIds();
+                $conditionArr = [];
+                foreach ($productIds as $key => $id) {
+                    $condition = "`mageproduct_id`=" . $id;
+                    array_push($conditionArr, $condition);
+                }
+                $conditionData = implode(' OR ', $conditionArr);
 
-            $this->_productPriceIndexerProcessor->reindexList($productIds);
+                $sellerProduct->setProductData(
+                    $conditionData,
+                    ['status' => $enabledProductStatus]
+                );
+                foreach ($allStores as $eachStoreId => $storeId) {
+                    $this->productAction->updateAttributes(
+                        $productIds,
+                        ['status' => $enabledProductStatus],
+                        $storeId
+                    );
+                }
+
+                $this->productAction->updateAttributes($productIds, ['status' => $enabledProductStatus], 0);
+
+                $this->_productPriceIndexerProcessor->reindexList($productIds);
+
+            }
+        } else {
+            $sellerProduct = $this->collectionFactory->create()
+                ->addFieldToFilter(
+                    'seller_id',
+                    $data['seller_id']
+                );
+
+            foreach ($collection as $value) {
+                $autoId = $value->getId();
+                $value = $this->sellerModel->create()->load($autoId);
+                $value->setIsSeller(self::DISABLED_SELLER_ID);
+                $value->save();
+            }
+
+            /** Disable product  */
+            if ($sellerProduct->getSize()) {
+                $productIds = $sellerProduct->getAllIds();
+                $conditionArr = [];
+                foreach ($productIds as $key => $id) {
+                    $condition = "`mageproduct_id`=" . $id;
+                    array_push($conditionArr, $condition);
+                }
+                $conditionData = implode(' OR ', $conditionArr);
+
+                $sellerProduct->setProductData(
+                    $conditionData,
+                    ['status' => $status]
+                );
+                foreach ($allStores as $eachStoreId => $storeId) {
+                    $this->productAction->updateAttributes(
+                        $productIds,
+                        ['status' => $status],
+                        $storeId
+                    );
+                }
+                $this->productAction->updateAttributes($productIds, ['status' => $status], 0);
+
+                $this->_productPriceIndexerProcessor->reindexList($productIds);
+            }
         }
         $seller = $this->customerModel->create()->load($data['seller_id']);
         if (isset($data['notify_seller']) && $data['notify_seller'] == 1) {
@@ -209,8 +148,11 @@ class Deny extends \Webkul\Marketplace\Controller\Adminhtml\Seller\Deny
             ['seller' => $seller]
         );
 
-        $this->messageManager->addSuccess(__('Seller has been Denied.'));
-
+        if ($item->getIsSeller() == self::DISABLED_SELLER_ID) {
+            $this->messageManager->addSuccess(__('Seller has been Reopened.'));
+        } else {
+            $this->messageManager->addSuccess(__('Seller has been Denied.'));
+        }
         /** @var \Magento\Backend\Model\View\Result\Redirect $resultRedirect */
         $resultRedirect = $this->resultFactory->create(
             ResultFactory::TYPE_REDIRECT

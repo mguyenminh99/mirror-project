@@ -14,12 +14,15 @@ use Webkul\Marketplace\Helper\Data as MpHelper;
 use Webkul\Marketplace\Helper\Email as MpEmailHelper;
 use Magento\Catalog\Model\ProductFactory as ProductModel;
 use Magento\Framework\Filesystem\Io\File as FilesystemIo;
+use Magento\Catalog\Model\Product\Action as ProductAction;
+use Magento\Catalog\Model\Indexer\Product\Price\Processor;
 
 /**
  * Mpx Marketplace AdminhtmlCustomerSaveAfterObserver Observer.
  */
 class AdminhtmlCustomerSaveAfterObserver extends \Webkul\Marketplace\Observer\AdminhtmlCustomerSaveAfterObserver
 {
+    const ENABLED_SELLER_ID = 1;
     /**
      * @var \Magento\MediaStorage\Model\File\UploaderFactory
      */
@@ -116,6 +119,16 @@ class AdminhtmlCustomerSaveAfterObserver extends \Webkul\Marketplace\Observer\Ad
     protected $_filesystemFile;
 
     /**
+     * @var ProductAction
+     */
+    protected $productAction;
+
+    /**
+     * @var \Magento\Catalog\Model\Indexer\Product\Price\Processor
+     */
+    protected $_productPriceIndexerProcessor;
+
+    /**
      * @param Filesystem $filesystem
      * @param \Magento\Framework\Stdlib\DateTime\DateTime $date
      * @param \Magento\Framework\Message\ManagerInterface $messageManager
@@ -145,16 +158,18 @@ class AdminhtmlCustomerSaveAfterObserver extends \Webkul\Marketplace\Observer\Ad
         CollectionFactory $collectionFactory,
         \Magento\MediaStorage\Model\File\UploaderFactory $fileUploaderFactory,
         ProductCollection $sellerProduct,
-        \Magento\Framework\Json\DecoderInterface $jsonDecoder,
-        MpSalesPartner $mpSalesPartner,
-        MpSeller $mpSeller,
-        \Magento\Customer\Model\CustomerFactory $customerFactory,
-        MpHelper $mpHelper,
-        MpEmailHelper $mpEmailHelper,
-        \Webkul\Marketplace\Model\ProductFactory $mpProductFactory,
-        \Magento\Framework\Module\Dir\Reader $reader,
-        ProductModel $productModel,
-        FilesystemIo $filesystemFile = null
+        \Magento\Framework\Json\DecoderInterface                          $jsonDecoder,
+        MpSalesPartner                                                    $mpSalesPartner,
+        MpSeller                                                          $mpSeller,
+        \Magento\Customer\Model\CustomerFactory                           $customerFactory,
+        MpHelper                                                          $mpHelper,
+        MpEmailHelper                                                     $mpEmailHelper,
+        \Webkul\Marketplace\Model\ProductFactory                          $mpProductFactory,
+        \Magento\Framework\Module\Dir\Reader                              $reader,
+        ProductModel                                                      $productModel,
+        FilesystemIo                                                      $filesystemFile = null,
+        ProductAction                                                     $productAction,
+        Processor                                                         $productPriceIndexerProcessor
     ) {
         $this->_mediaDirectory = $filesystem->getDirectoryWrite(DirectoryList::MEDIA);
         $this->_fileUploaderFactory = $fileUploaderFactory;
@@ -176,6 +191,8 @@ class AdminhtmlCustomerSaveAfterObserver extends \Webkul\Marketplace\Observer\Ad
         $this->productModel = $productModel;
         $this->_filesystemFile = $filesystemFile ?: \Magento\Framework\App\ObjectManager::getInstance()
             ->create(FilesystemIo::class);
+        $this->productAction = $productAction;
+        $this->_productPriceIndexerProcessor = $productPriceIndexerProcessor;
 
         parent::__construct(
             $filesystem,
@@ -275,6 +292,14 @@ class AdminhtmlCustomerSaveAfterObserver extends \Webkul\Marketplace\Observer\Ad
 
                 $autoId = 0;
                 $storeId = 0;
+
+                $allStores = $this->_storeManager->getStores();
+                $status = \Magento\Catalog\Model\Product\Attribute\Source\Status::STATUS_ENABLED;
+                $sellerProduct = $this->_sellerProduct->create()
+                    ->addFieldToFilter(
+                        'seller_id',
+                        $sellerId);
+
                 if (!empty($postData['store_id'])) {
                     $storeId = $postData['store_id'];
                 }
@@ -304,12 +329,55 @@ class AdminhtmlCustomerSaveAfterObserver extends \Webkul\Marketplace\Observer\Ad
                         }
                     }
                 } else {
+                    $profileSeller = $this->_collectionFactory->create()
+                        ->addFieldToFilter('seller_id', $sellerId);
+                    if (isset($postData['is_seller_add'])) {
+                        $profileurl = $postData['profileurl'];
+                        $profiletitle = $postData['profiletitle'];
+                        foreach ($profileSeller as $value) {
+                            $autoId = $value->getId();
+                            $value->addData($postData);
+                            $value = $this->mpSeller->create()->load($autoId);
+                            $value->setIsSeller(self::ENABLED_SELLER_ID);
+                            $value->setShopTitle($profiletitle);
+                            $value->setShopUrl($profileurl);
+                            $value->setUpdatedAt($this->_date->gmtDate());
+                            $value->save();
+                        }
+                    }
                     foreach ($collection as $value) {
                         $autoId = $value->getId();
                         $postData['banner_pic'] = $postData['banner_pic'] ?
                             $postData['banner_pic'] : $value->getBannerPic();
                         $postData['logo_pic'] = $postData['logo_pic'] ?
                             $postData['logo_pic'] : $value->getLogoPic();
+                    }
+
+                    //Set Product Enable status
+                    if ($sellerProduct->getSize()) {
+                        $productIds = $sellerProduct->getAllIds();
+                        $conditionArr = [];
+                        foreach ($productIds as $key => $id) {
+                            $condition = "`mageproduct_id`=".$id;
+                            array_push($conditionArr, $condition);
+                        }
+                        $conditionData = implode(' OR ', $conditionArr);
+
+                        $sellerProduct->setProductData(
+                            $conditionData,
+                            ['status' => $status]
+                        );
+                        foreach ($allStores as $eachStoreId => $storeId) {
+                            $this->productAction->updateAttributes(
+                                $productIds,
+                                ['status' => $status],
+                                $storeId
+                            );
+                        }
+
+                        $this->productAction->updateAttributes($productIds, ['status' => $status], 0);
+
+                        $this->_productPriceIndexerProcessor->reindexList($productIds);
                     }
                 }
                 $value = $this->mpSeller->create()->load($autoId);
