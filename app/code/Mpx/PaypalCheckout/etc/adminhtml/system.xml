@@ -37,10 +37,10 @@
                         <label>Sort Order</label>
                         <config_path>payment/paypal_checkout/sort_order</config_path>
                     </field>
-                    <field id="debug_mode" type="select" sortOrder="97" showInWebsite="1" showInStore="1" showInDefault="1" translate="label">
-                        <label>Debug  Mode</label>
+                    <field id="output_debug_log" type="select" sortOrder="97" showInWebsite="1" showInStore="1" showInDefault="1" translate="label">
+                        <label>Output Debug Log</label>
                         <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
-                        <config_path>payment/paypal_checkout/debug_mode</config_path>
+                        <config_path>payment/paypal_checkout/output_debug_log</config_path>
                     </field>
                     <field id="enabled_card" type="select" sortOrder="98" showInWebsite="1" showInStore="1" showInDefault="1" translate="label">
                         <label>Enabled Credit Card</label>
@@ -51,16 +51,11 @@
                         <label>Credit Card Title</label>
                         <config_path>payment/paypal_checkout/credit_card_title</config_path>
                     </field>
-<!--                    <field id="authorization_period" type="text" sortOrder="130" showInWebsite="1" showInStore="1" showInDefault="1" translate="label">-->
-<!--                            <label>Authorization Period</label>-->
-<!--                        <config_path>payment/paypaljs/authorization_period</config_path>-->
-<!--                        <validate>validate-number</validate>-->
-<!--                    </field>-->
-<!--                    <field id="honor_period" type="text" sortOrder="140" showInWebsite="1" showInStore="1" showInDefault="1" translate="label">-->
-<!--                        <label>Honor Period</label>-->
-<!--                        <config_path>payment/paypaljs/honor_period</config_path>-->
-<!--                        <validate>validate-number</validate>-->
-<!--                    </field>-->
+                    <field id="secret" translate="label" type="obscure" sortOrder="40" showInDefault="1" showInWebsite="1">
+                        <label>Secret</label>
+                        <backend_model>Magento\Config\Model\Config\Backend\Encrypted</backend_model>
+                        <config_path>payment/paypal_checkout/Secret</config_path>
+                    </field>
                 </group>
             </group>
         </section>

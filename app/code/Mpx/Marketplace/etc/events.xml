@@ -17,4 +17,7 @@
     <event name="checkout_submit_all_after">
         <observer name="webkul_marketplace_sales_order_place_after_observer" instance="Mpx\Marketplace\Observer\SalesOrderPlaceAfterObserver" />
     </event>
+    <event name="currency_display_options_forming">
+        <observer name="yen_forming_options" instance="Mpx\Marketplace\Observer\ModifyCurrencyFormattingOptions"/>
+    </event>
 </config>

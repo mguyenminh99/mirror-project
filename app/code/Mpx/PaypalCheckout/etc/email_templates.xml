@@ -1,0 +1,8 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Email:etc/email_templates.xsd">
+    <template id="paypal_capture_failed_notice" label="Paypal Capture Failed Notice"
+              file="paypal_capture_failed_notice.html" type="html" module="Mpx_PaypalCheckout" area="frontend"/>
+    <template id="system_notice_mail" label="System Notice Mail"
+              file="system_notice_mail.html" type="html" module="Mpx_PaypalCheckout" area="frontend"/>
+</config>

@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <!--
 /**
- * Vnext Software.
+ * Mpx Software.
  */
 -->
 <config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
@@ -9,6 +9,7 @@
     <module name="Mpx_Base" setup_version="1.0.0">
         <sequence>
             <module name="Magento_Theme"/>
+            <module name="CommunityEngineering_JapanesePostalCode"/>
         </sequence>
     </module>
 </config>

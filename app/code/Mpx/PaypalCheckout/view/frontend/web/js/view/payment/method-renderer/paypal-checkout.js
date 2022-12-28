@@ -109,7 +109,7 @@ define(
                                 },
                                 phone: {
                                     phone_number: {
-                                        national_number: quote.billingAddress().telephone
+                                        national_number: quote.billingAddress().telephone.replace(/\-/g,'')
                                     }
                                 },
                                 address: {

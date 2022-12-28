@@ -19,4 +19,5 @@
     <type name="Magento\Framework\View\Element\UiComponentInterface">
         <plugin name="crossVersionCompatibility" type="Mpx\Backend\Plugin\Ui\View\Element\PartiallyConfiguredUiComponent"/>
     </type>
+    <preference for="Webkul\Marketplace\Block\Adminhtml\Customer\Edit\RemoveSellerTab" type="Mpx\Backend\Block\Adminhtml\Customer\Edit\RemoveSellerTab" />
 </config>

@@ -13,6 +13,7 @@ $orderHelper = $this->helper(\Webkul\Marketplace\Helper\Orders::class);
 $orderId = $this->getRequest()->getParam('id');
 $order = $block->getOrder();
 $items = $order->getItems();
+$deployMode = $block->getDeployMode();
 $orderStatusLabel = $order->getStatusLabel();
 $paymentCode = '';
 $paymentMethod = '';
@@ -114,7 +115,7 @@ if (count($marketplaceOrders)) {
                             </a>
                             <?php
                         } ?>
-                        <?php if ($itemInvoiceStatus != "Invoiced" && $order->canInvoice() && $itemCancelStatus != "1") { ?>
+                        <?php if ($itemInvoiceStatus != "Invoiced" && $order->canInvoice() && $itemCancelStatus != "1" && $deployMode != "production") { ?>
                             <a href="<?= $block->escapeUrl($block->getUrl('marketplace/order/invoice', ['id' => $orderId, '_secure' => $this->getRequest()->isSecure()])) ?>"
                                class="action">
                                 <button class="button wk-mp-btn" title="<?= /* @noEscape */
