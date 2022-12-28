@@ -6,3 +6,6 @@
         width: 60% !important;
     }
 }
+.order-totals{
+    float: inherit !important;
+}

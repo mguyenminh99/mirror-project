@@ -20,4 +20,8 @@
             </argument>
         </arguments>
     </type>
+    <preference for="Magento\Sales\Controller\Adminhtml\Order\View" type="Mpx\Sales\Controller\Adminhtml\Order\View" />
+    <type name="Magento\Sales\Block\Adminhtml\Order\View">
+        <plugin name="remove_button" type="Mpx\Sales\Plugin\Order\AfterView" sortOrder="1"/>
+    </type>
 </config>

@@ -58,5 +58,5 @@
     <preference for="Webkul\Marketplace\Ui\Component\Listing\Columns\Sellerdeny" type="Mpx\Marketplace\Ui\Component\Listing\Columns\Sellerdeny" />
     <preference for="Magento\Theme\Block\Html\Header\Logo" type="Mpx\Marketplace\Block\Html\Header\Logo" />
     <preference for="Magento\Framework\DataObject\Copy" type="Mpx\Marketplace\Model\DataObject\Copy"/>
-
+    <preference for="Webkul\Marketplace\Block\Adminhtml\Items\Column\Name\Seller" type="Mpx\Marketplace\Block\Adminhtml\Items\Column\Name\Seller" />
 </config>
