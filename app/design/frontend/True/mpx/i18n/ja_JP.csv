@@ -179,3 +179,4 @@ Shipped,出荷数
 "If you do not recognize this email, please contact us at <a href=""mailto:%xsAdminEmail"">%xsAdminEmail</a>","このメールに心当たりがない場合は、<a href=""mailto:%xsAdminEmail"">%xsAdminEmail</a>までご連絡ください。"
 "Postal code is not correct.","郵便番号が正しくありません。"
 "Post code is empty","郵便番号が入力されていません。"
+"Thank you for registering with %1.","アカウントを作成していただきありがとうございます。"
