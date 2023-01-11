@@ -26,6 +26,7 @@
 "Customer Name","顧客"
 "Seller Name","ストア名"
 "Columns","表示項目"
+"Product Id","ID"
 "Is it ok if all store data will be deleted ?", "ストアのデータは全て削除されます。よろしいですか？"
 "OK","はい"
 "Order # %1","注文番号 %1"
