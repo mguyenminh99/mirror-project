@@ -163,6 +163,7 @@ class EmailNotification extends \Magento\Customer\Model\EmailNotification
      */
     private function emailChanged(CustomerInterface $customer, $email)
     {
+        $xsAdminEmail = $this->user->loadByUsername('xs-admin')->getEmail();
         $storeId = $customer->getStoreId();
         if (!$storeId) {
             $storeId = $this->getWebsiteStoreId($customer);
@@ -174,7 +175,8 @@ class EmailNotification extends \Magento\Customer\Model\EmailNotification
             $customer,
             self::XML_PATH_CHANGE_EMAIL_TEMPLATE,
             self::XML_PATH_FORGOT_EMAIL_IDENTITY,
-            ['customer' => $customerEmailData, 'store' => $this->storeManager->getStore($storeId)],
+            ['customer' => $customerEmailData, 'store' => $this->storeManager->getStore($storeId),
+                'xsAdminEmail' => $xsAdminEmail],
             $storeId,
             $email
         );
