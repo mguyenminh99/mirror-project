@@ -27,6 +27,7 @@ use Webkul\Marketplace\Model\ResourceModel\Seller\CollectionFactory as SellerCol
 use Magento\Sales\Model\Order;
 use Magento\Customer\Model\ResourceModel\Customer\CollectionFactory as CustomerCollectionFactory;
 use Mpx\PaypalCheckout\Model\Payment\PaypalCheckout\Payment;
+use Magento\Framework\App\Config\ScopeConfigInterface;
 
 /**
  * Cron Job PaypalCapture
@@ -174,6 +175,11 @@ class PaypalCapture
     protected $payment;
 
     /**
+     * @var ScopeConfigInterface
+     */
+    public $scopeConfig;
+    
+    /**
      * @param Config $config
      * @param Curl $curl
      * @param LoggerInterface $logger
@@ -217,6 +223,7 @@ class PaypalCapture
         InvoiceService                  $invoiceService,
         Transaction                     $transaction,
         DataSeller                      $dataSeller,
+        ScopeConfigInterface            $scopeConfig,
         Payment                         $payment
     )
     {
@@ -242,6 +249,7 @@ class PaypalCapture
         $this->transaction = $transaction;
         $this->dataSeller = $dataSeller;
         $this->payment = $payment;
+        $this->scopeConfig = $scopeConfig;
     }
 
     /**
@@ -252,6 +260,13 @@ class PaypalCapture
      */
     public function execute_paypal_capture_batch(): void
     {
+        $enableBatch = $this->scopeConfig->getValue(
+            'payment/paypal_checkout/enable_batch',
+            \Magento\Store\Model\ScopeInterface::SCOPE_STORE
+        );
+        if (!$enableBatch) {
+            return;
+        }
         try {
             $this->write_log(self::LOG_LEVEL_INFO, '処理を開始します');
             $ret = $this->get_access_token($access_token);

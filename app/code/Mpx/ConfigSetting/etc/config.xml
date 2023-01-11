@@ -141,5 +141,10 @@
                 <custom_path>x_shopping_st</custom_path>
             </url>
         </admin>
+        <payment>
+            <paypal_checkout>
+                <disable_batch>1</disable_batch>
+            </paypal_checkout>
+        </payment>
     </default>
 </config>

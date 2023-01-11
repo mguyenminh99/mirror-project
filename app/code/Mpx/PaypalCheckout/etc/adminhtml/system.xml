@@ -56,6 +56,11 @@
                         <backend_model>Magento\Config\Model\Config\Backend\Encrypted</backend_model>
                         <config_path>payment/paypal_checkout/Secret</config_path>
                     </field>
+                    <field id="enable_batch" type="select" sortOrder="10" showInWebsite="1" showInStore="1" showInDefault="1" translate="label">
+                        <label>Enable PayPal Capture Batch</label>
+                        <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                        <config_path>payment/paypal_checkout/enable_batch</config_path>
+                    </field>
                 </group>
             </group>
         </section>
