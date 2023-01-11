@@ -4,6 +4,9 @@ namespace Mpx\PaypalCheckout\Api\Data;
 
 interface PaypalCheckoutInfoInterface
 {
+    const PAYPAL_CHECKOUT = 'paypal_checkout';
+    const PAYPAL_CREDIT_CARD = 'paypalcc';
+
     public const ID = 'id';
     public const ORDER_INCREMENT_ID = 'order_increment_id';
     public const PAYPAL_CAPTURE_ID = 'paypal_capture_id';

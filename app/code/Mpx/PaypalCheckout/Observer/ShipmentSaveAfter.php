@@ -13,6 +13,7 @@ use Mpx\PaypalCheckout\Model\PaypalCheckoutInfo as PaypalCheckoutModel;
 use Psr\Log\LoggerInterface;
 use Magento\Framework\DataObject\IdentityService;
 use Mpx\PaypalCheckout\Model\ResourceModel\PaypalCheckoutInfo\CollectionFactory as PaypalCheckoutCollection;
+use Mpx\PaypalCheckout\Api\Data\PaypalCheckoutInfoInterface;
 
 /**
  * Save all shipment at
@@ -117,6 +118,12 @@ class ShipmentSaveAfter implements ObserverInterface
     {
         $shipment = $observer->getShipment();
         $order = $shipment->getOrder();
+
+        $payment_method = $order->getPayment()->getMethod();
+        if($payment_method !== PaypalCheckoutInfoInterface::PAYPAL_CHECKOUT && $payment_method !== PaypalCheckoutInfoInterface::PAYPAL_CREDIT_CARD){
+            return;
+        }
+
         if ($this->is_exists_shipped_item($order)) {
             $order_increment_id = $order->getIncrementId();
             if (!$this->is_exists_paypal_checkout_info_for_capture(
