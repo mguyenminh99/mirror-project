@@ -2,7 +2,7 @@
 namespace Mpx\Customer\Plugin\Adminhtml\Address;
 
 use Magento\Framework\Controller\Result\JsonFactory;
-use Mpx\Customer\Helper\PostcodeValidation;
+use Mpx\Customer\Helper\CustomerInfoValidation;
 use Psr\Log\LoggerInterface;
 use Exception;
 use Magento\Framework\Controller\Result\Json;
@@ -20,27 +20,27 @@ class BeforeSave
     protected $resultJsonFactory;
 
     /**
-     * @var PostcodeValidation
+     * @var CustomerInfoValidation
      */
-    protected $postcodeValidation;
+    protected $customerInfoValidation;
 
     /**
      * @param LoggerInterface $logger
-     * @param PostcodeValidation $postcodeValidation
+     * @param CustomerInfoValidation $customerInfoValidation
      * @param JsonFactory $resultJsonFactory
      */
     public function __construct(
-        LoggerInterface        $logger,
-        PostcodeValidation     $postcodeValidation,
-        JsonFactory            $resultJsonFactory
+        LoggerInterface            $logger,
+        CustomerInfoValidation     $customerInfoValidation,
+        JsonFactory                $resultJsonFactory
     ) {
         $this->logger = $logger;
-        $this->postcodeValidation = $postcodeValidation;
+        $this->customerInfoValidation = $customerInfoValidation;
         $this->resultJsonFactory = $resultJsonFactory;
     }
 
     /**
-     * Function to run to validate post code.
+     * Function to run to validate customer information.
      *
      * @param \Magento\Customer\Controller\Adminhtml\Address\Save $subject
      * @param callable $process
@@ -53,15 +53,20 @@ class BeforeSave
         $resultJson = $this->resultJsonFactory->create();
         $params = $subject->getRequest()->getParams();
         $postCode = $params['postcode'];
-        $error = $this->postcodeValidation->validatePostCode($params);
+        $errors = [];
+        $errors = $this->customerInfoValidation->validatePostCode($params);
+        $errors = $this->customerInfoValidation->validatePhoneNumber($params);
         $subject->getRequest()->setParam('postcode', str_replace("-", "", $postCode));
 
-        if (!empty($error)) {
+        if (!empty($errors)) {
             try {
-                $this->postcodeValidation->setErrorMessageToMessageManager($error);
+                $messages =[];
+                foreach ($errors as $error) {
+                    $messages[] = __($error['message']);
+                }
                 $resultJson->setData(
                     [
-                        'messages' => __($error[0]['message']),
+                        'messages' => $messages,
                         'error' => true,
                         'data' => [
                             'postcode' => $postCode

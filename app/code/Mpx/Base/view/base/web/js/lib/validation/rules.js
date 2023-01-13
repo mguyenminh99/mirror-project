@@ -248,6 +248,12 @@ define([
             },
             $.mage.__('Please specify a valid mobile number')
         ],
+        'phoneJP': [
+            function (value) {
+                return utils.isEmptyNoTrim(value) || /^[0-9\-]*$/.test(value);
+            },
+            $.mage.__('Phone number is not correct. The characters that can be used are numbers and hyphens.')
+        ],
         'stripped-min-length': [
             function (value, param) {
                 return _.isUndefined(value) || value.length === 0 || utils.stripHtml(value).length >= param;

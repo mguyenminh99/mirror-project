@@ -3,7 +3,7 @@ namespace Mpx\Customer\Plugin\Account;
 
 use Magento\Framework\Controller\Result\Redirect;
 use Magento\Framework\Controller\Result\RedirectFactory;
-use Mpx\Customer\Helper\PostcodeValidation;
+use Mpx\Customer\Helper\CustomerInfoValidation;
 use Psr\Log\LoggerInterface;
 use Exception;
 
@@ -20,27 +20,27 @@ class BeforeCreatePost
     protected $logger;
 
     /**
-     * @var PostcodeValidation
+     * @var CustomerInfoValidation
      */
-    protected $postcodeValidation;
+    protected $customerInfoValidation;
 
     /**
      * @param RedirectFactory $redirectFactory
-     * @param PostcodeValidation $postcodeValidation
+     * @param CustomerInfoValidation $customerInfoValidation
      * @param LoggerInterface $logger
      */
     public function __construct(
-        RedirectFactory        $redirectFactory,
-        PostcodeValidation     $postcodeValidation,
-        LoggerInterface        $logger
+        RedirectFactory            $redirectFactory,
+        CustomerInfoValidation     $customerInfoValidation,
+        LoggerInterface            $logger
     ) {
         $this->redirectFactory = $redirectFactory;
-        $this->postcodeValidation = $postcodeValidation;
+        $this->customerInfoValidation = $customerInfoValidation;
         $this->logger = $logger;
     }
 
     /**
-     * Function to run to validate post code.
+     * Function to run to validate customer information.
      *
      * @param \Magento\Customer\Controller\Account\CreatePost $subject
      * @param callable $process
@@ -52,12 +52,14 @@ class BeforeCreatePost
     ): Redirect {
         $params = $subject->getRequest()->getParams();
         $postCode = $params['postcode'];
-        $error = $this->postcodeValidation->validatePostCode($params);
+        $errors = [];
+        $errors = $this->customerInfoValidation->validatePostCode($params);
+        $errors = $this->customerInfoValidation->validatePhoneNumber($params);
         $subject->getRequest()->setParam('postcode', str_replace("-", "", $postCode));
 
-        if (!empty($error)) {
+        if (!empty($errors)) {
             try {
-                $this->postcodeValidation->setErrorMessageToMessageManager($error);
+                $this->customerInfoValidation->setErrorMessageToMessageManager($errors);
                 return $this->redirectFactory->create()->setPath('customer/account/create');
             } catch (Exception $e) {
                 $this->logger->critical($e->getMessage());
