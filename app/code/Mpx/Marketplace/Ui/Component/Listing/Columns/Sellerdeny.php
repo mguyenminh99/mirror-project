@@ -4,7 +4,7 @@ namespace Mpx\Marketplace\Ui\Component\Listing\Columns;
 
 class Sellerdeny extends \Webkul\Marketplace\Ui\Component\Listing\Columns\Sellerdeny
 {
-    const DISABLED_SELLER_ID = 3;
+    const TEMPORARILY_SUSPENDED_STATUS = 3;
     /**
      * Prepare Data Source.
      *
@@ -17,7 +17,7 @@ class Sellerdeny extends \Webkul\Marketplace\Ui\Component\Listing\Columns\Seller
         if (isset($dataSource['data']['items'])) {
             $fieldName = $this->getData('name');
             foreach ($dataSource['data']['items'] as &$item) {
-                if($item['is_seller'] == self::DISABLED_SELLER_ID){
+                if($item['is_seller'] == self::TEMPORARILY_SUSPENDED_STATUS){
                     $item[$fieldName.'_html'] = "<button class='button'><span>".__('Reopen')."</span></button>";
                     $item[$fieldName.'_title'] = __('Do you want to reopen your store?');
                     $item[$fieldName.'_submitlabel'] = __('Reopen');
