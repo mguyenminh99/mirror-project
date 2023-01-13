@@ -16,8 +16,8 @@ use Magento\Framework\Controller\ResultFactory;
  */
 class Deny extends \Webkul\Marketplace\Controller\Adminhtml\Seller\Deny
 {
-    const DISABLED_SELLER_ID = 3;
-    const ENABLED_SELLER_ID = 1;
+    const TEMPORARILY_SUSPENDED_SELLER_STATUS = 3;
+    const ENABLED_SELLER_STATUS = 1;
 
     /**
      * Execute action
@@ -39,7 +39,7 @@ class Deny extends \Webkul\Marketplace\Controller\Adminhtml\Seller\Deny
             $item->getIsSeller();
         }
 
-        if ($item->getIsSeller() == self::DISABLED_SELLER_ID) {
+        if ($item->getIsSeller() == self::TEMPORARILY_SUSPENDED_SELLER_STATUS) {
 
             $sellerProduct = $this->collectionFactory->create()
                 ->addFieldToFilter(
@@ -49,7 +49,7 @@ class Deny extends \Webkul\Marketplace\Controller\Adminhtml\Seller\Deny
             foreach ($collection as $value) {
                 $autoId = $value->getId();
                 $value = $this->sellerModel->create()->load($autoId);
-                $value->setIsSeller(self::ENABLED_SELLER_ID);
+                $value->setIsSeller(self::ENABLED_SELLER_STATUS);
                 $value->save();
             }
 
@@ -90,7 +90,7 @@ class Deny extends \Webkul\Marketplace\Controller\Adminhtml\Seller\Deny
             foreach ($collection as $value) {
                 $autoId = $value->getId();
                 $value = $this->sellerModel->create()->load($autoId);
-                $value->setIsSeller(self::DISABLED_SELLER_ID);
+                $value->setIsSeller(self::TEMPORARILY_SUSPENDED_SELLER_STATUS);
                 $value->save();
             }
 
@@ -148,7 +148,7 @@ class Deny extends \Webkul\Marketplace\Controller\Adminhtml\Seller\Deny
             ['seller' => $seller]
         );
 
-        if ($item->getIsSeller() == self::DISABLED_SELLER_ID) {
+        if ($item->getIsSeller() == self::TEMPORARILY_SUSPENDED_SELLER_STATUS) {
             $this->messageManager->addSuccess(__('Seller has been Reopened.'));
         } else {
             $this->messageManager->addSuccess(__('Seller has been Denied.'));
