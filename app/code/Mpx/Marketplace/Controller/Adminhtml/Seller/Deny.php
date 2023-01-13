@@ -44,8 +44,8 @@ class Deny extends \Webkul\Marketplace\Controller\Adminhtml\Seller\Deny
                     $data['seller_id']
                 );
             foreach ($collection as $value) {
-                $autoId = $value->getId();
-                $value = $this->sellerModel->create()->load($autoId);
+                $entityId = $value->getId();
+                $value = $this->sellerModel->create()->load($entityId);
                 $value->setIsSeller(self::ENABLED_SELLER_STATUS);
                 $value->save();
             }
@@ -85,8 +85,8 @@ class Deny extends \Webkul\Marketplace\Controller\Adminhtml\Seller\Deny
                 );
 
             foreach ($collection as $value) {
-                $autoId = $value->getId();
-                $value = $this->sellerModel->create()->load($autoId);
+                $entityId = $value->getId();
+                $value = $this->sellerModel->create()->load($entityId);
                 $value->setIsSeller(self::TEMPORARILY_SUSPENDED_SELLER_STATUS);
                 $value->save();
             }
