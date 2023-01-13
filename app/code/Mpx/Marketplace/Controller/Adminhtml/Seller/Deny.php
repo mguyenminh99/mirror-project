@@ -64,11 +64,11 @@ class Deny extends \Webkul\Marketplace\Controller\Adminhtml\Seller\Deny
                     $conditionData,
                     ['status' => $enabledProductStatus]
                 );
-                foreach ($allStores as $eachStoreId => $storeId) {
+                foreach ($allStores as $store) {
                     $this->productAction->updateAttributes(
                         $productIds,
                         ['status' => $enabledProductStatus],
-                        $storeId
+                        $store->getId()
                     );
                 }
 
@@ -105,11 +105,11 @@ class Deny extends \Webkul\Marketplace\Controller\Adminhtml\Seller\Deny
                     $conditionData,
                     ['status' => $status]
                 );
-                foreach ($allStores as $eachStoreId => $storeId) {
+                foreach ($allStores as $store) {
                     $this->productAction->updateAttributes(
                         $productIds,
                         ['status' => $status],
-                        $storeId
+                        $store->getId()
                     );
                 }
                 $this->productAction->updateAttributes($productIds, ['status' => $status], 0);
