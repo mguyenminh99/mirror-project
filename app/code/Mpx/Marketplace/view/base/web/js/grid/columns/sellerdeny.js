@@ -43,11 +43,10 @@ define([
             return row[this.index + '_cancellabel']
         },
         getIsSeller: function (row) {
-            const DISABLED_SELLER_ID = 3;
-            if(row['is_seller'] == DISABLED_SELLER_ID){
-                return true;
-            }
-            return false;
+            return row['is_seller'];
+        },
+        getTemporarilySuspendedStatus: function (row) {
+            return row[this.index + '_temporarily_suspended_status'];
         },
         preview: function (row) {
             var modalHtml = mageTemplate(
@@ -62,7 +61,8 @@ define([
                     cancellabel: this.getCancellabel(row),
                     linkText: $.mage.__('Go to Details Page'),
                     notifyMsg: $.mage.__('Notify Seller by Email'),
-                    isseller : this.getIsSeller(row)
+                    is_seller : this.getIsSeller(row),
+                    TEMPORARILY_SUSPENDED_SELLER_STATUS : this.getTemporarilySuspendedStatus(row)
                 }
             );
             var previewPopup = $('<div/>').html(modalHtml);

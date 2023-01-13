@@ -23,6 +23,7 @@ class Sellerdeny extends \Webkul\Marketplace\Ui\Component\Listing\Columns\Seller
                     $item[$fieldName.'_submitlabel'] = __('Reopen');
                     $item[$fieldName.'_cancellabel'] = __('Cancel');
                     $item[$fieldName.'_sellerid'] = $item['seller_id'];
+                    $item[$fieldName.'_temporarily_suspended_status'] = self::TEMPORARILY_SUSPENDED_STATUS;
 
                     $item[$fieldName.'_formaction'] = $this->urlBuilder->getUrl('marketplace/seller/deny');
                 }
