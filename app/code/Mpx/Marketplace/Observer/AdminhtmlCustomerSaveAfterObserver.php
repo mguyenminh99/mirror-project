@@ -22,7 +22,7 @@ use Magento\Catalog\Model\Indexer\Product\Price\Processor;
  */
 class AdminhtmlCustomerSaveAfterObserver extends \Webkul\Marketplace\Observer\AdminhtmlCustomerSaveAfterObserver
 {
-    const ENABLED_SELLER_ID = 1;
+    const ENABLED_SELLER_STATUS = 1;
     /**
      * @var \Magento\MediaStorage\Model\File\UploaderFactory
      */
@@ -338,7 +338,7 @@ class AdminhtmlCustomerSaveAfterObserver extends \Webkul\Marketplace\Observer\Ad
                             $autoId = $value->getId();
                             $value->addData($postData);
                             $value = $this->mpSeller->create()->load($autoId);
-                            $value->setIsSeller(self::ENABLED_SELLER_ID);
+                            $value->setIsSeller(self::ENABLED_SELLER_STATUS);
                             $value->setShopTitle($profiletitle);
                             $value->setShopUrl($profileurl);
                             $value->setUpdatedAt($this->_date->gmtDate());
