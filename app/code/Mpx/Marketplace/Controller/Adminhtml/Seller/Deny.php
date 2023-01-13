@@ -35,9 +35,6 @@ class Deny extends \Webkul\Marketplace\Controller\Adminhtml\Seller\Deny
         $collection = $this->sellerModel->create()
             ->getCollection()
             ->addFieldToFilter('seller_id', $data['seller_id']);
-        foreach ($collection as $item) {
-            $item->getIsSeller();
-        }
 
         if ($item->getIsSeller() == self::TEMPORARILY_SUSPENDED_SELLER_STATUS) {
 
