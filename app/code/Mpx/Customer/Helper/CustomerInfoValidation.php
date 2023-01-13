@@ -16,12 +16,15 @@ use Magento\Framework\Message\ManagerInterface;
 /**
  * Helper Validate Postcode
  */
-class PostcodeValidation extends AbstractHelper
+class CustomerInfoValidation extends AbstractHelper
 {
     private const INVALID_POST_CODE = "invalid_format";
     private const INVALID_POST_CODE_ERROR_MESSAGE = "Postal code is not correct.";
     private const EMPTY_POST_CODE = "invalid_format";
     private const EMPTY_POST_CODE_ERROR_MESSAGE = "Post code is empty";
+    private const INVALID_PHONE_NUMBER = "invalid_format";
+    private const INVALID_PHONE_NUMBER_ERROR_MESSAGE =
+        "Phone number is not correct. The characters that can be used are numbers and hyphens.";
 
     /**
      * @var ManagerInterface
@@ -85,6 +88,26 @@ class PostcodeValidation extends AbstractHelper
                 'type' => self::EMPTY_POST_CODE,
                 'message' => self:: EMPTY_POST_CODE_ERROR_MESSAGE
             ];
+        }
+        return $this->errors;
+    }
+
+    /**
+     * Validate Phone Number
+     *
+     * @param array $params
+     * @return array
+     */
+    public function validatePhoneNumber(array $params): array
+    {
+        $phoneNumber = $params['telephone'];
+        if (!empty($phoneNumber)) {
+            if (!preg_match('/^[0-9\-]*$/', $phoneNumber)) {
+                $this->errors[] = [
+                    'type' => self::INVALID_PHONE_NUMBER,
+                    'message' => self::INVALID_PHONE_NUMBER_ERROR_MESSAGE
+                ];
+            }
         }
         return $this->errors;
     }
