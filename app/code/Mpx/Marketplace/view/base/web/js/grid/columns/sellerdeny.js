@@ -48,6 +48,9 @@ define([
         getTemporarilySuspendedStatus: function (row) {
             return row[this.index + '_temporarily_suspended_status'];
         },
+        getSellerStatusUpdateTo: function (row) {
+            return row[this.index + 'seller_status_update_to'];
+        },
         preview: function (row) {
             var modalHtml = mageTemplate(
                 denyPreviewTemplate,
@@ -62,7 +65,8 @@ define([
                     linkText: $.mage.__('Go to Details Page'),
                     notifyMsg: $.mage.__('Notify Seller by Email'),
                     is_seller : this.getIsSeller(row),
-                    TEMPORARILY_SUSPENDED_SELLER_STATUS : this.getTemporarilySuspendedStatus(row)
+                    TEMPORARILY_SUSPENDED_SELLER_STATUS : this.getTemporarilySuspendedStatus(row),
+                    seller_status_update_to: this.getSellerStatusUpdateTo(row)
                 }
             );
             var previewPopup = $('<div/>').html(modalHtml);

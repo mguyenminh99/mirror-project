@@ -27,105 +27,73 @@ class Deny extends \Webkul\Marketplace\Controller\Adminhtml\Seller\Deny
      */
     public function execute()
     {
-        $data = $this->getRequest()->getParams();
+        $postData = $this->getRequest()->getParams();
         $allStores = $this->_storeManager->getStores();
-        $status = \Magento\Catalog\Model\Product\Attribute\Source\Status::STATUS_DISABLED;
-        $enabledProductStatus = \Magento\Catalog\Model\Product\Attribute\Source\Status::STATUS_ENABLED;
 
+        if (isset($postData['seller_status_update_to']) == 'enable_seller') {
+            $sellerStatusUpdateTo = self::TEMPORARILY_SUSPENDED_SELLER_STATUS;
+            $productStatusUpdateTo = \Magento\Catalog\Model\Product\Attribute\Source\Status::STATUS_DISABLED;
+        } else {
+            $sellerStatusUpdateTo = self::ENABLED_SELLER_STATUS;
+            $productStatusUpdateTo = \Magento\Catalog\Model\Product\Attribute\Source\Status::STATUS_ENABLED;
+        }
+
+        /** Update Seller Status(marketplace_userdata.is_seller) */
         $collection = $this->sellerModel->create()
             ->getCollection()
-            ->addFieldToFilter('seller_id', $data['seller_id']);
+            ->addFieldToFilter('seller_id', $postData['seller_id']);
 
-        if ($item->getIsSeller() == self::TEMPORARILY_SUSPENDED_SELLER_STATUS) {
-
-            $sellerProduct = $this->collectionFactory->create()
-                ->addFieldToFilter(
-                    'seller_id',
-                    $data['seller_id']
-                );
-            foreach ($collection as $value) {
-                $entityId = $value->getId();
-                $value = $this->sellerModel->create()->load($entityId);
-                $value->setIsSeller(self::ENABLED_SELLER_STATUS);
-                $value->save();
-            }
-
-            /** Enable product */
-            if ($sellerProduct->getSize()) {
-                $productIds = $sellerProduct->getAllIds();
-                $conditionArr = [];
-                foreach ($productIds as $key => $id) {
-                    $condition = "`mageproduct_id`=" . $id;
-                    array_push($conditionArr, $condition);
-                }
-                $conditionData = implode(' OR ', $conditionArr);
-
-                $sellerProduct->setProductData(
-                    $conditionData,
-                    ['status' => $enabledProductStatus]
-                );
-                foreach ($allStores as $store) {
-                    $this->productAction->updateAttributes(
-                        $productIds,
-                        ['status' => $enabledProductStatus],
-                        $store->getId()
-                    );
-                }
-
-                $this->productAction->updateAttributes($productIds, ['status' => $enabledProductStatus], 0);
-
-                $this->_productPriceIndexerProcessor->reindexList($productIds);
-
-            }
-        } else {
-            $sellerProduct = $this->collectionFactory->create()
-                ->addFieldToFilter(
-                    'seller_id',
-                    $data['seller_id']
-                );
-
-            foreach ($collection as $value) {
-                $entityId = $value->getId();
-                $value = $this->sellerModel->create()->load($entityId);
-                $value->setIsSeller(self::TEMPORARILY_SUSPENDED_SELLER_STATUS);
-                $value->save();
-            }
-
-            /** Disable product  */
-            if ($sellerProduct->getSize()) {
-                $productIds = $sellerProduct->getAllIds();
-                $conditionArr = [];
-                foreach ($productIds as $key => $id) {
-                    $condition = "`mageproduct_id`=" . $id;
-                    array_push($conditionArr, $condition);
-                }
-                $conditionData = implode(' OR ', $conditionArr);
-
-                $sellerProduct->setProductData(
-                    $conditionData,
-                    ['status' => $status]
-                );
-                foreach ($allStores as $store) {
-                    $this->productAction->updateAttributes(
-                        $productIds,
-                        ['status' => $status],
-                        $store->getId()
-                    );
-                }
-                $this->productAction->updateAttributes($productIds, ['status' => $status], 0);
-
-                $this->_productPriceIndexerProcessor->reindexList($productIds);
-            }
+        foreach ($collection as $value) {
+            $entityId = $value->getId();
+            $value = $this->sellerModel->create()->load($entityId);
+            $value->setIsSeller($sellerStatusUpdateTo);
+            $value->save();
         }
-        $seller = $this->customerModel->create()->load($data['seller_id']);
-        if (isset($data['notify_seller']) && $data['notify_seller'] == 1) {
+
+        /** Update Seller Product Status */
+        $sellerProduct = $this->collectionFactory->create()
+            ->addFieldToFilter(
+                'seller_id',
+                $postData['seller_id']
+            );
+
+        if ($sellerProduct->getSize()) {
+
+            $productIds = $sellerProduct->getAllIds();
+            $conditionArr = [];
+
+            foreach ($productIds as $key => $id) {
+                $condition = "`mageproduct_id`=" . $id;
+                array_push($conditionArr, $condition);
+            }
+
+            $conditionData = implode(' OR ', $conditionArr);
+
+            $sellerProduct->setProductData(
+                $conditionData,
+                ['status' => $productStatusUpdateTo]
+            );
+
+            foreach ($allStores as $store) {
+                $this->productAction->updateAttributes(
+                    $productIds,
+                    ['status' => $productStatusUpdateTo],
+                    $store->getId()
+                );
+            }
+
+            $this->productAction->updateAttributes($productIds, ['status' => $productStatusUpdateTo], 0);
+            $this->_productPriceIndexerProcessor->reindexList($productIds);
+        }
+        $seller = $this->customerModel->create()->load($postData['seller_id']);
+        if (isset($postData['notify_seller']) && $postData['notify_seller'] == 1) {
             $helper = $this->mpHelper;
 
             $adminStoremail = $helper->getAdminEmailId();
             $adminEmail=$adminStoremail? $adminStoremail:$helper->getDefaultTransEmailId();
             $adminUsername = $helper->getAdminName();
             $emailTempVariables['myvar1'] = $seller->getName();
-            $emailTempVariables['myvar2'] = $data['seller_deny_reason'];
+            $emailTempVariables['myvar2'] = $postData['seller_deny_reason'];
             $senderInfo = [
                 'name' => $adminUsername,
                 'email' => $adminEmail,
@@ -145,7 +113,7 @@ class Deny extends \Webkul\Marketplace\Controller\Adminhtml\Seller\Deny
             ['seller' => $seller]
         );
 
-        if ($item->getIsSeller() == self::TEMPORARILY_SUSPENDED_SELLER_STATUS) {
+        if ($sellerStatusUpdateTo != self::TEMPORARILY_SUSPENDED_SELLER_STATUS) {
             $this->messageManager->addSuccess(__('Seller has been Reopened.'));
         } else {
             $this->messageManager->addSuccess(__('Seller has been Denied.'));
