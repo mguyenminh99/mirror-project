@@ -290,9 +290,10 @@ class AdminhtmlCustomerSaveAfterObserver extends \Webkul\Marketplace\Observer\Ad
                     'logo_pic'
                 );
 
-                $autoId = 0;
                 $storeId = 0;
 
+                $profileSeller = $this->_collectionFactory->create()
+                    ->addFieldToFilter('seller_id', $sellerId);
                 $allStores = $this->_storeManager->getStores();
                 $status = \Magento\Catalog\Model\Product\Attribute\Source\Status::STATUS_ENABLED;
                 $sellerProduct = $this->_sellerProduct->create()
@@ -329,9 +330,7 @@ class AdminhtmlCustomerSaveAfterObserver extends \Webkul\Marketplace\Observer\Ad
                         }
                     }
                 } else {
-                    $profileSeller = $this->_collectionFactory->create()
-                        ->addFieldToFilter('seller_id', $sellerId);
-                    if (isset($postData['is_seller_add'])) {
+                    if ($observer->getRequest()->getParam('is_seller_add')) {
                         $profileurl = $postData['profileurl'];
                         $profiletitle = $postData['profiletitle'];
                         foreach ($profileSeller as $value) {
@@ -344,45 +343,43 @@ class AdminhtmlCustomerSaveAfterObserver extends \Webkul\Marketplace\Observer\Ad
                             $value->setUpdatedAt($this->_date->gmtDate());
                             $value->save();
                         }
-                    }
-                    foreach ($collection as $value) {
-                        $autoId = $value->getId();
-                        $postData['banner_pic'] = $postData['banner_pic'] ?
-                            $postData['banner_pic'] : $value->getBannerPic();
-                        $postData['logo_pic'] = $postData['logo_pic'] ?
-                            $postData['logo_pic'] : $value->getLogoPic();
-                    }
+                        //Set Product Enable status
+                        if ($sellerProduct->getSize()) {
+                            $productIds = $sellerProduct->getAllIds();
+                            $conditionArr = [];
+                            foreach ($productIds as $key => $id) {
+                                $condition = "`mageproduct_id`=".$id;
+                                array_push($conditionArr, $condition);
+                            }
+                            $conditionData = implode(' OR ', $conditionArr);
 
-                    //Set Product Enable status
-                    if ($sellerProduct->getSize()) {
-                        $productIds = $sellerProduct->getAllIds();
-                        $conditionArr = [];
-                        foreach ($productIds as $key => $id) {
-                            $condition = "`mageproduct_id`=".$id;
-                            array_push($conditionArr, $condition);
-                        }
-                        $conditionData = implode(' OR ', $conditionArr);
-
-                        $sellerProduct->setProductData(
-                            $conditionData,
-                            ['status' => $status]
-                        );
-                        foreach ($allStores as $eachStoreId => $storeId) {
-                            $this->productAction->updateAttributes(
-                                $productIds,
-                                ['status' => $status],
-                                $storeId
+                            $sellerProduct->setProductData(
+                                $conditionData,
+                                ['status' => $status]
                             );
-                        }
+                            foreach ($allStores as $eachStoreId => $storeId) {
+                                $this->productAction->updateAttributes(
+                                    $productIds,
+                                    ['status' => $status],
+                                    $storeId
+                                );
+                            }
 
                         $this->productAction->updateAttributes($productIds, ['status' => $status], 0);
-
                         $this->_productPriceIndexerProcessor->reindexList($productIds);
+                        }
+                        foreach ($collection as $value) {
+                            $autoId = $value->getId();
+                            $postData['banner_pic'] = $postData['banner_pic'] ?
+                                $postData['banner_pic'] : $value->getBannerPic();
+                            $postData['logo_pic'] = $postData['logo_pic'] ?
+                                $postData['logo_pic'] : $value->getLogoPic();
+                        }
                     }
                 }
+                $autoId = $profileSeller->getLastItem()->getId();
                 $value = $this->mpSeller->create()->load($autoId);
                 $value->addData($postData);
-                $value->setIsSeller(1);
                 $value->setUpdatedAt($this->_date->gmtDate());
                 $value->save();
                 if (isset($postData['seller_category_ids'])) {
