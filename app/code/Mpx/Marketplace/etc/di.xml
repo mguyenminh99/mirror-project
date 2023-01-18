@@ -60,4 +60,5 @@
     <preference for="Magento\Framework\DataObject\Copy" type="Mpx\Marketplace\Model\DataObject\Copy"/>
     <preference for="Webkul\Marketplace\Observer\SalesOrderInvoiceSaveAfterObserver" type="Mpx\Marketplace\Observer\SalesOrderInvoiceSaveAfterObserver"/>
     <preference for="Webkul\Marketplace\Block\Adminhtml\Items\Column\Name\Seller" type="Mpx\Marketplace\Block\Adminhtml\Items\Column\Name\Seller" />
+    <preference for="Webkul\Marketplace\Controller\Seller\Sendmail" type="Mpx\Marketplace\Controller\Seller\Sendmail" />
 </config>
