@@ -10,6 +10,8 @@
                 comment="実行するPaypal REST APIのタイプ authorize capture refund void"/>
         <column xsi:type="varchar" name="status" length="20" nullable="false"
                 comment="連携ステータス unprocessed:未処理 authorized:オーソリ済 captured:キャプチャ済 capture_failed:キャプチャ失敗 refunded:返金済 refund_failed:返金失敗 voided:オーソリ取消済 void_failed:オーソリ取消失敗"/>
+        <column xsi:type="varchar" name="paypal_order_id" length="20" nullable="false"
+                comment="PayPal CreateOrder処理のID PayPalとの注文の紐付けに使用する"/>
         <column xsi:type="varchar" name="paypal_api_request_id" length="38"
                 comment="PayPal APIのリクエスト時に渡すID  冪等性の実現のために使用する"/>
         <column xsi:type="decimal" name="paypal_authorization_amount" scale="4" precision="20"

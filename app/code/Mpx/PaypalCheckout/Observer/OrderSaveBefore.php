@@ -122,6 +122,7 @@ class OrderSaveBefore implements ObserverInterface
         $authorizationPeriod = $this->getAuthorizationPeriod($createTime);
         $honorPeriod = $this->getHonorPeriod($createTime);
         $paypalCheckoutInfo->setOrderIncrementId($orderIncrementId);
+        $paypalCheckoutInfo->setPayPalOrderId($payment->getAdditionalInformation('order_id'));
         if ($payment->getAdditionalInformation('intent') === self::INTENT_AUTHORIZE) {
             $authorizationID = $payment->getAdditionalInformation('authorization_id');
             $paypalCheckoutInfo->setPayPalAuthorizationId($authorizationID);

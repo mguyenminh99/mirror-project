@@ -112,6 +112,16 @@ class PaypalCheckoutInfo extends AbstractModel implements PaypalCheckoutInfoInte
     }
 
     /**
+     * Get Paypal Order Id
+     *
+     * @return string
+     */
+    public function getPayPalOrderId(): string
+    {
+        return $this->getData(PaypalCheckoutInfoInterface::PAYPAL_ORDER_ID);
+    }
+
+    /**
      * Get PayPal Capture Id
      *
      * @return string
@@ -302,6 +312,17 @@ class PaypalCheckoutInfo extends AbstractModel implements PaypalCheckoutInfoInte
         return $this->setData(PaypalCheckoutInfoInterface::ORDER_INCREMENT_ID, $orderIncrementId);
     }
 
+
+    /**
+     * Set PayPal Order  ID
+     *
+     * @param string $paypalOrderId
+     * @return PaypalCheckoutInfoInterface
+     */
+    public function setPayPalOrderId($paypalOrderId): PaypalCheckoutInfoInterface
+    {
+        return $this->setData(PaypalCheckoutInfoInterface::PAYPAL_ORDER_ID, $paypalOrderId);
+    }
     /**
      * Set PayPal Capture Id
      *

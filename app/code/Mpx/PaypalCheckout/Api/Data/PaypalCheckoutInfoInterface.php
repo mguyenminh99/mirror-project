@@ -9,6 +9,7 @@ interface PaypalCheckoutInfoInterface
 
     public const ID = 'id';
     public const ORDER_INCREMENT_ID = 'order_increment_id';
+    public const PAYPAL_ORDER_ID = 'paypal_order_id';
     public const PAYPAL_CAPTURE_ID = 'paypal_capture_id';
     public const PAYPAL_AUTHORIZATION_ID = 'paypal_authorization_id';
     public const PAYPAL_AUTHORIZATION_PERIOD = 'paypal_authorization_period';
@@ -35,6 +36,13 @@ interface PaypalCheckoutInfoInterface
      */
     public function getOrderIncrementId(): string;
 
+
+    /**
+     * Get Paypal Order Id
+     *
+     * @return string
+     */
+    public function getPayPalOrderId(): string;
     /**
      * Get PayPal Capture Id
      *
@@ -170,6 +178,14 @@ interface PaypalCheckoutInfoInterface
      * @return PaypalCheckoutInfoInterface
      */
     public function setOrderIncrementId($orderIncrementId): PaypalCheckoutInfoInterface;
+
+    /**
+     * Set PayPal Order  ID
+     *
+     * @param $paypalOrderId
+     * @return PaypalCheckoutInfoInterface
+     */
+    public function setPayPalOrderId($paypalOrderId): PaypalCheckoutInfoInterface;
 
     /**
      * Set PayPal Capture Id
