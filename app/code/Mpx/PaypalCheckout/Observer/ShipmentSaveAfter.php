@@ -214,6 +214,7 @@ class ShipmentSaveAfter implements ObserverInterface
             $paypal_checkout_info_authorized
                 ->addFieldToSelect("paypal_authorization_amount","authorization_amount")
                 ->addFieldToSelect("paypal_authorization_id", "authorization_id")
+                ->addFieldToSelect("paypal_order_id")
                 ->getSelect()
                 ->where('action = "' . $this->paypalCheckoutAction['AUTHORIZE'] .
                     '" AND status = "' . $this->paypalCheckoutStatus['AUTHORIZED'] .
@@ -231,6 +232,7 @@ class ShipmentSaveAfter implements ObserverInterface
             $papalCheckoutModel->setOrderIncrementId($order_increment_id);
             $papalCheckoutModel->setAction($this->paypalCheckoutAction['CAPTURE']);
             $papalCheckoutModel->setStatus($this->paypalCheckoutStatus['UNPROCESSED']);
+            $papalCheckoutModel->setPayPalOrderId($paypal_checkout_info_authorized->getFirstItem()->getData()['paypal_order_id']);
             $papalCheckoutModel->setPayPalApiRequestId($paypal_request_id);
             $papalCheckoutModel->setPayPalAuthorizationId($paypalAuthorizationId);
             $papalCheckoutModel->setPayPalCapturedAmount($paypalCaptureAmount);
