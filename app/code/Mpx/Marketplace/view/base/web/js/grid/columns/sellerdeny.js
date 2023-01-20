@@ -9,7 +9,7 @@ define([
     'Magento_Ui/js/grid/columns/column',
     'jquery',
     'mage/template',
-    'text!Webkul_Marketplace/templates/grid/cells/deny/seller.html',
+    'text!Mpx_Marketplace/templates/grid/cells/deny/seller.html',
     'Magento_Ui/js/modal/modal'
 ], function (Column, $, mageTemplate, denyPreviewTemplate) {
     'use strict';
@@ -42,6 +42,15 @@ define([
         getCancellabel: function (row) {
             return row[this.index + '_cancellabel']
         },
+        getIsSeller: function (row) {
+            return row['is_seller'];
+        },
+        getTemporarilySuspendedStatus: function (row) {
+            return row[this.index + '_temporarily_suspended_status'];
+        },
+        getSellerStatusUpdateTo: function (row) {
+            return row[this.index + 'seller_status_update_to'];
+        },
         preview: function (row) {
             var modalHtml = mageTemplate(
                 denyPreviewTemplate,
@@ -54,7 +63,10 @@ define([
                     submitlabel: this.getSubmitlabel(row),
                     cancellabel: this.getCancellabel(row),
                     linkText: $.mage.__('Go to Details Page'),
-                    notifyMsg: $.mage.__('Notify Seller by Email')
+                    notifyMsg: $.mage.__('Notify Seller by Email'),
+                    is_seller : this.getIsSeller(row),
+                    TEMPORARILY_SUSPENDED_SELLER_STATUS : this.getTemporarilySuspendedStatus(row),
+                    seller_status_update_to: this.getSellerStatusUpdateTo(row)
                 }
             );
             var previewPopup = $('<div/>').html(modalHtml);
