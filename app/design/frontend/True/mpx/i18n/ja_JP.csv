@@ -183,6 +183,7 @@ Shipped,出荷数
 "Your %store_name email has been changed","%store_name お客様のメールアドレスが変更されました"
 "The email address for your account has been changed.","お客様のアカウントのメールアドレスが変更されました。"
 "Thank you for registering with %1.","アカウントを作成していただきありがとうございます。"
+"This product cannot be deleted because there is %1 order(s) in the past. If you want to stop selling the product, please change the product status to disabled.","注文データが存在するため%1 件のレコードが削除できませんでした。商品を無効にしたい場合は商品ステータスを無効に変更してください。"
 "Login to store dashboard","ストアダッシュボードにログイン"
 "Received an inquiry from a customer","お客様からお問合せが届いています。",
 "Please confirm","ご確認お願い致します。",
