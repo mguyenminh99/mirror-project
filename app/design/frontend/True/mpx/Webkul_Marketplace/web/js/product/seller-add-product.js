@@ -143,7 +143,6 @@ define([
                     } else {
                         $('div#skunotavail').css('display','block');
                         $('div#skuavail').css('display','none');
-                        $("input#sku").attr('value','');
                     }
                 },
                 error: function (response) {
