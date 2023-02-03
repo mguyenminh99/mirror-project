@@ -5,7 +5,7 @@
 "Authorize ","オーソリ"
 "Capture ","キャプチャ"
 "Sandbox  Mode","Sandboxモード"
-"Output Debug Log","デバッグログ出力"
+"Output Debug Log","注文時のデバッグログをコンソールログに出力する"
 "Enabled Credit Card","クレジットカード支払いを有効にする"
 "Transaction cannot be processed, please verify your card information or try another.","取引が処理できません,カード情報を確認するか、別のカードを試してください."
 "No paypal_checkout_info record found during authorization","オーソリ時のpaypal_checkout_infoレコードが見つかりません"
