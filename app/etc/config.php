@@ -266,6 +266,7 @@ return [
         'Mpx_Contact' => 1,
         'Mpx_Customer' => 1,
         'Mpx_Customize404Page' => 1,
+        'Mpx_CustomizeCMS' => 1,
         'Mpx_DisableEditProduct' => 1,
         'Mpx_Framework' => 1,
         'Mpx_InventorySales' => 1,

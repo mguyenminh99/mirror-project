@@ -1,0 +1,18 @@
+{
+    "title"                    : "Privacy Policy",
+    "page_layout"              : "1column",
+    "meta_keywords"            : "",
+    "meta_description"         : "",
+    "identifier"               : "privacy_policy",
+    "content_heading"          : "プライバシーポリシー",
+    "content"                  : "app/code/Mpx/CustomizeCMS/Data/Contents/PrivacyPolicyPage.html",
+    "is_active"                : "1",
+    "sort_order"               : "0",
+    "layout_update_xml"        : "",
+    "custom_theme"             : "",
+    "custom_root_template"     : "",
+    "custom_layout_update_xml" : "",
+    "custom_theme_from"        : "",
+    "custom_theme_to"          : "",
+    "stores"                   : 0
+}
