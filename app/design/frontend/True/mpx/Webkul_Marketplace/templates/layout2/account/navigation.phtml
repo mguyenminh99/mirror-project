@@ -48,7 +48,7 @@ $transactionCount = $block->getTransactionNotificationCount();
                                     <ul>
                                         <?php if ($_helper->isAllowed('marketplace/product/add')): ?>
                                             <li class="level-2">
-                                                <a href="<?= $block->escapeUrl($block->getUrl('marketplace/product/add', ['_secure' => $this->getRequest()->isSecure()])); ?>">
+                                                <a href="<?= $block->escapeUrl($block->getUrl('marketplace/product/add/set/4/type/simple/', ['_secure' => $this->getRequest()->isSecure()])); ?>">
                                                     <span><?= /* @noEscape */ __('Add Products') ?></span>
                                                 </a>
                                             </li>
