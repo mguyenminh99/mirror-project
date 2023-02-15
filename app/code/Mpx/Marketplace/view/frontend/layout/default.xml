@@ -14,5 +14,6 @@
         <referenceBlock name="marketplace-top-link" remove="true"/>
         <referenceBlock name="marketplace-link" remove="true"/>
         <referenceBlock name="marketplace_sellerprofile_rating" remove="true"/>
+        <referenceBlock name="massupload_seller_link_layout2" remove="true"/>
     </body>
 </page>

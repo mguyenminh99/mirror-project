@@ -14,12 +14,20 @@ class BeforeSaveProductData
     protected $customerSession;
 
     /**
+     * @var \Mpx\Marketplace\Helper\Data
+     */
+    protected $marketplaceHelperData;
+
+    /**
      * @param \Magento\Customer\Model\Session $customerSession
+     * @param \Mpx\Marketplace\Helper\Data $marketplaceHelperData
      */
     public function __construct(
-        \Magento\Customer\Model\Session $customerSession
+        \Magento\Customer\Model\Session $customerSession,
+        \Mpx\Marketplace\Helper\Data $marketplaceHelperData
     ) {
         $this->customerSession = $customerSession;
+        $this->marketplaceHelperData = $marketplaceHelperData;
     }
 
     /**
@@ -44,31 +52,41 @@ class BeforeSaveProductData
      */
     private function setSkuFormat(array $wholeData)
     {
-        $formattedSku = $this->formatSku($wholeData['product']['sku']);
+        $formattedSku = $this->marketplaceHelperData->formatSku($wholeData['product']['sku']);
         $wholeData['product']['sku'] = $formattedSku;
 
-        if (isset($wholeData['variations-matrix']) && !empty($wholeData['variations-matrix'])) {
-            $dataSimpleProduct =  $wholeData['variations-matrix'];
-            foreach ($dataSimpleProduct as $key => $value) {
-                $formattedSku = $this->formatSku($value['sku']);
-                $wholeData['variations-matrix'][$key]['sku'] = $formattedSku;
-            }
+        if ($this->isConfigurableProduct($wholeData)) {
+            $wholeData['variations-matrix'] = $this->setProductVariationSkuPrefix($wholeData['variations-matrix']);
         }
 
         return $wholeData;
     }
 
     /**
-     * Format Sku
+     * Set each simple product of Configurable Product Sku Prefix
      *
-     * @param string $sku
-     * @return string
+     * @param array $variationsMatrix
+     * @return array
      */
-    public function formatSku($sku)
+    private function setProductVariationSkuPrefix(array $variationsMatrix)
     {
-        $sellerId = $this->customerSession->getCustomer()->getId();
-        $skuPrefix = str_pad($sellerId, 3, "0", STR_PAD_LEFT);
+        foreach ($variationsMatrix as $key => $value) {
+            $variationsMatrix[$key]['sku'] = $this->marketplaceHelperData->formatSku($value['sku']);
+        }
 
-        return $skuPrefix.self::UNICODE_HYPHEN_MINUS.$sku;
+        return $variationsMatrix;
     }
+
+
+    /**
+     *
+     * check product is configurable
+     *
+     * @param array $wholeData
+     * @return bool
+     */
+    private function isConfigurableProduct(array $wholeData){
+        return (isset($wholeData['variations-matrix']) && !empty($wholeData['variations-matrix']));
+    }
+
 }

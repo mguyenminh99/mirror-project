@@ -11,13 +11,20 @@ class Verifysku
      */
     protected $customerSession;
 
+     /**
+     * @var \Mpx\Marketplace\Helper\Data
+     */
+    protected $marketplaceHelperData;
+
     /**
      * @param \Magento\Customer\Model\Session $customerSession
      */
     public function __construct(
-        \Magento\Customer\Model\Session $customerSession
+        \Magento\Customer\Model\Session $customerSession,
+        \Mpx\Marketplace\Helper\Data $marketplaceHelperData
     ) {
         $this->customerSession = $customerSession;
+        $this->marketplaceHelperData = $marketplaceHelperData;
     }
 
     /**
@@ -29,7 +36,7 @@ class Verifysku
     public function beforeExecute(\Webkul\Marketplace\Controller\Product\Verifysku $subject)
     {
         $params = $subject->getRequest()->getParams();
-        $skuFormat = $this->formatSku($params['sku']);
+        $skuFormat = $this->marketplaceHelperData->formatSku($params['sku']);
         $params['sku'] = $skuFormat;
         $subject->getRequest()->setParams($params);
     }
