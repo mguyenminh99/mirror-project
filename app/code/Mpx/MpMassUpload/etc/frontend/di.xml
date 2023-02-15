@@ -1,0 +1,10 @@
+<?xml version="1.0" ?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
+    <preference for="Webkul\MpMassUpload\Helper\Data" type="Mpx\MpMassUpload\Helper\Data"/>
+    <type name="Webkul\MpMassUpload\Helper\Data">
+        <plugin name="before_validate_fields" type="Mpx\MpMassUpload\Plugin\BeforeValidateFields" sortOrder="1"/>
+    </type>
+    <type name="Webkul\MpMassUpload\Helper\Data">
+        <plugin name="after_existing_product_data_mapping" type="Mpx\MpMassUpload\Plugin\AfterExistingProductDataMapping" sortOrder="1"/>
+    </type>
+</config>

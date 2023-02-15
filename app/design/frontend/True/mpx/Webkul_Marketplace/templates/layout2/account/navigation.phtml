@@ -17,6 +17,7 @@ $isSellerGroup = $_helper->isSellerGroupModuleInstalled();
 $productNotificationCount = $block->getProductNotificationCount();
 $orderNotificationCount = $block->getOrderNotificationCount();
 $transactionCount = $block->getTransactionNotificationCount();
+$helper = $this->helper(\Webkul\Marketplace\Helper\Data::class);
 ?>
 <nav data-mage-init='{"Webkul_Marketplace/js/sellerNavigation": {}}' class="wk-mp-menu wk-mp-main">
     <ul id="wk-mp-nav">
@@ -60,6 +61,42 @@ $transactionCount = $block->getTransactionNotificationCount();
                                                 </a>
                                             </li>
                                         <?php endif; ?>
+                                        <?php if (($isSellerGroup && $helper->isAllowedAction('mpmassupload/product/view')) ||
+                                            !$isSellerGroup) { ?>
+                                            <li class="level-2">
+                                                <a href="<?= $block->escapeHtml($block->getUrl(
+                                                    'mpmassupload/product/view',
+                                                    ['_secure' => $block->getRequest()->isSecure()]
+                                                )); ?>">
+                                                    <span><?= $block->escapeHtml(__('Mass Upload Product'))?></span>
+                                                </a>
+                                            </li>
+                                        <?php } ?>
+                                        <?php if (($isSellerGroup && $helper->isAllowedAction('mpmassupload/product/export')) ||
+                                            !$isSellerGroup) { ?>
+                                            <li class="level-2">
+                                                <a href="<?= $block->escapeHtml($block->getUrl(
+                                                    'mpmassupload/product/export',
+                                                    ['_secure' => $block->getRequest()->isSecure()]
+                                                )); ?>">
+                                                    <span><?= $block->escapeHtml(__('Mass Upload Product Export'))?></span>
+                                                </a>
+                                            </li>
+                                        <?php } ?>
+                                        <?php if (($isSellerGroup &&
+                                                $helper->isAllowedAction('mpmassupload/profilelisting/profilelist'))
+                                            || !$isSellerGroup) {?>
+                                            <li class="level-2">
+                                                <a href="<?= $block->escapeHtml($block->getUrl(
+                                                    'mpmassupload/profilelisting/profilelist',
+                                                    ['_secure' => $block->getRequest()->isSecure()]
+                                                )); ?>">
+                                                <span>
+                                                    <?= $block->escapeHtml(__('Mass Upload Profile Listing'))?>
+                                                </span>
+                                                </a>
+                                            </li>
+                                        <?php } ?>
                                     </ul>
                                 </div>
                             </li>
