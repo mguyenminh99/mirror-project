@@ -6,4 +6,5 @@
                 type="Mpx\MpMassUpload\Plugin\Helper\Export"
                 sortOrder="1" />
     </type>
+    <preference for="Webkul\MpMassUpload\Helper\Export" type="Mpx\MpMassUpload\Helper\Export"/>
 </config>
