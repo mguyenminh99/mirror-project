@@ -19,7 +19,7 @@ class Export
 
     public function afterExportProducts(\Webkul\MpMassUpload\Helper\Export $subject, $result){
         foreach($result[1] as $key => $product){
-            $result[1][$key]['sku'] =  $this->marketplaceHelperData->getUnformattedSku($product['sku']);
+            $result[1][$key]['sku'] =  $this->marketplaceHelperData->getUnformattedSku($product['商品番号']);
         }
         return $result;
     }
