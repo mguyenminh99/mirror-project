@@ -139,6 +139,11 @@ table.time-slot
 .wk_selectbox_slot{
     box-shadow: none;
 }
+
+.hidden-field {
+    display: none;
+}
+
 @media only screen and (max-width: 768px) {
     table.time-slot {
         width: 100%;
