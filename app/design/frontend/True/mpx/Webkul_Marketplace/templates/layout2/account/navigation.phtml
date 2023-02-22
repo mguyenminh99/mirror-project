@@ -83,20 +83,6 @@ $helper = $this->helper(\Webkul\Marketplace\Helper\Data::class);
                                                 </a>
                                             </li>
                                         <?php } ?>
-                                        <?php if (($isSellerGroup &&
-                                                $helper->isAllowedAction('mpmassupload/profilelisting/profilelist'))
-                                            || !$isSellerGroup) {?>
-                                            <li class="level-2">
-                                                <a href="<?= $block->escapeHtml($block->getUrl(
-                                                    'mpmassupload/profilelisting/profilelist',
-                                                    ['_secure' => $block->getRequest()->isSecure()]
-                                                )); ?>">
-                                                <span>
-                                                    <?= $block->escapeHtml(__('Mass Upload Profile Listing'))?>
-                                                </span>
-                                                </a>
-                                            </li>
-                                        <?php } ?>
                                     </ul>
                                 </div>
                             </li>

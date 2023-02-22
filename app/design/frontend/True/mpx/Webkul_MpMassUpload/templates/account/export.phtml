@@ -33,7 +33,9 @@ $wholeData = $block->prepareFileColumnRow('simple', []);
                     <span><span><?= $block->escapeHtml(__("Export")); ?></span></span>
                 </button>
             </legend>
-                    <select data-validate="{'validate-select':true}"
+            <div><?= $block->escapeHtml(__("*It may take some time to output.")); ?></div>
+            <div><?= $block->escapeHtml(__("Click the Export button to output the product data in CSV format.")); ?></div>
+            <select data-validate="{'validate-select':true}"
                             title="<?= $block->escapeHtml(__("Attribute Set")); ?>"
                             class="required-entry"
                             id="product_type"

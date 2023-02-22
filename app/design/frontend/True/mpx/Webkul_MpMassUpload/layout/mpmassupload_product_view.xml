@@ -4,4 +4,7 @@
     <head>
         <css src="Mpx_MpMassUpload::css/styles.css"/>
     </head>
+    <referenceContainer name="seller.content">
+        <block class="Webkul\MpMassUpload\Block\ProfileListing\ProfileList" name="massupload_profilelisting_profilelist" template="Webkul_MpMassUpload::account/profile_list.phtml" cacheable="false"></block>
+    </referenceContainer>
 </page>
