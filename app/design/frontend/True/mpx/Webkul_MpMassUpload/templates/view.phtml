@@ -159,11 +159,13 @@ $isPartner = $block->isSeller(); ?>
                     </select>
                 </div>
             </div>
-            <div class="file-upload-limit"><?= $block->escapeHtml(__("Split files larger than 10MB")); ?></div>
             <div class="field required">
-                <label for="massupload_csv" class="label">
-                    <span><?= $block->escapeHtml(__("Upload CSV/XML/XLS File")); ?></span>
-                </label>
+                <div class="row">
+                    <label for="massupload_csv" class="label">
+                        <span><?= $block->escapeHtml(__("Upload CSV/XML/XLS File")); ?></span>
+                    </label>
+                    <div class="file-upload-limit"><?= $block->escapeHtml(__("Split files larger than 10MB")); ?></div>
+                </div>
                 <div class="control">
                     <input type="file"
                            data-validate="{required:true}"
