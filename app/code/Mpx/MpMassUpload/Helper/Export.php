@@ -37,8 +37,8 @@ class Export extends \Webkul\MpMassUpload\Helper\Export
                 $wholeData['概要'] = $mageProduct['description'];
                 $wholeData['キャッチコピー'] = $mageProduct['short_description'];
                 $wholeData['商品番号'] = $mageProduct['sku'];
-                $wholeData['単価'] = $mageProduct['price'];
-                $wholeData['特別価格'] = $mageProduct['special_price'];
+                $wholeData['単価'] = floor($mageProduct['price']);
+                $wholeData['特別価格'] = floor($mageProduct['special_price']);
                 $wholeData['特別価格開始日'] = $mageProduct['special_from_date'];
                 $wholeData['特別価格終了日'] = $mageProduct['special_to_date'];
                 if (!empty($mageProduct['quantity_and_stock_status']['qty'])) {
