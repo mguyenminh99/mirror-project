@@ -1,7 +1,22 @@
-.mpmassupload-product-view .fieldset > .field:not(.choice) > .label {
-    position: relative;
-}
-.file-upload-limit{
-    position: absolute;
-    margin-left: 200px;
+.mpmassupload-product-view{
+    .field.required{
+        .row{
+            display: flex;
+            margin-bottom: 8px;
+            label{
+                font-weight: 600;
+                :after{
+                    content: '*';
+                    color: #e02b27;
+                    font-size: 1.2rem;
+                    margin: 0 0 0 5px;
+
+                }
+            }
+        }
+    }
+
+    .file-upload-limit{
+        margin-left: 20px;
+    }
 }
