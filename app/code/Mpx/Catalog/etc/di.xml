@@ -9,5 +9,8 @@
     <type name="Magento\Catalog\Block\Adminhtml\Category\Edit\SaveButton">
         <plugin name="plugin_disable_save_edit_category" type="Mpx\Catalog\Plugin\Catalog\EditSaveButton" sortOrder="1" disabled="false"/>
     </type>
+    <type name="Magento\Catalog\Model\ResourceModel\Category">
+        <plugin name="plugin_include_hidden_category" type="Mpx\Catalog\Plugin\Catalog\IncludeHiddenCategory" sortOrder="1" disabled="false"/>
+    </type>
     <preference for="Magento\Catalog\Model\Product\Attribute\Backend\Sku" type="Mpx\Catalog\Model\Product\Attribute\Backend\Sku" />
 </config>
