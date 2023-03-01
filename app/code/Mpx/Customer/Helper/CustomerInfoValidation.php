@@ -69,46 +69,36 @@ class CustomerInfoValidation extends AbstractHelper
     /**
      * Validate Post Code
      *
-     * @param array $params
+     * @param $postCode
      * @return array
      */
-    public function validatePostCode(array $params): array
+    public function validatePostCode($postCode)
     {
-        $postCode = $params['postcode'];
-        if (!empty($postCode)) {
-            if (!preg_match('/^[0-9]{3}-?[0-9]{4}$/', $postCode)) {
-                $this->errors[] = [
-                    'type' => self::INVALID_POST_CODE,
-                    'message' => self::INVALID_POST_CODE_ERROR_MESSAGE
-                ];
-            }
-        } else {
-            // postcodeが未入力の場合のエラー処理
+        if (!preg_match('/^[0-9]{3}-?[0-9]{4}$/', $postCode)) {
             $this->errors[] = [
-                'type' => self::EMPTY_POST_CODE,
-                'message' => self:: EMPTY_POST_CODE_ERROR_MESSAGE
+                'type' => self::INVALID_POST_CODE,
+                'message' => self::INVALID_POST_CODE_ERROR_MESSAGE
             ];
         }
+
         return $this->errors;
     }
 
     /**
      * Validate Phone Number
      *
-     * @param array $params
+     * @param $phoneNumber
      * @return array
      */
-    public function validatePhoneNumber(array $params): array
+    public function validatePhoneNumber($phoneNumber)
     {
-        $phoneNumber = $params['telephone'];
-        if (!empty($phoneNumber)) {
-            if (!preg_match('/^[0-9\-]*$/', $phoneNumber)) {
-                $this->errors[] = [
-                    'type' => self::INVALID_PHONE_NUMBER,
-                    'message' => self::INVALID_PHONE_NUMBER_ERROR_MESSAGE
-                ];
-            }
+        if (!preg_match('/^[0-9\-]*$/', $phoneNumber)) {
+            $this->errors[] = [
+                'type' => self::INVALID_PHONE_NUMBER,
+                'message' => self::INVALID_PHONE_NUMBER_ERROR_MESSAGE
+            ];
         }
+
         return $this->errors;
     }
 }

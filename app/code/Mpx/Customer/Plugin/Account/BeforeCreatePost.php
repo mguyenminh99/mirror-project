@@ -50,12 +50,16 @@ class BeforeCreatePost
         \Magento\Customer\Controller\Account\CreatePost $subject,
         callable $process
     ): Redirect {
-        $params = $subject->getRequest()->getParams();
-        $postCode = $params['postcode'];
         $errors = [];
-        $errors = $this->customerInfoValidation->validatePostCode($params);
-        $errors = $this->customerInfoValidation->validatePhoneNumber($params);
-        $subject->getRequest()->setParam('postcode', str_replace("-", "", $postCode));
+        $postCode = $subject->getRequest()->getParam('postcode');
+        $phoneNumber = $subject->getRequest()->getParam('telephone');
+        if ($postCode) {
+            $errors = $this->customerInfoValidation->validatePostCode($postCode);
+            $subject->getRequest()->setParam('postcode', str_replace("-", "", $postCode));
+        }
+        if ($phoneNumber) {
+            $errors = $this->customerInfoValidation->validatePhoneNumber($phoneNumber);
+        }
 
         if (!empty($errors)) {
             try {
