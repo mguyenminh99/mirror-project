@@ -11,7 +11,7 @@ define(
         'mage/storage',
         'Magento_Customer/js/customer-data',
         'uiLayout',
-
+        'Magento_Checkout/js/action/get-totals'
     ],
     function (Component,
               $,
@@ -23,7 +23,8 @@ define(
               $t,
               storage,
               customerData,
-              layout) {
+              layout,
+              getTotalsAction) {
         'use strict';
 
         window.checkoutConfig.payment.paypal_checkout.template = 'Mpx_PaypalCheckout/payment/paypal-checkout';
@@ -95,7 +96,8 @@ define(
                 var self = this;
                 var button = paypal.Buttons({
                     fundingSource: fundingSource,
-                    createOrder: function (data, actions) {
+                    createOrder: async function (data, actions) {
+                        await getTotalsAction([], $.Deferred());
                         return actions.order.create({
                             application_context: {
                                 shipping_preferences: 'SET_PROVIDED_ADDRESS',
