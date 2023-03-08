@@ -307,10 +307,7 @@ class Data extends \Webkul\MpMassUpload\Helper\Data
         /*Get Category ids by category name (set by comma seperated)*/
         $categoryIds = $this->getCategoryIds($data['product']['category']);
         /*Get $taxClassId by tax*/
-        $taxClassId = $this->getAttributeOptionIdbyOptionText(
-            "tax_class_id",
-            trim($data['product']['tax_class_id'])
-        );
+        $taxClassId = $this->getAttributeOptionIdbyOptionText("tax_class_id","消費税10%");
         if ((int)$data['product']['stock'] >= 1) {
             $isInStock = (int) true;
         } else {
@@ -340,7 +337,7 @@ class Data extends \Webkul\MpMassUpload\Helper\Data
         $wholeData['product']['visibility'] = 4;
         $wholeData['product']['tax_class_id'] = $taxClassId;
         $wholeData['product']['product_has_weight'] = $hasWeight;
-        $wholeData['product']['weight'] = $weight;
+        $wholeData['product']['weight'] = 1;
         $wholeData['product']['stock_data']['manage_stock'] = 1;
         $wholeData['product']['stock_data']['use_config_manage_stock'] = 1;
         $wholeData['product']['quantity_and_stock_status']['qty'] = $data['product']['stock'];
@@ -435,5 +432,17 @@ class Data extends \Webkul\MpMassUpload\Helper\Data
         $result[] = $url.'config.csv';
         $result[] = $url.'virtual.csv';
         return $result;
+    }
+
+    /**
+     * Get Csv Product Type
+     *
+     * @param array $uploadedFileRowData
+     *
+     * @return string
+     */
+    public function getProductType($uploadedFileRowData)
+    {
+        return 'simple';
     }
 }
