@@ -31,6 +31,9 @@ class SaveProduct extends \Webkul\Marketplace\Controller\Product\SaveProduct
         $wholedata['new-variations-attribute-set-id'] = $wholedata['set'];
         $wholedata['product']['attribute_set_id'] = $wholedata['set'];
 
+        $wholedata['product']['product_has_weight'] = 1;
+        $wholedata['product']['weight'] = 1;
+        $wholedata['product']['tax_class_id'] = $this->_marketplaceHelperData->getTaxClassModel()->addFieldToFilter('class_name','消費税10%')->getFirstItem()->getClassId();
         $helper = $this->_marketplaceHelperData;
 
         $this->_registry->register('mp_flat_catalog_flag', 1);

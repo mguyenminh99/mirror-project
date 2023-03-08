@@ -320,9 +320,6 @@ $taxName = $tax10Percent->getClassName();
                     </select>
                 </div>
             </div>
-            <input type="hidden" value="<?php echo $taxId;?>" name="product[tax_class_id]">
-            <input type="hidden" value="1" name="product[product_has_weight]">
-            <input type="hidden"name="product[weight]" value="1"/>
             <?php if(!$helper->getCustomerSharePerWebsite()): ?>
                 <div class="field required">
                     <label class="label"><?= $block->escapeHtml(__('Product in Websites')) ?>:</label>
