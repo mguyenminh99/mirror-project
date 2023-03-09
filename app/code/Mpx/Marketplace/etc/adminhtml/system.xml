@@ -19,7 +19,7 @@
                 <field id="notificationEmail" translate="label" type="text" sortOrder="4" showInDefault="1" showInWebsite="0" showInStore="0">
                     <label>Sender address of notification email</label>
                 </field>
-                <field id="adminEmail" translate="label" type="text" sortOrder="5" showInDefault="1" showInWebsite="0" showInStore="0">
+                <field id="systemAdminEmail" translate="label" type="text" sortOrder="5" showInDefault="1" showInWebsite="0" showInStore="0">
                     <label>System admin email address</label>
                 </field>
                 <field id="systemNotificationEmail" translate="label" type="text" sortOrder="6" showInDefault="1" showInWebsite="0" showInStore="0">
