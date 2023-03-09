@@ -5,6 +5,27 @@
             <label>Market Place</label>
             <tab>Mpx</tab>
             <resource>Mpx_Marketplace::Mpx_config</resource>
+            <group id="general" translate="label" type="text" sortOrder="0" showInDefault="1" showInWebsite="1" showInStore="1">
+                <label>General settings</label>
+                <field id="marketplaceId" translate="label" type="text" sortOrder="1" showInDefault="1" showInWebsite="0" showInStore="0">
+                    <label>Marketplace id</label>
+                </field>
+                <field id="marketplaceName" translate="label" type="text" sortOrder="2" showInDefault="1" showInWebsite="0" showInStore="0">
+                    <label>Marketplace name</label>
+                </field>
+                <field id="xsadminEmail" translate="label" type="text" sortOrder="3" showInDefault="1" showInWebsite="0" showInStore="0">
+                    <label>Xs-admin email address</label>
+                </field>
+                <field id="notificationEmail" translate="label" type="text" sortOrder="4" showInDefault="1" showInWebsite="0" showInStore="0">
+                    <label>Sender address of notification email</label>
+                </field>
+                <field id="adminEmail" translate="label" type="text" sortOrder="5" showInDefault="1" showInWebsite="0" showInStore="0">
+                    <label>System admin email address</label>
+                </field>
+                <field id="systemNotificationEmail" translate="label" type="text" sortOrder="6" showInDefault="1" showInWebsite="0" showInStore="0">
+                    <label>Sender address of system notification email</label>
+                </field>
+            </group>
             <group id="default" translate="label" type="text" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1">
                 <label>Setting 403 page</label>
                 <field id="enable" translate="label" type="select" sortOrder="1" showInDefault="1" showInWebsite="0" showInStore="0">
