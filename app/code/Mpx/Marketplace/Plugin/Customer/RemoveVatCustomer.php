@@ -34,6 +34,7 @@ class RemoveVatCustomer
 
         $fieldset = $form->getElement('base_fieldset');
         $fieldset->getElements()->remove('taxvat');
+        $fieldset->getElements()->remove('country_pic');
 
         return [$form];
     }

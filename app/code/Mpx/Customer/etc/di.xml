@@ -13,4 +13,33 @@
     <type name="Magento\Customer\Controller\Adminhtml\Address\Save">
         <plugin name="custom_edit_account_post_code_admin" type="Mpx\Customer\Plugin\Adminhtml\Address\BeforeSave" sortOrder="1"/>
     </type>
+
+    <type name="Magento\Paypal\Block\Adminhtml\Customer\Edit\Tab\Agreement">
+        <plugin name="hidden_customer_menu_billing_agreements" type="Mpx\Customer\Plugin\Customer\Agreement\AfterCanShowTab" sortOrder="1"/>
+    </type>
+    <type name="Magento\Review\Block\Adminhtml\ReviewTab">
+        <plugin name="hidden_customer_menu_product_reviews" type="Mpx\Customer\Plugin\Customer\ReviewTab\AfterCanShowTab" sortOrder="1"/>
+    </type>
+    <type name="Webkul\Marketplace\Block\Adminhtml\FlagsTab">
+        <plugin name="hidden_customer_menu_flags" type="Mpx\Customer\Plugin\Customer\FlagsTab\AfterCanShowTab" sortOrder="1"/>
+    </type>
+    <type name="Webkul\Marketplace\Block\Adminhtml\Customer\Edit\PaymentInfoTab">
+        <plugin name="hidden_customer_menu_payment_information" type="Mpx\Customer\Plugin\Customer\PaymentInfoTab\AfterCanShowTab" sortOrder="1"/>
+    </type>
+    <type name="Webkul\Marketplace\Block\Adminhtml\Customer\Edit\CommissionTab">
+        <plugin name="hidden_customer_menu_commission" type="Mpx\Customer\Plugin\Customer\CommissionTab\AfterCanShowTab" sortOrder="1"/>
+    </type>
+    <type name="Webkul\Marketplace\Block\Adminhtml\Customer\Edit\AssignCategoryTab">
+        <plugin name="hidden_customer_menu_assign_category" type="Mpx\Customer\Plugin\Customer\AssignCategoryTab\AfterCanShowTab" sortOrder="1"/>
+    </type>
+    <preference for="Magento\Customer\Block\Adminhtml\Edit\Tab\Orders" type="Mpx\Customer\Block\Adminhtml\Edit\Tab\Orders" />
+    <type name="Magento\Customer\Block\Adminhtml\Edit\InvalidateTokenButton">
+        <plugin name="hidden_customer_button_invalidate_token" type="Mpx\Customer\Plugin\Customer\InvalidateTokenButton\AfterGetButtonData" sortOrder="1"/>
+    </type>
+    <type name="Magento\Customer\Block\Adminhtml\Edit\OrderButton">
+        <plugin name="hidden_customer_button_order" type="Mpx\Customer\Plugin\Customer\OrderButton\AfterGetButtonData" sortOrder="1"/>
+    </type>
+    <type name="Magento\Customer\Block\Adminhtml\Edit\ResetPasswordButton">
+        <plugin name="hidden_customer_button_reset_password" type="Mpx\Customer\Plugin\Customer\ResetPasswordButton\AfterGetButtonData" sortOrder="1"/>
+    </type>
 </config>
