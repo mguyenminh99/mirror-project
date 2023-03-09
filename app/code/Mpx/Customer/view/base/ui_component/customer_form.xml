@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<form xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+      xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Ui:etc/ui_configuration.xsd">
+    <fieldset name="customer">
+        <field name="website_id" component="Magento_Ui/js/form/element/website" formElement="select">
+            <settings>
+                <visible>false</visible>
+            </settings>
+        </field>
+        <field name="prefix" formElement="input">
+            <settings>
+                <visible>false</visible>
+            </settings>
+        </field>
+        <field name="middlename" formElement="input">
+            <settings>
+                <visible>false</visible>
+            </settings>
+        </field>
+        <field name="suffix" formElement="input">
+            <settings>
+                <visible>false</visible>
+            </settings>
+        </field>
+        <field name="dob" formElement="date">
+            <settings>
+                <visible>false</visible>
+            </settings>
+        </field>
+        <field name="gender" formElement="select">
+            <settings>
+                <visible>false</visible>
+            </settings>
+        </field>
+        <field name="sendemail_store_id" formElement="select">
+            <settings>
+                <visible>false</visible>
+            </settings>
+        </field>
+        <field name="vertex_customer_code">
+            <settings>
+                <visible>false</visible>
+            </settings>
+        </field>
+        <field name="minimum_time_required">
+            <settings>
+                <visible>false</visible>
+            </settings>
+        </field>
+        <field name="lastname" formElement="input">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="sortOrder" xsi:type="number">70</item>
+                </item>
+            </argument>
+        </field>
+        <field name="firstname" formElement="input">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="sortOrder" xsi:type="number">80</item>
+                </item>
+            </argument>
+        </field>
+    </fieldset>
+</form>
