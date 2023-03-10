@@ -5,6 +5,9 @@
             <default>
                 <enable>1</enable>
             </default>
+            <settings_store>
+                <limit_seller>10</limit_seller>
+            </settings_store>
         </mpx_web>
         <timeslot>
             <configurations>

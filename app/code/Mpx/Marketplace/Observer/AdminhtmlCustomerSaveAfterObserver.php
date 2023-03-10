@@ -16,6 +16,7 @@ use Magento\Catalog\Model\ProductFactory as ProductModel;
 use Magento\Framework\Filesystem\Io\File as FilesystemIo;
 use Magento\Catalog\Model\Product\Action as ProductAction;
 use Magento\Catalog\Model\Indexer\Product\Price\Processor;
+use Mpx\Marketplace\Helper\Data as MpxHelperData;
 
 /**
  * Mpx Marketplace AdminhtmlCustomerSaveAfterObserver Observer.
@@ -128,6 +129,12 @@ class AdminhtmlCustomerSaveAfterObserver extends \Webkul\Marketplace\Observer\Ad
      */
     protected $_productPriceIndexerProcessor;
 
+
+    /**
+     * @var MpxHelperData
+     */
+    protected $mpxHelperData;
+
     /**
      * @param Filesystem $filesystem
      * @param \Magento\Framework\Stdlib\DateTime\DateTime $date
@@ -169,7 +176,8 @@ class AdminhtmlCustomerSaveAfterObserver extends \Webkul\Marketplace\Observer\Ad
         ProductModel                                                      $productModel,
         FilesystemIo                                                      $filesystemFile = null,
         ProductAction                                                     $productAction,
-        Processor                                                         $productPriceIndexerProcessor
+        Processor                                                         $productPriceIndexerProcessor,
+        MpxHelperData                                                     $mpxHelperData
     ) {
         $this->_mediaDirectory = $filesystem->getDirectoryWrite(DirectoryList::MEDIA);
         $this->_fileUploaderFactory = $fileUploaderFactory;
@@ -193,6 +201,7 @@ class AdminhtmlCustomerSaveAfterObserver extends \Webkul\Marketplace\Observer\Ad
             ->create(FilesystemIo::class);
         $this->productAction = $productAction;
         $this->_productPriceIndexerProcessor = $productPriceIndexerProcessor;
+        $this->mpxHelperData = $mpxHelperData;
 
         parent::__construct(
             $filesystem,
@@ -226,6 +235,15 @@ class AdminhtmlCustomerSaveAfterObserver extends \Webkul\Marketplace\Observer\Ad
      */
     public function execute(\Magento\Framework\Event\Observer $observer)
     {
+
+        if ($observer->getRequest()->getParam('is_seller_add')) {
+            $limit_seller = $this->mpxHelperData->getConfigLimitSeller();
+            if($this->mpxHelperData->isRunOutOfSellerLimit()) {
+                throw new \Magento\Framework\Exception\LocalizedException(
+                    __('You cannot register more than %1 stores at this time', $limit_seller)
+                );
+            }
+        }
         try {
         $this->moveDirToMediaDir();
         $customer = $observer->getCustomer();

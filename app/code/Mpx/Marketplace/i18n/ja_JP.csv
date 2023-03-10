@@ -41,6 +41,9 @@
 "Do you want to reopen your store?","ストアを再開しますか?"
 "SKU Already Exist","商品番号はすでに使用されています。"
 "Your mail has been sent.","お問合せ内容を送信しました。"
+"Limit Seller","登録できるストアの上限数"
+"You cannot register more than %1 stores at this time","現在%1件以上ストアを登録することはできません"
+"Settings Store","ストア設定"
 "General settings","全般設定"
 "Marketplace id","マーケットプレイスID"
 "Marketplace name","マーケットプレイス名"
@@ -48,3 +51,4 @@
 "Sender address of notification email","通知メールの送信元メールアドレス"
 "System admin email address","システム管理者のメールアドレス"
 "Sender address of system notification email","システム通知メールの送信元アドレス"
+
