@@ -62,7 +62,8 @@ define([
                             'name': seller.name,
                             'slot_time': $.mage.__('None'),
                             'date': $.mage.__('None'),
-                            'slot_id': ''
+                            'slot_id': '',
+                            'shop_title':seller.shop_title
                         });
                         this.sellerCount(this.sellerCount() + 1);
                         customerData.set("changeevent-slots", this.selectedSlots());
