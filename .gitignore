@@ -81,3 +81,5 @@ atlassian*
 !/app/design/frontend/True
 
 .rnd
+
+/app/etc/config.xml
