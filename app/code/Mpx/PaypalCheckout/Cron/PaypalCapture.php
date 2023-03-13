@@ -28,6 +28,7 @@ use Magento\Sales\Model\Order;
 use Magento\Customer\Model\ResourceModel\Customer\CollectionFactory as CustomerCollectionFactory;
 use Mpx\PaypalCheckout\Model\Payment\PaypalCheckout\Payment;
 use Magento\Framework\App\Config\ScopeConfigInterface;
+use Mpx\Marketplace\Helper\Data as MpxMarketplaceHelper;
 
 /**
  * Cron Job PaypalCapture
@@ -54,11 +55,6 @@ class PaypalCapture
     protected const PAYPAL_CAPTURE_API_RESULT_CONSISTENCY_ERROR = -7;
     protected const HTTP_STATUS_CODE_SERVICE_UNAVAILABLE = 503;
     protected const STORE_GUIDE_PATH = 'store-guide';
-    protected const FROM_MAIL_ADDRESS = 'no-reply@x-shopping-st.ameyoko.net';
-    protected const MARKETPLACE_NAME = 'アメ横商店街公式サイトオンラインモール';
-    protected const XS_ADMIN_MAIL_ADDRESS = 'xs-admin@x-shopping-st.com';
-    protected const SYSTEM_ADMIN_MAIL_ADDRESS = 'dev-team@true-inc.jp';
-    protected const SYSTEM_NOTICE_MAIL_FROM_ADDRESS = 'system_notice@x-shopping-st.com';
     protected const ORDER_DETAIL_PATH = 'marketplace/order/view/id';
     protected const MARKETPLACE_STORE_ID = 1;
     protected const XML_PATH_EMAIL_PAYPAL_CAPTURE_FAILED_NOTICE = "paypal_capture_failed_notice";
@@ -180,6 +176,11 @@ class PaypalCapture
     public $scopeConfig;
     
     /**
+     * @var MpxMarketplaceHelper
+     */
+    protected $mpxMarketplaceHelper;
+
+    /**
      * @param Config $config
      * @param Curl $curl
      * @param LoggerInterface $logger
@@ -201,6 +202,7 @@ class PaypalCapture
      * @param Transaction $transaction
      * @param DataSeller $dataSeller
      * @param Payment $payment
+     * @param MpxMarketplaceHelper $mpxMarketplaceHelper
      */
     public function __construct(
         Config                          $config,
@@ -224,7 +226,8 @@ class PaypalCapture
         Transaction                     $transaction,
         DataSeller                      $dataSeller,
         ScopeConfigInterface            $scopeConfig,
-        Payment                         $payment
+        Payment                         $payment,
+        MpxMarketplaceHelper            $mpxMarketplaceHelper
     )
     {
         $this->config = $config;
@@ -250,6 +253,7 @@ class PaypalCapture
         $this->dataSeller = $dataSeller;
         $this->payment = $payment;
         $this->scopeConfig = $scopeConfig;
+        $this->mpxMarketplaceHelper = $mpxMarketplaceHelper;
     }
 
     /**
@@ -403,10 +407,10 @@ class PaypalCapture
                 'store_name' => $store_name,
                 'order_increment_id' => $order_increment_id,
                 'order_detail_url' => $order_detail_url,
-                'marketplace_name' => self::MARKETPLACE_NAME
+                'marketplace_name' => $this->mpxMarketplaceHelper->getMarketplaceName()
             ];
             $sender = [
-                'email' => self::FROM_MAIL_ADDRESS,
+                'email' => $this->mpxMarketplaceHelper->getFromMailAddress(),
                 'name' => ''
             ];
             $this->inlineTranslation->suspend();
@@ -420,7 +424,10 @@ class PaypalCapture
             $transport->setTemplateIdentifier($email_template);
             $transport->setFrom($sender);
             $transport->addTo($store_email_address);
-            $transport->addBcc([self::SYSTEM_ADMIN_MAIL_ADDRESS, self::XS_ADMIN_MAIL_ADDRESS]);
+            $transport->addBcc([
+                $this->mpxMarketplaceHelper->getSystemAdminMailAddress(),
+                $this->mpxMarketplaceHelper->getXsadminMailAddress()
+            ]);
             $transport->getTransport()->sendMessage();
             $this->inlineTranslation->resume();
         } catch (\Exception $exception) {
@@ -481,16 +488,16 @@ class PaypalCapture
             $this->inlineTranslation->suspend();
             $transport->setTemplateIdentifier(self::XML_PATH_EMAIL_SYSTEM_NOTICE_MAIL);
             $sender = [
-                'email' => self::SYSTEM_NOTICE_MAIL_FROM_ADDRESS,
+                'email' => $this->mpxMarketplaceHelper->getSystemNoticeMailFromAddress(),
                 'name' => ''
             ];
             $emailBody = [
                 'log_level' => $log_level,
-                'marketplace_name' => self::MARKETPLACE_NAME,
+                'marketplace_name' => $this->mpxMarketplaceHelper->getMarketplaceName(),
                 'message' => $message
             ];
             $transport->setFrom($sender);
-            $transport->addTo(self::SYSTEM_ADMIN_MAIL_ADDRESS);
+            $transport->addTo($this->mpxMarketplaceHelper->getSystemAdminMailAddress());
             $transport->setTemplateVars($emailBody);
             $transport->setTemplateOptions(
                 [

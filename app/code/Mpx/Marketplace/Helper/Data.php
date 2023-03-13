@@ -11,6 +11,11 @@ class Data extends AbstractHelper
 {
     const UNICODE_HYPHEN_MINUS = "\u{002D}";
     const SKU_PREFIX_LENGTH = 4;
+    const MARKETPLACE_NAME_CONFIG_PATH = 'mpx_web/general/marketplaceName';
+    const FROM_MAIL_ADDRESS_CONFIG_PATH = 'mpx_web/general/notificationEmail';
+    const XS_ADMIN_MAIL_ADDRESS_CONFIG_PATH = 'mpx_web/general/xsadminEmail';
+    const SYSTEM_ADMIN_MAIL_ADDRESS_CONFIG_PATH = 'mpx_web/general/systemAdminEmail';
+    const SYSTEM_NOTICE_MAIL_FROM_ADDRESS_CONFIG_PATH = 'mpx_web/general/systemNotificationEmail';
 
     /**
      * @var \Magento\Customer\Model\Session
@@ -113,4 +118,68 @@ class Data extends AbstractHelper
         return ( $this->getSellerData()->getSize() >= $this->getConfigLimitSeller() );
     }
 
+    /**
+     * Get Marketplace Name
+     *
+     * @return mixed
+     */
+    public function getMarketplaceName()
+    {
+        return $this->scopeConfig->getValue(
+            self::MARKETPLACE_NAME_CONFIG_PATH,
+            \Magento\Store\Model\ScopeInterface::SCOPE_STORE
+        );
+    }
+
+    /**
+     * Get From Mail Address
+     *
+     * @return mixed
+     */
+    public function getFromMailAddress()
+    {
+        return $this->scopeConfig->getValue(
+            self::FROM_MAIL_ADDRESS_CONFIG_PATH,
+            \Magento\Store\Model\ScopeInterface::SCOPE_STORE
+        );
+    }
+
+    /**
+     * Get Xsadmin Mail Address
+     *
+     * @return mixed
+     */
+    public function getXsadminMailAddress()
+    {
+        return $this->scopeConfig->getValue(
+            self::XS_ADMIN_MAIL_ADDRESS_CONFIG_PATH,
+            \Magento\Store\Model\ScopeInterface::SCOPE_STORE
+        );
+    }
+
+    /**
+     * Get System Admin Mail Address
+     *
+     * @return mixed
+     */
+    public function getSystemAdminMailAddress()
+    {
+        return $this->scopeConfig->getValue(
+            self::SYSTEM_ADMIN_MAIL_ADDRESS_CONFIG_PATH,
+            \Magento\Store\Model\ScopeInterface::SCOPE_STORE
+        );
+    }
+
+    /**
+     * Get System Notice Mail From Address
+     *
+     * @return mixed
+     */
+    public function getSystemNoticeMailFromAddress()
+    {
+        return $this->scopeConfig->getValue(
+            self::SYSTEM_NOTICE_MAIL_FROM_ADDRESS_CONFIG_PATH,
+            \Magento\Store\Model\ScopeInterface::SCOPE_STORE
+        );
+    }
 }

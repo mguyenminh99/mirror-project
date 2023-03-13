@@ -15,15 +15,23 @@
                 </field>
                 <field id="xsadminEmail" translate="label" type="text" sortOrder="3" showInDefault="1" showInWebsite="0" showInStore="0">
                     <label>Xs-admin email address</label>
+                    <validate>validate-email</validate>
+                    <backend_model>Magento\Config\Model\Config\Backend\Email\Address</backend_model>
                 </field>
                 <field id="notificationEmail" translate="label" type="text" sortOrder="4" showInDefault="1" showInWebsite="0" showInStore="0">
                     <label>Sender address of notification email</label>
+                    <validate>validate-email</validate>
+                    <backend_model>Magento\Config\Model\Config\Backend\Email\Address</backend_model>
                 </field>
                 <field id="systemAdminEmail" translate="label" type="text" sortOrder="5" showInDefault="1" showInWebsite="0" showInStore="0">
                     <label>System admin email address</label>
+                    <validate>validate-email</validate>
+                    <backend_model>Magento\Config\Model\Config\Backend\Email\Address</backend_model>
                 </field>
                 <field id="systemNotificationEmail" translate="label" type="text" sortOrder="6" showInDefault="1" showInWebsite="0" showInStore="0">
                     <label>Sender address of system notification email</label>
+                    <validate>validate-email</validate>
+                    <backend_model>Magento\Config\Model\Config\Backend\Email\Address</backend_model>
                 </field>
             </group>
             <group id="default" translate="label" type="text" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1">
