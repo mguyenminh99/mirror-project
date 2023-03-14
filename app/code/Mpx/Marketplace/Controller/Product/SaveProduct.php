@@ -117,6 +117,7 @@ class SaveProduct extends \Webkul\Marketplace\Controller\Product\SaveProduct
         $associatedProductIds = [];
 
         $resultData = $this->buildConfigurableProduct($catalogProduct, $wholedata);
+        $catalogProduct->setStatus($status);
         $catalogProduct->save();
         $catalogProduct->setUrlKey('item-'.$catalogProduct->getEntityId());
         $catalogProduct->save();
@@ -164,7 +165,6 @@ class SaveProduct extends \Webkul\Marketplace\Controller\Product\SaveProduct
         }
 
         $originalSku = $catalogProduct->getSku();
-        $catalogProduct->setStatus($status);
         $mageProductId = $catalogProduct->getId();
         $this->handleImageRemoveError($wholedata, $mageProductId);
         $this->getCategoryLinkManagement()->assignProductToCategories(
