@@ -179,12 +179,6 @@ class PaypalCapture
      * @var MpxMarketplaceHelper
      */
     protected $mpxMarketplaceHelper;
-
-    /**
-     * @var MpxMarketplaceHelper
-     */
-    protected $mpxMarketplaceHelper;
-
     /**
      * @param Config $config
      * @param Curl $curl
