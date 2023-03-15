@@ -7,6 +7,7 @@ use Magento\Framework\Exception\LocalizedException;
 use Magento\Framework\Exception\NoSuchEntityException;
 use Mpx\PaypalCheckout\Logger\Handler;
 use Webkul\Marketplace\Helper\Data;
+use Mpx\Marketplace\Helper\Data as MpxMarketplaceHelper;
 
 /**
  * Class PaypalCheckoutConfigProvider
@@ -51,24 +52,32 @@ class PaypalCheckoutConfigProvider implements \Magento\Checkout\Model\ConfigProv
     protected $data;
 
     /**
+     * @var MpxMarketplaceHelper
+     */
+    protected $mpxMarketplaceHelper;
+
+    /**
      * @param Config $paypalConfig
      * @param Session $customerSession
      * @param \Magento\Checkout\Model\Session $checkoutSession
      * @param Handler $logger
      * @param Data $data
+     * @param MpxMarketplaceHelper $mpxMarketplaceHelper
      */
     public function __construct(
         Config                          $paypalConfig,
         Session $customerSession,
         \Magento\Checkout\Model\Session $checkoutSession,
         Handler    $logger,
-        Data $data
+        Data $data,
+        MpxMarketplaceHelper $mpxMarketplaceHelper
     ) {
         $this->_paypalConfig    = $paypalConfig;
         $this->_customerSession = $customerSession;
         $this->_checkoutSession = $checkoutSession;
         $this->_logger          = $logger;
         $this->data = $data;
+        $this->mpxMarketplaceHelper = $mpxMarketplaceHelper;
     }
 
     /**
@@ -84,8 +93,9 @@ class PaypalCheckoutConfigProvider implements \Magento\Checkout\Model\ConfigProv
         $quote = $this->_checkoutSession->getQuote();
         $firstItem = $quote->getItemsCollection()->getFirstItem();
         $sellerId = $this->data->getSellerIdByProductId($firstItem->getProductId());
+        $marketplaceId = $this->mpxMarketplaceHelper->getMarketPlaceId();
         $sellerIdZeroFill = str_pad($sellerId, 3, "0", STR_PAD_LEFT);
-        $invoiceID = $sellerIdZeroFill . "-" . $quote->getReservedOrderId();
+        $invoiceID = $marketplaceId . "-" . $sellerIdZeroFill . "-" . $quote->getReservedOrderId();
 
         $config = [
             'payment' => [
