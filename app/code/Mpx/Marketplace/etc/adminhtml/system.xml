@@ -51,6 +51,7 @@
                 <field id="limit_seller" translate="label" type="text" sortOrder="3" showInDefault="1" showInWebsite="0" showInStore="0">
                     <label>Limit Seller</label>
                     <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                    <validate>required-entry validate-seller-registration-limit</validate>
                 </field>
             </group>
         </section>
