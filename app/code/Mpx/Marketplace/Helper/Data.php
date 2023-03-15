@@ -5,6 +5,8 @@ namespace Mpx\Marketplace\Helper;
 use Magento\Framework\App\Config\ScopeConfigInterface;
 use Magento\Framework\App\Helper\AbstractHelper;
 use Magento\Framework\App\Helper\Context;
+use Mpx\Marketplace\Controller\Adminhtml\Seller\Deny;
+use Webkul\Marketplace\Helper\Data as HelperData;
 use Webkul\Marketplace\Model\SellerFactory as MpSeller;
 use Magento\Store\Model\ScopeInterface;
 
@@ -38,11 +40,13 @@ class Data extends AbstractHelper
         Context $context,
         \Magento\Customer\Model\Session $customerSession,
         MpSeller                        $mpSeller,
-        ScopeConfigInterface            $scopeConfig
+        ScopeConfigInterface            $scopeConfig,
+        HelperData       $helper
     ) {
         $this->customerSession = $customerSession;
         $this->mpSeller = $mpSeller;
         $this->scopeConfig = $scopeConfig;
+        $this->helper = $helper;
         parent::__construct($context);
     }
 
@@ -121,6 +125,21 @@ class Data extends AbstractHelper
     }
 
     /**
+     * @return bool
+     */
+    public function isSellerLogin()
+    {
+        $sellerId = $this->customerSession->getCustomerId();
+        $sellerCollection = $this->helper->getSellerCollectionObj($sellerId);
+        foreach ($sellerCollection as $value) {
+            if ($value->getIsSeller() == Deny::ENABLED_SELLER_STATUS) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    /**
      * Get Marketplace Name
      *
      * @return mixed
@@ -194,4 +213,5 @@ class Data extends AbstractHelper
     {
         return $this->scopeConfig->getValue(self::MARKETPLACE_ID_CONFIG_PATH, ScopeInterface::SCOPE_STORE);
     }
+
 }
