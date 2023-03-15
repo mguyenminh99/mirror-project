@@ -174,7 +174,12 @@ class PaypalCapture
      * @var ScopeConfigInterface
      */
     public $scopeConfig;
-    
+
+    /**
+     * @var MpxMarketplaceHelper
+     */
+    protected $mpxMarketplaceHelper;
+
     /**
      * @var MpxMarketplaceHelper
      */
@@ -769,8 +774,9 @@ class PaypalCapture
         $orderInfo = $this->order->loadByIncrementId($order_increment_id);
         $productId = $orderInfo->getAllItems()[0]->getData('product_id');
         $sellerId = $this->dataSeller->getSellerIdByProductId($productId);
+        $marketplaceId = $this->mpxMarketplaceHelper->getMarketPlaceId();
         $sellerIdZeroFill = str_pad($sellerId, 3, "0", STR_PAD_LEFT);
-        $invoiceID = $sellerIdZeroFill . "-" . $order_increment_id;
+        $invoiceID = $marketplaceId . "-" . $sellerIdZeroFill . "-" . $order_increment_id;
         if (!$configSandboxFlag) {
             $paypal_capture_authorized_payment_api_url = str_replace(
                 '{authorization_id}',

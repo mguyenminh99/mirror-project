@@ -6,6 +6,7 @@ use Magento\Framework\App\Config\ScopeConfigInterface;
 use Magento\Framework\App\Helper\AbstractHelper;
 use Magento\Framework\App\Helper\Context;
 use Webkul\Marketplace\Model\SellerFactory as MpSeller;
+use Magento\Store\Model\ScopeInterface;
 
 class Data extends AbstractHelper
 {
@@ -16,6 +17,7 @@ class Data extends AbstractHelper
     const XS_ADMIN_MAIL_ADDRESS_CONFIG_PATH = 'mpx_web/general/xsadminEmail';
     const SYSTEM_ADMIN_MAIL_ADDRESS_CONFIG_PATH = 'mpx_web/general/systemAdminEmail';
     const SYSTEM_NOTICE_MAIL_FROM_ADDRESS_CONFIG_PATH = 'mpx_web/general/systemNotificationEmail';
+    const MARKETPLACE_ID_CONFIG_PATH = 'mpx_web/general/marketplaceId';
 
     /**
      * @var \Magento\Customer\Model\Session
@@ -181,5 +183,15 @@ class Data extends AbstractHelper
             self::SYSTEM_NOTICE_MAIL_FROM_ADDRESS_CONFIG_PATH,
             \Magento\Store\Model\ScopeInterface::SCOPE_STORE
         );
+    }
+
+    /**
+     * get marketplace id config
+     *
+     * @return mixed
+     */
+    public function getMarketPlaceId()
+    {
+        return $this->scopeConfig->getValue(self::MARKETPLACE_ID_CONFIG_PATH, ScopeInterface::SCOPE_STORE);
     }
 }
