@@ -42,4 +42,7 @@
     <type name="Magento\Customer\Block\Adminhtml\Edit\ResetPasswordButton">
         <plugin name="hidden_customer_button_reset_password" type="Mpx\Customer\Plugin\Customer\ResetPasswordButton\AfterGetButtonData" sortOrder="1"/>
     </type>
+    <type name="Magento\Customer\Controller\Account\LoginPost">
+        <plugin name="set_path_after_login" type="Mpx\Customer\Controller\Account\LoginPost" sortOrder="1"/>
+    </type>
 </config>
