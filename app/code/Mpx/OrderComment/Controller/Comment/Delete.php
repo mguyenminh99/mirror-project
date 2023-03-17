@@ -8,10 +8,10 @@ use Magento\Framework\Stdlib\DateTime\DateTimeFactory;
 use Magento\Framework\Stdlib\DateTime\TimezoneInterface;
 use Magento\Sales\Model\Order\Status\HistoryFactory;
 use Magento\Sales\Model\ResourceModel\Order\Status\History as OrderStatusHistoryResource;
+use Mpx\Marketplace\Helper\Constant;
 
 class Delete extends \Magento\Framework\App\Action\Action
 {
-    const STATUS_DELETE_ORDER_COMMENT = 1;
 
     /**
      * @var HistoryFactory
@@ -65,7 +65,7 @@ class Delete extends \Magento\Framework\App\Action\Action
         }
         try {
             $history = $this->_orderHistoryFactory->create()->load($commentId);
-            $history->setData('comment_status', self::STATUS_DELETE_ORDER_COMMENT);
+            $history->setData('comment_status', Constant::STATUS_DELETE_ORDER_COMMENT);
             $this->orderStatusHistoryResource->save($history);
 
             $result['comment_id'] = $commentId;

@@ -9,12 +9,11 @@ use Magento\Framework\Stdlib\DateTime\TimezoneInterface;
 use Magento\Sales\Model\Order\Status\HistoryFactory;
 use Magento\Sales\Model\ResourceModel\Order\Status\History as OrderStatusHistoryResource;
 use Magento\Framework\Controller\ResultFactory;
+use Mpx\Marketplace\Helper\Constant;
 
 class Save extends \Magento\Framework\App\Action\Action
 {
     const STATUS_EDIT_ORDER_COMMENT = 2;
-
-    const STATUS_DELETE_ORDER_COMMENT = 1;
 
     /**
      * @var HistoryFactory
@@ -75,7 +74,7 @@ class Save extends \Magento\Framework\App\Action\Action
         }
         try {
             $history = $this->_orderHistoryFactory->create()->load($commentId);
-            if ($history->getData('comment_status') == self::STATUS_DELETE_ORDER_COMMENT) {
+            if ($history->getData('comment_status') == Constant::STATUS_DELETE_ORDER_COMMENT) {
                 $resultJson->setData($response);
                 return $resultJson;
             }
