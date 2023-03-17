@@ -129,4 +129,18 @@ class CommonFunc extends AbstractHelper
     }
 
 //End Mpx_Sales
+
+//Start Mpx_Mpshipping
+    /**
+     * Check if number is decimal
+     *
+     * @param string $val
+     * @return bool
+     */
+    public function isDecimal(string $val): bool
+    {
+        return is_numeric($val) && floor($val) != $val;
+    }
+
+//End Mpx_Mpshipping
 }
