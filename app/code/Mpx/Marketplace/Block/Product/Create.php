@@ -13,13 +13,13 @@ use Magento\Framework\Serialize\SerializerInterface;
 use Magento\GoogleOptimizer\Model\Code as ModelCode;
 use Webkul\Marketplace\Helper\Data as HelperData;
 use Magento\Store\Model\StoreManager;
+use Mpx\Marketplace\Helper\Constant;
 
 /**
  * Class Product Create
  */
 class Create extends \Webkul\Marketplace\Block\Product\Create
 {
-    const SKU_PREFIX_LENGTH = 4;
 
     /**
      * @var StoreManager
@@ -84,7 +84,7 @@ class Create extends \Webkul\Marketplace\Block\Product\Create
      */
     public function getUnformattedSku($sku)
     {
-        return substr($sku, self::SKU_PREFIX_LENGTH);
+        return substr($sku, Constant::SKU_PREFIX_LENGTH);
     }
 
     /**

@@ -16,8 +16,9 @@ use Magento\Store\Model\StoreManager;
 use Webkul\Marketplace\Controller\Product\Save;
 use Magento\Framework\Controller\Result\RedirectFactory;
 use Magento\Framework\App\Request\DataPersistorInterface;
-use Mpx\Marketplace\Helper\Validator as MpxValidator;
+use Mpx\Marketplace\Helper\CommonFunc as MpxValidator;
 use Psr\Log\LoggerInterface;
+use Mpx\Marketplace\Helper\Constant;
 
 /**
  * Mpx Marketplace validate custom rules
@@ -25,9 +26,6 @@ use Psr\Log\LoggerInterface;
 class BeforeSaveProduct
 {
     const JAPANESE_LOCALE_TIME_FORMAT = "YYYY/MM/DD";
-
-    const PRICE_DECIMAL_ERROR_CODE = "price_decimal";
-    const PRICE_DECIMAL_ERROR_MESSAGE = "Please enter a valid integer in this field.";
     const DATE_VALIDATION_ERROR_CODE = "date_format";
     const DATE_VALIDATION_ERROR_MESSAGE = "The date entered is incorrect.";
     const EMPTY_SPECIAL_FROM_CODE = "empty_special_from";
@@ -44,7 +42,6 @@ class BeforeSaveProduct
     const SKU_LENGTH_ERROR_CODE =  "length_sku";
     const SKU_LENGTH_ERROR_MESSAGE = "Please enter the sku within 32 characters.";
     const SKU_MAX_LENGTH = 32;
-    const UNICODE_HYPHEN_MINUS = "\u{002D}";
     const REQUIRED_CATEGORY_ERROR_CODE = "product_category";
     const REQUIRED_CATEGORY_ERROR_MESSAGE = "Please select a category to register the product.";
     const MINIMUM_QUANTITY_CATEGORY = 1;
@@ -228,8 +225,8 @@ class BeforeSaveProduct
 
         if ($priceFlagError) {
             $this->errors[] = [
-                'type' => self::PRICE_DECIMAL_ERROR_CODE,
-                'message' => self::PRICE_DECIMAL_ERROR_MESSAGE
+                'type' => Constant::PRICE_DECIMAL_ERROR_CODE,
+                'message' => Constant::PRICE_DECIMAL_ERROR_MESSAGE
             ];
         }
 

@@ -11,11 +11,10 @@ use Webkul\Marketplace\Model\ResourceModel\Product\CollectionFactory as SellerPr
 use Webkul\Marketplace\Helper\Data as HelperData;
 use Magento\Catalog\Api\ProductRepositoryInterface;
 use Magento\Customer\Model\Url as CustomerUrl;
+use Mpx\Marketplace\Helper\Constant;
 
 class MassDelete extends \Webkul\Marketplace\Controller\Product\Ui\MassDelete
 {
-
-    const ENABLED_SELLER_STATUS = 1;
 
     /**
      * @var Filter
@@ -117,7 +116,7 @@ class MassDelete extends \Webkul\Marketplace\Controller\Product\Ui\MassDelete
     public function execute()
     {
         $assignIds = [];
-        if ($this->helper->isSeller() == self::ENABLED_SELLER_STATUS) {
+        if ($this->helper->isSeller() == Constant::ENABLED_SELLER_STATUS) {
             try {
                 $registry = $this->_coreRegistry;
                 if (!$registry->registry('mp_flat_catalog_flag')) {

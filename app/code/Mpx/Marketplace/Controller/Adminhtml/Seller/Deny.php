@@ -13,19 +13,18 @@ use Magento\Catalog\Model\Indexer\Product\Price\Processor;
 use Magento\Catalog\Model\Product\Action as ProductAction;
 use Magento\Framework\Controller\ResultFactory;
 use Magento\Ui\Component\MassAction\Filter;
-use Mpx\Marketplace\Helper\Data as MpxHelperData;
+use Mpx\Marketplace\Helper\CommonFunc as MpxHelperData;
 use Webkul\Marketplace\Helper\Data as MpHelper;
 use Webkul\Marketplace\Helper\Email as MpEmailHelper;
 use Webkul\Marketplace\Model\ResourceModel\Product\CollectionFactory;
 use Webkul\Marketplace\Model\SellerFactory;
+use Mpx\Marketplace\Helper\Constant;
 
 /**
  * Class massDisapprove
  */
 class Deny extends \Webkul\Marketplace\Controller\Adminhtml\Seller\Deny
 {
-    const TEMPORARILY_SUSPENDED_SELLER_STATUS = 3;
-    const ENABLED_SELLER_STATUS = 1;
 
     public function __construct(
         \Magento\Backend\App\Action\Context             $context,
@@ -79,11 +78,11 @@ class Deny extends \Webkul\Marketplace\Controller\Adminhtml\Seller\Deny
             ->getCollection()
             ->addFieldToFilter('seller_id', $postData['seller_id']);
 
-        if (isset($postData['seller_status_update_to']) == 'enable_seller') {
-            $sellerStatusUpdateTo = self::TEMPORARILY_SUSPENDED_SELLER_STATUS;
+        if (isset($postData['seller_status_update_to']) == Constant::ENABLE_SELLER) {
+            $sellerStatusUpdateTo = Constant::TEMPORARILY_SUSPENDED_SELLER_STATUS;
             $productStatusUpdateTo = \Magento\Catalog\Model\Product\Attribute\Source\Status::STATUS_DISABLED;
         } else {
-            $sellerStatusUpdateTo = self::ENABLED_SELLER_STATUS;
+            $sellerStatusUpdateTo = Constant::ENABLED_SELLER_STATUS;
             $productStatusUpdateTo = \Magento\Catalog\Model\Product\Attribute\Source\Status::STATUS_ENABLED;
             if( $this->mpxHelperData->isRunOutOfSellerLimit()){
                 $this->messageManager->addError(__('You cannot register more than %1 stores at this time',$limit_seller));
@@ -164,7 +163,7 @@ class Deny extends \Webkul\Marketplace\Controller\Adminhtml\Seller\Deny
             ['seller' => $seller]
         );
 
-        if ($sellerStatusUpdateTo != self::TEMPORARILY_SUSPENDED_SELLER_STATUS) {
+        if ($sellerStatusUpdateTo != Constant::TEMPORARILY_SUSPENDED_SELLER_STATUS) {
             $this->messageManager->addSuccess(__('Seller has been Reopened.'));
         } else {
             $this->messageManager->addSuccess(__('Seller has been Denied.'));

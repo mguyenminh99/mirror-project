@@ -4,15 +4,15 @@ namespace Mpx\MpMassUpload\Plugin\Helper;
 class Export
 {
     /**
-     * @var \Mpx\Marketplace\Helper\Data
+     * @var \Mpx\Marketplace\Helper\CommonFunc
      */
     protected $marketplaceHelperData;
 
      /**
-     * @param \Mpx\Marketplace\Helper\Data $marketplaceHelperData
+     * @param \Mpx\Marketplace\Helper\CommonFunc $marketplaceHelperData
      */
     public function __construct(
-        \Mpx\Marketplace\Helper\Data $marketplaceHelperData
+        \Mpx\Marketplace\Helper\CommonFunc $marketplaceHelperData
     ) {
         $this->marketplaceHelperData = $marketplaceHelperData;
     }

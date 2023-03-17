@@ -3,7 +3,7 @@
 namespace Mpx\Customer\Controller\Account;
 
 use Magento\Customer\Model\Session;
-use Mpx\Marketplace\Helper\Data as MpxHelperData;
+use Mpx\Marketplace\Helper\CommonFunc as MpxHelperData;
 
 
 class LoginPost

@@ -16,14 +16,15 @@ use Magento\Catalog\Model\ProductFactory as ProductModel;
 use Magento\Framework\Filesystem\Io\File as FilesystemIo;
 use Magento\Catalog\Model\Product\Action as ProductAction;
 use Magento\Catalog\Model\Indexer\Product\Price\Processor;
-use Mpx\Marketplace\Helper\Data as MpxHelperData;
+use Mpx\Marketplace\Helper\CommonFunc as MpxHelperData;
+use Mpx\Marketplace\Helper\Constant;
 
 /**
  * Mpx Marketplace AdminhtmlCustomerSaveAfterObserver Observer.
  */
 class AdminhtmlCustomerSaveAfterObserver extends \Webkul\Marketplace\Observer\AdminhtmlCustomerSaveAfterObserver
 {
-    const ENABLED_SELLER_STATUS = 1;
+
     /**
      * @var \Magento\MediaStorage\Model\File\UploaderFactory
      */
@@ -355,7 +356,7 @@ class AdminhtmlCustomerSaveAfterObserver extends \Webkul\Marketplace\Observer\Ad
                             $autoId = $value->getId();
                             $value->addData($postData);
                             $value = $this->mpSeller->create()->load($autoId);
-                            $value->setIsSeller(self::ENABLED_SELLER_STATUS);
+                            $value->setIsSeller(Constant::ENABLED_SELLER_STATUS);
                             $value->setShopTitle($profiletitle);
                             $value->setShopUrl($profileurl);
                             $value->setUpdatedAt($this->_date->gmtDate());

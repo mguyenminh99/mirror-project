@@ -1,11 +1,11 @@
 <?php
 
 namespace Mpx\Marketplace\Ui\Component\Listing\Columns;
+use Mpx\Marketplace\Helper\Constant;
 
 class Sellerdeny extends \Webkul\Marketplace\Ui\Component\Listing\Columns\Sellerdeny
 {
-    const TEMPORARILY_SUSPENDED_STATUS = 3;
-    const ENABLE_SELLER = "enable_seller";
+
     /**
      * Prepare Data Source.
      *
@@ -18,13 +18,13 @@ class Sellerdeny extends \Webkul\Marketplace\Ui\Component\Listing\Columns\Seller
         if (isset($dataSource['data']['items'])) {
             $fieldName = $this->getData('name');
             foreach ($dataSource['data']['items'] as &$item) {
-                if($item['is_seller'] == self::TEMPORARILY_SUSPENDED_STATUS){
+                if($item['is_seller'] == Constant::TEMPORARILY_SUSPENDED_SELLER_STATUS){
                     $item[$fieldName.'_html'] = "<button class='button'><span>".__('Reopen')."</span></button>";
                     $item[$fieldName.'_title'] = __('Do you want to reopen your store?');
                     $item[$fieldName.'_submitlabel'] = __('Reopen');
                     $item[$fieldName.'_cancellabel'] = __('Cancel');
                     $item[$fieldName.'_sellerid'] = $item['seller_id'];
-                    $item[$fieldName.'_temporarily_suspended_status'] = self::TEMPORARILY_SUSPENDED_STATUS;
+                    $item[$fieldName.'_temporarily_suspended_status'] = Constant::TEMPORARILY_SUSPENDED_SELLER_STATUS;
 
                     $item[$fieldName.'_formaction'] = $this->urlBuilder->getUrl('marketplace/seller/deny');
                 }
@@ -34,7 +34,7 @@ class Sellerdeny extends \Webkul\Marketplace\Ui\Component\Listing\Columns\Seller
                     $item[$fieldName.'_submitlabel'] = __('Submit');
                     $item[$fieldName.'_cancellabel'] = __('Reset');
                     $item[$fieldName.'_sellerid'] = $item['seller_id'];
-                    $item[$fieldName.'seller_status_update_to'] = self::ENABLE_SELLER;
+                    $item[$fieldName.'seller_status_update_to'] = Constant::ENABLE_SELLER;
 
                     $item[$fieldName.'_formaction'] = $this->urlBuilder->getUrl('marketplace/seller/deny');
                 }
