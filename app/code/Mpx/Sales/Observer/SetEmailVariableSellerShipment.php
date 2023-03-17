@@ -7,7 +7,7 @@ use Psr\Log\LoggerInterface;
 use Webkul\Marketplace\Model\SellerFactory;
 use Webkul\Marketplace\Helper\Data;
 use Magento\Store\Model\StoreManagerInterface;
-use Mpx\Sales\Helper\Data as MpxSalesHelperData;
+use Mpx\Marketplace\Helper\CommonFunc as MpxSalesHelperData;
 
 class SetEmailVariableSellerShipment implements ObserverInterface
 {

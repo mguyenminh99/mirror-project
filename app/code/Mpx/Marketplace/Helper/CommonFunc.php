@@ -8,9 +8,22 @@ use Magento\Framework\App\Helper\Context;
 use Magento\Framework\Message\ManagerInterface;
 use Magento\Quote\Api\CartRepositoryInterface;
 use Magento\Checkout\Model\Cart;
+use Psr\Log\LoggerInterface;
+use Magento\Store\Model\StoreManagerInterface;
 
 class CommonFunc extends AbstractHelper
 {
+
+    /**
+     * @var StoreManagerInterface
+     */
+    protected $storeManager;
+
+    /**
+     * @var LoggerInterface
+     */
+    protected $logger;
+
     /**
      * @var ManagerInterface
      */
@@ -37,6 +50,8 @@ class CommonFunc extends AbstractHelper
     protected $cart;
 
     /**
+     * @param StoreManagerInterface $storeManager
+     * @param LoggerInterface $logger
      * @param CheckoutSessionFactory $checkoutSessionFactory
      * @param CartRepositoryInterface $cartRepository
      * @param \Webkul\MpTimeDelivery\Helper\Data $_helper
@@ -45,6 +60,8 @@ class CommonFunc extends AbstractHelper
      * @param Context $context
      */
     public function __construct(
+        StoreManagerInterface              $storeManager,
+        LoggerInterface                    $logger,
         checkoutSessionFactory             $checkoutSessionFactory,
         CartRepositoryInterface            $cartRepository,
         \Webkul\MpTimeDelivery\Helper\Data $_helper,
@@ -52,6 +69,8 @@ class CommonFunc extends AbstractHelper
         Cart                               $cart,
         Context                            $context
     ) {
+        $this->storeManager = $storeManager;
+        $this->logger = $logger;
         $this->checkoutSessionFactory = $checkoutSessionFactory;
         $this->cartRepository = $cartRepository;
         $this->_helper = $_helper;
@@ -86,4 +105,28 @@ class CommonFunc extends AbstractHelper
     }
 
 //    End Mpx_Checkout
+
+//Start Mpx_Sales
+    /**
+     * Get Url
+     *
+     * @param string $shopPageUrl
+     * @return string
+     */
+    public function getUrl(string $shopPageUrl): string
+    {
+        try {
+            $store = $this->storeManager->getStore();
+            if ($store) {
+                $url =  $store->getBaseUrl();
+                return $url."marketplace/seller/profile/shop/".$shopPageUrl;
+            }
+        } catch (\Exception $exception) {
+            $this->logger->critical($exception);
+            return "";
+        }
+        return "";
+    }
+
+//End Mpx_Sales
 }
