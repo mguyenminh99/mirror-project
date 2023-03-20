@@ -281,7 +281,7 @@ class CommonFunc extends AbstractHelper
         $sellerId = $this->customerSession->getCustomerId();
         $sellerCollection = $this->helper->getSellerCollectionObj($sellerId);
         foreach ($sellerCollection as $value) {
-            if ($value->getIsSeller() == self::ENABLED_SELLER_STATUS) {
+            if ($value->getIsSeller() == Constant::ENABLED_SELLER_STATUS) {
                 return true;
             }
         }
