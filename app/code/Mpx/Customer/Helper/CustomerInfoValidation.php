@@ -20,8 +20,6 @@ class CustomerInfoValidation extends AbstractHelper
 {
     private const INVALID_POST_CODE = "invalid_format";
     private const INVALID_POST_CODE_ERROR_MESSAGE = "Postal code is not correct.";
-    private const EMPTY_POST_CODE = "invalid_format";
-    private const EMPTY_POST_CODE_ERROR_MESSAGE = "Post code is empty";
     private const INVALID_PHONE_NUMBER = "invalid_format";
     private const INVALID_PHONE_NUMBER_ERROR_MESSAGE =
         "Phone number is not correct. The characters that can be used are numbers and hyphens.";

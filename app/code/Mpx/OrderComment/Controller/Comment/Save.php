@@ -13,8 +13,6 @@ use Mpx\Marketplace\Helper\Constant;
 
 class Save extends \Magento\Framework\App\Action\Action
 {
-    const STATUS_EDIT_ORDER_COMMENT = 2;
-
     /**
      * @var HistoryFactory
      */
@@ -78,7 +76,7 @@ class Save extends \Magento\Framework\App\Action\Action
                 $resultJson->setData($response);
                 return $resultJson;
             }
-            $history->setData('comment_status', self::STATUS_EDIT_ORDER_COMMENT);
+            $history->setData('comment_status', Constant::STATUS_EDIT_ORDER_COMMENT);
             $history->setComment($commentContent);
             $this->orderStatusHistoryResource->save($history);
 

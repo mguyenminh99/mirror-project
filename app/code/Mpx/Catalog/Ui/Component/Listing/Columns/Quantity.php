@@ -6,7 +6,6 @@ use Magento\Ui\Component\Listing\Columns\Column;
 
 class Quantity extends Column
 {
-    const NAME = 'column.qty';
 
     /**
      * Prepare Column Quantity Data Source
