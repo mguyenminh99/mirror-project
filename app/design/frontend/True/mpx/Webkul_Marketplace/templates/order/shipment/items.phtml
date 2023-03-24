@@ -6,6 +6,7 @@
  * @package   Mpx_Marketplace
  * @author    Mpx
  */
+$marketplaceHelperData = $this->helper(\Mpx\Marketplace\Helper\Data::Class);
 ?>
 <?php $items = $block->getItems(); ?>
 <div class="table-wrapper order-items">
@@ -29,6 +30,7 @@
         $i = 0;
         $count = count($items);
         foreach ($items as $item) {
+            $item->setSku($marketplaceHelperData->getSkuWithoutPrefix($item->getSku()));
             if ($item->getParentItem()) {
                 continue;
             }
