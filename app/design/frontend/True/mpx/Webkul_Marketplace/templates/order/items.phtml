@@ -12,6 +12,7 @@ if ($order->getPayment()) {
     $colSpan = 9;
     $paymentCode = $order->getPayment()->getMethod();
 }
+$marketplaceHelperData = $this->helper(\Mpx\Marketplace\Helper\Data::Class);
 ?>
 <div class="table-wrapper order-items">
     <table class="data table table-order-items" id="my-orders-table" summary="<?= $block->escapeHtml(__('Items Ordered')) ?>">
@@ -41,6 +42,7 @@ if ($order->getPayment()) {
         $i = 0;
         $count = count($items);
         foreach ($items as $item) {
+            $item->setSku($marketplaceHelperData->getSkuWithoutPrefix($item->getSku()));
             if ($item->getParentItem()) {
                 continue;
             }

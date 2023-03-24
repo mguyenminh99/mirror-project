@@ -79,7 +79,7 @@ class Data extends AbstractHelper
      * @param string $sku
      * @return false|string
      */
-    public function getUnformattedSku($sku)
+    public function getSkuWithoutPrefix($sku)
     {
         return substr($sku, self::SKU_PREFIX_LENGTH);
     }
