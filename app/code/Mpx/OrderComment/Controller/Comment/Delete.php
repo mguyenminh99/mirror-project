@@ -8,7 +8,7 @@ use Magento\Framework\Stdlib\DateTime\DateTimeFactory;
 use Magento\Framework\Stdlib\DateTime\TimezoneInterface;
 use Magento\Sales\Model\Order\Status\HistoryFactory;
 use Magento\Sales\Model\ResourceModel\Order\Status\History as OrderStatusHistoryResource;
-use Mpx\Marketplace\Helper\Constant;
+use Mpx\OrderComment\Helper\Constant;
 
 class Delete extends \Magento\Framework\App\Action\Action
 {

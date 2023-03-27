@@ -9,7 +9,7 @@
 
 namespace Mpx\Catalog\Plugin\Catalog;
 
-use Mpx\Marketplace\Helper\Constant;
+use Mpx\Catalog\Helper\Constant;
 
 /**
  * Disabled Root Category.

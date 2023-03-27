@@ -17,6 +17,7 @@ use Magento\Sales\Model\Order\InvoiceFactory;
 use Webkul\Marketplace\Model\SaleslistFactory;
 use Magento\Catalog\Api\ProductRepositoryInterfaceFactory;
 use Magento\Sales\Model\ResourceModel\Order\Item\CollectionFactory as OrderItemCollection;
+use Mpx\Marketplace\Helper\Constant;
 
 /**
  * Save shipment order
@@ -25,16 +26,6 @@ use Magento\Sales\Model\ResourceModel\Order\Item\CollectionFactory as OrderItemC
  */
 class View extends \Webkul\Marketplace\Block\Order\View
 {
-    public const DEFAULT_CARRIER_CODE = 'yamato_transport';
-
-    public const DEFAULT_CARRIER_TITLE = 'ヤマト運輸';
-
-    protected const LIST_CARRIERS_SOFT = [
-        'yamato_transport','sagawa_express','japan_post','seino_transportation','seino_super_express',
-        'fukuyama_transporting','meitetsu_transport','tonami_transport','daiichi_freight',
-        'niigata_unyu','chuetsu_group','okayama_shipping','kurume_transport','sanyo_auto_delivery',
-        'nx_transport','eco_distribution','ems','dhl','fedex','ups','nippon_express','tnt','ocs',
-        'usps','sf_express','aramex','sgh_global_japan'];
 
     /**
      * @var \Magento\Framework\App\State
@@ -188,7 +179,7 @@ class View extends \Webkul\Marketplace\Block\Order\View
      */
     public function softCarriers($carriers): array
     {
-        $softCarriers = array_replace(array_flip(self::LIST_CARRIERS_SOFT), $carriers);
+        $softCarriers = array_replace(array_flip(Constant::LIST_CARRIERS_SOFT), $carriers);
         return $softCarriers;
     }
 
@@ -199,7 +190,7 @@ class View extends \Webkul\Marketplace\Block\Order\View
      */
     public function getDefaultCarrierCode()
     {
-        return self::DEFAULT_CARRIER_CODE;
+        return Constant::DEFAULT_CARRIER_CODE;
     }
 
     /**
@@ -209,10 +200,10 @@ class View extends \Webkul\Marketplace\Block\Order\View
      */
     public function getDefaultCarrierTitle()
     {
-        return self::DEFAULT_CARRIER_TITLE;
+        return Constant::DEFAULT_CARRIER_TITLE;
     }
-    
-    
+
+
     /**
      * Get links
      *

@@ -11,11 +11,11 @@ use Magento\Quote\Api\CartTotalRepositoryInterface;
 use Magento\Quote\Api\Data\AddressInterface;
 use Magento\Quote\Api\Data\PaymentInterface;
 use Magento\Quote\Api\PaymentMethodManagementInterface;
-use Mpx\Marketplace\Helper\CommonFunc as MpxData;
+use Mpx\Checkout\Helper\CommonFunc as MpxData;
+use Mpx\Checkout\Helper\Constant;
 
 class PaymentInformationManagement extends \Magento\Checkout\Model\PaymentInformationManagement
 {
-    public const MAXIMUM_NUMBER_SELLERS = 1;
 
     /**
      * @var BillingAddressManagementInterface
@@ -94,7 +94,7 @@ class PaymentInformationManagement extends \Magento\Checkout\Model\PaymentInform
         AddressInterface $billingAddress = null
     ): int {
         $numberSeller = $this->mpData->countSellerInCart();
-        if ($numberSeller > self::MAXIMUM_NUMBER_SELLERS) {
+        if ($numberSeller > Constant::MAXIMUM_NUMBER_SELLERS) {
             return false;
         }
         $this->savePaymentInformation($cartId, $paymentMethod, $billingAddress);

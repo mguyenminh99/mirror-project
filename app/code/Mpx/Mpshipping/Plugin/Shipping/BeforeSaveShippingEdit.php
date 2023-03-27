@@ -15,9 +15,10 @@ use Magento\Framework\Message\ManagerInterface;
 use Webkul\Mpshipping\Controller\Shipping\Edit;
 use Magento\Framework\Controller\Result\RedirectFactory;
 use Magento\Framework\App\Request\DataPersistorInterface;
-use Mpx\Marketplace\Helper\CommonFunc as MpxValidator;
+use Mpx\Common\Helper\CommonFunc as MpxValidator;
 use Psr\Log\LoggerInterface;
-use Mpx\Marketplace\Helper\Constant;
+use Mpx\Mpshipping\Helper\Constant;
+use Mpx\Common\Helper\Constant as CommonConstant;
 
 /**
  * Mpx Marketplace validate custom rules
@@ -172,8 +173,8 @@ class BeforeSaveShippingEdit
 
             if ($this->mpxValidator->isDecimal($price)) {
                 $this->errors[] = [
-                    'type' => Constant::PRICE_DECIMAL_ERROR_CODE,
-                    'message' => Constant::PRICE_DECIMAL_ERROR_MESSAGE
+                    'type' => CommonConstant::PRICE_DECIMAL_ERROR_CODE,
+                    'message' => CommonConstant::PRICE_DECIMAL_ERROR_MESSAGE
                 ];
             }
         }

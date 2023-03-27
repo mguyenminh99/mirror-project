@@ -13,7 +13,7 @@ use Magento\Framework\Event\Observer;
 use Magento\Framework\Event\ObserverInterface;
 use Magento\Framework\Message\ManagerInterface;
 use Magento\Framework\UrlInterface;
-use Mpx\Marketplace\Helper\CommonFunc as MpxData;
+use Mpx\Checkout\Helper\CommonFunc as MpxData;
 use Magento\Customer\Model\Session;
 
 class CheckBeforeCheckout implements ObserverInterface

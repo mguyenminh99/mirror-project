@@ -2,24 +2,21 @@
 
 namespace Mpx\Marketplace\Helper;
 
-use Magento\Framework\App\Helper\AbstractHelper;
-use Magento\Checkout\Model\SessionFactory as CheckoutSessionFactory;
-use Magento\Framework\App\Helper\Context;
-use Magento\Framework\Message\ManagerInterface;
-use Magento\Quote\Api\CartRepositoryInterface;
-use Magento\Checkout\Model\Cart;
-use Psr\Log\LoggerInterface;
-use Magento\Store\Model\StoreManagerInterface;
+use Magento\Customer\Model\Session;
 use Magento\Framework\App\Config\ScopeConfigInterface;
+use Magento\Framework\App\Helper\AbstractHelper;
+use Magento\Framework\App\Helper\Context;
+use Magento\Framework\Data\Collection\AbstractDb;
+use Magento\Framework\Model\ResourceModel\Db\Collection\AbstractCollection;
+use Webkul\Marketplace\Helper\Data as HelperData;
 use Webkul\Marketplace\Model\SellerFactory as MpSeller;
 use Magento\Store\Model\ScopeInterface;
-use Webkul\Marketplace\Helper\Data as HelperData;
 use Mpx\Marketplace\Helper\Constant;
 
 class CommonFunc extends AbstractHelper
 {
     /**
-     * @var \Magento\Customer\Model\Session
+     * @var Session
      */
     protected $customerSession;
 
@@ -34,173 +31,33 @@ class CommonFunc extends AbstractHelper
     public $scopeConfig;
 
     /**
-     * @var StoreManagerInterface
-     */
-    protected $storeManager;
-
-    /**
-     * @var LoggerInterface
-     */
-    protected $logger;
-
-    /**
-     * @var ManagerInterface
-     */
-    protected $messageManager;
-
-    /**
-     * @var CheckoutSessionFactory
-     */
-    protected $checkoutSessionFactory;
-
-    /**
-     * @var CartRepositoryInterface
-     */
-    protected $cartRepository;
-
-    /**
-     * @var \Webkul\MpTimeDelivery\Helper\Data
-     */
-    protected $_helper;
-
-    /**
-     * @var Cart
-     */
-    protected $cart;
-
-    /**
-     * @param \Magento\Customer\Model\Session $customerSession
+     * @param Context $context
+     * @param Session $customerSession
      * @param MpSeller $mpSeller
      * @param ScopeConfigInterface $scopeConfig
-     * @param StoreManagerInterface $storeManager
-     * @param LoggerInterface $logger
-     * @param CheckoutSessionFactory $checkoutSessionFactory
-     * @param CartRepositoryInterface $cartRepository
-     * @param \Webkul\MpTimeDelivery\Helper\Data $_helper
-     * @param ManagerInterface $messageManager
-     * @param Cart $cart
-     * @param Context $context
      * @param HelperData $helper
      */
     public function __construct(
-        \Magento\Customer\Model\Session    $customerSession,
-        MpSeller                           $mpSeller,
-        ScopeConfigInterface               $scopeConfig,
-        StoreManagerInterface              $storeManager,
-        LoggerInterface                    $logger,
-        checkoutSessionFactory             $checkoutSessionFactory,
-        CartRepositoryInterface            $cartRepository,
-        \Webkul\MpTimeDelivery\Helper\Data $_helper,
-        ManagerInterface                   $messageManager,
-        Cart                               $cart,
-        Context                            $context,
-        HelperData                         $helper
+        Context $context,
+        Session $customerSession,
+        MpSeller                        $mpSeller,
+        ScopeConfigInterface            $scopeConfig,
+        HelperData       $helper
     ) {
-        $this->helper = $helper;
         $this->customerSession = $customerSession;
         $this->mpSeller = $mpSeller;
         $this->scopeConfig = $scopeConfig;
-        $this->storeManager = $storeManager;
-        $this->logger = $logger;
-        $this->checkoutSessionFactory = $checkoutSessionFactory;
-        $this->cartRepository = $cartRepository;
-        $this->_helper = $_helper;
-        $this->messageManager = $messageManager;
-        $this->cart = $cart;
+        $this->helper = $helper;
         parent::__construct($context);
     }
 
-//    Start Mpx_Checkout
-    /**
-     * Count Seller In Cart
-     *
-     * @return int
-     */
-    public function countSellerInCart(): int
-    {
-        try {
-            $sellerIds = [];
-            if ($this->checkoutSessionFactory->create()->getQuote()->getId()) {
-                $quote = $this->cartRepository->get($this->checkoutSessionFactory->create()->getQuote()->getId());
-                foreach ($quote->getAllItems() as $item) {
-                    $mpAssignProductId = $this->_helper->getAssignProduct($item);
-                    $sellerIds[] = $this->_helper->getSellerId($mpAssignProductId, $item->getProductId());
-                }
-
-            }
-        } catch (\Exception $e) {
-            $this->messageManager->addErrorMessage('Error cannot count seller cart');
-        }
-
-        return count(array_unique($sellerIds));
-    }
-
-//    End Mpx_Checkout
-
-//Start Mpx_Sales
-    /**
-     * Get Url
-     *
-     * @param string $shopPageUrl
-     * @return string
-     */
-    public function getUrl(string $shopPageUrl): string
-    {
-        try {
-            $store = $this->storeManager->getStore();
-            if ($store) {
-                $url =  $store->getBaseUrl();
-                return $url."marketplace/seller/profile/shop/".$shopPageUrl;
-            }
-        } catch (\Exception $exception) {
-            $this->logger->critical($exception);
-            return "";
-        }
-        return "";
-    }
-
-//End Mpx_Sales
-
-//Start Mpx_Mpshipping
-    /**
-     * Check if number is decimal
-     *
-     * @param string $val
-     * @return bool
-     */
-    public function isDecimal(string $val): bool
-    {
-        return is_numeric($val) && floor($val) != $val;
-    }
-    /**
-     * Validate time with matching input format
-     *
-     * @param string $dateTime
-     * @param string $format
-     * @return bool
-     */
-    public function validateTimeFormat(string $dateTime, string $format = ''): bool
-    {
-        if (!$format) {
-            return false;
-        }
-        $validator = new \Zend_Validate_Date($format);
-        if ($validator->isValid($dateTime)) {
-            return true;
-        }
-        return false;
-    }
-
-//End Mpx_Mpshipping
-
-//Start Mpx_Marketplace
     /**
      * Format Sku
      *
      * @param string $sku
      * @return string
      */
-    public function formatSku($sku)
+    public function formatSku($sku): string
     {
         $skuPrefix = $this->getSkuPrefix();
         return $skuPrefix . Constant::UNICODE_HYPHEN_MINUS . $sku;
@@ -214,8 +71,7 @@ class CommonFunc extends AbstractHelper
     public function getSkuPrefix()
     {
         $sellerId = $this->customerSession->getCustomer()->getId();
-        $skuPrefix = str_pad($sellerId, 3, "0", STR_PAD_LEFT);
-        return $skuPrefix;
+        return str_pad($sellerId, 3, "0", STR_PAD_LEFT);
     }
 
     /**
@@ -232,10 +88,9 @@ class CommonFunc extends AbstractHelper
     /**
      * Get Seller Data
      *
-     * @return \Magento\Framework\Data\Collection\AbstractDb
-     * @return \Magento\Framework\Model\ResourceModel\Db\Collection\AbstractCollection|null
+     * @return AbstractDb|AbstractCollection
+     * @return AbstractCollection|null
      */
-
     public function getSellerData()
     {
         $sellerData = $this->mpSeller->create()->getCollection();
@@ -254,11 +109,10 @@ class CommonFunc extends AbstractHelper
      */
     public function getConfigLimitSeller()
     {
-        $limit_seller = $this->scopeConfig->getValue(
+        return $this->scopeConfig->getValue(
             'mpx_web/settings_store/limit_seller',
             \Magento\Store\Model\ScopeInterface::SCOPE_STORE
         );
-        return $limit_seller;
     }
 
     /**
@@ -266,7 +120,7 @@ class CommonFunc extends AbstractHelper
      *
      * @return bool
      */
-    public function isRunOutOfSellerLimit()
+    public function isRunOutOfSellerLimit(): bool
     {
         return ($this->getSellerData()->getSize() >= $this->getConfigLimitSeller());
     }
@@ -276,7 +130,7 @@ class CommonFunc extends AbstractHelper
      *
      * @return bool
      */
-    public function isSellerLogin()
+    public function isSellerLogin(): bool
     {
         $sellerId = $this->customerSession->getCustomerId();
         $sellerCollection = $this->helper->getSellerCollectionObj($sellerId);
@@ -362,6 +216,4 @@ class CommonFunc extends AbstractHelper
     {
         return $this->scopeConfig->getValue(Constant::MARKETPLACE_ID_CONFIG_PATH, ScopeInterface::SCOPE_STORE);
     }
-
-//End Mpx_Marketplace
 }

@@ -16,35 +16,16 @@ use Magento\Store\Model\StoreManager;
 use Webkul\Marketplace\Controller\Product\Save;
 use Magento\Framework\Controller\Result\RedirectFactory;
 use Magento\Framework\App\Request\DataPersistorInterface;
-use Mpx\Marketplace\Helper\CommonFunc as MpxValidator;
+use Mpx\Common\Helper\CommonFunc as MpxValidator;
 use Psr\Log\LoggerInterface;
 use Mpx\Marketplace\Helper\Constant;
+use Mpx\Common\Helper\Constant as CommonConstant;
 
 /**
  * Mpx Marketplace validate custom rules
  */
 class BeforeSaveProduct
 {
-    const JAPANESE_LOCALE_TIME_FORMAT = "YYYY/MM/DD";
-    const DATE_VALIDATION_ERROR_CODE = "date_format";
-    const DATE_VALIDATION_ERROR_MESSAGE = "The date entered is incorrect.";
-    const EMPTY_SPECIAL_FROM_CODE = "empty_special_from";
-    const EMPTY_SPECIAL_FROM_MESSAGE = "Enter special price start date.";
-    const EMPTY_SPECIAL_TO_CODE = "empty_special_to";
-    const EMPTY_SPECIAL_TO_MESSAGE = "Enter special price end date.";
-    const EMPTY_SPECIAL_PRICE_CODE = "empty_special_price";
-    const EMPTY_SPECIAL_PRICE_MESSAGE = "Please enter a special price.";
-    const INVALID_SPECIAL_PRICE_ERROR_CODE =  "invalid_special_price";
-    const INVALID_SPECIAL_PRICE_ERROR_MESSAGE = "Please enter the special price as a numerical value.";
-    const SHORT_DESCRIPTION_LENGTH_ERROR_CODE =  "lenght_short_description";
-    const SHORT_DESCRIPTION_LENGTH_ERROR_MESSAGE = "Please enter no more than 128 characters.";
-    const SHORT_DESCRIPTION_MAX_LENGTH = 128;
-    const SKU_LENGTH_ERROR_CODE =  "length_sku";
-    const SKU_LENGTH_ERROR_MESSAGE = "Please enter the sku within 32 characters.";
-    const SKU_MAX_LENGTH = 32;
-    const REQUIRED_CATEGORY_ERROR_CODE = "product_category";
-    const REQUIRED_CATEGORY_ERROR_MESSAGE = "Please select a category to register the product.";
-    const MINIMUM_QUANTITY_CATEGORY = 1;
 
     /**
      * @var ManagerInterface
@@ -225,8 +206,8 @@ class BeforeSaveProduct
 
         if ($priceFlagError) {
             $this->errors[] = [
-                'type' => Constant::PRICE_DECIMAL_ERROR_CODE,
-                'message' => Constant::PRICE_DECIMAL_ERROR_MESSAGE
+                'type' => CommonConstant::PRICE_DECIMAL_ERROR_CODE,
+                'message' => CommonConstant::PRICE_DECIMAL_ERROR_MESSAGE
             ];
         }
 
@@ -243,8 +224,8 @@ class BeforeSaveProduct
             }
             if ($specialFlagError) {
                 $this->errors[] = [
-                    'type' => self::INVALID_SPECIAL_PRICE_ERROR_CODE,
-                    'message' => self::INVALID_SPECIAL_PRICE_ERROR_MESSAGE
+                    'type' => Constant::INVALID_SPECIAL_PRICE_ERROR_CODE,
+                    'message' => Constant::INVALID_SPECIAL_PRICE_ERROR_MESSAGE
                 ];
             }
         }
@@ -268,13 +249,13 @@ class BeforeSaveProduct
         }
         if (!empty($specialFromDate) && !empty($specialToDate)) {
             $isValidFromDate = $this->mpxValidator
-                ->validateTimeFormat($specialFromDate, self::JAPANESE_LOCALE_TIME_FORMAT);
+                ->validateTimeFormat($specialFromDate, Constant::JAPANESE_LOCALE_TIME_FORMAT);
             $isValidToDate = $this->mpxValidator
-                ->validateTimeFormat($specialToDate, self::JAPANESE_LOCALE_TIME_FORMAT);
+                ->validateTimeFormat($specialToDate, Constant::JAPANESE_LOCALE_TIME_FORMAT);
             if (!$isValidFromDate || !$isValidToDate) {
                 $this->errors[] = [
-                    'type' => self::DATE_VALIDATION_ERROR_CODE,
-                    'message' => self::DATE_VALIDATION_ERROR_MESSAGE
+                    'type' => Constant::DATE_VALIDATION_ERROR_CODE,
+                    'message' => Constant::DATE_VALIDATION_ERROR_MESSAGE
                 ];
             }
         }
@@ -290,10 +271,10 @@ class BeforeSaveProduct
     {
         if (isset($wholeData['product']['sku'])) {
             $sku = $wholeData['product']['sku'];
-            if (mb_strlen($sku) > self::SKU_MAX_LENGTH) {
+            if (mb_strlen($sku) > Constant::SKU_MAX_LENGTH) {
                 $this->errors[] = [
-                    'type' => self::SKU_LENGTH_ERROR_CODE,
-                    'message' => self::SKU_LENGTH_ERROR_MESSAGE
+                    'type' => Constant::SKU_LENGTH_ERROR_CODE,
+                    'message' => Constant::SKU_LENGTH_ERROR_MESSAGE
                 ];
             }
         }
@@ -309,10 +290,10 @@ class BeforeSaveProduct
     {
         if (isset($wholeData['product']['short_description'])) {
             $shortDescription = $wholeData['product']['short_description'];
-            if (strlen($shortDescription) > self::SHORT_DESCRIPTION_MAX_LENGTH) {
+            if (strlen($shortDescription) > Constant::SHORT_DESCRIPTION_MAX_LENGTH) {
                 $this->errors[] = [
-                    'type' => self::SHORT_DESCRIPTION_LENGTH_ERROR_CODE,
-                    'message' => self::SHORT_DESCRIPTION_LENGTH_ERROR_MESSAGE
+                    'type' => Constant::SHORT_DESCRIPTION_LENGTH_ERROR_CODE,
+                    'message' => Constant::SHORT_DESCRIPTION_LENGTH_ERROR_MESSAGE
                 ];
             }
         }
@@ -352,20 +333,20 @@ class BeforeSaveProduct
             if ($specialPrice || $specialFromDate || $specialToDate) {
                 if (empty($specialPrice)) { //If special price not set, raise error
                     $this->errors[] = [
-                        'type' => self::EMPTY_SPECIAL_PRICE_CODE,
-                        'message' => self::EMPTY_SPECIAL_PRICE_MESSAGE
+                        'type' => Constant::EMPTY_SPECIAL_PRICE_CODE,
+                        'message' => Constant::EMPTY_SPECIAL_PRICE_MESSAGE
                     ];
                 }
                 if (empty($specialFromDate)) { //If special from date not set, raise error
                     $this->errors[] = [
-                        'type' => self::EMPTY_SPECIAL_FROM_CODE,
-                        'message' => self::EMPTY_SPECIAL_FROM_MESSAGE
+                        'type' => Constant::EMPTY_SPECIAL_FROM_CODE,
+                        'message' => Constant::EMPTY_SPECIAL_FROM_MESSAGE
                     ];
                 }
                 if (empty($specialToDate)) { //If special to date not set, raise error
                     $this->errors[] = [
-                        'type' => self::EMPTY_SPECIAL_TO_CODE,
-                        'message' => self::EMPTY_SPECIAL_TO_MESSAGE
+                        'type' => Constant::EMPTY_SPECIAL_TO_CODE,
+                        'message' => Constant::EMPTY_SPECIAL_TO_MESSAGE
                     ];
                 }
             }
@@ -383,11 +364,11 @@ class BeforeSaveProduct
         try {
             $defaultCategoryId = $this->storeManager->getStore()->getRootCategoryId();
             if (!isset($wholeData['product']['category_ids']) ||
-                (count($wholeData['product']['category_ids']) == self::MINIMUM_QUANTITY_CATEGORY &&
+                (count($wholeData['product']['category_ids']) == Constant::MINIMUM_QUANTITY_CATEGORY &&
                     $wholeData['product']['category_ids'][0] == $defaultCategoryId)) {
                 $this->errors[] = [
-                    'type' => self::REQUIRED_CATEGORY_ERROR_CODE,
-                    'message' => self::REQUIRED_CATEGORY_ERROR_MESSAGE
+                    'type' => Constant::REQUIRED_CATEGORY_ERROR_CODE,
+                    'message' => Constant::REQUIRED_CATEGORY_ERROR_MESSAGE
                 ];
             }
         } catch (\Exception $exception) {

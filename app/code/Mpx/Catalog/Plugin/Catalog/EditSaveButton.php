@@ -13,7 +13,7 @@ use Magento\Catalog\Block\Adminhtml\Category\Edit\SaveButton;
 use Magento\Framework\App\Config\ScopeConfigInterface;
 use Magento\Framework\App\Request\Http;
 use Magento\Store\Model\ScopeInterface;
-use Mpx\Marketplace\Helper\Constant;
+use Mpx\Catalog\Helper\Constant;
 
 /**
  * Plugin After Disabled Default Category for Button Save.

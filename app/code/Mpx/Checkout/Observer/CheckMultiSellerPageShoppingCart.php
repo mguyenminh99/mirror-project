@@ -12,7 +12,7 @@ namespace Mpx\Checkout\Observer;
 use Magento\Framework\Event\Observer;
 use Magento\Framework\Event\ObserverInterface;
 use Magento\Framework\Message\ManagerInterface;
-use Mpx\Marketplace\Helper\CommonFunc as MpxData;
+use Mpx\Checkout\Helper\CommonFunc as MpxData;
 
 /**
  * Display Error Message Cart

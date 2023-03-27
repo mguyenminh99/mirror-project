@@ -4,11 +4,10 @@ namespace Mpx\Catalog\Controller\Adminhtml\Category;
 
 use Magento\Framework\App\ObjectManager;
 use Magento\Store\Model\StoreManagerInterface;
+use Mpx\Catalog\Helper\Constant;
 
 class Save extends \Magento\Catalog\Controller\Adminhtml\Category\Save
 {
-    public const DEFAULT_ROOT_CATEGORY_LEVEL = 1;
-    public const DEFAULT_PARENT_ID = 2;
 
     /**
      * @var \Magento\Framework\Controller\Result\RawFactory
@@ -132,8 +131,8 @@ class Save extends \Magento\Catalog\Controller\Adminhtml\Category\Save
             }
             if ($isNewCategory) {
                 $parentRootCategory = $this->getParentCategory($parentId, $storeId);
-                if ($parentRootCategory->getLevel() == self::DEFAULT_ROOT_CATEGORY_LEVEL) {
-                    $parentCategory = $this->getParentCategory(self::DEFAULT_PARENT_ID, $storeId);
+                if ($parentRootCategory->getLevel() == Constant::DEFAULT_ROOT_CATEGORY_LEVEL) {
+                    $parentCategory = $this->getParentCategory(Constant::DEFAULT_PARENT_ID, $storeId);
                 } else {
                     $parentCategory = $this->getParentCategory($parentId, $storeId);
                 }

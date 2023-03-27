@@ -8,16 +8,13 @@ use Magento\Framework\App\Action\Context;
 use Magento\Framework\App\Config\ScopeConfigInterface;
 use Magento\Framework\Controller\Result\ForwardFactory;
 use Magento\Framework\Controller\ResultInterface;
+use Mpx\Marketplace\Helper\Constant;
 
 /**
  * Forbidden action if non-seller access url become seller
  */
 class Forbidden extends Action
 {
-    /**
-     * Path config value defaul page
-     */
-    public const WEBKUL_BECOMESELLER_CONFIG_DEFAULT_PAGE = 'mpx_web/default/non_seller';
 
     /**
      * @var ForwardFactory
@@ -60,7 +57,7 @@ class Forbidden extends Action
     public function execute()
     {
         $mpxNoRoute = $this->scopeConfig
-            ->getValue(self::WEBKUL_BECOMESELLER_CONFIG_DEFAULT_PAGE, \Magento\Store\Model\ScopeInterface::SCOPE_STORE);
+            ->getValue(Constant::WEBKUL_BECOMESELLER_CONFIG_DEFAULT_PAGE, \Magento\Store\Model\ScopeInterface::SCOPE_STORE);
         $resultPage = $this->pageHelper->prepareResultPage($this, $mpxNoRoute);
         if ($resultPage) {
             $resultPage->setStatusHeader(403, '1.1', 'Forbidden');

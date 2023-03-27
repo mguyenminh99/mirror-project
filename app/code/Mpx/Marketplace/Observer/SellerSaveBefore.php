@@ -9,12 +9,13 @@
 
 namespace Mpx\Marketplace\Observer;
 
+use Mpx\Marketplace\Helper\Constant;
+
 /**
  * Mpx Marketplace CountryPic Observer.
  */
 class SellerSaveBefore implements \Magento\Framework\Event\ObserverInterface
 {
-    const COUNTRY_PIC = 'JP';
 
     /**
      * Set the default country handler.
@@ -24,7 +25,7 @@ class SellerSaveBefore implements \Magento\Framework\Event\ObserverInterface
      */
     public function execute(\Magento\Framework\Event\Observer $observer)
     {
-        $observer->getObject()->setData('country_pic', self::COUNTRY_PIC);
+        $observer->getObject()->setData('country_pic', Constant::COUNTRY_PIC);
         return $this;
     }
 }
