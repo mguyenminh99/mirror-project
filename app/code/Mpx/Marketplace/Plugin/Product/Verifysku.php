@@ -2,9 +2,10 @@
 
 namespace Mpx\Marketplace\Plugin\Product;
 
+use Mpx\Marketplace\Helper\Constant;
+
 class Verifysku
 {
-    const UNICODE_HYPHEN_MINUS = "\u{002D}";
 
     /**
      * @var \Magento\Customer\Model\Session
@@ -12,7 +13,7 @@ class Verifysku
     protected $customerSession;
 
      /**
-     * @var \Mpx\Marketplace\Helper\Data
+     * @var \Mpx\Marketplace\Helper\CommonFunc
      */
     protected $marketplaceHelperData;
 
@@ -21,7 +22,7 @@ class Verifysku
      */
     public function __construct(
         \Magento\Customer\Model\Session $customerSession,
-        \Mpx\Marketplace\Helper\Data $marketplaceHelperData
+        \Mpx\Marketplace\Helper\CommonFunc $marketplaceHelperData
     ) {
         $this->customerSession = $customerSession;
         $this->marketplaceHelperData = $marketplaceHelperData;
@@ -52,6 +53,6 @@ class Verifysku
         $sellerId = $this->customerSession->getCustomer()->getId();
         $skuPrefix = str_pad($sellerId, 3, "0", STR_PAD_LEFT);
 
-        return $skuPrefix.self::UNICODE_HYPHEN_MINUS.$sku;
+        return $skuPrefix.Constant::UNICODE_HYPHEN_MINUS.$sku;
     }
 }

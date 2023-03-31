@@ -5,6 +5,7 @@ namespace Mpx\Marketplace\Observer\Order\Invoice;
 use Magento\Framework\Event\Observer;
 use Magento\Framework\Event\ObserverInterface;
 use Magento\Framework\Controller\Result\ForwardFactory;
+use Mpx\Marketplace\Helper\Constant;
 
 /**
  * Redirect router 404
@@ -12,7 +13,6 @@ use Magento\Framework\Controller\Result\ForwardFactory;
  */
 class NoRoute implements ObserverInterface
 {
-    private const DEPLOY_MODE_CODE_PRODUCTION = "production";
 
     /**
      * @var ForwardFactory
@@ -44,7 +44,7 @@ class NoRoute implements ObserverInterface
      */
     public function execute(Observer $observer)
     {
-        if ($this->_appState->getMode() == self::DEPLOY_MODE_CODE_PRODUCTION) {
+        if ($this->_appState->getMode() == Constant::DEPLOY_MODE_CODE_PRODUCTION) {
             $resultForward = $this->forwardFactory->create();
             $resultForward->setController('norouter');
             $resultForward->forward('noroute');

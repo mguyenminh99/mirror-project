@@ -28,7 +28,7 @@ use Magento\Sales\Model\Order;
 use Magento\Customer\Model\ResourceModel\Customer\CollectionFactory as CustomerCollectionFactory;
 use Mpx\PaypalCheckout\Model\Payment\PaypalCheckout\Payment;
 use Magento\Framework\App\Config\ScopeConfigInterface;
-use Mpx\Marketplace\Helper\Data as MpxMarketplaceHelper;
+use Mpx\Marketplace\Helper\CommonFunc as MpxMarketplaceHelper;
 
 /**
  * Cron Job PaypalCapture

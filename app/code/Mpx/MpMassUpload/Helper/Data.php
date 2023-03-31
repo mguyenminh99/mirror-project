@@ -22,7 +22,7 @@ use Webkul\MpMassUpload\Model\ResourceModel\AttributeProfile\CollectionFactory a
 class Data extends \Webkul\MpMassUpload\Helper\Data
 {
     /**
-     * @var \Mpx\Marketplace\Helper\Data
+     * @var \Mpx\Marketplace\Helper\CommonFunc
      */
     protected $mpxHelperData;
 
@@ -66,7 +66,7 @@ class Data extends \Webkul\MpMassUpload\Helper\Data
      * @param DirectoryList $directoryList
      * @param SerializerInterface $serializerInterface
      * @param \Magento\Framework\Pricing\Helper\Data $pricingHelper
-     * @param \Mpx\Marketplace\Helper\Data $mpxHelperData
+     * @param \Mpx\Marketplace\Helper\CommonFunc $mpxHelperData
      */
     public function __construct(
         \Magento\Framework\App\Helper\Context $context,
@@ -107,7 +107,7 @@ class Data extends \Webkul\MpMassUpload\Helper\Data
         fileUpload $fileUpload, DirectoryList $directoryList,
         SerializerInterface $serializerInterface,
         \Magento\Framework\Pricing\Helper\Data $pricingHelper,
-        \Mpx\Marketplace\Helper\Data $mpxHelperData
+        \Mpx\Marketplace\Helper\CommonFunc $mpxHelperData
     ) {
         $this->mpxHelperData = $mpxHelperData;
         parent::__construct(

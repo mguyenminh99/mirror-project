@@ -14,7 +14,6 @@ use Magento\Store\Model\ScopeInterface;
  */
 class MassAction extends \Magento\Catalog\Ui\Component\Product\MassAction
 {
-    public const NAME = 'massaction';
 
     /**
      * @var AuthorizationInterface

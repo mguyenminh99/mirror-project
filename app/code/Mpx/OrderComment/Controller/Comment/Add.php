@@ -6,12 +6,10 @@ use Magento\Framework\App\Action\Context;
 use Magento\Framework\Controller\Result\JsonFactory;
 use Magento\Framework\Stdlib\DateTime\TimezoneInterface;
 use Magento\Sales\Api\OrderRepositoryInterface;
+use Mpx\OrderComment\Helper\Constant;
 
 class Add extends \Magento\Framework\App\Action\Action
 {
-    const DEFAULT_VALUE_NOTIFY = false;
-
-    const DEFAULT_VALUE_VISIBLE = false;
 
     /**
      * @var OrderRepositoryInterface
@@ -69,8 +67,8 @@ class Add extends \Magento\Framework\App\Action\Action
                     $resultJson->setData($response);
                     return $resultJson;
                 }
-                $notify = self::DEFAULT_VALUE_NOTIFY;
-                $visible = self::DEFAULT_VALUE_VISIBLE;
+                $notify = Constant::DEFAULT_VALUE_NOTIFY;
+                $visible = Constant::DEFAULT_VALUE_VISIBLE;
 
                 $history = $order->addStatusHistoryComment($data);
                 $history->setIsVisibleOnFront($visible);

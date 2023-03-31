@@ -6,7 +6,6 @@ use Webkul\Marketplace\Controller\Product\SaveProduct;
 
 class BeforeSaveProductData
 {
-    private const UNICODE_HYPHEN_MINUS = "\u{002D}";
 
     /**
      * @var \Magento\Customer\Model\Session
@@ -14,17 +13,17 @@ class BeforeSaveProductData
     protected $customerSession;
 
     /**
-     * @var \Mpx\Marketplace\Helper\Data
+     * @var \Mpx\Marketplace\Helper\CommonFunc
      */
     protected $marketplaceHelperData;
 
     /**
      * @param \Magento\Customer\Model\Session $customerSession
-     * @param \Mpx\Marketplace\Helper\Data $marketplaceHelperData
+     * @param \Mpx\Marketplace\Helper\CommonFunc $marketplaceHelperData
      */
     public function __construct(
         \Magento\Customer\Model\Session $customerSession,
-        \Mpx\Marketplace\Helper\Data $marketplaceHelperData
+        \Mpx\Marketplace\Helper\CommonFunc $marketplaceHelperData
     ) {
         $this->customerSession = $customerSession;
         $this->marketplaceHelperData = $marketplaceHelperData;

@@ -2,27 +2,21 @@
 
 namespace Mpx\Marketplace\Helper;
 
+use Magento\Customer\Model\Session;
 use Magento\Framework\App\Config\ScopeConfigInterface;
 use Magento\Framework\App\Helper\AbstractHelper;
 use Magento\Framework\App\Helper\Context;
-use Mpx\Marketplace\Controller\Adminhtml\Seller\Deny;
+use Magento\Framework\Data\Collection\AbstractDb;
+use Magento\Framework\Model\ResourceModel\Db\Collection\AbstractCollection;
 use Webkul\Marketplace\Helper\Data as HelperData;
 use Webkul\Marketplace\Model\SellerFactory as MpSeller;
 use Magento\Store\Model\ScopeInterface;
+use Mpx\Marketplace\Helper\Constant;
 
-class Data extends AbstractHelper
+class CommonFunc extends AbstractHelper
 {
-    const UNICODE_HYPHEN_MINUS = "\u{002D}";
-    const SKU_PREFIX_LENGTH = 4;
-    const MARKETPLACE_NAME_CONFIG_PATH = 'mpx_web/general/marketplaceName';
-    const FROM_MAIL_ADDRESS_CONFIG_PATH = 'mpx_web/general/notificationEmail';
-    const XS_ADMIN_MAIL_ADDRESS_CONFIG_PATH = 'mpx_web/general/xsadminEmail';
-    const SYSTEM_ADMIN_MAIL_ADDRESS_CONFIG_PATH = 'mpx_web/general/systemAdminEmail';
-    const SYSTEM_NOTICE_MAIL_FROM_ADDRESS_CONFIG_PATH = 'mpx_web/general/systemNotificationEmail';
-    const MARKETPLACE_ID_CONFIG_PATH = 'mpx_web/general/marketplaceId';
-
     /**
-     * @var \Magento\Customer\Model\Session
+     * @var Session
      */
     protected $customerSession;
 
@@ -36,9 +30,16 @@ class Data extends AbstractHelper
      */
     public $scopeConfig;
 
+    /**
+     * @param Context $context
+     * @param Session $customerSession
+     * @param MpSeller $mpSeller
+     * @param ScopeConfigInterface $scopeConfig
+     * @param HelperData $helper
+     */
     public function __construct(
         Context $context,
-        \Magento\Customer\Model\Session $customerSession,
+        Session $customerSession,
         MpSeller                        $mpSeller,
         ScopeConfigInterface            $scopeConfig,
         HelperData       $helper
@@ -56,24 +57,24 @@ class Data extends AbstractHelper
      * @param string $sku
      * @return string
      */
-    public function formatSku($sku)
+    public function formatSku($sku): string
     {
         $skuPrefix = $this->getSkuPrefix();
-        return $skuPrefix.self::UNICODE_HYPHEN_MINUS.$sku;
+        return $skuPrefix . Constant::UNICODE_HYPHEN_MINUS . $sku;
     }
 
     /**
-     * get sku prefix
+     * Get sku prefix
+     *
      * @return string
      */
     public function getSkuPrefix()
     {
         $sellerId = $this->customerSession->getCustomer()->getId();
-        $skuPrefix = str_pad($sellerId, 3, "0", STR_PAD_LEFT);
-        return $skuPrefix;
+        return str_pad($sellerId, 3, "0", STR_PAD_LEFT);
     }
 
-        /**
+    /**
      * Get Sku Format
      *
      * @param string $sku
@@ -81,16 +82,15 @@ class Data extends AbstractHelper
      */
     public function getSkuWithoutPrefix($sku)
     {
-        return substr($sku, self::SKU_PREFIX_LENGTH);
+        return substr($sku, Constant::SKU_PREFIX_LENGTH);
     }
 
     /**
      * Get Seller Data
      *
-     * @return \Magento\Framework\Data\Collection\AbstractDb
-     * @return \Magento\Framework\Model\ResourceModel\Db\Collection\AbstractCollection|null
+     * @return AbstractDb|AbstractCollection
+     * @return AbstractCollection|null
      */
-
     public function getSellerData()
     {
         $sellerData = $this->mpSeller->create()->getCollection();
@@ -109,30 +109,33 @@ class Data extends AbstractHelper
      */
     public function getConfigLimitSeller()
     {
-        $limit_seller = $this->scopeConfig->getValue(
+        return $this->scopeConfig->getValue(
             'mpx_web/settings_store/limit_seller',
             \Magento\Store\Model\ScopeInterface::SCOPE_STORE
         );
-        return $limit_seller;
     }
 
     /**
+     * Check Limit Seller
+     *
      * @return bool
      */
-    public function isRunOutOfSellerLimit()
+    public function isRunOutOfSellerLimit(): bool
     {
-        return ( $this->getSellerData()->getSize() >= $this->getConfigLimitSeller() );
+        return ($this->getSellerData()->getSize() >= $this->getConfigLimitSeller());
     }
 
     /**
+     * Check Seller Login
+     *
      * @return bool
      */
-    public function isSellerLogin()
+    public function isSellerLogin(): bool
     {
         $sellerId = $this->customerSession->getCustomerId();
         $sellerCollection = $this->helper->getSellerCollectionObj($sellerId);
         foreach ($sellerCollection as $value) {
-            if ($value->getIsSeller() == Deny::ENABLED_SELLER_STATUS) {
+            if ($value->getIsSeller() == Constant::ENABLED_SELLER_STATUS) {
                 return true;
             }
         }
@@ -147,7 +150,7 @@ class Data extends AbstractHelper
     public function getMarketplaceName()
     {
         return $this->scopeConfig->getValue(
-            self::MARKETPLACE_NAME_CONFIG_PATH,
+            Constant::MARKETPLACE_NAME_CONFIG_PATH,
             \Magento\Store\Model\ScopeInterface::SCOPE_STORE
         );
     }
@@ -160,7 +163,7 @@ class Data extends AbstractHelper
     public function getFromMailAddress()
     {
         return $this->scopeConfig->getValue(
-            self::FROM_MAIL_ADDRESS_CONFIG_PATH,
+            Constant::FROM_MAIL_ADDRESS_CONFIG_PATH,
             \Magento\Store\Model\ScopeInterface::SCOPE_STORE
         );
     }
@@ -173,7 +176,7 @@ class Data extends AbstractHelper
     public function getXsadminMailAddress()
     {
         return $this->scopeConfig->getValue(
-            self::XS_ADMIN_MAIL_ADDRESS_CONFIG_PATH,
+            Constant::XS_ADMIN_MAIL_ADDRESS_CONFIG_PATH,
             \Magento\Store\Model\ScopeInterface::SCOPE_STORE
         );
     }
@@ -186,7 +189,7 @@ class Data extends AbstractHelper
     public function getSystemAdminMailAddress()
     {
         return $this->scopeConfig->getValue(
-            self::SYSTEM_ADMIN_MAIL_ADDRESS_CONFIG_PATH,
+            Constant::SYSTEM_ADMIN_MAIL_ADDRESS_CONFIG_PATH,
             \Magento\Store\Model\ScopeInterface::SCOPE_STORE
         );
     }
@@ -199,19 +202,18 @@ class Data extends AbstractHelper
     public function getSystemNoticeMailFromAddress()
     {
         return $this->scopeConfig->getValue(
-            self::SYSTEM_NOTICE_MAIL_FROM_ADDRESS_CONFIG_PATH,
+            Constant::SYSTEM_NOTICE_MAIL_FROM_ADDRESS_CONFIG_PATH,
             \Magento\Store\Model\ScopeInterface::SCOPE_STORE
         );
     }
 
     /**
-     * get marketplace id config
+     * Get marketplace id config
      *
      * @return mixed
      */
     public function getMarketPlaceId()
     {
-        return $this->scopeConfig->getValue(self::MARKETPLACE_ID_CONFIG_PATH, ScopeInterface::SCOPE_STORE);
+        return $this->scopeConfig->getValue(Constant::MARKETPLACE_ID_CONFIG_PATH, ScopeInterface::SCOPE_STORE);
     }
-
 }

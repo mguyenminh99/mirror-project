@@ -13,13 +13,14 @@ use Magento\Catalog\Block\Adminhtml\Category\Edit\SaveButton;
 use Magento\Framework\App\Config\ScopeConfigInterface;
 use Magento\Framework\App\Request\Http;
 use Magento\Store\Model\ScopeInterface;
+use Mpx\Catalog\Helper\Constant;
 
 /**
  * Plugin After Disabled Default Category for Button Save.
  */
 class EditSaveButton
 {
-    const DEFAULT_CATEGORY = 2;
+
     /**
      * @var Http
      */
@@ -53,7 +54,7 @@ class EditSaveButton
      */
     public function afterGetButtonData(SaveButton $subject, array $result): array
     {
-        if ($this->request->getParam('id') == self::DEFAULT_CATEGORY) {
+        if ($this->request->getParam('id') == Constant::DEFAULT_CATEGORY) {
             $result['disabled'] = true;
             return $result;
         }

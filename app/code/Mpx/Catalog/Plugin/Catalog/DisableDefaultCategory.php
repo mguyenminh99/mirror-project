@@ -9,12 +9,13 @@
 
 namespace Mpx\Catalog\Plugin\Catalog;
 
+use Mpx\Catalog\Helper\Constant;
+
 /**
  * Disabled Root Category.
  */
 class DisableDefaultCategory
 {
-    const DEFAULT_CATEGORY = 2;
 
     /**
      * @var \Magento\Framework\App\RequestInterface
@@ -43,7 +44,7 @@ class DisableDefaultCategory
         foreach ($result as $fieldSet => $fields) {
             foreach ($fields as $field) {
                 foreach ($field as $key => $data) {
-                    if ($this->request->getParam('id') == self::DEFAULT_CATEGORY
+                    if ($this->request->getParam('id') == Constant::DEFAULT_CATEGORY
                         && isset($result[$fieldSet]['children'])) {
                         $result[$fieldSet]['children'][$key]['arguments']['data']['config']['required'] = 1;
                         $result[$fieldSet]['children'][$key]['arguments']['data']['config']['disabled'] = 1;

@@ -12,19 +12,13 @@ namespace Mpx\Customer\Helper;
 use Magento\Framework\App\Helper\Context;
 use Magento\Framework\App\Helper\AbstractHelper;
 use Magento\Framework\Message\ManagerInterface;
+use Mpx\Customer\Helper\Constant;
 
 /**
  * Helper Validate Postcode
  */
 class CustomerInfoValidation extends AbstractHelper
 {
-    private const INVALID_POST_CODE = "invalid_format";
-    private const INVALID_POST_CODE_ERROR_MESSAGE = "Postal code is not correct.";
-    private const EMPTY_POST_CODE = "invalid_format";
-    private const EMPTY_POST_CODE_ERROR_MESSAGE = "Post code is empty";
-    private const INVALID_PHONE_NUMBER = "invalid_format";
-    private const INVALID_PHONE_NUMBER_ERROR_MESSAGE =
-        "Phone number is not correct. The characters that can be used are numbers and hyphens.";
 
     /**
      * @var ManagerInterface
@@ -76,8 +70,8 @@ class CustomerInfoValidation extends AbstractHelper
     {
         if (!preg_match('/^[0-9]{3}-?[0-9]{4}$/', $postCode)) {
             $this->errors[] = [
-                'type' => self::INVALID_POST_CODE,
-                'message' => self::INVALID_POST_CODE_ERROR_MESSAGE
+                'type' => Constant::INVALID_POST_CODE,
+                'message' => Constant::INVALID_POST_CODE_ERROR_MESSAGE
             ];
         }
 
@@ -94,8 +88,8 @@ class CustomerInfoValidation extends AbstractHelper
     {
         if (!preg_match('/^[0-9\-]*$/', $phoneNumber)) {
             $this->errors[] = [
-                'type' => self::INVALID_PHONE_NUMBER,
-                'message' => self::INVALID_PHONE_NUMBER_ERROR_MESSAGE
+                'type' => Constant::INVALID_PHONE_NUMBER,
+                'message' => Constant::INVALID_PHONE_NUMBER_ERROR_MESSAGE
             ];
         }
 

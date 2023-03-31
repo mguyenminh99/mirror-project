@@ -12,7 +12,7 @@ namespace Mpx\Checkout\Observer;
 use Magento\Framework\Event\Observer;
 use Magento\Framework\Event\ObserverInterface;
 use Magento\Framework\Message\ManagerInterface;
-use Mpx\Checkout\Helper\Data as MpxData;
+use Mpx\Checkout\Helper\CommonFunc as MpxData;
 
 /**
  * Display Error Message Cart
@@ -49,7 +49,7 @@ class CheckMultiSellerPageShoppingCart implements ObserverInterface
      */
     public function execute(Observer $observer): void
     {
-        $numberSeller = $this->_helper->CountSellerInCart();
+        $numberSeller = $this->_helper->countSellerInCart();
         if ($numberSeller > 1) {
             $this->messageManager->addErrorMessage(__(
                 'You cannot purchase items from multiple stores at the same time.Sorry for your inconvenience, but please purchase for each store.'

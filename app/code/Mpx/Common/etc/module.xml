@@ -1,0 +1,13 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:Module/etc/module.xsd">
+    <module name="Mpx_Common">
+        <sequence>
+            <module name="Mpx_Marketplace"/>
+            <module name="Mpx_Mpshipping"/>
+            <module name="Mpx_Sales"/>
+            <module name="Mpx_Catalog"/>
+            <module name="Mpx_OrderComment"/>
+            <module name="Mpx_Checkout"/>
+        </sequence>
+    </module>
+</config>

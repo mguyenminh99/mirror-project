@@ -8,18 +8,12 @@
  */
 namespace Mpx\Mpshipping\Controller\Shipping;
 
+use Mpx\Mpshipping\Helper\Constant;
 /**
  * Mpx Mpshipping import CSV
  */
 class Index extends \Webkul\Mpshipping\Controller\Shipping\Index
 {
-
-    const COUNTRY_CODE = "JP";
-    const REGION_ID = "*";
-    const WEIGHT_FROM = "0";
-    const WEIGHT_TO = "999";
-    const NUMERIC_ZIPCODE = "yes";
-    const ALPHANUMERIC_ZIPCODE = "";
 
     /**
      * @var bool
@@ -85,12 +79,12 @@ class Index extends \Webkul\Mpshipping\Controller\Shipping\Index
                             $data = $row;
                         } else {
                             $wholedata = $this->getForeachData($row, $data);
-                            $wholedata['country_code'] = self::COUNTRY_CODE;
-                            $wholedata['region_id'] = self::REGION_ID;
-                            $wholedata['weight_from'] = self::WEIGHT_FROM;
-                            $wholedata['weight_to'] = self::WEIGHT_TO;
-                            $wholedata['numeric_zipcode'] = self::NUMERIC_ZIPCODE;
-                            $wholedata['alphanumeric_zipcode'] = self::ALPHANUMERIC_ZIPCODE;
+                            $wholedata['country_code'] = Constant::COUNTRY_CODE;
+                            $wholedata['region_id'] = Constant::REGION_ID;
+                            $wholedata['weight_from'] = Constant::WEIGHT_FROM;
+                            $wholedata['weight_to'] = Constant::WEIGHT_TO;
+                            $wholedata['numeric_zipcode'] = Constant::NUMERIC_ZIPCODE;
+                            $wholedata['alphanumeric_zipcode'] = Constant::ALPHANUMERIC_ZIPCODE;
                             $partnerid = $this->_mpshippingHelperData->getPartnerId();
                             list($updatedWholedata, $errors) = $this->validateCsvDataToSave($wholedata);
                             $rowSaved = $this->getUpdateWholeData(

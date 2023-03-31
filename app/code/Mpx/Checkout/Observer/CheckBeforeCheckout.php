@@ -13,7 +13,7 @@ use Magento\Framework\Event\Observer;
 use Magento\Framework\Event\ObserverInterface;
 use Magento\Framework\Message\ManagerInterface;
 use Magento\Framework\UrlInterface;
-use Mpx\Checkout\Helper\Data as MpxData;
+use Mpx\Checkout\Helper\CommonFunc as MpxData;
 use Magento\Customer\Model\Session;
 
 class CheckBeforeCheckout implements ObserverInterface
@@ -65,7 +65,7 @@ class CheckBeforeCheckout implements ObserverInterface
     {
         if ($this->customerSession->isLoggedIn()) {
             try {
-                $limitSellerOnCheckout = $this->_helper->CountSellerInCart();
+                $limitSellerOnCheckout = $this->_helper->countSellerInCart();
                 if ($limitSellerOnCheckout > 1) {
                     $checkoutUrl = $this->url->getUrl('checkout/cart');
                     $observer->getControllerAction()

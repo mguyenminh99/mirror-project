@@ -15,19 +15,16 @@ use Magento\Framework\Message\ManagerInterface;
 use Webkul\Mpshipping\Controller\Shipping\Edit;
 use Magento\Framework\Controller\Result\RedirectFactory;
 use Magento\Framework\App\Request\DataPersistorInterface;
-use Mpx\Mpshipping\Helper\Validator as MpxValidator;
+use Mpx\Common\Helper\CommonFunc as MpxValidator;
 use Psr\Log\LoggerInterface;
+use Mpx\Mpshipping\Helper\Constant;
+use Mpx\Common\Helper\Constant as CommonConstant;
 
 /**
  * Mpx Marketplace validate custom rules
  */
 class BeforeSaveShippingEdit
 {
-
-    const PRICE_NONE_NUMERIC_ERROR_CODE = "none_numeric";
-    const PRICE_NONE_NUMERIC_ERROR_MESSAGE = "Please enter a valid number in this field.";
-    const PRICE_DECIMAL_ERROR_CODE = "price_decimal";
-    const PRICE_DECIMAL_ERROR_MESSAGE = "Please enter a valid integer in this field.";
 
     /**
      * @var ManagerInterface
@@ -169,15 +166,15 @@ class BeforeSaveShippingEdit
 
             if (!is_numeric($price)) {
                 $this->errors[] = [
-                    'type' => self::PRICE_NONE_NUMERIC_ERROR_CODE,
-                    'message' => self::PRICE_NONE_NUMERIC_ERROR_MESSAGE
+                    'type' => Constant::PRICE_NONE_NUMERIC_ERROR_CODE,
+                    'message' => Constant::PRICE_NONE_NUMERIC_ERROR_MESSAGE
                 ];
             }
 
             if ($this->mpxValidator->isDecimal($price)) {
                 $this->errors[] = [
-                    'type' => self::PRICE_DECIMAL_ERROR_CODE,
-                    'message' => self::PRICE_DECIMAL_ERROR_MESSAGE
+                    'type' => CommonConstant::PRICE_DECIMAL_ERROR_CODE,
+                    'message' => CommonConstant::PRICE_DECIMAL_ERROR_MESSAGE
                 ];
             }
         }

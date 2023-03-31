@@ -6,7 +6,7 @@ use Magento\Framework\App\Helper\AbstractHelper;
 use Psr\Log\LoggerInterface;
 use Magento\Store\Model\StoreManagerInterface;
 
-class Data extends AbstractHelper
+class CommonFunc extends AbstractHelper
 {
     /**
      * @var StoreManagerInterface

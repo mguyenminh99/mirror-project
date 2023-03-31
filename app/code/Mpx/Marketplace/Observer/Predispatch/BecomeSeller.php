@@ -9,21 +9,13 @@ use Magento\Framework\Event\Observer;
 use Magento\Framework\Event\ObserverInterface;
 use Magento\Framework\App\RequestInterface;
 use Webkul\Marketplace\Helper\Data as MpHelper;
+use Mpx\Marketplace\Helper\Constant;
 
 /**
  * Observer run before action becomeSeller
  */
 class BecomeSeller implements ObserverInterface
 {
-    /**
-     * Action controller becomeseller
-     */
-    public const WEBKUL_BECOMESELLER_FULL_ACTION = "marketplace_account_becomeseller";
-
-    /**
-     * Enable setting 403 page
-     */
-    public const MPX_403_PAGE_ENABLE_CONFIG = "mpx_web/default/enable";
 
     /**
      * @var MpHelper
@@ -75,11 +67,11 @@ class BecomeSeller implements ObserverInterface
         $request = $observer->getRequest();
         $fullActionName = $request->getFullActionName();
         $enableModule = $this->scopeConfig
-            ->getValue(self::MPX_403_PAGE_ENABLE_CONFIG, \Magento\Store\Model\ScopeInterface::SCOPE_STORE);
+            ->getValue(Constant::MPX_403_PAGE_ENABLE_CONFIG, \Magento\Store\Model\ScopeInterface::SCOPE_STORE);
         if (!$enableModule) {
             return;
         }
-        if ($fullActionName == self::WEBKUL_BECOMESELLER_FULL_ACTION &&
+        if ($fullActionName == Constant::WEBKUL_BECOMESELLER_FULL_ACTION &&
             !$this->wkMpHelper->isSeller() && $this->customerSession->isLoggedIn()) {
             $resultForward = $this->forwardFactory->create();
             $resultForward->setModule('mpx');

@@ -1,25 +1,15 @@
 <?php
-/**
- * Mpx Software.
- *
- * @category  Mpx
- * @package   Mpx_Checkout
- * @author    Mpx
- */
 
 namespace Mpx\Checkout\Helper;
 
-use Magento\Checkout\Model\SessionFactory as CheckoutSessionFactory;
 use Magento\Framework\App\Helper\AbstractHelper;
+use Magento\Checkout\Model\SessionFactory as CheckoutSessionFactory;
 use Magento\Framework\App\Helper\Context;
 use Magento\Framework\Message\ManagerInterface;
 use Magento\Quote\Api\CartRepositoryInterface;
 use Magento\Checkout\Model\Cart;
 
-/**
- * Helper data
- */
-class Data extends AbstractHelper
+class CommonFunc extends AbstractHelper
 {
     /**
      * @var ManagerInterface
@@ -60,8 +50,8 @@ class Data extends AbstractHelper
         \Webkul\MpTimeDelivery\Helper\Data $_helper,
         ManagerInterface                   $messageManager,
         Cart                               $cart,
-        Context                            $context)
-    {
+        Context                            $context
+    ) {
         $this->checkoutSessionFactory = $checkoutSessionFactory;
         $this->cartRepository = $cartRepository;
         $this->_helper = $_helper;
@@ -75,7 +65,7 @@ class Data extends AbstractHelper
      *
      * @return int
      */
-    public function CountSellerInCart(): int
+    public function countSellerInCart(): int
     {
         try {
             $sellerIds = [];
@@ -87,8 +77,7 @@ class Data extends AbstractHelper
                 }
 
             }
-        } catch
-        (\Exception $e) {
+        } catch (\Exception $e) {
             $this->messageManager->addErrorMessage('Error cannot count seller cart');
         }
 

@@ -1,20 +1,13 @@
 <?php
-/**
- * Mpx Software.
- *
- * @category  Mpx
- * @package   Mpx_Marketplace
- * @author    Mpx
- */
 
-namespace Mpx\Marketplace\Helper;
+namespace Mpx\Common\Helper;
 
 use Magento\Framework\App\Helper\AbstractHelper;
 
 /**
- * Helper define validate function
+ * Common function class used from multiple modules
  */
-class Validator extends AbstractHelper
+class CommonFunc extends AbstractHelper
 {
     /**
      * Check if number is decimal
