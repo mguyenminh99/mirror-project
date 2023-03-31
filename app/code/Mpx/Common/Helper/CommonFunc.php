@@ -5,7 +5,7 @@ namespace Mpx\Common\Helper;
 use Magento\Framework\App\Helper\AbstractHelper;
 
 /**
- * Helper define validate function
+ * Common function class used from multiple modules
  */
 class CommonFunc extends AbstractHelper
 {
