@@ -8,14 +8,14 @@ use Magento\Ui\Component\Listing\Columns\Column;
 class Sku extends Column
 {
     /**
-     * @var \Mpx\Marketplace\Helper\Data
+     * @var \Mpx\Marketplace\Helper\CommonFunc
      */
     protected $marketplaceHelperData;
 
     public function __construct(
         ContextInterface $context,
         UiComponentFactory $uiComponentFactory,
-        \Mpx\Marketplace\Helper\Data $marketplaceHelperData,
+        \Mpx\Marketplace\Helper\CommonFunc $marketplaceHelperData,
         array $components = [],
         array $data = []
     )
