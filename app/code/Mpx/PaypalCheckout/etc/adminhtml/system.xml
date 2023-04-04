@@ -13,13 +13,7 @@
                         <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
                         <config_path>payment/paypal_checkout/active</config_path>
                     </field>
-                    <field id="sandbox_flag" translate="label" type="select" sortOrder="20" showInDefault="1" showInWebsite="1">
-                        <label>Sandbox  Mode</label>
-                        <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
-                        <attribute type="shared">1</attribute>
-                        <config_path>payment/paypal_checkout/sandbox_flag</config_path>
-                    </field>
-                    <field id="client_id" translate="label" type="obscure" sortOrder="40" showInDefault="1" showInWebsite="1">
+                    <field id="client_id" translate="label" type="text" sortOrder="40" showInDefault="1" showInWebsite="1">
                         <label>Client ID</label>
                         <backend_model>Magento\Config\Model\Config\Backend\Encrypted</backend_model>
                         <config_path>payment/paypal_checkout/client_id</config_path>
@@ -51,10 +45,18 @@
                         <label>Credit Card Title</label>
                         <config_path>payment/paypal_checkout/credit_card_title</config_path>
                     </field>
-                    <field id="secret" translate="label" type="obscure" sortOrder="40" showInDefault="1" showInWebsite="1">
+                    <field id="secret" translate="label" type="text" sortOrder="40" showInDefault="1" showInWebsite="1">
                         <label>Secret</label>
                         <backend_model>Magento\Config\Model\Config\Backend\Encrypted</backend_model>
                         <config_path>payment/paypal_checkout/Secret</config_path>
+                    </field>
+                    <field id="client_id_sandbox" translate="label" type="text" sortOrder="50" showInDefault="1" showInWebsite="1">
+                        <label>Sandbox ClientID</label>
+                        <config_path>payment/paypal_checkout/client_id_sandbox</config_path>
+                    </field>
+                    <field id="secret_sandbox" translate="label" type="text" sortOrder="50" showInDefault="1" showInWebsite="1">
+                        <label>Sandbox Secret</label>
+                        <config_path>payment/paypal_checkout/secret_sandbox</config_path>
                     </field>
                     <field id="enable_batch" type="select" sortOrder="10" showInWebsite="1" showInStore="1" showInDefault="1" translate="label">
                         <label>Enable PayPal Capture Batch</label>

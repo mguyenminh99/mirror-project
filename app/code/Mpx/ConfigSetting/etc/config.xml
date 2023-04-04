@@ -150,6 +150,8 @@
         <payment>
             <paypal_checkout>
                 <disable_batch>1</disable_batch>
+                <client_id_sandbox>ATr0sZj7AKDkRCJc764X48LVu8lg7x2TG_xpKKP880-ZGqmUinfOsqpP9F1-4QDvaNJroMqtccJ0vNNY</client_id_sandbox>
+                <secret_sandbox>EO_wx4Zg-7x8OfWX4975RysuqDLbKuw7hs3i5zxnuGk37Q4Ci4PzlEAHb-TlryYM42sRunJIQpq0udL3</secret_sandbox>
             </paypal_checkout>
         </payment>
     </default>

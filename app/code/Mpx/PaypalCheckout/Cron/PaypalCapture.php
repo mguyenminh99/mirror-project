@@ -28,6 +28,7 @@ use Magento\Sales\Model\Order;
 use Magento\Customer\Model\ResourceModel\Customer\CollectionFactory as CustomerCollectionFactory;
 use Mpx\PaypalCheckout\Model\Payment\PaypalCheckout\Payment;
 use Magento\Framework\App\Config\ScopeConfigInterface;
+use Magento\Framework\App\State as State;
 use Mpx\Marketplace\Helper\CommonFunc as MpxMarketplaceHelper;
 
 /**
@@ -179,6 +180,12 @@ class PaypalCapture
      * @var MpxMarketplaceHelper
      */
     protected $mpxMarketplaceHelper;
+
+    /**
+     * @var State
+     */
+    protected $appState;
+
     /**
      * @param Config $config
      * @param Curl $curl
@@ -226,7 +233,8 @@ class PaypalCapture
         DataSeller                      $dataSeller,
         ScopeConfigInterface            $scopeConfig,
         Payment                         $payment,
-        MpxMarketplaceHelper            $mpxMarketplaceHelper
+        MpxMarketplaceHelper            $mpxMarketplaceHelper,
+        State                           $appState
     )
     {
         $this->config = $config;
@@ -253,6 +261,7 @@ class PaypalCapture
         $this->payment = $payment;
         $this->scopeConfig = $scopeConfig;
         $this->mpxMarketplaceHelper = $mpxMarketplaceHelper;
+        $this->appState = $appState;
     }
 
     /**
@@ -764,14 +773,13 @@ class PaypalCapture
      */
     private function execute_capture_authorized_payment_api($authorization_id, $access_token, $paypal_api_request_id, $capture_amount,$order_increment_id,&$http_status_code): string
     {
-        $configSandboxFlag = $this->config->getSandboxFlag();
         $orderInfo = $this->order->loadByIncrementId($order_increment_id);
         $productId = $orderInfo->getAllItems()[0]->getData('product_id');
         $sellerId = $this->dataSeller->getSellerIdByProductId($productId);
         $marketplaceId = $this->mpxMarketplaceHelper->getMarketPlaceId();
         $sellerIdZeroFill = str_pad($sellerId, 3, "0", STR_PAD_LEFT);
         $invoiceID = $marketplaceId . "-" . $sellerIdZeroFill . "-" . $order_increment_id;
-        if (!$configSandboxFlag) {
+        if ($this->isProductionMode()) {
             $paypal_capture_authorized_payment_api_url = str_replace(
                 '{authorization_id}',
                 urlencode($authorization_id),
@@ -886,12 +894,7 @@ class PaypalCapture
      */
     private function generate_access_token($paypal_client_id, $paypal_client_secret, &$paypal_status_http): string
     {
-        $configSandboxFlag = $this->config->getSandboxFlag();
-        if (!$configSandboxFlag) {
-            $paypal_generate_access_token_api_url = self::PAYPAL_GENERATE_ACCESS_TOKEN_API_URL_LIVE;
-        } else {
-            $paypal_generate_access_token_api_url = self::PAYPAL_GENERATE_ACCESS_TOKEN_API_URL_SANDBOX;
-        }
+        $paypal_generate_access_token_api_url = $this->getPaypalGenerateAccessTokenApiUrl();
         $this->curl->addHeader("Content-Type", "application/x-www-form-urlencoded");
         $this->curl->setCredentials($paypal_client_id, $paypal_client_secret);
         $this->curl->setOption(CURLOPT_POSTFIELDS, 'grant_type=client_credentials&ignoreCache=true&return_authn_schemes=true&return_client_metadata=true&return_unconsented_scopes=true');
@@ -947,4 +950,26 @@ class PaypalCapture
         }
         return true;
     }
+
+    /**
+     * @return string
+     */
+    private function getPaypalGenerateAccessTokenApiUrl()
+    {
+        if ($this->isProductionMode()) {
+            $paypal_generate_access_token_api_url = self::PAYPAL_GENERATE_ACCESS_TOKEN_API_URL_LIVE;
+        } else {
+            $paypal_generate_access_token_api_url = self::PAYPAL_GENERATE_ACCESS_TOKEN_API_URL_SANDBOX;
+        }
+        return $paypal_generate_access_token_api_url;
+    }
+
+    /**
+     * @return bool
+     */
+    private function isProductionMode()
+    {
+        return $this->appState->getMode() === \Magento\Framework\App\State::MODE_PRODUCTION;
+    }
+
 }
