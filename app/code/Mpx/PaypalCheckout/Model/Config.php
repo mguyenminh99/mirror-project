@@ -5,6 +5,7 @@ namespace Mpx\PaypalCheckout\Model;
 use Magento\Framework\App\Config\ScopeConfigInterface;
 use Magento\Payment\Model\Method\AbstractMethod;
 use Psr\Log\LoggerInterface;
+use Magento\Framework\App\State as State;
 
 /**
  * Config model that is aware of all \Mpx\PaypalCheckout payment methods
@@ -22,8 +23,9 @@ class Config
     const CONFIG_XML_COUNTRY_CODE         = 'country_code';
     const CONFIG_XML_OUTPUT_DEBUG_LOG     = 'output_debug_log';
     const CONFIG_XML_ACTIVE_CARD          = 'enabled_card';
-    const CONFIG_XML_SANBOX_FLAG          = 'sandbox_flag';
     const CONFIG_XML_SECRET               = 'Secret';
+    const CONFIG_XML_CLIENT_ID_SANBOX     = 'client_id_sandbox';
+    const CONFIG_XML_SECRET_SANBOX        = 'secret_sandbox';
 
     /**
      * @var ScopeConfigInterface
@@ -34,15 +36,24 @@ class Config
     public $_logger;
 
     /**
+     * @var State
+     */
+    protected $appState;
+
+
+    /**
      * @param ScopeConfigInterface $scopeConfig
-     * @param LoggerInterface $logger
+     * @param LoggerInterface      $logger
+     * @param State                $logger
      */
     public function __construct(
         ScopeConfigInterface $scopeConfig,
-        LoggerInterface $logger
+        LoggerInterface      $logger,
+        State                $appState
     ) {
         $this->_scopeConfig = $scopeConfig;
         $this->_logger      = $logger;
+        $this->appState     = $appState;
     }
 
     /**
@@ -102,7 +113,11 @@ class Config
      */
     public function getClientId()
     {
-        return $this->getConfigValue(self::CONFIG_XML_CLIENT_ID);
+        if ($this->appState->getMode() == \Magento\Framework\App\State::MODE_PRODUCTION) {
+            return $this->getConfigValue(self::CONFIG_XML_CLIENT_ID);
+        } else {
+            return $this->getConfigValue(self::CONFIG_XML_CLIENT_ID_SANBOX);
+        }
     }
 
     /**
@@ -112,7 +127,11 @@ class Config
      */
     public function getSecret()
     {
-        return $this->getConfigValue(self::CONFIG_XML_SECRET);
+        if ($this->appState->getMode() == \Magento\Framework\App\State::MODE_PRODUCTION) {
+            return $this->getConfigValue(self::CONFIG_XML_SECRET);
+        } else {
+            return $this->getConfigValue(self::CONFIG_XML_SECRET_SANBOX);
+        }
     }
 
     /**
@@ -149,13 +168,5 @@ class Config
     public function getActiveCard()
     {
         return $this->getConfigValue(self::CONFIG_XML_ACTIVE_CARD);
-    }
-
-    /**
-     * @return mixed
-     */
-    public function getSandboxFlag()
-    {
-        return $this->getConfigValue(self::CONFIG_XML_SANBOX_FLAG);
     }
 }
