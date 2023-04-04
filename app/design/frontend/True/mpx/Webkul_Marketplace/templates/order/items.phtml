@@ -12,7 +12,7 @@ if ($order->getPayment()) {
     $colSpan = 9;
     $paymentCode = $order->getPayment()->getMethod();
 }
-$marketplaceHelperData = $this->helper(\Mpx\Marketplace\Helper\Data::Class);
+$marketplaceHelperData = $this->helper(\Mpx\Marketplace\Helper\CommonFunc::Class);
 ?>
 <div class="table-wrapper order-items">
     <table class="data table table-order-items" id="my-orders-table" summary="<?= $block->escapeHtml(__('Items Ordered')) ?>">
