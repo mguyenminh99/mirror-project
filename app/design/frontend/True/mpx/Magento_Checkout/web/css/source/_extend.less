@@ -7,3 +7,17 @@
 .cart-totals .grand .amount, .opc-block-summary .table-totals .grand .amount {
     border-top: 0px;
 }
+
+.fieldset {
+    .field {
+        .field._required:first-child {
+            margin: 0 0 20px;
+            .label:after {
+                content: '*';
+                color: #e02b27;
+                font-size: 1.2rem;
+                margin: 0 0 0 5px;
+            }
+        }
+    }
+}

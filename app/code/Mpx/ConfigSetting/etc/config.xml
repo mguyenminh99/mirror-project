@@ -154,5 +154,8 @@
                 <secret_sandbox>EO_wx4Zg-7x8OfWX4975RysuqDLbKuw7hs3i5zxnuGk37Q4Ci4PzlEAHb-TlryYM42sRunJIQpq0udL3</secret_sandbox>
             </paypal_checkout>
         </payment>
+        <address>
+            <street_lines>2</street_lines>
+        </address>
     </default>
 </config>
