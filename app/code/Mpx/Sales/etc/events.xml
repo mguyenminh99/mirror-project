@@ -9,5 +9,4 @@
         <observer name="set_email_variable_seller_shipment"
                   instance="Mpx\Sales\Observer\SetEmailVariableSellerShipment" />
     </event>
-
 </config>

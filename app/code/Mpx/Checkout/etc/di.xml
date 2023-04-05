@@ -4,4 +4,8 @@
         <plugin name="visible_country_in_checkout_cart" type="Mpx\Checkout\Block\Cart\LayoutProcessor" sortOrder="1" disabled="false"/>
     </type>
     <preference for="Magento\Checkout\Model\PaymentInformationManagement" type="Mpx\Checkout\Model\PaymentInformationManagement" />
+
+    <type name="Magento\Checkout\Block\Checkout\AttributeMerger">
+        <plugin name="separate_customer_street_line_address" type="Mpx\Checkout\Plugin\Block\Checkout\AttributeMerger"/>
+    </type>
 </config>

@@ -10,6 +10,7 @@
             <module name="Magento_Review" />
             <module name="Magento_Newsletter" />
             <module name="Mpx_PaypalCheckout" />
+            <module name="Amazon_Core" />
         </sequence>
     </module>
 </config>
