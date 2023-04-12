@@ -15,7 +15,6 @@
         "magento/product-community-edition": "2.3.5-p2"
     },
     "replace": {
-        "magento/module-paypal": "*",
         "community-engineering/module-kuromoji": "*"
     },
     "require-dev": {
