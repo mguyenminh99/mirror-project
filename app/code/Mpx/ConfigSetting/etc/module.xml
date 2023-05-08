@@ -11,6 +11,8 @@
             <module name="Magento_Newsletter" />
             <module name="Mpx_PaypalCheckout" />
             <module name="Amazon_Core" />
+            <module name="Magento_Security" />
+            <module name="Magento_User" />
         </sequence>
     </module>
 </config>
