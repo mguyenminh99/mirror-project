@@ -89,7 +89,11 @@ $isPartner = $block->isSeller(); ?>
         "sampleRow" => $sampleRow,
         "attributeProfilesCollection" => $attributeProfilesCollection->getData(),
         "dataflowProfileMsg" => $dataflowProfileMsg,
-        "noMatchingProfileMsg" => $noMatchingProfileMsg
+        "noMatchingProfileMsg" => $noMatchingProfileMsg,
+        'element' => '#massupload_image',
+        'maxFileSize' => \Mpx\Common\Helper\Constant::MAX_IMAGE_UPLOADABLE_SIZE_BYTE,
+        'maxWidth' => \Magento\Framework\File\Uploader::MAX_IMAGE_WIDTH,
+        'maxHeight' => \Magento\Framework\File\Uploader::MAX_IMAGE_HEIGHT
     ];
 
     $data = $block->jsonEncode($data);
@@ -338,7 +342,8 @@ $isPartner = $block->isSeller(); ?>
     <script type="text/x-magento-init">
         {
             "body": {
-                "Webkul_MpMassUpload/js/view": <?= /* @noEscape */ $data ?>
+                "Webkul_MpMassUpload/js/view": <?= /* @noEscape */ $data ?>,
+                "validateImageSize": <?= /* @noEscape */ $data; ?>
             }
         }
     </script>

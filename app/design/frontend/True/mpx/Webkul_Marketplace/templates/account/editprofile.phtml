@@ -169,7 +169,7 @@ $currencySymbol = $helper->getCurrencySymbol();
                     <?php
                 } ?>
                 <div class="control">
-                    <input type="file" id="banner-pic" name="banner_pic"  title="Banner Pic" class="banner" size="26" />
+                    <input type="file" id="banner-pic" name="banner_pic"  title="Banner Pic" class="banner image_upload" size="26" />
                     <div class="profileimage-set">
                         <div class="setimage">
                             <img class="wk-banner" alt=" <?= /* @noEscape */ __('no image') ?>" src="<?= $block->escapeUrl($helper->getMediaUrl().'avatar/'.$partner['banner_pic']); ?>"/>
@@ -195,7 +195,7 @@ $currencySymbol = $helper->getCurrencySymbol();
                     <?php
                 } ?>
                 <div class="control">
-                    <input type="file" id="logo-pic" alt="no image" name="logo_pic" title="<?= /* @noEscape */ __('Seller Logo')?>" class="banner" size="26"/>
+                    <input type="file" id="logo-pic" alt="no image" name="logo_pic" title="<?= /* @noEscape */ __('Seller Logo')?>" class="banner image_upload" size="26"/>
                     <div class="logoimage-set">
                         <div class="setimage">
                             <img class="prev-img" src="<?= $block->escapeUrl($helper->getMediaUrl().'avatar/'.$partner['logo_pic']); ?>"/>
@@ -478,7 +478,11 @@ $formData = [
     'logoImageSetSpanSelector' => '.logoimage-set span',
     'logoSelector' => '.wk-logo',
     'logoDeleteAjaxUrl' => $block->getUrl('marketplace/account/deleteSellerLogo', ['_secure' => $this->getRequest()->isSecure()]),
-    'logoImageDeleteSelector' => '.wk-logoimagedelete img'
+    'logoImageDeleteSelector' => '.wk-logoimagedelete img',
+    'element' => '.image_upload',
+    'maxFileSize' => \Mpx\Common\Helper\Constant::MAX_IMAGE_UPLOADABLE_SIZE_BYTE,
+    'maxWidth' => \Magento\Framework\File\Uploader::MAX_IMAGE_WIDTH,
+    'maxHeight' => \Magento\Framework\File\Uploader::MAX_IMAGE_HEIGHT
 ];
 $serializedFormData = $this->helper(\Magento\Framework\Json\Helper\Data::class)->jsonEncode($formData);
 ?>
@@ -486,7 +490,8 @@ $serializedFormData = $this->helper(\Magento\Framework\Json\Helper\Data::class)-
 <script type="text/x-magento-init">
     {
         "*": {
-            "editSellerProfile": <?= /* @noEscape */ $serializedFormData; ?>
+            "editSellerProfile": <?= /* @noEscape */ $serializedFormData; ?>,
+            "validateImageSize": <?= /* @noEscape */ $serializedFormData; ?>
         }
     }
 </script>
