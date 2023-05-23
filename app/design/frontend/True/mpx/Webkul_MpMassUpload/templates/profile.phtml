@@ -18,7 +18,9 @@ $data = [
     "completeLabel" => __("Completed"),
     "noProductImportLabel" => __("No Product Imported"),
     "postData" => $postData,
-    'sellerGroupUrl' => $sellerGroupUrl
+    'sellerGroupUrl' => $sellerGroupUrl,
+    'productImageNotFoundErrorCode' => \Mpx\MpMassUpload\Helper\Constant::PRODUCT_IMAGE_NOT_FOUND_ERROR_CODE,
+    'productImageDuplicateErrorCode' => \Mpx\MpMassUpload\Helper\Constant::PRODUCT_IMAGE_DUPLICATE_ERROR_CODE
 ];
 $data = $block->jsonEncode($data);
 ?>

@@ -18,6 +18,7 @@ use Webkul\MpMassUpload\Api\AttributeProfileRepositoryInterface;
 use Webkul\MpMassUpload\Api\ProfileRepositoryInterface;
 use Webkul\MpMassUpload\Model\ResourceModel\AttributeMapping\CollectionFactory as AttributeMapping;
 use Webkul\MpMassUpload\Model\ResourceModel\AttributeProfile\CollectionFactory as AttributeProfile;
+use Mpx\MpMassUpload\Helper\Constant;
 
 class Data extends \Webkul\MpMassUpload\Helper\Data
 {
@@ -348,7 +349,7 @@ class Data extends \Webkul\MpMassUpload\Helper\Data
         /*START :: Set Special Price Info*/
         $wholeData = $this->processSpecialPriceData($wholeData, $data);
         /*Set Image Info*/
-        $wholeData = $this->processImageData($wholeData, $data, $profileId);
+        $wholeData = $this->processImageDataMpx($wholeData, $data, $profileId, $mainRow);
         /*Set Downloadable Data*/
         $isDownloadableAllowed = $this->isProductTypeAllowed('downloadable');
         if ($profileType == 'downloadable' && $isDownloadableAllowed) {
@@ -444,5 +445,243 @@ class Data extends \Webkul\MpMassUpload\Helper\Data
     public function getProductType($uploadedFileRowData)
     {
         return 'simple';
+    }
+
+    /**
+     * Process Image Data
+     *
+     * @param array $wholeData
+     * @param array $data
+     * @param int $profileId
+     *
+     * @return array $wholeData
+     */
+    public function processImageDataMpx($wholeData, $data, $profileId, $mainRow)
+    {
+        if (!empty($data['product']['images'])) {
+            $data['product']['images'] = strtok($data['product']['images'], '?');
+            $sku = $data['product']['sku'];
+            $images = array_unique($this->getArrayFromString($data['product']['images']));
+            $i = 0;
+            $j = 0;
+            foreach ($images as $key => $value) {
+                // Show error when importing the wrong image type allowed
+                if (isset(pathinfo($value)['extension']) && !in_array(pathinfo($value)['extension'], Constant::ALLOWED_PRODUCT_IMAGE_FILE_TYPE)) {
+                    $wholeData['error'] = Constant::PRODUCT_IMAGE_NOT_FOUND_ERROR_CODE;
+                    $wholeData['image'] = "";
+                    $wholeData['msg'] = __('%1 unable to acquire product images.', $mainRow);
+                    continue;
+                }
+                // Show error when importing duplicated images
+                if (isset($data['product']['duplicated_image_index']) && in_array($key, $data['product']['duplicated_image_index'])){
+                    $wholeData['error'] = Constant::PRODUCT_IMAGE_DUPLICATE_ERROR_CODE;
+                    $wholeData['image'] = "";
+                    $wholeData['msg'] = __('Image import processing was skipped because an image with the same name already exists.');
+                    continue;
+                }
+                $imageName = '/'.$profileId.'/'.$sku.'/'.$value;
+                $imagePath = $this->getMediaPath().'tmp/catalog/product'.$imageName;
+                /** upload image with url */
+                if (\strpos($value, 'http') !== false) {
+                    $filePath        =  $this->getMediaPath().'tmp/catalog/product/'.$profileId.'/';
+                    $destinationPath = $filePath.$sku;
+                    $this->_file->createDirectory($destinationPath);
+                    $fileInfo = $this->fileUpload->getPathInfo($value);
+                    $basename = $fileInfo['basename'];
+                    $imageName = '/'.$profileId.'/'.$sku.'/'.$basename;
+                    $imagePath = $this->getMediaPath().'tmp/catalog/product'.$imageName;
+                    if ($this->_fileDriver->isExists($imagePath)) {
+                        $j++;
+                        $imageName = '/'.$profileId.'/'.$sku.'/'.$basename.' ('.$j.')';
+                        $imagePath = $this->getMediaPath().'tmp/catalog/product'.$imageName;
+                    };
+                    $tmpDirectory    = $this->getMediaDirTmpDir();
+                    $this->fileUpload->checkAndCreateFolder($tmpDirectory);
+                    $baseFileName = $tmpDirectory.'/catalog/product'.$imageName;
+                    $result = $this->fileUpload->read(str_replace(" ", "%20", $value), $baseFileName);
+                }
+                if (!empty(trim($value)) && $this->_fileDriver->isExists($imagePath)) {
+                    $i++;
+                    $wholeData['product']['media_gallery']['images'][$key]['position'] = $i;
+                    $wholeData['product']['media_gallery']['images'][$key]['media_type'] = '';
+                    $wholeData['product']['media_gallery']['images'][$key]['video_provider'] = '';
+                    $wholeData['product']['media_gallery']['images'][$key]['file'] = $imageName.'.tmp';
+                    $wholeData['product']['media_gallery']['images'][$key]['value_id'] = '';
+                    $wholeData['product']['media_gallery']['images'][$key]['label'] = '';
+                    $wholeData['product']['media_gallery']['images'][$key]['disabled'] = '';
+                    $wholeData['product']['media_gallery']['images'][$key]['removed'] = '';
+                    $wholeData['product']['media_gallery']['images'][$key]['video_url'] = '';
+                    $wholeData['product']['media_gallery']['images'][$key]['video_title'] = '';
+                    $wholeData['product']['media_gallery']['images'][$key]['video_description'] = '';
+                    $wholeData['product']['media_gallery']['images'][$key]['video_metadata'] = '';
+                    $wholeData['product']['media_gallery']['images'][$key]['role'] = '';
+                    if ($i == 1) {
+                        $wholeData['product']['image'] = $imageName.'.tmp';
+                        $wholeData['product']['small_image'] = $imageName.'.tmp';
+                        $wholeData['product']['thumbnail'] = $imageName.'.tmp';
+                    }
+                } else {
+                    $wholeData['error'] = Constant::PRODUCT_IMAGE_NOT_FOUND_ERROR_CODE;
+                    $wholeData['msg'] = __('%1 unable to acquire product images.', $mainRow);
+                }
+            }
+        } else {
+            $wholeData['error'] = Constant::PRODUCT_IMAGE_NOT_FOUND_ERROR_CODE;
+            $wholeData['msg'] = __('%1 unable to acquire product images.', $mainRow);
+        }
+        return $wholeData;
+    }
+
+    /**
+     * Save Product
+     *
+     * @param int $sellerId
+     * @param int $row
+     * @param array $wholeData
+     *
+     * @return array
+     */
+    public function saveProduct($sellerId, $row, $wholeData)
+    {
+        $result = ['error' => 0, 'config_error' => 0, 'msg' => ''];
+        try {
+            /* Check if authorized seller */
+            if (!empty($wholeData['id']) && empty($wholeData['error'])) {
+                $productId = $wholeData['id'];
+                $rightseller = $this->isRightSeller($productId, $sellerId);
+                if (!$rightseller) {
+                    $wholeData['msg'] = __(
+                        'Skipped row %1. Product is already assigned to other seller.',
+                        $row
+                    );
+                    $wholeData['error'] = 1;
+                }
+            }
+            if ($row == 1) {
+                $this->_customerSession->setSuccesProductCount(0);
+            }
+            $uploadedPro = $wholeData['total_row_count'];
+            $successProCount = (int) $this->_customerSession->getSuccesProductCount();
+            /*Set Product Add Status According to seller Group*/
+            if ($this->isSellerGroupEnable() && !$this->checkProductAllowedStatus($uploadedPro, $successProCount)) {
+                $result['error'] = 1;
+                if ($this->getAllowedProductQty()) {
+                    $result['message'] =
+                        __('You are not allowed to add more than %1 Product(s)', $this->getAllowedProductQty());
+                } else {
+                    $result['message'] = __('YOUR GROUP PACK IS EXPIRED...');
+                }
+            } elseif ($this->isSellerMembershipEnable() &&
+                ($this->getConfigFeeAppliedFor() == 0 && !$this->isMembershipFeePaid())) {
+                $erroFlag = 1;
+                $data = $this->isMembershipFeePaid($erroFlag);
+                if ($data['status']) {
+                    $result['error'] = 1;
+                    $result['message'] = __('Seller Membership : %1 ', $data['msg']);
+                }
+            } else {
+                if (isset($wholeData['error']) && ($wholeData['error']) == 1) {
+                    $result['error'] = $wholeData['error'];
+                    $result['msg'] = $wholeData['msg'];
+                } else {
+                    $result = $this->_saveProduct->saveProductData($sellerId, $wholeData);
+                    if (isset($wholeData['error']) && (($wholeData['error']) == Constant::PRODUCT_IMAGE_NOT_FOUND_ERROR_CODE
+                            || ($wholeData['error']) == Constant::PRODUCT_IMAGE_DUPLICATE_ERROR_CODE)) {
+                        $result['error'] = $wholeData['error'];
+                        $result['msg'] = $wholeData['msg'];
+                    }
+                    $isInStock = 1;
+                    if (!(int)$wholeData['product']['quantity_and_stock_status']['qty']) {
+                        $isInStock = 0;
+                    }
+                    $result['is_in_stock'] = $isInStock;
+                    if (!empty($result['product_id'])) {
+                        $productId = (int) $result['product_id'];
+                        $successProCount = (int) $this->_customerSession->getSuccesProductCount();
+                        $successProCount++;
+                        $this->_customerSession->setSuccesProductCount($successProCount);
+                    }
+                }
+            }
+        } catch (\Exception $e) {
+            $result['msg'] = __('Skipped row %1. %2', $row, $e->getMessage());
+            $result['error'] = 1;
+        }
+        $result['total_row_count'] = $wholeData['total_row_count'];
+        $result['row'] = $row;
+        if ($wholeData['total_row_count'] != $row) {
+            $nextRow = $row+1;
+            $result['next_row_data'] = $this->calculateProductRowData(
+                $sellerId,
+                $wholeData['profile_id'],
+                $nextRow,
+                $wholeData['type']
+            );
+            $result['next_row_data']['profile_id'] = $wholeData['profile_id'];
+            $result['next_row_data']['row'] = $nextRow;
+            $result['next_row_data']['total_row_count'] = $wholeData['total_row_count'];
+            $result['next_row_data']['seller_id'] = $sellerId;
+        }
+        if ($result['error'] == 1) {
+            if (!empty($result['message'])) {
+                $result['msg'] = $result['message'];
+            }
+            return $result;
+        } else {
+            if (empty($result['product_id'])) {
+                $result['product_id'] = 0;
+            }
+            $productId = (int) $result['product_id'];
+        }
+        if ($productId == 0) {
+            $result['error'] = 1;
+            $result['msg'] = __('Skipped row %1. error in importing product.', $row);
+        }
+
+        return $result;
+    }
+
+    /**
+     * Maps product data if already existing
+     *
+     * @param array $data
+     * @param int $productId
+     * @return array
+     */
+    public function existingProductDataMapping($data, $productId)
+    {
+        $product = $this->_product->create()->load($productId);
+        // Existing Product Data Mapping Start
+        $productArray = $product->getData();
+        foreach ($data['product'] as $key => $value) {
+            if (empty($value)) {
+                if ($key == 'stock') {
+                    $data['product']['stock'] = $productArray['quantity_and_stock_status']['qty'];
+                }
+                if ($key == 'type') {
+                    $data['product']['type'] = $productArray['type_id'];
+                }
+                if (array_key_exists($key, $productArray)) {
+                    $data['product'][$key] = $productArray[$key];
+                }
+            }
+        }
+        //Existing Product Image Data Mapping Start
+        if (!empty($data['product']['images']) && !empty($productArray['image'])) {
+            $importImages = array_unique($this->getArrayFromString($data['product']['images']));
+            foreach ($importImages as $key => $importImagesValue) {
+                foreach ($productArray['media_gallery']['images'] as $productImages) {
+                    if (pathinfo($importImagesValue)['basename'] == pathinfo($productImages['file'])['basename']) {
+                        $data['product']['duplicated_image_index'][] = $key;
+                    }
+                }
+            }
+        }
+        $data['id'] = $productId;
+        $data['product_id'] = $productId;
+        $data['product']['website_ids'][] = $product->getStore()->getWebsiteId();
+        $data['product']['url_key'] = $product->getUrlKey();
+
+        return $data;
     }
 }

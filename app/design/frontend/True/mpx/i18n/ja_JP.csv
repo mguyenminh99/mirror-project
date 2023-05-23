@@ -214,4 +214,6 @@ Shipped,出荷数
 "About Us","ストア情報"
 "Personal Address","町名・番地"
 "Building Address","建物名・部屋番号"
+"%1 unable to acquire product images.","%1 件目 商品画像を取得できません。"
+"Image import processing was skipped because an image with the same name already exists.","同名の画像が既に存在するため、画像取り込み処理をスキップしました。"
 "Image files larger than 2MB cannot be uploaded.","2MBを超える画像ファイルはアップロードできません。"
