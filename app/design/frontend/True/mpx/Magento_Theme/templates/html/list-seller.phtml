@@ -1,0 +1,31 @@
+<?php
+
+use Mpx\Marketplace\Block\Seller\ListSeller;
+/** @var ListSeller $block */
+
+$helper = $this->helper(\Webkul\Marketplace\Helper\Data::class);
+$listSeller = $block->getSellerData();
+
+?>
+<?php if( $block->getFullActionName() == "cms_index_index") :?>
+<div class="list-seller">
+    <?php foreach ($listSeller as $item): ?>
+        <div class="profile-seller">
+            <div class="img-seller">
+                <a href="<?= /* @noEscape */ $helper->getRewriteUrl('marketplace/seller/profile/shop/'. $block->escapeHtml($item->getShopUrl()));?>" >
+                    <?php if ($item->getLogoPic() == ''): ?>
+                        <img src="<?= /* @noEscape */ $helper->getMediaUrl().'avatar/'. "noimage.png";?>"/>
+                    <?php else: ?>
+                        <img src="<?= $helper->getMediaUrl().'avatar/'.$item->getLogoPic(); ?>"/>
+                    <?php endif;?>
+                </a>
+            </div>
+            <div class="name-seller">
+                <a href="<?= /* @noEscape */ $helper->getRewriteUrl('marketplace/seller/profile/shop/'.$block->escapeHtml($item->getShopUrl()));?>">
+                    <?= $block->escapeHtml($item->getShopTitle())?>
+                </a>
+            </div>
+        </div>
+    <?php endforeach; ?>
+</div>
+<?php endif;?>

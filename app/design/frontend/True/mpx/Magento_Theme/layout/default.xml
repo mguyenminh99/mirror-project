@@ -13,11 +13,15 @@
             <block class="Magento\Customer\Block\Account\AuthorizationLink" name="header-menu1" template="Magento_Theme::html/headermpx.phtml" />
             <block class="Magento\Framework\View\Element\Template" name="header-menu-wishlist" template="Magento_Theme::html/wishlist.phtml" before="top.search"/>
         </referenceContainer>
+        <referenceContainer name="page.top">
+            <block class="Mpx\Marketplace\Block\Seller\ListSeller" name="marketplace_list_seller" template="Magento_Theme::html/list-seller.phtml"/>
+        </referenceContainer>
         <referenceBlock name="privacy-policy-link" remove="true"/>
         <referenceBlock name="catalog-search-advanced-link" remove="true"/>
         <referenceBlock name="search-term-popular-link" remove="true"/>
         <referenceBlock name="contact-us-link" remove="true"/>
         <referenceBlock name="sales-guest-form-link" remove="true"/>
         <referenceBlock name="amazon.pay.password.reset" remove="true"/>
+        <referenceBlock name="cms_page" remove="true" />
     </body>
 </page>
