@@ -45,6 +45,9 @@
         <plugin name="Mpx_Marketplace::AfterProductRepository"
                 type="Mpx\Marketplace\Plugin\Product\BeforeGetProductRepository"
                 sortOrder="1" />
+        <plugin name="Mpx_Marketplace::AfterSave"
+                type="Mpx\Marketplace\Plugin\Product\AfterSave"
+                sortOrder="1" />
         </type>
     <preference for="Webkul\Marketplace\Block\Order\View" type="Mpx\Marketplace\Block\Order\View" />
     <preference for="Webkul\Marketplace\Controller\Order\Shipment\Tracking\Add" type="Mpx\Marketplace\Controller\Order\Shipment\Tracking\Add" />

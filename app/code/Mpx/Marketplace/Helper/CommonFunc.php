@@ -2,6 +2,7 @@
 
 namespace Mpx\Marketplace\Helper;
 
+use Magento\Authorization\Model\UserContextInterface;
 use Magento\Customer\Model\Session;
 use Magento\Framework\App\Config\ScopeConfigInterface;
 use Magento\Framework\App\Helper\AbstractHelper;
@@ -31,23 +32,31 @@ class CommonFunc extends AbstractHelper
     public $scopeConfig;
 
     /**
+     * @var UserContextInterface
+     */
+    protected $userContext;
+
+    /**
      * @param Context $context
      * @param Session $customerSession
      * @param MpSeller $mpSeller
      * @param ScopeConfigInterface $scopeConfig
      * @param HelperData $helper
+     * @param UserContextInterface $userContext
      */
     public function __construct(
         Context $context,
         Session $customerSession,
         MpSeller                        $mpSeller,
         ScopeConfigInterface            $scopeConfig,
-        HelperData       $helper
+        HelperData       $helper,
+        UserContextInterface $userContext
     ) {
         $this->customerSession = $customerSession;
         $this->mpSeller = $mpSeller;
         $this->scopeConfig = $scopeConfig;
         $this->helper = $helper;
+        $this->userContext = $userContext;
         parent::__construct($context);
     }
 
@@ -64,14 +73,13 @@ class CommonFunc extends AbstractHelper
     }
 
     /**
-     * Get sku prefix
+     * Get sku prefix Seller Id
      *
      * @return string
      */
     public function getSkuPrefix()
     {
-        $sellerId = $this->customerSession->getCustomer()->getId();
-        return str_pad($sellerId, 3, "0", STR_PAD_LEFT);
+        return str_pad($this->userContext->getUserId(), 3, "0", STR_PAD_LEFT);
     }
 
     /**
