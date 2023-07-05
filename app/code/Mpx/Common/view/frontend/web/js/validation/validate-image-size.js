@@ -77,6 +77,13 @@ define([
                             shouldShowAlert = false
                         }
                     } else if (data.files.length) {
+                        
+                        var ext = data.files[0].name.split('.').pop().toLowerCase();
+                        var currentEleId = e.currentTarget.id;
+                        if (currentEleId == "massupload_image" && ext != 'zip') {
+                            return;
+                        }
+
                         const dataTransfer = new DataTransfer();
                         dataTransfer.items.add(data.files[0]);
                         $(this).get(0).files = dataTransfer.files;
