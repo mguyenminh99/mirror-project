@@ -74,6 +74,11 @@ define([
                                     }
                                 }
                             });
+                        },error: function () {
+                            $(".fieldset").append("<div class='wk-mu-error wk-mu-box'>"+$.mage.__("File format is incorrect.")+"</div>");
+                            $(".wk-mu-info-bar").addClass("wk-no-padding");
+                            $(".wk-mu-importing-loader").remove();
+                            $('.btn-to-product-list').show();
                         }
                     });
                 }
@@ -86,6 +91,7 @@ define([
                         dataType: 'json',
                         data : { row:count, id:id, skip:skipCount },
                         success:function (data) {
+                            $('.btn-to-product-list').show();
                             $(".fieldset").append(data['msg']);
                             $(".wk-mu-info-bar").addClass("wk-no-padding");
                             $(".wk-mu-info-bar").text(completeLabel);

@@ -26,6 +26,9 @@ $data = $block->jsonEncode($data);
 ?>
 <?php if ($isPartner == 1): ?>
     <fieldset class="fieldset">
+        <div class="wrapper-btn">
+            <a class="btn-to-product-list" href="<?=$block->getUrl('marketplace/product/productlist');?>" class="btn-to-product-list"><?=$block->escapeHtml(__("Completion"))?></a>
+        </div>
         <div class="wk-mu-note wk-mu-box">
             <?= $block->escapeHtml(__("Starting Execution...")); ?>
         </div>

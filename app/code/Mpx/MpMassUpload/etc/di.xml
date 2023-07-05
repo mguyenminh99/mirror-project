@@ -6,10 +6,12 @@
                 type="Mpx\MpMassUpload\Plugin\Helper\Export"
                 sortOrder="1" />
     </type>
+    <preference for="Webkul\MpMassUpload\Controller\Product\Upload" type="Mpx\MpMassUpload\Controller\Product\Upload" />
     <type name="Webkul\MpMassUpload\Controller\ProfileListing\ProfileList">
         <plugin name="after_set_path_mpmassupload_product_view"
                 type="Mpx\MpMassUpload\Plugin\AfterProfileList"
                 sortOrder="1" disabled="false"/>
     </type>
     <preference for="Webkul\MpMassUpload\Helper\Export" type="Mpx\MpMassUpload\Helper\Export"/>
+    <preference for="Webkul\MpMassUpload\Controller\Product\Upload" type="Mpx\MpMassUpload\Controller\Product\Upload" />
 </config>

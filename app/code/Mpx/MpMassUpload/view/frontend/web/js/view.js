@@ -1,8 +1,9 @@
 define([
     "jquery",
     'Magento_Ui/js/modal/alert',
+    'Magento_Ui/js/modal/modal',
     "jquery/ui"
-], function ($, alert) {
+], function ($, alert, modal) {
     'use strict';
     $.widget('mpmassupload.view', {
         options: {},
@@ -147,24 +148,29 @@ define([
                     var fileName = $(this).val();
                     var ext = fileName.split('.').pop().toLowerCase();
                     if (ext == 'csv') {
-                        validateFile(ext, 'csv', $(this));
+                        validateFile(ext, 'csv', "#massupload_csv", false);
                     } else if (ext == 'xml') {
-                        validateFile(ext, 'xml', $(this));
+                        validateFile(ext, 'xml', "#massupload_csv", false);
                     } else {
-                        validateFile(ext, 'xls', $(this));
+                        validateFile(ext, 'xls', "#massupload_csv", false);
                     }
                 });
                 $(document).on('change', '#massupload_image', function (event) {
                     var fileName = $(this).val();
                     var ext = fileName.split('.').pop().toLowerCase();
-                    validateFile(ext, 'zip', $(this));
+                    validateFile(ext, 'zip', "#massupload_image", true);
                 });
-                function validateFile(ext, val, obj)
+                function validateFile(ext, val, elementId, isZipFile)
                 {
+                    var content = $.mage.__('Invalid file type.');
+                    if(isZipFile){
+                        content =  $.mage.__('Please specify a zip file for image upload.');
+                    }
                     if (ext != val) {
+                        $(elementId).val('');
                         alert({
                             title: $.mage.__('Warning'),
-                            content: "<div class='wk-warning-content'>"+$.mage.__('Invalid file type.')+"</div>",
+                            content: "<div class='wk-warning-content'>"+content+"</div>",
                             buttons: [{
                                 text: $.mage.__('Close Btn'),
                                 class: 'action-primary action-accept',
@@ -173,7 +179,6 @@ define([
                                 }
                             }]
                         });
-                        obj.val('');
                     }
                 }
                 function setDefaultContent(defaultTitle)
@@ -226,7 +231,30 @@ define([
                 {
                     $(".wk-multi-select-overlay").addClass("wk-display-none");
                 }
+
+                $(document).on('click', '.wk-mp-btn', function (e) {
+                    if($('input[name=massupload_csv]').val() === ""){
+                        e.preventDefault();
+                        $("#modal-content").modal("openModal");
+                    }
+                })
+
             });
+            var options = {
+                type: 'popup',
+                responsive: true,
+                innerScroll: true,
+                title: self.options.titleWarning,
+                buttons: [{
+                    text: self.options.buttonClose,
+                    class: 'modal-close',
+                    click: function (){
+                        this.closeModal();
+                    }
+                }]
+            };
+
+            modal(options, $('#modal-content'));
         }
     });
     return $.mpmassupload.view;

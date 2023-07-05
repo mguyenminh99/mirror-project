@@ -93,7 +93,9 @@ $isPartner = $block->isSeller(); ?>
         'element' => '#massupload_image',
         'maxFileSize' => \Mpx\Common\Helper\Constant::MAX_IMAGE_UPLOADABLE_SIZE_BYTE,
         'maxWidth' => \Magento\Framework\File\Uploader::MAX_IMAGE_WIDTH,
-        'maxHeight' => \Magento\Framework\File\Uploader::MAX_IMAGE_HEIGHT
+        'maxHeight' => \Magento\Framework\File\Uploader::MAX_IMAGE_HEIGHT,
+        "titleWarning" => $block->escapeHtml(__("Warning")),
+        "buttonClose" => $block->escapeHtml(__("OK"))
     ];
 
     $data = $block->jsonEncode($data);
@@ -163,6 +165,7 @@ $isPartner = $block->isSeller(); ?>
                     </select>
                 </div>
             </div>
+
             <div class="field required">
                 <div class="row">
                     <label for="massupload_csv" class="label">
@@ -308,36 +311,11 @@ $isPartner = $block->isSeller(); ?>
             </div>
         </div>
     <?php endif; ?>
-    <div class="wk-massupload-container">
-        <fieldset class="fieldset">
-            <?= $block->getBlockHtml('formkey') ?>
-            <?= $block->getBlockHtml('seller.formkey')?>
-            <legend class="legend">
-                <span><?= $block->escapeHtml(__("Run Profile Menu")); ?></span>
-            </legend>
-            <div class="field required">
-                <label class="label">
-                    <span><?= $block->escapeHtml(__("Select Profile")); ?></span>
-                </label>
-                <div class="control">
-                    <select data-validate="{'validate-select':true}"
-                            title="Profile"
-                            class="required-entry"
-                            id="profile"
-                            name="profile"
-                            aria-required="true">
-                        <?php foreach ($profiles as $profileId => $name): ?>
-                            <option value="<?= $block->escapeHtml($profileId); ?>">
-                                <?= $block->escapeHtml($name); ?>
-                            </option>
-                        <?php endforeach; ?>
-                    </select>
-                </div>
-            </div>
-            <button id="run-profile" class="button wk-mp-btn" type="submit">
-                <span><span><?= $block->escapeHtml(__("Run Profile")); ?></span></span>
-            </button>
-        </fieldset>
+
+    <div id="modal-content">
+        <div class="modal-inner-content">
+            <p><?=  /* @noEscape */ __("Please select a file to upload")?></p>
+        </div>
     </div>
     <script type="text/x-magento-init">
         {
