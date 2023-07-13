@@ -1,44 +1,24 @@
-# x-shopping-st Template Reposotory
+# x-shopping-st
 
-## Expected system versions
-- ubuntu18.04
-- MySQL5.7
-- php7.2
-- elasticsearch7.6.2
+## 開発環境構築
 
-## How to use it
+### システム要件
 
-Deploy source code and setup
-```
-git clone git@gitlab.com:true-mp/mp-template.git [your_project_name]
-cd [your_project_name]
-chmod 777 -R ./var
-chmod 777 -R ./generated
-chmod 777 -R ./app/etc
-chmod 777 -R ./pub/media
-chmod 777 -R ./pub/static
-composer update
+- Linux(amdアーキテクチャ)
+- docker
+- docker compose
+
+コンテナの作成
+```shell-sessions
+git clone git@gitlab.true-inc.jp:true-inc/x-shopping-st/x-shopping-st.git
 ```
 
-Imstall Magento2 by using following command with options
-*You have to fill options before you execute this command!
+開発環境コンテナ作成
+```shell-sessions
+sh create-container.sh
 ```
-./bin/magento setup:install
---base-url= \
---db-host= \
---db-name= \
---db-user= \
---db-password= \
---admin-firstname= \
---admin-lastname= \
---admin-email= \
---admin-user= \
---admin-password= \
---language=ja_JP \
---currency=JPY \
---timezone=Asia/Tokyo \
---backend-frontname=
+
+magento2インストール
+```shell-sessions
+sh install-magento.sh
 ```
-or
-from browser.
-Go to http://your_project_url

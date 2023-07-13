@@ -1,0 +1,18 @@
+networks:
+  x_shopping_st:
+
+services:
+  nginx:
+    build:
+      context: nginx
+      dockerfile: ./Dockerfile
+    restart: always
+    hostname: dev-reverse-proxy.x-shopping-st.com
+    working_dir: /etc/nginx/
+    volumes:
+      - ./nginx/conf.d/reverse-ptoxy.conf:/etc/nginx/conf.d/reverse-ptoxy.conf
+      - ./nginx/html:/usr/share/nginx/html
+    ports:
+      - "80:80"
+    networks:
+      - x_shopping_st_reverse_proxy
