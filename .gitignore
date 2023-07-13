@@ -83,3 +83,5 @@ atlassian*
 .rnd
 
 /app/etc/config.xml
+
+/dev/docker/.env

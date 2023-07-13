@@ -1,0 +1,22 @@
+#Ignore sample, log  ,idea ifile
+.idea
+*.sample
+*.log
+
+#Ignore docker generated files
+/generated
+
+#Ignore Magento generated test files
+/dev/tests
+
+# Ignore Magento cache and session files
+/var/cache
+/var/session
+
+# Ignore log files
+/var/log
+
+# Ignore Docker-related files
+/dev/docker/data
+/dev/docker/mysql
+
