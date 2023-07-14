@@ -7,7 +7,7 @@ use Magento\Catalog\Model\Product;
 /**
  * Mpx Marketplace Product Builder Controller Class.
  */
-class Builder extends \Webkul\Marketplace\Controller\Product\Builder
+class Builder extends \XShoppingSt\Marketplace\Controller\Product\Builder
 {
 
     /**

@@ -1,11 +1,11 @@
 <?xml version="1.0"?>
 <config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Backend:etc/menu.xsd">
     <menu>
-        <remove id="Webkul_MpMassUpload::menu" />
-        <remove id="Webkul_Mpshipping::menu"/>
-        <remove id="Webkul_MpTimeDelivery::menu"/>
-        <remove id="Webkul_Marketplace::feedback"/>
-        <remove id="Webkul_Marketplace::sellerflag"/>
-        <remove id="Webkul_Marketplace::productflag"/>
+        <remove id="XShoppingSt_MpMassUpload::menu" />
+        <remove id="XShoppingSt_Mpshipping::menu"/>
+        <remove id="XShoppingSt_MpTimeDelivery::menu"/>
+        <remove id="XShoppingSt_Marketplace::feedback"/>
+        <remove id="XShoppingSt_Marketplace::sellerflag"/>
+        <remove id="XShoppingSt_Marketplace::productflag"/>
     </menu>
 </config>

@@ -5,7 +5,7 @@ namespace Mpx\Marketplace\Plugin\Product;
 use Magento\Authorization\Model\UserContextInterface;
 use Magento\Catalog\Model\ProductRepository;
 use Mpx\Marketplace\Helper\Constant;
-use Webkul\Marketplace\Model\ProductFactory;
+use XShoppingSt\Marketplace\Model\ProductFactory;
 use Mpx\Marketplace\Helper\CommonFunc as MpxMarketplaceHelper;
 
 /**

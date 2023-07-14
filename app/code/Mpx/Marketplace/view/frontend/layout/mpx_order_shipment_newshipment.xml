@@ -3,7 +3,7 @@
 <page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" layout="seller-2columns-left" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
 <update handle="marketplace_styles"/>
     <head>
-        <css src="Webkul_MarketplaceBaseShipping::css/style.css"/>
+        <css src="XShoppingSt_MarketplaceBaseShipping::css/style.css"/>
     </head>
 <body>
     <referenceBlock name="seller.page.main.title">

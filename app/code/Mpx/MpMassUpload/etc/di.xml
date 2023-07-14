@@ -1,17 +1,16 @@
 <?xml version="1.0"?>
 <config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
         xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
-    <type name="Webkul\MpMassUpload\Helper\Export">
+    <type name="XShoppingSt\MpMassUpload\Helper\Export">
         <plugin name="Mpx_MpMassUpload::removeSkuWhenExport"
                 type="Mpx\MpMassUpload\Plugin\Helper\Export"
                 sortOrder="1" />
     </type>
-    <preference for="Webkul\MpMassUpload\Controller\Product\Upload" type="Mpx\MpMassUpload\Controller\Product\Upload" />
-    <type name="Webkul\MpMassUpload\Controller\ProfileListing\ProfileList">
+    <type name="XShoppingSt\MpMassUpload\Controller\ProfileListing\ProfileList">
         <plugin name="after_set_path_mpmassupload_product_view"
                 type="Mpx\MpMassUpload\Plugin\AfterProfileList"
                 sortOrder="1" disabled="false"/>
     </type>
-    <preference for="Webkul\MpMassUpload\Helper\Export" type="Mpx\MpMassUpload\Helper\Export"/>
-    <preference for="Webkul\MpMassUpload\Controller\Product\Upload" type="Mpx\MpMassUpload\Controller\Product\Upload" />
+    <preference for="XShoppingSt\MpMassUpload\Helper\Export" type="Mpx\MpMassUpload\Helper\Export"/>
+    <preference for="XShoppingSt\MpMassUpload\Controller\Product\Upload" type="Mpx\MpMassUpload\Controller\Product\Upload" />
 </config>

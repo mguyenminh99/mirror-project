@@ -5,7 +5,7 @@ namespace Mpx\Backend\Block\Adminhtml\Customer\Edit;
 /**
  * Customer account form block.
  */
-class RemoveSellerTab extends \Webkul\Marketplace\Block\Adminhtml\Customer\Edit\RemoveSellerTab
+class RemoveSellerTab extends \XShoppingSt\Marketplace\Block\Adminhtml\Customer\Edit\RemoveSellerTab
 {
     /***
      * @var \Magento\Framework\Registry
@@ -20,7 +20,7 @@ class RemoveSellerTab extends \Webkul\Marketplace\Block\Adminhtml\Customer\Edit\
     /**
      * @param \Magento\Backend\Block\Template\Context           $context
      * @param \Magento\Framework\Registry                       $registry
-     * @param \Webkul\Marketplace\Block\Adminhtml\Customer\Edit $customerEdit
+     * @param \XShoppingSt\Marketplace\Block\Adminhtml\Customer\Edit $customerEdit
      * @param array                                             $data
      */
 
@@ -28,7 +28,7 @@ class RemoveSellerTab extends \Webkul\Marketplace\Block\Adminhtml\Customer\Edit\
         \Magento\Backend\Block\Template\Context $context,
         \Magento\Framework\Registry $registry,
         \Magento\Framework\Data\FormFactory $formFactory,
-        \Webkul\Marketplace\Block\Adminhtml\Customer\Edit $customerEdit,
+        \XShoppingSt\Marketplace\Block\Adminhtml\Customer\Edit $customerEdit,
         array $data = []
     ) {
         $this->_isSeller = 0;

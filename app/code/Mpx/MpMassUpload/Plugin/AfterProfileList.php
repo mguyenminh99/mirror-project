@@ -5,7 +5,7 @@ namespace Mpx\MpMassUpload\Plugin;
 use Magento\Framework\App\Response\Http\FileFactory;
 use Magento\Framework\Controller\Result\RedirectFactory;
 use Magento\Framework\View\Result\PageFactory;
-use Webkul\MpMassUpload\Controller\ProfileListing\ProfileList;
+use XShoppingSt\MpMassUpload\Controller\ProfileListing\ProfileList;
 
 class AfterProfileList
 {
@@ -25,12 +25,12 @@ class AfterProfileList
     protected $_session;
 
     /**
-     * @var \Webkul\MpMassUpload\Helper\Data
+     * @var \XShoppingSt\MpMassUpload\Helper\Data
      */
     protected $_massUploadHelper;
 
     /**
-     * @var \Webkul\Marketplace\Helper\Data
+     * @var \XShoppingSt\Marketplace\Helper\Data
      */
     protected $marketplaceHelper;
 
@@ -43,9 +43,9 @@ class AfterProfileList
      * @param PageFactory $resultPageFactory
      * @param \Magento\Customer\Model\Url $url
      * @param \Magento\Customer\Model\Session $session
-     * @param \Webkul\MpMassUpload\Helper\Data $massUploadHelper
-     * @param \Webkul\Marketplace\Helper\Data $marketplaceHelper
-     * @param \Webkul\MpMassUpload\Api\ProfileRepositoryInterface $ProfileRepository
+     * @param \XShoppingSt\MpMassUpload\Helper\Data $massUploadHelper
+     * @param \XShoppingSt\Marketplace\Helper\Data $marketplaceHelper
+     * @param \XShoppingSt\MpMassUpload\Api\ProfileRepositoryInterface $ProfileRepository
      * @param FileFactory $fileFactory
      * @param RedirectFactory $redirectFactory
      * @param \Magento\Framework\Message\ManagerInterface $messageManager
@@ -54,9 +54,9 @@ class AfterProfileList
         PageFactory $resultPageFactory,
         \Magento\Customer\Model\Url $url,
         \Magento\Customer\Model\Session $session,
-        \Webkul\MpMassUpload\Helper\Data $massUploadHelper,
-        \Webkul\Marketplace\Helper\Data $marketplaceHelper,
-        \Webkul\MpMassUpload\Api\ProfileRepositoryInterface $ProfileRepository,
+        \XShoppingSt\MpMassUpload\Helper\Data $massUploadHelper,
+        \XShoppingSt\Marketplace\Helper\Data $marketplaceHelper,
+        \XShoppingSt\MpMassUpload\Api\ProfileRepositoryInterface $ProfileRepository,
         FileFactory $fileFactory,
         RedirectFactory            $redirectFactory,
         \Magento\Framework\Message\ManagerInterface $messageManager

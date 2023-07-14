@@ -1,0 +1,11 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Backend:etc/menu.xsd">
+    <menu>
+        <add id="XShoppingSt_MpMassUpload::menu" title="Mass Upload Manager" module="XShoppingSt_MpMassUpload" sortOrder="100" parent="XShoppingSt_Marketplace::marketplace" resource="XShoppingSt_MpMassUpload::menu"/>
+        <add id="XShoppingSt_MpMassUpload::dataflow_profile" title="Mass Upload Dataflow Profile" module="XShoppingSt_MpMassUpload" sortOrder="20" parent="XShoppingSt_MpMassUpload::menu" action="mpmassupload/dataflow_profile/index" resource="XShoppingSt_MpMassUpload::dataflow_profile"/>
+        <add id="XShoppingSt_MpMassUpload::upload" title="Mass Upload Product" module="XShoppingSt_MpMassUpload" sortOrder="21" parent="XShoppingSt_MpMassUpload::menu" action="mpmassupload/upload" resource="XShoppingSt_MpMassUpload::upload"/>
+        <add id="XShoppingSt_MpMassUpload::run" title="Run Mass Upload Profile" module="XShoppingSt_MpMassUpload" sortOrder="22" parent="XShoppingSt_MpMassUpload::menu" action="mpmassupload/run" resource="XShoppingSt_MpMassUpload::run"/>
+        <add id="XShoppingSt_MpMassUpload::profileListing" title="Mass Upload Profile Listing" module="XShoppingSt_MpMassUpload" sortOrder="23" parent="XShoppingSt_MpMassUpload::menu" action="mpmassupload/profileListing/index" resource="XShoppingSt_MpMassUpload::profileListing"/>
+        <add id="XShoppingSt_MpMassUpload::export" title="Mass Upload Product Export" module="XShoppingSt_MpMassUpload" sortOrder="24" parent="XShoppingSt_MpMassUpload::menu" action="mpmassupload/export" resource="XShoppingSt_MpMassUpload::export"/>
+    </menu>
+</config>

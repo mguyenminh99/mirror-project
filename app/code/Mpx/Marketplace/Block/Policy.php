@@ -9,10 +9,10 @@
 
 namespace Mpx\Marketplace\Block;
 
-class Policy extends \Webkul\Marketplace\Block\Policy
+class Policy extends \XShoppingSt\Marketplace\Block\Policy
 {
     /**
-     * Change Webkul's Policy Title
+     * Change XShoppingSt's Policy Title
      *
      * @return $this
      */

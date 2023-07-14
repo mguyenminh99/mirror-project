@@ -17,7 +17,7 @@
             </action>
         </referenceBlock>
         <referenceContainer name="marketplace_order_view">
-            <block class="Webkul\Marketplace\Block\Order\View"  name="marketplace_order_view" template="order/manageorder.phtml" cacheable="false">
+            <block class="XShoppingSt\Marketplace\Block\Order\View"  name="marketplace_order_view" template="order/manageorder.phtml" cacheable="false">
                 <block class="Mpx\Marketplace\Block\Order\Items" name="marketplace_order_shipment_items" template="Mpx_Marketplace::order/shipment/shipmentitemsview.phtml" />
             </block>
         </referenceContainer>
@@ -26,6 +26,6 @@
                 <argument name="template" xsi:type="string">order/manageorder.phtml</argument>
             </action>
         </referenceBlock>
-        <block class="Webkul\Marketplace\Block\Order\Additional\Info" name="seller.orderitem.info" template="order/additional/info.phtml"/>
+        <block class="XShoppingSt\Marketplace\Block\Order\Additional\Info" name="seller.orderitem.info" template="order/additional/info.phtml"/>
     </body>
 </page>

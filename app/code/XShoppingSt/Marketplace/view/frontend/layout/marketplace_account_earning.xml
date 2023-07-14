@@ -1,0 +1,16 @@
+<?xml version="1.0"?>
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+    <update handle="customer_account"/>
+    <update handle="marketplace_styles"/>
+    <body>
+        <referenceBlock name="page.main.title">
+            <action method="setPageTitle">
+                <argument translate="true" name="title" xsi:type="string">Earnings</argument>
+            </action>
+        </referenceBlock>
+        <referenceContainer name="content">
+            <block class="XShoppingSt\Marketplace\Block\Account\Earnings" name="marketplace_seller_earnings" template="XShoppingSt_Marketplace::account/earnings.phtml" cacheable="false"/>
+            <uiComponent name="marketplace_earning_listing"/>
+        </referenceContainer>
+    </body>
+</page>

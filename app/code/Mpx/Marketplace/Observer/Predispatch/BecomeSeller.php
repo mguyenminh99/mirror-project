@@ -8,7 +8,7 @@ use Magento\Framework\Controller\Result\ForwardFactory;
 use Magento\Framework\Event\Observer;
 use Magento\Framework\Event\ObserverInterface;
 use Magento\Framework\App\RequestInterface;
-use Webkul\Marketplace\Helper\Data as MpHelper;
+use XShoppingSt\Marketplace\Helper\Data as MpHelper;
 use Mpx\Marketplace\Helper\Constant;
 
 /**
@@ -71,7 +71,7 @@ class BecomeSeller implements ObserverInterface
         if (!$enableModule) {
             return;
         }
-        if ($fullActionName == Constant::WEBKUL_BECOMESELLER_FULL_ACTION &&
+        if ($fullActionName == Constant::X_SHOPPING_ST_BECOMESELLER_FULL_ACTION &&
             !$this->wkMpHelper->isSeller() && $this->customerSession->isLoggedIn()) {
             $resultForward = $this->forwardFactory->create();
             $resultForward->setModule('mpx');

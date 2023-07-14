@@ -1,0 +1,6 @@
+<?php
+$product_id=$this->getRequest()->getParam('id');
+$getValues = $block->getGoogleoptimizerFieldsValues();
+?>
+<input type="hidden" name="google_experiment[experiment_script]" value="<?= /* @noEscape */ $getValues['experiment_script']?>">
+<input type="hidden" name="google_experiment[code_id]" value="<?= /* @noEscape */ $getValues['code_id']?>">

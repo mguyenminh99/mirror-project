@@ -7,7 +7,7 @@
             </action>
         </referenceBlock>
         <referenceContainer name="seller.content">
-            <block class="Webkul\Marketplace\Block\Order\View"  name="marketplace_order_shipping" template="Webkul_Marketplace::order/shippingmanager.phtml" cacheable="false"/>
+            <block class="XShoppingSt\Marketplace\Block\Order\View"  name="marketplace_order_shipping" template="XShoppingSt_Marketplace::order/shippingmanager.phtml" cacheable="false"/>
         </referenceContainer>
     </body>
 </page>

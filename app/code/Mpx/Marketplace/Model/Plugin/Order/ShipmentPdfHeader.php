@@ -12,7 +12,7 @@ namespace Mpx\Marketplace\Model\Plugin\Order;
 /**
  * Marketplace Order PDF ShipmentPdfHeader Plugin.
  */
-class ShipmentPdfHeader extends \Webkul\Marketplace\Model\Plugin\Order\ShipmentPdfHeader
+class ShipmentPdfHeader extends \XShoppingSt\Marketplace\Model\Plugin\Order\ShipmentPdfHeader
 {
     /**
      * Insert title and number for concrete document type.
@@ -21,7 +21,7 @@ class ShipmentPdfHeader extends \Webkul\Marketplace\Model\Plugin\Order\ShipmentP
      * @param string         $text
      */
     public function beforeInsertDocumentNumber(
-        \Webkul\Marketplace\Model\Order\Pdf\Shipment $pdfShipment,
+        \XShoppingSt\Marketplace\Model\Order\Pdf\Shipment $pdfShipment,
                                                      $page,
                                                      $text
     ) {

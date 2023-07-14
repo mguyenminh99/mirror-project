@@ -1,0 +1,14 @@
+<?xml version="1.0"?>
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+	<head>
+		<css src="XShoppingSt_MpAssignProduct::css/styles.css"/>
+	</head>
+	<body>
+		<referenceContainer name="content">
+			<block class="XShoppingSt\MpAssignProduct\Block\Product\Products" name="assignproduct_list" template="XShoppingSt_MpAssignProduct::assignproduct.phtml" before="product.info.details" />
+		</referenceContainer>
+		<referenceContainer name="product.info.main">
+			<block class="Magento\Catalog\Block\Product\View" name="assignproduct_price" template="XShoppingSt_MpAssignProduct::price.phtml" after="product.info.price" />
+		</referenceContainer>
+	</body>
+</page>

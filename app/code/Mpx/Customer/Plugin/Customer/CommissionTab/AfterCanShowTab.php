@@ -2,7 +2,7 @@
 
 namespace Mpx\Customer\Plugin\Customer\CommissionTab;
 
-use Webkul\Marketplace\Block\Adminhtml\Customer\Edit\CommissionTab;
+use XShoppingSt\Marketplace\Block\Adminhtml\Customer\Edit\CommissionTab;
 
 class AfterCanShowTab
 {

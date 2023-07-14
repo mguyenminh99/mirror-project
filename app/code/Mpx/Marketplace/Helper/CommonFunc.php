@@ -9,8 +9,8 @@ use Magento\Framework\App\Helper\AbstractHelper;
 use Magento\Framework\App\Helper\Context;
 use Magento\Framework\Data\Collection\AbstractDb;
 use Magento\Framework\Model\ResourceModel\Db\Collection\AbstractCollection;
-use Webkul\Marketplace\Helper\Data as HelperData;
-use Webkul\Marketplace\Model\SellerFactory as MpSeller;
+use XShoppingSt\Marketplace\Helper\Data as HelperData;
+use XShoppingSt\Marketplace\Model\SellerFactory as MpSeller;
 use Magento\Store\Model\ScopeInterface;
 use Mpx\Marketplace\Helper\Constant;
 

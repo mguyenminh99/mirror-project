@@ -1,0 +1,13 @@
+<?xml version="1.0"?>
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" layout="admin-1column"
+      xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+    <head>
+        <css src="XShoppingSt_MpMassUpload::css/styles.css"/>
+    </head>
+    <body>
+        <referenceContainer name="content">
+            <block class="XShoppingSt\MpMassUpload\Block\Adminhtml\Dataflow\Profile" name="massupload_admin_dataflow_profile_restrictsave" template="XShoppingSt_MpMassUpload::product/restrict_save.phtml"/>
+            <block class="XShoppingSt\MpMassUpload\Block\Adminhtml\Dataflow\Profile" name="massupload_admin_dataflow_profile" template="XShoppingSt_MpMassUpload::product/dataflow_profile.phtml"/>
+        </referenceContainer>
+    </body>
+</page>

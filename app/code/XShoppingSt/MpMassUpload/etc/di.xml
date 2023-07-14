@@ -1,0 +1,55 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
+
+    <preference for="XShoppingSt\MpMassUpload\Api\Data\ProfileInterface" type="XShoppingSt\MpMassUpload\Model\Profile"/>
+
+    <preference for="XShoppingSt\MpMassUpload\Api\Data\AttributeProfileInterface" type="XShoppingSt\MpMassUpload\Model\AttributeProfile"/>
+
+    <preference for="XShoppingSt\MpMassUpload\Api\Data\AttributeMappingInterface" type="XShoppingSt\MpMassUpload\Model\AttributeMapping"/>
+
+    <preference for="XShoppingSt\MpMassUpload\Api\ProfileRepositoryInterface" type="XShoppingSt\MpMassUpload\Model\ProfileRepository"/>
+
+    <preference for="XShoppingSt\MpMassUpload\Api\AttributeProfileRepositoryInterface" type="XShoppingSt\MpMassUpload\Model\AttributeProfileRepository"/>
+
+    <preference for="XShoppingSt\MpMassUpload\Api\AttributeMappingRepositoryInterface" type="XShoppingSt\MpMassUpload\Model\AttributeMappingRepository"/>
+
+    <type name="Magento\Framework\View\Element\UiComponent\DataProvider\CollectionFactory">
+        <arguments>
+            <argument name="collections" xsi:type="array">
+                <item name="mpmassupload_dataflow_profile_list_data_source" xsi:type="string">XShoppingSt\MpMassUpload\Model\ResourceModel\AttributeProfile\Grid\Collection</item>
+            </argument>
+        </arguments>
+    </type>
+
+    <type name="XShoppingSt\MpMassUpload\Model\ResourceModel\AttributeProfile\Grid\Collection">
+        <arguments>
+            <argument name="mainTable" xsi:type="string">marketplace_massupload_attribute_profile</argument>
+            <argument name="eventPrefix" xsi:type="string">mpmassUpload_attribute_profile_grid_collection</argument>
+            <argument name="eventObject" xsi:type="string">mpmassUpload_attribute_profile_grid_collection</argument>
+            <argument name="resourceModel" xsi:type="string">XShoppingSt\MpMassUpload\Model\ResourceModel\AttributeProfile</argument>
+        </arguments>
+    </type>
+
+    <type name="Magento\Framework\View\Element\UiComponent\DataProvider\CollectionFactory">
+        <arguments>
+            <argument name="collections" xsi:type="array">
+                <item name="mpmassupload_uploaded_profile_list_data_source" xsi:type="string">XShoppingSt\MpMassUpload\Model\ResourceModel\Profile\Grid\Collection</item>
+            </argument>
+        </arguments>
+    </type>
+
+    <type name="XShoppingSt\MpMassUpload\Model\ResourceModel\Profile\Grid\Collection">
+        <arguments>
+            <argument name="mainTable" xsi:type="string">marketplace_massupload_profile</argument>
+            <argument name="eventPrefix" xsi:type="string">mpmassUpload_profile_grid_collection</argument>
+            <argument name="eventObject" xsi:type="string">mpmassUpload_profile_grid_collection</argument>
+            <argument name="resourceModel" xsi:type="string">XShoppingSt\MpMassUpload\Model\ResourceModel\Profile</argument>
+        </arguments>
+    </type>
+
+    <type name="\XShoppingSt\Marketplace\Helper\Data">
+        <plugin name="XShoppingSt_MpMassUpload::updatedHelperDataFile"
+                type="XShoppingSt\MpMassUpload\Plugin\Helper\Data"
+                sortOrder="100" />
+    </type>
+</config>

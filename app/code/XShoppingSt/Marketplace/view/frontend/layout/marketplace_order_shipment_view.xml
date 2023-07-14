@@ -1,0 +1,19 @@
+<?xml version="1.0"?>
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+    <update handle="customer_account"/>
+    <update handle="marketplace_styles"/>
+    <body>
+        <referenceBlock name="page.main.title">
+            <action method="setPageTitle">
+                <argument translate="true" name="title" xsi:type="string">View Shipment Details</argument>
+            </action>
+        </referenceBlock>
+        <referenceContainer name="content">
+            <block class="XShoppingSt\Marketplace\Block\Order\View"  name="marketplace_order_shipment_view" template="XShoppingSt_Marketplace::order/shipment/view.phtml" cacheable="false">
+                <block class="XShoppingSt\Marketplace\Block\Order\Shipment\Items" name="marketplace_order_shipment_items" template="XShoppingSt_Marketplace::order/shipment/items.phtml">
+                    <block class="Magento\Theme\Block\Html\Pager" name="marketplace_order_item_pager"/>
+                </block>
+            </block>
+        </referenceContainer>
+    </body>
+</page>

@@ -12,7 +12,7 @@ namespace Mpx\Marketplace\Ui\Component\Listing\Columns\Frontend;
 /**
  * @inheritdoc
  */
-class OrderHistoryProDetails extends \Webkul\Marketplace\Ui\Component\Listing\Columns\Frontend\OrderHistoryProDetails
+class OrderHistoryProDetails extends \XShoppingSt\Marketplace\Ui\Component\Listing\Columns\Frontend\OrderHistoryProDetails
 {
     /**
      * Prepare Data Source.

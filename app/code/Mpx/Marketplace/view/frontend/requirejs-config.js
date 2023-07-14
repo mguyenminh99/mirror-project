@@ -13,7 +13,7 @@ var config = {
                 'Mpx_Marketplace/js/validation-mixins/japan-date-validation': true,
                 'Mpx_Marketplace/js/validation-mixins/sku-validation': true
             },
-            'Webkul_Marketplace/js/order/shipment': {
+            'XShoppingSt_Marketplace/js/order/shipment': {
                 'Mpx_Marketplace/js/order/shipment': true
             },
         }

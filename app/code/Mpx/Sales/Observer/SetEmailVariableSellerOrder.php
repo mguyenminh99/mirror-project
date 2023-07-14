@@ -4,8 +4,8 @@ namespace Mpx\Sales\Observer;
 use Magento\Framework\Event\Observer;
 use Magento\Framework\Event\ObserverInterface;
 use Psr\Log\LoggerInterface;
-use Webkul\Marketplace\Model\SellerFactory;
-use Webkul\Marketplace\Helper\Data;
+use XShoppingSt\Marketplace\Model\SellerFactory;
+use XShoppingSt\Marketplace\Helper\Data;
 use Magento\Store\Model\StoreManagerInterface;
 use Mpx\Sales\Helper\CommonFunc as MpxSalesHelperData;
 

@@ -2,12 +2,12 @@
 
 namespace Mpx\TimeDelivery\Block\Options;
 
-class Option extends \Webkul\MpTimeDelivery\Block\Options\Option
+class Option extends \XShoppingSt\MpTimeDelivery\Block\Options\Option
 {
     /**
      * @var string
      */
-    protected $_template = 'Webkul_MpTimeDelivery::account/options/option.phtml';
+    protected $_template = 'XShoppingSt_MpTimeDelivery::account/options/option.phtml';
 
     /**
      * Provide already save values

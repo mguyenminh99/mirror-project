@@ -1,0 +1,12 @@
+<?xml version="1.0"?>
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" layout="seller-2columns-left" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+    <head>
+        <css src="XShoppingSt_Marketplace::css/style.css"/>
+        <css src="XShoppingSt_Marketplace::css/layout.css"/>
+    </head>
+    <body>
+        <referenceContainer name="seller.content">
+            <block class="XShoppingSt\MarketplaceBaseShipping\Block\ShippingSetting"  name="marketplace_base_shipping_layout2" template="XShoppingSt_MarketplaceBaseShipping::account/shipping_setting.phtml" cacheable="false" />
+        </referenceContainer>
+    </body>
+</page>

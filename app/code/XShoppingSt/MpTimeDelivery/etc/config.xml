@@ -1,0 +1,12 @@
+<?xml version="1.0" ?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Store:etc/config.xsd">
+	<default>
+		<timeslot>
+			<configurations>
+				<maximum_days>5</maximum_days>
+				<process_time>1</process_time>
+				<message>No Time Slot available, please contact us.</message>
+			</configurations>
+		</timeslot>
+	</default>
+</config>

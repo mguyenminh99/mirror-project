@@ -1,0 +1,59 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
+    <virtualType name="XShoppingSt\Mpshipping\Model\ResourceModel\Mpshipping\Grid\Collection" type="Magento\Framework\View\Element\UiComponent\DataProvider\SearchResult">
+        <arguments>
+            <argument name="mainTable" xsi:type="string">marketplace_shippinglist</argument>
+            <argument name="resourceModel" xsi:type="string">XShoppingSt\Mpshipping\Model\ResourceModel\Mpshipping</argument>
+        </arguments>
+    </virtualType>
+    <type name="Magento\Framework\View\Element\UiComponent\DataProvider\CollectionFactory">
+        <arguments>
+            <argument name="collections" xsi:type="array">
+                <item name="marketplace_shippilist_data_source" xsi:type="string">XShoppingSt\Mpshipping\Model\ResourceModel\Mpshipping\Collection</item>
+            </argument>
+        </arguments>
+    </type>
+    <virtualType name="ShippingsetGridDataProvider" type="Magento\Framework\View\Element\UiComponent\DataProvider\DataProvider">
+        <arguments>
+            <argument name="collection" xsi:type="object" shared="false">XShoppingSt\Mpshipping\Model\ResourceModel\Mpshippingset\Collection</argument>
+            <argument name="filterPool" xsi:type="object" shared="false">ShippingsetGirdFilterPool</argument>
+        </arguments>
+    </virtualType>
+    <type name="XShoppingSt\Mpshipping\Model\ResourceModel\Mpshippingset\Grid\Collection">
+        <arguments>
+            <argument name="mainTable" xsi:type="string">marketplace_tablerate_superset</argument>
+            <argument name="eventPrefix" xsi:type="string">x_shopping_st_mpshipping_grid_collection</argument>
+            <argument name="eventObject" xsi:type="string">x_shopping_st_grid_collection</argument>
+            <argument name="resourceModel" xsi:type="string">XShoppingSt\Mpshipping\Model\Resource\Mpshippingset</argument>
+        </arguments>
+    </type>
+    <type name="Magento\Framework\View\Element\UiComponent\DataProvider\CollectionFactory">
+        <arguments>
+            <argument name="collections" xsi:type="array">
+                <item name="marketplace_tablerate_superset_data_source" xsi:type="string">XShoppingSt\Mpshipping\Model\ResourceModel\Mpshippingset\Grid\Collection</item>
+                <item name="marketplace_tablerate_distanceset_data_source" xsi:type="string">XShoppingSt\Mpshipping\Model\ResourceModel\MpshippingDist\Grid\Collection</item>
+            </argument>
+        </arguments>
+    </type>
+    <type name="XShoppingSt\Mpshipping\Model\ResourceModel\MpshippingDist\Grid\Collection">
+        <arguments>
+            <argument name="mainTable" xsi:type="string">marketplace_tablerate_distanceset</argument>
+            <argument name="eventPrefix" xsi:type="string">x_shopping_st_distance_grid_collection</argument>
+            <argument name="eventObject" xsi:type="string">distance_grid_collection</argument>
+            <argument name="resourceModel" xsi:type="string">XShoppingSt\Mpshipping\Model\Resource\MpshippingDist</argument>
+        </arguments>
+    </type>
+    <virtualType name="DistancesetGridDataProvider" type="Magento\Framework\View\Element\UiComponent\DataProvider\DataProvider">
+        <arguments>
+            <argument name="collection" xsi:type="object" shared="false">XShoppingSt\Mpshipping\Model\ResourceModel\MpshippingDist\Collection</argument>
+            <argument name="filterPool" xsi:type="object" shared="false">DistancesetGirdFilterPool</argument>
+        </arguments>
+    </virtualType>
+    <type name="\XShoppingSt\Marketplace\Helper\Data">
+       <plugin name="XShoppingSt_Mpshipping::updatedHelperDataFile"
+               type="XShoppingSt\Mpshipping\Plugin\Helper\Data"
+               sortOrder="100" />
+    </type>
+    <preference for="XShoppingSt\Mpshipping\Api\Data\MpshippingDistInterface" type="XShoppingSt\Mpshipping\Model\MpshippingDist"/>
+    <preference for="XShoppingSt\Mpshipping\Api\Data\SellerLocationInterface" type="XShoppingSt\Mpshipping\Model\SellerLocation"/>
+</config>

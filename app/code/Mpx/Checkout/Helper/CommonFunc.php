@@ -27,7 +27,7 @@ class CommonFunc extends AbstractHelper
     protected $cartRepository;
 
     /**
-     * @var \Webkul\MpTimeDelivery\Helper\Data
+     * @var \XShoppingSt\MpTimeDelivery\Helper\Data
      */
     protected $_helper;
 
@@ -39,7 +39,7 @@ class CommonFunc extends AbstractHelper
     /**
      * @param CheckoutSessionFactory $checkoutSessionFactory
      * @param CartRepositoryInterface $cartRepository
-     * @param \Webkul\MpTimeDelivery\Helper\Data $_helper
+     * @param \XShoppingSt\MpTimeDelivery\Helper\Data $_helper
      * @param ManagerInterface $messageManager
      * @param Cart $cart
      * @param Context $context
@@ -47,7 +47,7 @@ class CommonFunc extends AbstractHelper
     public function __construct(
         checkoutSessionFactory             $checkoutSessionFactory,
         CartRepositoryInterface            $cartRepository,
-        \Webkul\MpTimeDelivery\Helper\Data $_helper,
+        \XShoppingSt\MpTimeDelivery\Helper\Data $_helper,
         ManagerInterface                   $messageManager,
         Cart                               $cart,
         Context                            $context

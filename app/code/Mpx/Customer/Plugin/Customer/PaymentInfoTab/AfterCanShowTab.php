@@ -2,7 +2,7 @@
 
 namespace Mpx\Customer\Plugin\Customer\PaymentInfoTab;
 
-use Webkul\Marketplace\Block\Adminhtml\Customer\Edit\PaymentInfoTab;
+use XShoppingSt\Marketplace\Block\Adminhtml\Customer\Edit\PaymentInfoTab;
 
 class AfterCanShowTab
 {

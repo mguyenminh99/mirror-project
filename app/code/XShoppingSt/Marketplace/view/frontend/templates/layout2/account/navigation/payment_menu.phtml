@@ -1,0 +1,13 @@
+<?php
+if ($block->isPaymentAvlForSeller()) { ?>
+    <li data-ui-id="menu-x-shopping-st-marketplace-paysetting-menu" class="item-menu parent level-1">
+        <strong class="wk-mp-submenu-group-title">
+            <span><?= /* @noEscape */ __('Payment Settings')?></span>
+        </strong>
+        <div class="wk-mp-submenu">
+            <ul>
+                <?= $block->getChildHtml();?>
+            </ul>
+        </div>
+    </li>
+<?php } ?>

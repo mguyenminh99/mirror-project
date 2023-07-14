@@ -5,7 +5,7 @@ namespace Mpx\Marketplace\Controller\Order\Shipment\Tracking;
 use Magento\Framework\Exception\InputException;
 use Magento\Framework\Exception\NoSuchEntityException;
 
-class Add extends \Webkul\Marketplace\Controller\Order\Shipment\Tracking\Add
+class Add extends \XShoppingSt\Marketplace\Controller\Order\Shipment\Tracking\Add
 {
     /**
      * Add new tracking number action
@@ -59,7 +59,7 @@ class Add extends \Webkul\Marketplace\Controller\Order\Shipment\Tracking\Add
                 $response = [
                     'error' => false,
                     'carrier' => $this->_objectManager->create(
-                        \Webkul\Marketplace\Block\Order\View::class
+                        \XShoppingSt\Marketplace\Block\Order\View::class
                     )->getCarrierTitle($carrier),
                     'title' => $title,
                     'number' => $number,

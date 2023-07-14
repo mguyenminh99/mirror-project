@@ -5,7 +5,7 @@ namespace Mpx\Marketplace\Block\Adminhtml\Customer\Edit;
 /**
  * Customer account form block.
  */
-class AddSellerTab extends \Webkul\Marketplace\Block\Adminhtml\Customer\Edit\AddSellerTab
+class AddSellerTab extends \XShoppingSt\Marketplace\Block\Adminhtml\Customer\Edit\AddSellerTab
 {
 
     /**

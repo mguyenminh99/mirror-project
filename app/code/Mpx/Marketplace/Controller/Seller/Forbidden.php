@@ -57,7 +57,7 @@ class Forbidden extends Action
     public function execute()
     {
         $mpxNoRoute = $this->scopeConfig
-            ->getValue(Constant::WEBKUL_BECOMESELLER_CONFIG_DEFAULT_PAGE, \Magento\Store\Model\ScopeInterface::SCOPE_STORE);
+            ->getValue(Constant::X_SHOPPING_ST_BECOMESELLER_CONFIG_DEFAULT_PAGE, \Magento\Store\Model\ScopeInterface::SCOPE_STORE);
         $resultPage = $this->pageHelper->prepareResultPage($this, $mpxNoRoute);
         if ($resultPage) {
             $resultPage->setStatusHeader(403, '1.1', 'Forbidden');

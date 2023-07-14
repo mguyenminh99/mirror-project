@@ -7,13 +7,13 @@ use Magento\Customer\Model\Session;
 use Magento\Framework\App\Action\Context;
 use Magento\Framework\Registry;
 use Magento\Catalog\Model\ResourceModel\Product\CollectionFactory;
-use Webkul\Marketplace\Model\ResourceModel\Product\CollectionFactory as SellerProduct;
-use Webkul\Marketplace\Helper\Data as HelperData;
+use XShoppingSt\Marketplace\Model\ResourceModel\Product\CollectionFactory as SellerProduct;
+use XShoppingSt\Marketplace\Helper\Data as HelperData;
 use Magento\Catalog\Api\ProductRepositoryInterface;
 use Magento\Customer\Model\Url as CustomerUrl;
 use Mpx\Marketplace\Helper\Constant;
 
-class MassDelete extends \Webkul\Marketplace\Controller\Product\Ui\MassDelete
+class MassDelete extends \XShoppingSt\Marketplace\Controller\Product\Ui\MassDelete
 {
 
     /**
@@ -57,7 +57,7 @@ class MassDelete extends \Webkul\Marketplace\Controller\Product\Ui\MassDelete
     private $customerUrl;
 
     /**
-     * @var \Webkul\Marketplace\Model\ResourceModel\Orders\CollectionFactory
+     * @var \XShoppingSt\Marketplace\Model\ResourceModel\Orders\CollectionFactory
      */
     protected $orderCollectionFactory;
 
@@ -71,7 +71,7 @@ class MassDelete extends \Webkul\Marketplace\Controller\Product\Ui\MassDelete
      * @param HelperData $helper
      * @param ProductRepositoryInterface $productRepository
      * @param CustomerUrl $customerUrl
-     * @param \Webkul\Marketplace\Model\ResourceModel\Orders\CollectionFactory $orderCollectionFactory
+     * @param \XShoppingSt\Marketplace\Model\ResourceModel\Orders\CollectionFactory $orderCollectionFactory
      */
     public function __construct(
         Context $context,
@@ -83,7 +83,7 @@ class MassDelete extends \Webkul\Marketplace\Controller\Product\Ui\MassDelete
         HelperData $helper,
         ProductRepositoryInterface $productRepository = null,
         CustomerUrl $customerUrl,
-        \Webkul\Marketplace\Model\ResourceModel\Orders\CollectionFactory $orderCollectionFactory
+        \XShoppingSt\Marketplace\Model\ResourceModel\Orders\CollectionFactory $orderCollectionFactory
     ) {
         $this->filter = $filter;
         $this->_customerSession = $customerSession;

@@ -2,7 +2,7 @@
 namespace Mpx\MpMassUpload\Plugin;
 
 use Magento\Catalog\Model\ProductFactory;
-use Webkul\MpMassUpload\Helper\Data;
+use XShoppingSt\MpMassUpload\Helper\Data;
 
 class AfterExistingProductDataMapping
 {

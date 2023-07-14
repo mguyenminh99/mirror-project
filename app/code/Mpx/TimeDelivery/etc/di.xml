@@ -1,13 +1,13 @@
 <?xml version="1.0"?>
 <config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
-    <type name="Webkul\MpTimeDelivery\Controller\Account\Save">
+    <type name="XShoppingSt\MpTimeDelivery\Controller\Account\Save">
         <plugin name="plugin_order_count" type="Mpx\TimeDelivery\Plugin\Account\Save" sortOrder="1" disabled="false"/>
     </type>
-    <type name="Webkul\MpTimeDelivery\Model\ResourceModel\TimeSlotOrder\Collection">
+    <type name="XShoppingSt\MpTimeDelivery\Model\ResourceModel\TimeSlotOrder\Collection">
         <plugin name="plugin_add_filter_to_map_created_at" type="Mpx\TimeDelivery\Plugin\Model\ResourceModel\TimeSlotOrder\Collection" sortOrder="1" disabled="false"/>
     </type>
-    <type name="Webkul\MpTimeDelivery\Model\TimeSlotConfigProvider">
+    <type name="XShoppingSt\MpTimeDelivery\Model\TimeSlotConfigProvider">
         <plugin name="plugin_add_shop_title_to_seller" type="Mpx\TimeDelivery\Plugin\TimeSlotConfigProvider" sortOrder="1" disabled="false"/>
     </type>
-    <preference for="Webkul\MpTimeDelivery\Block\Options\Option" type="Mpx\TimeDelivery\Block\Options\Option" />
+    <preference for="XShoppingSt\MpTimeDelivery\Block\Options\Option" type="Mpx\TimeDelivery\Block\Options\Option" />
 </config>

@@ -12,7 +12,7 @@ namespace Mpx\Marketplace\Model\ResourceModel\Saleslist;
 /**
  * Mpx Marketplace ResourceModel Saleslist collection
  */
-class Collection extends \Webkul\Marketplace\Model\ResourceModel\Saleslist\Collection
+class Collection extends \XShoppingSt\Marketplace\Model\ResourceModel\Saleslist\Collection
 {
 
     /**

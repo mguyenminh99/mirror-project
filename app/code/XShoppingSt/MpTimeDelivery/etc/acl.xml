@@ -1,0 +1,22 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:Acl/etc/acl.xsd">
+    <acl>
+        <resources>
+            <resource id="Magento_Backend::admin">
+                <resource id="XShoppingSt_Marketplace::marketplace" title="Marketplace Management" sortOrder="10" >
+                    <resource id="XShoppingSt_MpTimeDelivery::menu" title="Menu" sortOrder="50">
+                        <resource id="XShoppingSt_MpTimeDelivery::slots" title="Seller Delivery Time Slots" sortOrder="15" />
+                        <resource id="XShoppingSt_MpTimeDelivery::order" title="Seller Delivery Time Orders" sortOrder="15" />
+                    </resource>
+                </resource>
+                <resource id="Magento_Backend::stores">
+                    <resource id="Magento_Backend::stores_settings">
+                        <resource id="Magento_Config::config">
+                            <resource id="XShoppingSt_MpTimeDelivery::config_timeslot" title="Marketplace Delivery Time Section" />
+                        </resource>
+                    </resource>
+                </resource>
+            </resource>
+        </resources>
+    </acl>
+</config>

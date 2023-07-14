@@ -1,0 +1,29 @@
+<?xml version="1.0"?>
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" layout="seller-2columns-left" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+    <body>
+        <referenceBlock name="seller.page.main.title">
+            <action method="setPageTitle">
+                <argument translate="true" name="title" xsi:type="string">Marketplace Dashboard</argument>
+            </action>
+        </referenceBlock>
+        <referenceContainer name="seller.content">
+            <block class="XShoppingSt\Marketplace\Block\Account\Dashboard" name="marketplace_account_dashboard" template="XShoppingSt_Marketplace::layout2/account/dashboard.phtml" cacheable="false"/>
+        </referenceContainer>
+
+        <referenceContainer name="marketplace_account_dashboard">
+            <block class="XShoppingSt\Marketplace\Block\Account\Dashboard\Diagrams" name="diagrams" template="XShoppingSt_Marketplace::account/diagrams.phtml" cacheable="false"/>
+            <block class="XShoppingSt\Marketplace\Block\Account\Dashboard\LocationChart" name="locationChart" template="XShoppingSt_Marketplace::account/locationChart.phtml" cacheable="false"/>
+            <block class="XShoppingSt\Marketplace\Block\Account\Dashboard\ReviewChart" name="reviewPriceChart" template="XShoppingSt_Marketplace::layout2/account/dashboard/reviewPriceChart.phtml" cacheable="false"/>
+            <block class="XShoppingSt\Marketplace\Block\Account\Dashboard\ReviewChart" name="reviewValueChart" template="XShoppingSt_Marketplace::layout2/account/dashboard/reviewValueChart.phtml" cacheable="false"/>
+            <block class="XShoppingSt\Marketplace\Block\Account\Dashboard\ReviewChart" name="reviewQualityChart" template="XShoppingSt_Marketplace::layout2/account/dashboard/reviewQualityChart.phtml" cacheable="false"/>
+            <block class="XShoppingSt\Marketplace\Block\Account\Dashboard\CategoryChart" name="categoryChart" template="XShoppingSt_Marketplace::account/categoryChart.phtml" cacheable="false"/>
+            <block class="XShoppingSt\Marketplace\Block\Account\Dashboard" name="marketplace_dashboard_totals" template="XShoppingSt_Marketplace::layout2/account/dashboard/totals.phtml" cacheable="false"/>
+            <block class="XShoppingSt\Marketplace\Block\Page\Notifications" name="marketplace_dashboard_notifications" template="XShoppingSt_Marketplace::layout2/account/dashboard/notifications.phtml" cacheable="false"/>
+            <block class="XShoppingSt\Marketplace\Block\Account\Dashboard" name="marketplace_dashboard_latest_orders" template="XShoppingSt_Marketplace::layout2/account/dashboard/latest_orders.phtml" cacheable="false">
+                <uiComponent name="marketplace_latest_orders_listing"/>
+            </block>
+            <block class="XShoppingSt\Marketplace\Block\Account\Dashboard" name="marketplace_dashboard_customer_review" template="XShoppingSt_Marketplace::layout2/account/dashboard/review.phtml" cacheable="false"/>
+            <block class="XShoppingSt\Marketplace\Block\Account\Dashboard" name="dashboard_additional_content_block" template="account/dashboard/additional_content.phtml" cacheable="false"/>
+        </referenceContainer>
+    </body>
+</page>

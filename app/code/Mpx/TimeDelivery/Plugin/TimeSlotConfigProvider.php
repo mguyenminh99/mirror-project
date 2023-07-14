@@ -4,19 +4,19 @@ namespace Mpx\TimeDelivery\Plugin;
 class TimeSlotConfigProvider
 {
     /**
-    * @var \Webkul\Marketplace\Model\Seller
+    * @var \XShoppingSt\Marketplace\Model\Seller
     */
     public $sellerFactory;
 
     public function __construct(
-        \Webkul\Marketplace\Model\SellerFactory $sellerFactory
+        \XShoppingSt\Marketplace\Model\SellerFactory $sellerFactory
     )
     {
         $this->sellerFactory = $sellerFactory;
     }
 
     public function afterGetConfig(
-        \Webkul\MpTimeDelivery\Model\TimeSlotConfigProvider $subject,
+        \XShoppingSt\MpTimeDelivery\Model\TimeSlotConfigProvider $subject,
         $result
          ){
 

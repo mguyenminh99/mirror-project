@@ -26,7 +26,7 @@ class Constant
         'usps','sf_express','aramex','sgh_global_japan'];
 
     const DEPLOY_MODE_CODE_PRODUCTION = "production";
-    const WEBKUL_BECOMESELLER_FULL_ACTION = "marketplace_account_becomeseller";
+    const X_SHOPPING_ST_BECOMESELLER_FULL_ACTION = "marketplace_account_becomeseller";
     const MPX_403_PAGE_ENABLE_CONFIG = "mpx_web/default/enable";
     const COUNTRY_PIC = 'JP';
     const JAPANESE_LOCALE_TIME_FORMAT = "YYYY/MM/DD";
@@ -49,6 +49,6 @@ class Constant
     const REQUIRED_CATEGORY_ERROR_CODE = "product_category";
     const REQUIRED_CATEGORY_ERROR_MESSAGE = "Please select a category to register the product.";
     const MINIMUM_QUANTITY_CATEGORY = 1;
-    const WEBKUL_BECOMESELLER_CONFIG_DEFAULT_PAGE = 'mpx_web/default/non_seller';
+    const X_SHOPPING_ST_BECOMESELLER_CONFIG_DEFAULT_PAGE = 'mpx_web/default/non_seller';
 
 }

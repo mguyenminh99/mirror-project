@@ -1,0 +1,13 @@
+<?php
+    $data = [
+            "sellerWarning" => __('Please Select Seller')
+        ];
+    $data = $block->getJsonHelper()->jsonEncode($data);
+    ?>
+<script type="text/x-magento-init">
+    {
+        "body": {
+            "XShoppingSt_Mpshipping/js/shippingset": <?= /* @noEscape */ $data ?>
+        }
+    }
+</script>

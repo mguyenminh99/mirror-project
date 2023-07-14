@@ -14,7 +14,7 @@ use Magento\Customer\Model\Session;
 /**
  * Marketplace Order Shipment PDF model
  */
-class Shipment extends \Webkul\Marketplace\Model\Order\Pdf\Shipment
+class Shipment extends \XShoppingSt\Marketplace\Model\Order\Pdf\Shipment
 {
     /**
      * Return PDF document

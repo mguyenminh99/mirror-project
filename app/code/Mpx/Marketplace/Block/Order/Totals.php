@@ -6,7 +6,7 @@ namespace Mpx\Marketplace\Block\Order;
  * class Totals
  * hide total admin in page seller
  */
-class Totals extends \Webkul\Marketplace\Block\Order\Totals
+class Totals extends \XShoppingSt\Marketplace\Block\Order\Totals
 {
     /**
      * 'Display total Order'

@@ -1,0 +1,151 @@
+<?php
+namespace XShoppingSt\MpMassUpload\Controller\Adminhtml\Export;
+
+use Magento\Backend\App\Action;
+use Magento\Backend\App\Action\Context;
+use Magento\Framework\View\Result\PageFactory;
+use Magento\ImportExport\Model\Export\Adapter\Csv as AdapterCsv;
+use Magento\Framework\App\Response\Http\FileFactory;
+use Magento\Framework\App\Filesystem\DirectoryList;
+
+class SellerProducts extends \Magento\Backend\App\Action
+{
+    /**
+     * @var PageFactory
+     */
+    protected $_resultPageFactory;
+
+    /**
+     * @var \XShoppingSt\MpMassUpload\Helper\Data
+     */
+    protected $_massUploadHelper;
+
+    /**
+     * @var \Magento\Framework\Json\Helper\Data
+     */
+    protected $_jsonHelper;
+
+    /**
+     * @var \XShoppingSt\MpMassUpload\Helper\Export
+     */
+    protected $_helperExport;
+
+    /**
+     * @var \XShoppingSt\Marketplace\Model\Product
+     */
+    protected $_mpProduct;
+
+    /**
+     * @var \XShoppingSt\Marketplace\Helper\Data
+     */
+    protected $marketplaceHelper;
+
+    /**
+     * @var \Magento\Framework\App\Response\Http\FileFactory
+     */
+    protected $fileFactory;
+
+    /**
+     * @var AdapterCsv
+     */
+    protected $_writer;
+
+  /**
+   * @param Context $context
+   * @param PageFactory $resultPageFactory
+   * @param \XShoppingSt\MpMassUpload\Helper\Data $massUploadHelper
+   * @param \Magento\Framework\Json\Helper\Data $jsonHelper
+   * @param \XShoppingSt\Marketplace\Model\Product $mpProduct
+   * @param \XShoppingSt\MpMassUpload\Helper\Export $helperExport
+   * @param AdapterCsv $writer
+   * @param FileFactory $fileFactory
+   */
+    public function __construct(
+        Context $context,
+        PageFactory $resultPageFactory,
+        \XShoppingSt\MpMassUpload\Helper\Data $massUploadHelper,
+        \Magento\Framework\Json\Helper\Data $jsonHelper,
+        \XShoppingSt\Marketplace\Model\Product $mpProduct,
+        \XShoppingSt\MpMassUpload\Helper\Export $helperExport,
+        AdapterCsv $writer,
+        FileFactory $fileFactory
+    ) {
+        $this->_resultPageFactory = $resultPageFactory;
+        $this->_massUploadHelper = $massUploadHelper;
+        $this->_jsonHelper = $jsonHelper;
+        $this->_mpProduct = $mpProduct;
+        $this->_helperExport = $helperExport;
+        $this->_writer = $writer;
+        $this->fileFactory = $fileFactory;
+        parent::__construct($context);
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    protected function _isAllowed()
+    {
+        return $this->_authorization->isAllowed('XShoppingSt_MpMassUpload::export');
+    }
+
+    /**
+     * Save action.
+     *
+     * @return \Magento\Framework\Controller\ResultInterface
+     */
+    public function execute()
+    {
+        try {
+            $helper = $this->_massUploadHelper;
+            $data = $this->getRequest()->getParams();
+            $sellerId = $data['seller_id'];
+            $productType = $data['id'];
+            $allowedAttributes = [];
+            if (!empty($data['custom_attributes'])) {
+                $allowedAttributes = $data['custom_attributes'];
+                $allowedAttributes= explode(",", $allowedAttributes);
+            }
+            $fileName = $productType.'_product.csv';
+            $products = $this->_mpProduct
+            ->getCollection()
+            ->addFieldToFilter(
+                'seller_id',
+                $sellerId
+            )->addFieldToSelect(
+                ['mageproduct_id']
+            );
+
+            $productIds = $products->getAllIds();
+            $productsRow = $this->_helperExport->exportProducts(
+                $productType,
+                $productIds,
+                $allowedAttributes
+            );
+            if (!empty($productsRow)) {
+                $writer = $this->_writer;
+                $writer->setHeaderCols($productsRow[0]);
+                foreach ($productsRow[1] as $dataRow) {
+                    if (!empty($dataRow)) {
+                        $writer->writeRow($dataRow);
+                    }
+                }
+                $productsRow = $writer->getContents();
+
+                return $this->fileFactory->create(
+                    $fileName,
+                    $productsRow,
+                    DirectoryList::VAR_DIR,
+                    'text/csv'
+                );
+            } else {
+                $this->messageManager->addError(
+                    __("There is no product with product type: %1 to export.", $productType)
+                );
+            }
+        } catch (\Exception $e) {
+            $resultRedirect = $this->resultRedirectFactory->create();
+            $this->messageManager->addError(__('Operation Failed.'));
+            return $resultRedirect->setPath('*/*/');
+        }
+    }
+}

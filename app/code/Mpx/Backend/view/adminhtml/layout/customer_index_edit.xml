@@ -4,20 +4,20 @@
       xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
     <update handle="styles"/>
     <head>
-        <css src="Webkul_Marketplace::css/style.css"/>
+        <css src="XShoppingSt_Marketplace::css/style.css"/>
     </head>
     <body>
         <referenceContainer name="content">
-            <block class="Magento\Framework\View\Element\Template" name="marketplace.customer.default" template="Webkul_Marketplace::customer/default.phtml">
+            <block class="Magento\Framework\View\Element\Template" name="marketplace.customer.default" template="XShoppingSt_Marketplace::customer/default.phtml">
             </block>
         </referenceContainer>
 
         <referenceBlock name="customer_form">
-            <block class="Webkul\Marketplace\Block\Adminhtml\Customer\Edit\Tabs" name="seller_edit_tab_view" />
-            <block class="Webkul\Marketplace\Block\Adminhtml\Customer\Edit\PaymentInfoTab" name="seller_edit_paymentinfo_tab_view" />
-            <block class="Webkul\Marketplace\Block\Adminhtml\Customer\Edit\CommissionTab" name="seller_edit_commission_tab_view" />
-            <block class="Webkul\Marketplace\Block\Adminhtml\Customer\Edit\AssignCategoryTab" name="seller_edit_assign_category_tab_view" />
-            <block class="Webkul\Marketplace\Block\Adminhtml\Customer\Edit\Tab\Product" name="seller_edit_product_tab_view" as="seller-product-tab" >
+            <block class="XShoppingSt\Marketplace\Block\Adminhtml\Customer\Edit\Tabs" name="seller_edit_tab_view" />
+            <block class="XShoppingSt\Marketplace\Block\Adminhtml\Customer\Edit\PaymentInfoTab" name="seller_edit_paymentinfo_tab_view" />
+            <block class="XShoppingSt\Marketplace\Block\Adminhtml\Customer\Edit\CommissionTab" name="seller_edit_commission_tab_view" />
+            <block class="XShoppingSt\Marketplace\Block\Adminhtml\Customer\Edit\AssignCategoryTab" name="seller_edit_assign_category_tab_view" />
+            <block class="XShoppingSt\Marketplace\Block\Adminhtml\Customer\Edit\Tab\Product" name="seller_edit_product_tab_view" as="seller-product-tab" >
                 <arguments>
                     <argument name="config" xsi:type="array">
                         <item name="label" xsi:type="string" translate="true">Product Assignment</item>
@@ -29,10 +29,10 @@
                     </argument>
                 </arguments>
             </block>
-            <block class="Webkul\Marketplace\Block\Adminhtml\Customer\Edit\RemoveSellerTab" name="seller_edit_removeseller_tab_view">
+            <block class="XShoppingSt\Marketplace\Block\Adminhtml\Customer\Edit\RemoveSellerTab" name="seller_edit_removeseller_tab_view">
                 <block class="Magento\Framework\View\Element\Template" name="seller_edit_removeseller_show_modal_tab_view" template="Mpx_Backend::customer/edit/seller/showModal.phtml"/>
             </block>
-            <block class="Webkul\Marketplace\Block\Adminhtml\Customer\Edit\AddSellerTab" name="seller_edit_addseller_tab_view" />
+            <block class="XShoppingSt\Marketplace\Block\Adminhtml\Customer\Edit\AddSellerTab" name="seller_edit_addseller_tab_view" />
         </referenceBlock>
     </body>
 </page>

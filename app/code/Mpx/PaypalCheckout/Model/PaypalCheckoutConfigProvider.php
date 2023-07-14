@@ -6,7 +6,7 @@ use Magento\Customer\Model\Session;
 use Magento\Framework\Exception\LocalizedException;
 use Magento\Framework\Exception\NoSuchEntityException;
 use Mpx\PaypalCheckout\Logger\Handler;
-use Webkul\Marketplace\Helper\Data;
+use XShoppingSt\Marketplace\Helper\Data;
 use Mpx\Marketplace\Helper\CommonFunc as MpxMarketplaceHelper;
 
 /**

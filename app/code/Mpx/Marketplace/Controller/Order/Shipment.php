@@ -14,7 +14,7 @@ use Magento\Framework\DB\Transaction;
  *
  * Class Shipment
  */
-class Shipment extends \Webkul\Marketplace\Controller\Order\Shipment
+class Shipment extends \XShoppingSt\Marketplace\Controller\Order\Shipment
 {
     /**
      * Save shipment

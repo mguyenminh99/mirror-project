@@ -1,0 +1,8 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Backend:etc/menu.xsd">
+	<menu>
+		<add id="XShoppingSt_MpTimeDelivery::slots" title="Delivery Time Slots" translate="title" module="XShoppingSt_MpTimeDelivery" sortOrder="1" parent="XShoppingSt_MpTimeDelivery::menu" action="timedelivery/slots" resource="XShoppingSt_MpTimeDelivery::slots" dependsOnModule="XShoppingSt_Marketplace"/>
+		<add id="XShoppingSt_MpTimeDelivery::order" title="Delivery Orders" translate="title" module="XShoppingSt_MpTimeDelivery" sortOrder="1" parent="XShoppingSt_MpTimeDelivery::menu" action="timedelivery/order" resource="XShoppingSt_MpTimeDelivery::order" dependsOnModule="XShoppingSt_Marketplace"/>
+		<add id="XShoppingSt_MpTimeDelivery::menu" title="Delivery Time Menu" translate="title" module="XShoppingSt_MpTimeDelivery" sortOrder="10" parent="XShoppingSt_Marketplace::marketplace" dependsOnModule="XShoppingSt_Marketplace" resource="XShoppingSt_MpTimeDelivery::menu"/>
+	</menu>
+</config>

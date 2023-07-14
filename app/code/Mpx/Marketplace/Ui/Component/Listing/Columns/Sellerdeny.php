@@ -3,7 +3,7 @@
 namespace Mpx\Marketplace\Ui\Component\Listing\Columns;
 use Mpx\Marketplace\Helper\Constant;
 
-class Sellerdeny extends \Webkul\Marketplace\Ui\Component\Listing\Columns\Sellerdeny
+class Sellerdeny extends \XShoppingSt\Marketplace\Ui\Component\Listing\Columns\Sellerdeny
 {
 
     /**

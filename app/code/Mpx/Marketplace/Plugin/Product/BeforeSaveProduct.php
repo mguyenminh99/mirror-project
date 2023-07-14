@@ -13,7 +13,7 @@ use Exception;
 use Magento\Framework\Controller\Result\Redirect;
 use Magento\Framework\Message\ManagerInterface;
 use Magento\Store\Model\StoreManager;
-use Webkul\Marketplace\Controller\Product\Save;
+use XShoppingSt\Marketplace\Controller\Product\Save;
 use Magento\Framework\Controller\Result\RedirectFactory;
 use Magento\Framework\App\Request\DataPersistorInterface;
 use Mpx\Common\Helper\CommonFunc as MpxValidator;

@@ -1,0 +1,22 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Backend:etc/menu.xsd">
+    <menu>
+        <add id="XShoppingSt_Marketplace::marketplace" title="Marketplace Management" module="XShoppingSt_Marketplace" sortOrder="10" resource="XShoppingSt_Marketplace::marketplace"/>
+
+        <add id="XShoppingSt_Marketplace::product" title="Manage Product" module="XShoppingSt_Marketplace" sortOrder="1" parent="XShoppingSt_Marketplace::menu" action="marketplace/product" resource="XShoppingSt_Marketplace::product"/>
+
+        <add id="XShoppingSt_Marketplace::seller" title="Manage Seller" module="XShoppingSt_Marketplace" sortOrder="1" parent="XShoppingSt_Marketplace::menu" action="marketplace/seller" resource="XShoppingSt_Marketplace::seller"/>
+
+        <add id="XShoppingSt_Marketplace::commission" title="Manage Commission" module="XShoppingSt_Marketplace" sortOrder="1" parent="XShoppingSt_Marketplace::menu" action="marketplace/commission" resource="XShoppingSt_Marketplace::commission"/>
+
+        <add id="XShoppingSt_Marketplace::transaction" title="Sellers Transaction" module="XShoppingSt_Marketplace" sortOrder="1" parent="XShoppingSt_Marketplace::menu" action="marketplace/transaction" resource="XShoppingSt_Marketplace::transaction"/>
+
+        <add id="XShoppingSt_Marketplace::feedback" title="Manage Feedback" module="XShoppingSt_Marketplace" sortOrder="1" parent="XShoppingSt_Marketplace::menu" action="marketplace/feedback" resource="XShoppingSt_Marketplace::feedback"/>
+
+        <add id="XShoppingSt_Marketplace::menu" title="Menu" module="XShoppingSt_Marketplace" sortOrder="10" parent="XShoppingSt_Marketplace::marketplace" dependsOnModule="XShoppingSt_Marketplace" resource="XShoppingSt_Marketplace::marketplace"/>
+
+        <add id="XShoppingSt_Marketplace::sellerflag" title="Seller Flag Reason" module="XShoppingSt_Marketplace" sortOrder="1" parent="XShoppingSt_Marketplace::menu" action="marketplace/sellerflag" resource="XShoppingSt_Marketplace::sellerflag"/>
+
+        <add id="XShoppingSt_Marketplace::productflag" title="Product Flag Reason" module="XShoppingSt_Marketplace" sortOrder="1" parent="XShoppingSt_Marketplace::menu" action="marketplace/productflag" resource="XShoppingSt_Marketplace::productflag"/>
+    </menu>
+</config>

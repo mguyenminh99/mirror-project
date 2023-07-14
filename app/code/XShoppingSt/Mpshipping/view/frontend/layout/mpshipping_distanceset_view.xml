@@ -1,0 +1,12 @@
+<?xml version="1.0"?>
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+    <update handle="customer_account"/>
+    <head>
+        <css src="XShoppingSt_Mpshipping::css/mpship.css"/>
+    </head>
+    <body>
+        <referenceContainer name="content">
+            <block class="XShoppingSt\Mpshipping\Block\Mpshipping\Distanceset"  name="marketplace_distanceset_shipping" template="XShoppingSt_Mpshipping::distanceset/view.phtml" cacheable="false"/>
+        </referenceContainer>
+    </body>
+</page>

@@ -11,7 +11,7 @@ namespace Mpx\Marketplace\Plugin\Customer;
 
 use Magento\Framework\Data\Form;
 use Magento\Framework\Data\Form\Element\Fieldset;
-use Webkul\Marketplace\Block\Adminhtml\Customer\Edit\Tabs;
+use XShoppingSt\Marketplace\Block\Adminhtml\Customer\Edit\Tabs;
 
 /**
  * Mpx Marketplace remove vat customer.

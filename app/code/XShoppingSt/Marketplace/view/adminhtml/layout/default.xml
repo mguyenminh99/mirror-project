@@ -1,0 +1,22 @@
+<?xml version="1.0"?>
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+    <head>
+        <css src="XShoppingSt_Marketplace::css/style.css"/>
+    </head>
+    <body>
+        <referenceContainer name="left">
+            <block class="XShoppingSt\Marketplace\Block\Adminhtml\Notification" name="notification_template" after="-" template="XShoppingSt_Marketplace::notification/notification.phtml">
+                <!-- call js file using js component -->
+                <arguments>
+                    <argument name="jsLayout" xsi:type="array">
+                        <item name="components" xsi:type="array">
+                            <item name="notification-content" xsi:type="array">
+                                <item name="component" xsi:type="string">XShoppingSt_Marketplace/js/notification</item>
+                            </item>
+                        </item>
+                    </argument>
+                </arguments>
+            </block>
+        </referenceContainer>
+    </body>
+</page>

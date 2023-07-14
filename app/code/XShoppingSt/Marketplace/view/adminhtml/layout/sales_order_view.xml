@@ -1,0 +1,15 @@
+<?xml version="1.0"?>
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+    <body>
+        <referenceContainer name="left">
+            <referenceBlock name="order_items">
+                <block class="XShoppingSt\Marketplace\Block\Adminhtml\Items\Column\Name\Seller" name="column_name" template="XShoppingSt_Marketplace::order/view/name.phtml" group="column"/>
+            </referenceBlock>
+        </referenceContainer>
+        <referenceBlock name="column_name_downloadable">
+          <action method="setTemplate">
+                <argument name="template" xsi:type="string">XShoppingSt_Marketplace::sales/items/column/downloadable/name.phtml</argument>
+          </action>
+        </referenceBlock>
+    </body>
+</page>

@@ -8,8 +8,8 @@ use Magento\Framework\App\ActionFactory;
 use Magento\Framework\App\ActionInterface;
 use Magento\Framework\App\RequestInterface;
 use Magento\Framework\App\RouterInterface;
-use Webkul\Marketplace\Helper\Data;
-use Webkul\Marketplace\Model\SellerFactory;
+use XShoppingSt\Marketplace\Helper\Data;
+use XShoppingSt\Marketplace\Model\SellerFactory;
 
 /**
  * Class Router

@@ -1,0 +1,10 @@
+<?php
+$helper = $this->helper(\XShoppingSt\Marketplace\Helper\Data::class);
+$pageLayout  =    $helper->getPageLayout();
+if ($pageLayout == 1) {
+    echo $block->getChildHtml('landingPagelayout1');
+} elseif ($pageLayout == 2) {
+    echo $block->getChildHtml('landingPagelayout2');
+} else {
+    echo $block->getChildHtml('landingPagelayout3');
+}

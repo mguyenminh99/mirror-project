@@ -31,10 +31,10 @@ class Verifysku
     /**
      * Set value sku format before check sku exits
      *
-     * @param \Webkul\Marketplace\Controller\Product\Verifysku $subject
+     * @param \XShoppingSt\Marketplace\Controller\Product\Verifysku $subject
      * @return void
      */
-    public function beforeExecute(\Webkul\Marketplace\Controller\Product\Verifysku $subject)
+    public function beforeExecute(\XShoppingSt\Marketplace\Controller\Product\Verifysku $subject)
     {
         $params = $subject->getRequest()->getParams();
         $skuFormat = $this->marketplaceHelperData->formatSku($params['sku']);

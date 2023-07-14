@@ -1,0 +1,17 @@
+<?xml version="1.0"?>
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" layout="1column" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+    <head>
+        <css src="XShoppingSt_Marketplace::css/wk_block.css"/>
+        <css src="XShoppingSt_Marketplace::css/style.css"/>
+        <css src="XShoppingSt_Marketplace::css/collection.css"/>
+    </head>
+    <body>
+        <referenceContainer name="content">
+            <block class="XShoppingSt\Marketplace\Block\Profile" name="marketplace_seller_top_block" template="XShoppingSt_Marketplace::seller/top-block.phtml"/>
+        </referenceContainer>
+        <referenceContainer name="marketplace_seller_top_block">
+            <block class="XShoppingSt\Marketplace\Block\Profile" name="marketplace_seller_profile_contact" template="XShoppingSt_Marketplace::seller/contact.phtml"/>
+            <block class="XShoppingSt\Marketplace\Block\Profile" name="marketplace_seller_profile_menu" template="XShoppingSt_Marketplace::seller/menu.phtml" before="-"/>
+        </referenceContainer>
+    </body>
+</page>

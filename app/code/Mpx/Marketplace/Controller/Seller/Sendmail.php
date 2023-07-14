@@ -7,15 +7,15 @@ use Magento\Customer\Model\Session;
 use Magento\Customer\Model\Customer;
 use Magento\Catalog\Model\Product;
 use Magento\Framework\App\Config\ScopeConfigInterface;
-use Webkul\Marketplace\Helper\Data as HelperData;
-use Webkul\Marketplace\Helper\Email as MpEmailData;
+use XShoppingSt\Marketplace\Helper\Data as HelperData;
+use XShoppingSt\Marketplace\Helper\Email as MpEmailData;
 use Magento\Framework\Json\Helper\Data as JsonHelper;
-use Webkul\Marketplace\Model\ResourceModel\Seller\CollectionFactory;
+use XShoppingSt\Marketplace\Model\ResourceModel\Seller\CollectionFactory;
 
 /**
  * Mpx Marketplace Sendmail controller.
  */
-class Sendmail extends \Webkul\Marketplace\Controller\Seller\Sendmail
+class Sendmail extends \XShoppingSt\Marketplace\Controller\Seller\Sendmail
 {
     /**
      * @var Session

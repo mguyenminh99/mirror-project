@@ -1,0 +1,114 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
+	<preference for="XShoppingSt\MpTimeDelivery\Api\Data\TimeslotConfigSearchResultsInterface" type="Magento\Framework\Api\SearchResults" />
+    <preference for="XShoppingSt\MpTimeDelivery\Api\Data\TimeslotConfigInterface" type="XShoppingSt\MpTimeDelivery\Model\TimeSlotConfig" />
+    <preference for="XShoppingSt\MpTimeDelivery\Api\TimeslotConfigRepositoryInterface" type="XShoppingSt\MpTimeDelivery\Model\TimeslotConfigRepository" />
+    <preference for="XShoppingSt\MpTimeDelivery\Api\Data\TimeSlotOrderInterface" type="XShoppingSt\MpTimeDelivery\Model\TimeSlotOrder" />
+    <preference for="Magento\Sales\Block\Order\Email\Items\Order\DefaultOrder" type="XShoppingSt\MpTimeDelivery\Block\DefaultOrderNew" />
+
+    <type name="XShoppingSt\Marketplace\Observer\SalesOrderPlaceAfterObserver">
+        <plugin name="time_slot_email_items" type="XShoppingSt\MpTimeDelivery\Plugin\Marketplace\Observer\SalesOrderPlaceAfterObserver"/>
+    </type>
+    <type name="Magento\Checkout\Model\ShippingInformationManagement">
+        <plugin name="time_slot_in_quote" type="XShoppingSt\MpTimeDelivery\Plugin\Checkout\Model\ShippingInformationManagement" sortOrder="1"/>
+    </type>
+    <type name="Magento\Checkout\Model\PaymentInformationManagement">
+		<plugin name="XShoppingSt_MpTimeDelivery::timeSlotPaymentInformation" type="XShoppingSt\MpTimeDelivery\Plugin\Checkout\Model\PaymentInformationManagement" sortOrder="1" />
+	</type>
+    <type name="Magento\Checkout\Model\GuestPaymentInformationManagement">
+		<plugin name="XShoppingSt_MpTimeDelivery::timeSlotGuestPaymentInformation" type="XShoppingSt\MpTimeDelivery\Plugin\Checkout\Model\GuestPaymentInformationManagement" sortOrder="1" />
+	</type>
+    <type name="\XShoppingSt\Marketplace\Helper\Data">
+        <plugin name="XShoppingSt_MpTimeDelivery::updatedHelperDataFile" type="XShoppingSt\MpTimeDelivery\Plugin\Marketplace\Helper\Data" sortOrder="200" />
+    </type>
+
+    <type name="Magento\Framework\EntityManager\MetadataPool">
+        <arguments>
+            <argument name="metadata" xsi:type="array">
+                <item name="XShoppingSt\MpTimeDelivery\Api\Data\TimeslotConfigInterface" xsi:type="array">
+                    <item name="entityTableName" xsi:type="string">marketplace_timeslot_config</item>
+                    <item name="identifierField" xsi:type="string">entity_id</item>
+                </item>
+            </argument>
+        </arguments>
+    </type>
+    <type name="Magento\Framework\EntityManager\HydratorPool">
+        <arguments>
+            <argument name="hydrators" xsi:type="array">
+                <item name="XShoppingSt\MpTimeDelivery\Api\Data\TimeslotConfigInterface" xsi:type="string">Magento\Framework\EntityManager\AbstractModelHydrator</item>
+            </argument>
+        </arguments>
+    </type>
+    <type name="Magento\Framework\EntityManager\MetadataPool">
+        <arguments>
+            <argument name="metadata" xsi:type="array">
+                <item name="XShoppingSt\MpTimeDelivery\Api\Data\TimeSlotOrderInterface" xsi:type="array">
+                    <item name="entityTableName" xsi:type="string">marketplace_timeslot_order</item>
+                    <item name="identifierField" xsi:type="string">entity_id</item>
+                </item>
+            </argument>
+        </arguments>
+    </type>
+    <type name="Magento\Framework\EntityManager\HydratorPool">
+        <arguments>
+            <argument name="hydrators" xsi:type="array">
+                <item name="XShoppingSt\MpTimeDelivery\Api\Data\TimeSlotOrderInterface" xsi:type="string">Magento\Framework\EntityManager\AbstractModelHydrator</item>
+            </argument>
+        </arguments>
+    </type>
+
+    <!-- Grid Load -->
+     <type name="Magento\Framework\View\Element\UiComponent\DataProvider\CollectionFactory">
+        <arguments>
+            <argument name="collections" xsi:type="array">
+                <item name="delivery_time_slot_listing_data_source" xsi:type="string">XShoppingSt\MpTimeDelivery\Model\ResourceModel\TimeSlotConfig\Grid\Collection</item>
+            </argument>
+        </arguments>
+    </type>
+    <type name="XShoppingSt\MpTimeDelivery\Model\ResourceModel\TimeSlotConfig\Grid\Collection">
+        <arguments>
+            <argument name="mainTable" xsi:type="string">marketplace_timeslot_config</argument>
+            <argument name="eventPrefix" xsi:type="string">marketplace_timeslot_grid_collection</argument>
+            <argument name="eventObject" xsi:type="string">config_grid_collection</argument>
+            <argument name="resourceModel" xsi:type="string">XShoppingSt\MpTimeDelivery\Model\ResourceModel\TimeSlotConfig</argument>
+        </arguments>
+    </type>
+    <virtualType name="TimeSlotConfigGridFilterPool" type="Magento\Framework\View\Element\UiComponent\DataProvider\DataProvider">
+        <arguments>
+            <argument name="collection" xsi:type="object" shared="false">XShoppingSt\MpTimeDelivery\Model\ResourceModel\TimeSlotConfig\Collection</argument>
+            <argument name="filterPool" xsi:type="object" shared="false">MarketplaceTimeSlotGirdFilterPool</argument>
+        </arguments>
+    </virtualType>
+
+    <type name="Magento\Framework\View\Element\UiComponent\DataProvider\CollectionFactory">
+        <arguments>
+            <argument name="collections" xsi:type="array">
+                <item name="delivery_time_slot_order_listing_data_source" xsi:type="string">XShoppingSt\MpTimeDelivery\Model\ResourceModel\TimeSlotOrder\Grid\Collection</item>
+            </argument>
+        </arguments>
+    </type>
+    <type name="XShoppingSt\MpTimeDelivery\Model\ResourceModel\TimeSlotOrder\Grid\Collection">
+        <arguments>
+            <argument name="mainTable" xsi:type="string">marketplace_timeslot_order</argument>
+            <argument name="eventPrefix" xsi:type="string">marketplace_slot_order_grid_collection</argument>
+            <argument name="eventObject" xsi:type="string">order_grid_collection</argument>
+            <argument name="resourceModel" xsi:type="string">XShoppingSt\MpTimeDelivery\Model\ResourceModel\TimeSlotOrder</argument>
+        </arguments>
+    </type>
+    <virtualType name="TimeSlotOrderGridFilterPool" type="Magento\Framework\View\Element\UiComponent\DataProvider\DataProvider">
+        <arguments>
+            <argument name="collection" xsi:type="object" shared="false">XShoppingSt\MpTimeDelivery\Model\ResourceModel\TimeSlotOrder\Collection</argument>
+            <argument name="filterPool" xsi:type="object" shared="false">MarketplaceSlotOrderGirdFilterPool</argument>
+        </arguments>
+    </virtualType>
+
+    <virtualType name="MarketplaceSlotOrderGirdFilterPool" type="Magento\Framework\View\Element\UiComponent\DataProvider\FilterPool">
+        <arguments>
+            <argument name="appliers" xsi:type="array">
+                <item name="regular" xsi:type="object">Magento\Framework\View\Element\UiComponent\DataProvider\RegularFilter</item>
+                <item name="fulltext" xsi:type="object">Magento\Framework\View\Element\UiComponent\DataProvider\FulltextFilter</item>
+            </argument>
+        </arguments>
+    </virtualType>
+
+</config>

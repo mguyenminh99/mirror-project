@@ -11,14 +11,14 @@ use Magento\Framework\App\Request\DataPersistorInterface;
 use Magento\Framework\DB\Helper as FrameworkDbHelper;
 use Magento\Framework\Serialize\SerializerInterface;
 use Magento\GoogleOptimizer\Model\Code as ModelCode;
-use Webkul\Marketplace\Helper\Data as HelperData;
+use XShoppingSt\Marketplace\Helper\Data as HelperData;
 use Magento\Store\Model\StoreManager;
 use Mpx\Marketplace\Helper\Constant;
 
 /**
  * Class Product Create
  */
-class Create extends \Webkul\Marketplace\Block\Product\Create
+class Create extends \XShoppingSt\Marketplace\Block\Product\Create
 {
 
     /**

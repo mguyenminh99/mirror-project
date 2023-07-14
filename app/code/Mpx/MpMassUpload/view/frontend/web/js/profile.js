@@ -1,12 +1,3 @@
-/**
- * Webkul Software.
- *
- * @category  Webkul
- * @package   Webkul_MpMassUpload
- * @author    Webkul
- * @copyright Copyright (c) Webkul Software Private Limited (https://webkul.com)
- * @license   https://store.webkul.com/license.html
- */
 define([
     "jquery",
     "jquery/ui",

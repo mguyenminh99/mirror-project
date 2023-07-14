@@ -12,7 +12,7 @@ namespace Mpx\Mpshipping\Plugin\Shipping;
 use Exception;
 use Magento\Framework\Controller\Result\Redirect;
 use Magento\Framework\Message\ManagerInterface;
-use Webkul\Mpshipping\Controller\Shipping\Add;
+use XShoppingSt\Mpshipping\Controller\Shipping\Add;
 use Magento\Framework\Controller\Result\RedirectFactory;
 use Magento\Framework\App\Request\DataPersistorInterface;
 use Mpx\Common\Helper\CommonFunc as MpxValidator;

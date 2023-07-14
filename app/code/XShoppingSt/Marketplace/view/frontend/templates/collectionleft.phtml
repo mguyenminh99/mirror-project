@@ -1,0 +1,9 @@
+<?php
+    $helper = $this->helper(\XShoppingSt\Marketplace\Helper\Data::class);
+    $partner = $block->getProfileDetail();
+?>
+<?php if (!empty($partner['shop_url'])): ?>
+    <div class="wk-mp-design">
+        <?= $this->getChildHtml();?>
+    </div>
+<?php endif; ?>

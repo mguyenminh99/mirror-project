@@ -1,0 +1,20 @@
+<?php
+$item = $block->getParentBlock()->getItem();
+$profileModel = $block->getProfileHelper();
+$productId = $item->getProduct()->getId();
+$sellerId = $profileModel->getUserInfo($productId, $item->getOrderId());
+if ($sellerId) {
+    list($shopTitle, $shopUrl) = $profileModel->getSellerDetails($sellerId);
+    ?>
+    <div class="wk-seller-block wk-block" id="mp-wk-block">
+        <div>
+            <span class="wk-block-font-bold-up"><?= /* @noEscape */ __('Sold By')?></span>
+            <span class="wk-block-title-css">
+                <a href="<?= $block->escapeUrl($profileModel->getShopUrl($shopUrl));?>"
+                title="<?= /* @noEscape */ __('Visit Shop') ?>"
+                id="profileconnect"><?= $block->escapeHtml($shopTitle); ?></a>
+            </span>
+        </div>
+    </div>
+    <?php
+} ?>

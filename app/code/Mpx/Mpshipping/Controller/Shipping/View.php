@@ -9,7 +9,7 @@
 
 namespace Mpx\Mpshipping\Controller\Shipping;
 
-class View extends \Webkul\Mpshipping\Controller\Shipping\View
+class View extends \XShoppingSt\Mpshipping\Controller\Shipping\View
 {
 
     /**

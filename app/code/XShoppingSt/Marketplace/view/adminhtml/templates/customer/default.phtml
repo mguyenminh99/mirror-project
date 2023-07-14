@@ -1,0 +1,4 @@
+<?php
+$helper = $this->helper(\XShoppingSt\Marketplace\Helper\Data::class);
+?>
+<input type="hidden" name="seller_panel" id="seller_panel" data-form-part="customer_form" value="<?= $block->escapeHtml($helper->getParam("seller_panel")); ?>" />

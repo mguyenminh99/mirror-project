@@ -17,7 +17,7 @@ class Export
         $this->marketplaceHelperData = $marketplaceHelperData;
     }
 
-    public function afterExportProducts(\Webkul\MpMassUpload\Helper\Export $subject, $result){
+    public function afterExportProducts(\XShoppingSt\MpMassUpload\Helper\Export $subject, $result){
         foreach($result[1] as $key => $product){
             $result[1][$key]['sku'] =  $this->marketplaceHelperData->getSkuWithoutPrefix($product['商品番号']);
         }

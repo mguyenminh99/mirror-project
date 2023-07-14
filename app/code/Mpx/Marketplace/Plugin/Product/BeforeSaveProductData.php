@@ -2,7 +2,7 @@
 
 namespace Mpx\Marketplace\Plugin\Product;
 
-use Webkul\Marketplace\Controller\Product\SaveProduct;
+use XShoppingSt\Marketplace\Controller\Product\SaveProduct;
 
 class BeforeSaveProductData
 {

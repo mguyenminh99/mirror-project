@@ -1,0 +1,6 @@
+<?php
+$helper = $this->helper(\XShoppingSt\Marketplace\Helper\Data::class);
+$partner = $block->getProfileDetail();
+if ($partner['shop_url'] && $helper->getSellerPolicyApproval()) {
+  /* @noEscape */ echo $partner['privacy_policy'];
+}  ?>
