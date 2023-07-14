@@ -15,7 +15,7 @@ use Magento\Framework\Exception\NoSuchEntityException;
 /**
  * Mpx Marketplace Order Shipment View Controller.
  */
-class View extends \Webkul\Marketplace\Controller\Order\Shipment\View
+class View extends \XShoppingSt\Marketplace\Controller\Order\Shipment\View
 {
     /**
      * Initialize shipment model instance.

@@ -11,10 +11,10 @@ use Magento\Downloadable\Model\Link\Purchased;
 use Magento\Store\Model\ScopeInterface;
 use Magento\Downloadable\Model\ResourceModel\Link\Purchased\Item\CollectionFactory;
 use Magento\Framework\Exception\NoSuchEntityException;
-use Webkul\Marketplace\Model\OrdersFactory as MpOrderModel;
+use XShoppingSt\Marketplace\Model\OrdersFactory as MpOrderModel;
 use Magento\Sales\Model\Order\Creditmemo;
 use Magento\Sales\Model\Order\InvoiceFactory;
-use Webkul\Marketplace\Model\SaleslistFactory;
+use XShoppingSt\Marketplace\Model\SaleslistFactory;
 use Magento\Catalog\Api\ProductRepositoryInterfaceFactory;
 use Magento\Sales\Model\ResourceModel\Order\Item\CollectionFactory as OrderItemCollection;
 use Mpx\Marketplace\Helper\Constant;
@@ -24,7 +24,7 @@ use Mpx\Marketplace\Helper\Constant;
  *
  * class View
  */
-class View extends \Webkul\Marketplace\Block\Order\View
+class View extends \XShoppingSt\Marketplace\Block\Order\View
 {
 
     /**
@@ -47,7 +47,7 @@ class View extends \Webkul\Marketplace\Block\Order\View
      * @param Creditmemo\ItemFactory $creditmemoItem
      * @param InvoiceFactory $invoiceModel
      * @param SaleslistFactory $saleslistModel
-     * @param \Webkul\Marketplace\Helper\Orders $ordersHelper
+     * @param \XShoppingSt\Marketplace\Helper\Orders $ordersHelper
      * @param ProductRepositoryInterfaceFactory $productRepository
      * @param \Magento\Shipping\Model\Config $shippingConfig
      * @param \Magento\Shipping\Model\CarrierFactory $carrierFactory
@@ -70,7 +70,7 @@ class View extends \Webkul\Marketplace\Block\Order\View
         \Magento\Sales\Model\Order\Creditmemo\ItemFactory $creditmemoItem,
         InvoiceFactory $invoiceModel,
         SaleslistFactory $saleslistModel,
-        \Webkul\Marketplace\Helper\Orders $ordersHelper,
+        \XShoppingSt\Marketplace\Helper\Orders $ordersHelper,
         ProductRepositoryInterfaceFactory $productRepository,
         \Magento\Shipping\Model\Config $shippingConfig,
         \Magento\Shipping\Model\CarrierFactory $carrierFactory,

@@ -21,11 +21,11 @@ use Magento\Sales\Model\ResourceModel\Order\Item\CollectionFactory as OrderItemC
 use Magento\Store\Model\ScopeInterface;
 use Magento\Downloadable\Model\ResourceModel\Link\Purchased\Item\CollectionFactory;
 use Magento\Sales\Model\ResourceModel\Order\Shipment\Item\CollectionFactory as ShipmentItemCollection;
-use Webkul\Marketplace\Model\OrdersFactory as MpOrderModel;
-use Webkul\Marketplace\Model\SaleslistFactory;
+use XShoppingSt\Marketplace\Model\OrdersFactory as MpOrderModel;
+use XShoppingSt\Marketplace\Model\SaleslistFactory;
 use Magento\Sales\Model\ResourceModel\Order\Shipment\Track\CollectionFactory as TrackingInvoiceNumber;
 
-class Items extends \Webkul\Marketplace\Block\Order\Items
+class Items extends \XShoppingSt\Marketplace\Block\Order\Items
 {
     /**
      * @var \Magento\Customer\Model\Customer
@@ -102,7 +102,7 @@ class Items extends \Webkul\Marketplace\Block\Order\Items
     protected $saleslistModel;
 
     /**
-     * @var \Webkul\Marketplace\Helper\Orders
+     * @var \XShoppingSt\Marketplace\Helper\Orders
      */
     protected $ordersHelper;
 
@@ -148,7 +148,7 @@ class Items extends \Webkul\Marketplace\Block\Order\Items
      * @param \Magento\Sales\Model\Order\Creditmemo\ItemFactory $creditmemoItem
      * @param InvoiceFactory                                    $invoiceModel
      * @param SaleslistFactory                                  $saleslistModel
-     * @param \Webkul\Marketplace\Helper\Orders                 $ordersHelper
+     * @param \XShoppingSt\Marketplace\Helper\Orders                 $ordersHelper
      * @param ProductRepositoryInterfaceFactory                 $productRepository
      * @param \Magento\Shipping\Model\Config                    $shippingConfig
      * @param \Magento\Shipping\Model\CarrierFactory            $carrierFactory
@@ -173,7 +173,7 @@ class Items extends \Webkul\Marketplace\Block\Order\Items
         \Magento\Sales\Model\Order\Creditmemo\ItemFactory $creditmemoItem,
         InvoiceFactory $invoiceModel,
         SaleslistFactory $saleslistModel,
-        \Webkul\Marketplace\Helper\Orders $ordersHelper,
+        \XShoppingSt\Marketplace\Helper\Orders $ordersHelper,
         ProductRepositoryInterfaceFactory $productRepository,
         \Magento\Shipping\Model\Config $shippingConfig,
         \Magento\Shipping\Model\CarrierFactory $carrierFactory,

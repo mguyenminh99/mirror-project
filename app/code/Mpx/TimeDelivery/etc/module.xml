@@ -12,7 +12,7 @@
     <module name="Mpx_TimeDelivery">
         <sequence>
             <module name="Magento_Checkout"/>
-            <module name="Webkul_MpTimeDelivery"/>
+            <module name="XShoppingSt_MpTimeDelivery"/>
         </sequence>
     </module>
 </config>

@@ -12,11 +12,11 @@
         xsi:noNamespaceSchemaLocation="urn:magento:framework:Module/etc/module.xsd">
     <module name="Mpx_Marketplace">
         <sequence>
-            <module name="Webkul_Marketplace"/>
+            <module name="XShoppingSt_Marketplace"/>
             <module name="Magento_Customer"/>
             <module name="Magento_Catalog"/>
             <module name="Magento_Theme"/>
-            <module name="Webkul_MpMassUpload"/>
+            <module name="XShoppingSt_MpMassUpload"/>
         </sequence>
     </module>
 </config>

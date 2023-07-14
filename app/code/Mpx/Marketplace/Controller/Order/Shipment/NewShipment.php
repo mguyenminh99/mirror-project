@@ -12,7 +12,7 @@ use Magento\Framework\View\Result\Page;
  *
  * class  NewShipment
  */
-class NewShipment extends \Webkul\Marketplace\Controller\Order
+class NewShipment extends \XShoppingSt\Marketplace\Controller\Order
 {
 
     /**

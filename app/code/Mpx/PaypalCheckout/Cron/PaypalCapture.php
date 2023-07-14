@@ -22,8 +22,8 @@ use Magento\Framework\Mail\Template\TransportBuilder;
 use Mpx\PaypalCheckout\Model\PaypalCheckoutInfo as PaypalCheckoutModel;
 use Mpx\PaypalCheckout\Model\PaypalCheckoutInfoFactory as PaypalCheckoutModelFactory;
 use Magento\Framework\App\ResourceConnection;
-use Webkul\Marketplace\Helper\Data as DataSeller;
-use Webkul\Marketplace\Model\ResourceModel\Seller\CollectionFactory as SellerCollectionFactory;
+use XShoppingSt\Marketplace\Helper\Data as DataSeller;
+use XShoppingSt\Marketplace\Model\ResourceModel\Seller\CollectionFactory as SellerCollectionFactory;
 use Magento\Sales\Model\Order;
 use Magento\Customer\Model\ResourceModel\Customer\CollectionFactory as CustomerCollectionFactory;
 use Mpx\PaypalCheckout\Model\Payment\PaypalCheckout\Payment;
@@ -939,7 +939,7 @@ class PaypalCapture
             $marketplaceOrders = $this->resource->getTableName('marketplace_orders  ');
             $sql = "update " . $marketplaceOrders .
                 "set order_status = 'complete', updated_at = current_timestamp
-                 where order_id = (select entity_id from sales_order 
+                 where order_id = (select entity_id from sales_order
                  where increment_id =" . $order_increment_id . ")";
             $connection->query($sql);
         } catch (\Exception $exception) {

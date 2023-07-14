@@ -1,0 +1,15 @@
+<?php
+$orderHelper = $this->helper(\XShoppingSt\Marketplace\Helper\Orders::class);
+$orderId = $this->getRequest()->getParam('id');
+$order = $block->Order->load($orderId);
+$orderStatusLabel = $order->getStatusLabel();
+$tracking = $orderHelper->getOrderinfo($orderId);
+$isCanceled = $tracking->getIsCanceled();
+if ($isCanceled) {
+    $orderStatusLabel = 'Canceled';
+}
+?>
+<span class="order-status"><?= $block->escapeHtml($orderStatusLabel)?></span>
+<div class="order-date">
+    <?= /* @noEscape */ __('<span class="label">Order Date:</span> %1', '<date>' . $block->formatDate($order->getCreatedAt(), \IntlDateFormatter::LONG) . '</date>') ?>
+</div>

@@ -12,15 +12,15 @@ use Magento\Framework\Filesystem\Io\File as fileUpload;
 use Magento\Framework\Serialize\SerializerInterface;
 use Magento\Framework\UrlInterface;
 use Magento\Framework\Xml\Parser;
-use Webkul\Marketplace\Model\ResourceModel\Seller\CollectionFactory as SellerCollection;
-use Webkul\MpMassUpload\Api\AttributeMappingRepositoryInterface;
-use Webkul\MpMassUpload\Api\AttributeProfileRepositoryInterface;
-use Webkul\MpMassUpload\Api\ProfileRepositoryInterface;
-use Webkul\MpMassUpload\Model\ResourceModel\AttributeMapping\CollectionFactory as AttributeMapping;
-use Webkul\MpMassUpload\Model\ResourceModel\AttributeProfile\CollectionFactory as AttributeProfile;
+use XShoppingSt\Marketplace\Model\ResourceModel\Seller\CollectionFactory as SellerCollection;
+use XShoppingSt\MpMassUpload\Api\AttributeMappingRepositoryInterface;
+use XShoppingSt\MpMassUpload\Api\AttributeProfileRepositoryInterface;
+use XShoppingSt\MpMassUpload\Api\ProfileRepositoryInterface;
+use XShoppingSt\MpMassUpload\Model\ResourceModel\AttributeMapping\CollectionFactory as AttributeMapping;
+use XShoppingSt\MpMassUpload\Model\ResourceModel\AttributeProfile\CollectionFactory as AttributeProfile;
 use Mpx\MpMassUpload\Helper\Constant;
 
-class Data extends \Webkul\MpMassUpload\Helper\Data
+class Data extends \XShoppingSt\MpMassUpload\Helper\Data
 {
     /**
      * @var \Mpx\Marketplace\Helper\CommonFunc
@@ -36,8 +36,8 @@ class Data extends \Webkul\MpMassUpload\Helper\Data
      * @param \Magento\Eav\Model\Config $config
      * @param \Magento\Framework\Data\Form\FormKey $formKey
      * @param \Magento\Catalog\Model\ProductFactory $productFactory
-     * @param \Webkul\MpMassUpload\Model\ProfileFactory $profile
-     * @param \Webkul\Marketplace\Controller\Product\SaveProduct $saveProduct
+     * @param \XShoppingSt\MpMassUpload\Model\ProfileFactory $profile
+     * @param \XShoppingSt\Marketplace\Controller\Product\SaveProduct $saveProduct
      * @param SellerCollection $sellerCollectionFactory
      * @param CategoryCollection $categoryCollectionFactory
      * @param AttributeCollection $attributeCollectionFactory
@@ -46,7 +46,7 @@ class Data extends \Webkul\MpMassUpload\Helper\Data
      * @param File $fileDriver
      * @param \Magento\Framework\File\Csv $csvReader
      * @param \Magento\MediaStorage\Model\File\UploaderFactory $fileUploaderFactory
-     * @param \Webkul\MpMassUpload\Model\Zip $zip
+     * @param \XShoppingSt\MpMassUpload\Model\Zip $zip
      * @param \Magento\Framework\ObjectManagerInterface $objectManager
      * @param \Magento\Framework\App\ResourceConnection $resource
      * @param \Magento\Customer\Model\Group $customerGroup
@@ -59,8 +59,8 @@ class Data extends \Webkul\MpMassUpload\Helper\Data
      * @param ProfileRepositoryInterface $profileRepository
      * @param \Magento\Framework\Json\Helper\Data $jsonHelper
      * @param \Magento\Downloadable\Helper\File $fileHelper
-     * @param \Webkul\Marketplace\Helper\Data $marketplaceHelper
-     * @param \Webkul\Marketplace\Model\ProductFactory $mpProduct
+     * @param \XShoppingSt\Marketplace\Helper\Data $marketplaceHelper
+     * @param \XShoppingSt\Marketplace\Model\ProductFactory $mpProduct
      * @param ConfigurableProTypeModel $configurableProTypeModel
      * @param \Magento\Framework\Stdlib\DateTime\TimezoneInterface $timezoneInterface
      * @param fileUpload $fileUpload
@@ -78,8 +78,8 @@ class Data extends \Webkul\MpMassUpload\Helper\Data
         \Magento\Eav\Model\Config $config,
         \Magento\Framework\Data\Form\FormKey $formKey,
         \Magento\Catalog\Model\ProductFactory $productFactory,
-        \Webkul\MpMassUpload\Model\ProfileFactory $profile,
-        \Webkul\Marketplace\Controller\Product\SaveProduct $saveProduct,
+        \XShoppingSt\MpMassUpload\Model\ProfileFactory $profile,
+        \XShoppingSt\Marketplace\Controller\Product\SaveProduct $saveProduct,
         SellerCollection $sellerCollectionFactory,
         CategoryCollection $categoryCollectionFactory,
         AttributeCollection $attributeCollectionFactory,
@@ -88,7 +88,7 @@ class Data extends \Webkul\MpMassUpload\Helper\Data
         File $fileDriver,
         \Magento\Framework\File\Csv $csvReader,
         \Magento\MediaStorage\Model\File\UploaderFactory $fileUploaderFactory,
-        \Webkul\MpMassUpload\Model\Zip $zip,
+        \XShoppingSt\MpMassUpload\Model\Zip $zip,
         \Magento\Framework\ObjectManagerInterface $objectManager,
         \Magento\Framework\App\ResourceConnection $resource,
         \Magento\Customer\Model\Group $customerGroup,
@@ -101,8 +101,8 @@ class Data extends \Webkul\MpMassUpload\Helper\Data
         ProfileRepositoryInterface $profileRepository,
         \Magento\Framework\Json\Helper\Data $jsonHelper,
         \Magento\Downloadable\Helper\File $fileHelper,
-        \Webkul\Marketplace\Helper\Data $marketplaceHelper,
-        \Webkul\Marketplace\Model\ProductFactory $mpProduct,
+        \XShoppingSt\Marketplace\Helper\Data $marketplaceHelper,
+        \XShoppingSt\Marketplace\Model\ProductFactory $mpProduct,
         ConfigurableProTypeModel $configurableProTypeModel,
         \Magento\Framework\Stdlib\DateTime\TimezoneInterface $timezoneInterface,
         fileUpload $fileUpload, DirectoryList $directoryList,

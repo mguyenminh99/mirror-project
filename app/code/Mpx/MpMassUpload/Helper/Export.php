@@ -2,7 +2,7 @@
 
 namespace Mpx\MpMassUpload\Helper;
 
-class Export extends \Webkul\MpMassUpload\Helper\Export
+class Export extends \XShoppingSt\MpMassUpload\Helper\Export
 {
 
     /**

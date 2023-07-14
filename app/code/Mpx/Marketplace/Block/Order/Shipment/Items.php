@@ -7,7 +7,7 @@ namespace Mpx\Marketplace\Block\Order\Shipment;
  *
  * class Items
  */
-class Items extends \Webkul\Marketplace\Block\Order\Items
+class Items extends \XShoppingSt\Marketplace\Block\Order\Items
 {
 
     /**

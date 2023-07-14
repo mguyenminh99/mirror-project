@@ -12,7 +12,7 @@ use Mpx\Mpshipping\Helper\Constant;
 /**
  * Mpx Mpshipping import CSV
  */
-class Index extends \Webkul\Mpshipping\Controller\Shipping\Index
+class Index extends \XShoppingSt\Mpshipping\Controller\Shipping\Index
 {
 
     /**

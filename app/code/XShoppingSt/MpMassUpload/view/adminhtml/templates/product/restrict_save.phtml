@@ -1,0 +1,16 @@
+<script type="text/javascript">
+    require([
+        "jquery"
+    ], function ($) {
+        var myForm = $('#edit_form');
+        var clickCount=0;
+        $("#save").on('click', function (event) {
+            if (myForm.validation("isValid")) {
+                event.preventDefault();
+                var buttonElement = $(this);
+                buttonElement.prop('disabled', true);
+            }
+     });
+
+    });
+</script>

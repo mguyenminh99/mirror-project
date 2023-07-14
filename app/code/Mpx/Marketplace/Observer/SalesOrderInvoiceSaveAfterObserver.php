@@ -8,15 +8,15 @@ use Magento\Quote\Model\QuoteRepository;
 use Magento\Sales\Api\OrderRepositoryInterface;
 use Magento\Customer\Api\CustomerRepositoryInterface;
 use Magento\Catalog\Api\ProductRepositoryInterface;
-use Webkul\Marketplace\Helper\Data as MarketplaceHelper;
-use Webkul\Marketplace\Model\ResourceModel\Seller\CollectionFactory;
-use Webkul\Marketplace\Model\OrdersFactory;
-use Webkul\Marketplace\Model\SaleslistFactory;
+use XShoppingSt\Marketplace\Helper\Data as MarketplaceHelper;
+use XShoppingSt\Marketplace\Model\ResourceModel\Seller\CollectionFactory;
+use XShoppingSt\Marketplace\Model\OrdersFactory;
+use XShoppingSt\Marketplace\Model\SaleslistFactory;
 use Magento\Sales\Model\Order\AddressFactory;
 use Magento\Directory\Model\CountryFactory;
-use Webkul\Marketplace\Helper\Email as MpEmailHelper;
-use Webkul\Marketplace\Helper\Orders as OrdersHelper;
-use Webkul\Marketplace\Model\ProductFactory;
+use XShoppingSt\Marketplace\Helper\Email as MpEmailHelper;
+use XShoppingSt\Marketplace\Helper\Orders as OrdersHelper;
+use XShoppingSt\Marketplace\Model\ProductFactory;
 
 class SalesOrderInvoiceSaveAfterObserver implements ObserverInterface
 {

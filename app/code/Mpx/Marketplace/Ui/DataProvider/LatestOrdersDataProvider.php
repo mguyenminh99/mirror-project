@@ -8,26 +8,26 @@
  */
 namespace Mpx\Marketplace\Ui\DataProvider;
 
-use Webkul\Marketplace\Model\ResourceModel\Orders\CollectionFactory;
-use Webkul\Marketplace\Model\ResourceModel\Orders\Collection as OrderColl;
-use Webkul\Marketplace\Helper\Data as HelperData;
+use XShoppingSt\Marketplace\Model\ResourceModel\Orders\CollectionFactory;
+use XShoppingSt\Marketplace\Model\ResourceModel\Orders\Collection as OrderColl;
+use XShoppingSt\Marketplace\Helper\Data as HelperData;
 
 /**
  * @inheritdoc
  */
-class LatestOrdersDataProvider extends \Webkul\Marketplace\Ui\DataProvider\LatestOrdersDataProvider
+class LatestOrdersDataProvider extends \XShoppingSt\Marketplace\Ui\DataProvider\LatestOrdersDataProvider
 {
     /**
      * Collection for getting table name
      *
-     * @var \Webkul\Marketplace\Model\ResourceModel\Saleslist\Collection
+     * @var \XShoppingSt\Marketplace\Model\ResourceModel\Saleslist\Collection
      */
     protected $orderColl;
 
     /**
      * Saleslist Orders collection
      *
-     * @var \Webkul\Marketplace\Model\ResourceModel\Saleslist\Collection
+     * @var \XShoppingSt\Marketplace\Model\ResourceModel\Saleslist\Collection
      */
     protected $collection;
 

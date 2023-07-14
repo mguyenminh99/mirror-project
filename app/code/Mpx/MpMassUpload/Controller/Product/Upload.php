@@ -4,7 +4,7 @@ namespace Mpx\MpMassUpload\Controller\Product;
 use Magento\Framework\App\Action\Context;
 use Magento\Framework\App\RequestInterface;
 
-class Upload extends \Webkul\MpMassUpload\Controller\Product\Upload
+class Upload extends \XShoppingSt\MpMassUpload\Controller\Product\Upload
 {
     /**
      * @var \Magento\Customer\Model\Url
@@ -17,7 +17,7 @@ class Upload extends \Webkul\MpMassUpload\Controller\Product\Upload
     protected $_session;
 
     /**
-     * @var \Webkul\MpMassUpload\Helper\Data
+     * @var \XShoppingSt\MpMassUpload\Helper\Data
      */
     protected $_massUploadHelper;
 
@@ -25,7 +25,7 @@ class Upload extends \Webkul\MpMassUpload\Controller\Product\Upload
         Context $context,
         \Magento\Customer\Model\Url $url,
         \Magento\Customer\Model\Session $session,
-        \Webkul\MpMassUpload\Helper\Data $massUploadHelper)
+        \XShoppingSt\MpMassUpload\Helper\Data $massUploadHelper)
     {
         parent::__construct($context, $url, $session, $massUploadHelper);
     }

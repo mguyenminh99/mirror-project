@@ -1,0 +1,16 @@
+<?xml version="1.0"?>
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" layout="seller-2columns-left" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+    <update handle="marketplace_order_invoice_view_totals"/>
+    <body>
+        <referenceBlock name="seller.page.main.title">
+            <action method="setPageTitle">
+                <argument translate="true" name="title" xsi:type="string">View Invoice Details</argument>
+            </action>
+        </referenceBlock>
+        <referenceContainer name="seller.content">
+            <block class="XShoppingSt\Marketplace\Block\Order\View"  name="marketplace_order_invoice_view" template="XShoppingSt_Marketplace::order/invoice/view.phtml" cacheable="false">
+                <block class="XShoppingSt\Marketplace\Block\Order\Invoice\Items" name="marketplace_order_invoice_items" template="XShoppingSt_Marketplace::order/invoice/items.phtml" />
+            </block>
+        </referenceContainer>
+    </body>
+</page>

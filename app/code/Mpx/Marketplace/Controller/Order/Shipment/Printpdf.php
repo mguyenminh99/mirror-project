@@ -12,7 +12,7 @@ namespace Mpx\Marketplace\Controller\Order\Shipment;
 use Magento\Framework\Exception\InputException;
 use Magento\Framework\Exception\NoSuchEntityException;
 
-class Printpdf extends \Webkul\Marketplace\Controller\Order\Shipment\Printpdf
+class Printpdf extends \XShoppingSt\Marketplace\Controller\Order\Shipment\Printpdf
 {
 
     /**

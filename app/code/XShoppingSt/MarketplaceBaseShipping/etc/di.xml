@@ -1,0 +1,28 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
+    <preference for="XShoppingSt\MarketplaceBaseShipping\Api\Data\ShippingSettingInterface" type="XShoppingSt\MarketplaceBaseShipping\Model\ShippingSetting" />
+    <preference for="XShoppingSt\MarketplaceBaseShipping\Api\Data\ShippingSettingSearchResultInterface"
+                type="Magento\Framework\Api\SearchResults" />
+    <preference for="XShoppingSt\MarketplaceBaseShipping\Api\ShippingSettingRepositoryInterface" type="XShoppingSt\MarketplaceBaseShipping\Model\ShippingSettingRepository" />
+    <type name="XShoppingSt\MarketplaceBaseShipping\Logger\Handler">
+        <arguments>
+            <argument name="filesystem" xsi:type="object">Magento\Framework\Filesystem\Driver\File</argument>
+        </arguments>
+    </type>
+    <type name="XShoppingSt\MarketplaceBaseShipping\Logger\Logger">
+        <arguments>
+            <argument name="name" xsi:type="string">mpBaseShippingLogHandler</argument>
+            <argument name="handlers"  xsi:type="array">
+                <item name="system" xsi:type="object">XShoppingSt\MarketplaceBaseShipping\Logger\Handler</item>
+            </argument>
+        </arguments>
+    </type>
+
+    <type name="XShoppingSt\Marketplace\Controller\Order\View">
+      <plugin name="XShoppingSt_MarketplaceBaseShipping::view_order" type="XShoppingSt\MarketplaceBaseShipping\Plugin\Marketplace\Controller\Order\View" sortOrder="1" />
+    </type>
+    <type name="XShoppingSt\Marketplace\Block\Account\Navigation\ShippingMenu">
+      <plugin name="XShoppingSt_MarketplaceBaseShipping::origin_address" type="XShoppingSt\MarketplaceBaseShipping\Plugin\Marketplace\Block\Account\Navigation\ShippingMenu" sortOrder="1" />
+    </type>
+
+</config>

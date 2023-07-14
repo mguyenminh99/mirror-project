@@ -1,8 +1,8 @@
 <?php
 namespace Mpx\TimeDelivery\Plugin\Account;
 
-use Webkul\MpTimeDelivery\Model\TimeslotConfigRepository;
-use Webkul\MpTimeDelivery\Model\ResourceModel\TimeSlotConfig\CollectionFactory;
+use XShoppingSt\MpTimeDelivery\Model\TimeslotConfigRepository;
+use XShoppingSt\MpTimeDelivery\Model\ResourceModel\TimeSlotConfig\CollectionFactory;
 use Magento\Framework\Stdlib\DateTime\DateTime;
 
 class Save
@@ -49,11 +49,11 @@ class Save
     /**
      * Change param timedelivery action save account
      *
-     * @param \Webkul\MpTimeDelivery\Controller\Account\Save $subject
+     * @param \XShoppingSt\MpTimeDelivery\Controller\Account\Save $subject
      *
      * @return null
      */
-    public function beforeExecute(\Webkul\MpTimeDelivery\Controller\Account\Save $subject)
+    public function beforeExecute(\XShoppingSt\MpTimeDelivery\Controller\Account\Save $subject)
     {
         if ($subject->getRequest()->isPost()) {
             $timeSlotResult = [];

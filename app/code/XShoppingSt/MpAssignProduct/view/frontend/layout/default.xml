@@ -1,0 +1,14 @@
+<?xml version="1.0"?>
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+    <head>
+		<css src="XShoppingSt_MpAssignProduct::css/styles.css"/>
+	</head>
+    <body>
+        <referenceContainer name="header-wrapper">
+            <block class="Magento\Framework\View\Element\Template" name="assignproduct.default" template="XShoppingSt_MpAssignProduct::default.phtml" before="minicart" />
+        </referenceContainer>
+        <referenceContainer name="layout2_seller_account_navigation">
+            <block class="XShoppingSt\Marketplace\Block\Account\Navigation" name="mpassignproduct_seller_link_layout2" before="-" template="XShoppingSt_MpAssignProduct::account/layout2/navigation.phtml" />
+        </referenceContainer>
+    </body>
+</page>

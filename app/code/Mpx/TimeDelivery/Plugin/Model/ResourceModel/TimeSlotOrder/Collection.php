@@ -8,7 +8,7 @@
  */
 namespace Mpx\TimeDelivery\Plugin\Model\ResourceModel\TimeSlotOrder;
 
-use Webkul\MpTimeDelivery\Model\ResourceModel\TimeSlotOrder\Collection as TimeSlotCollection;
+use XShoppingSt\MpTimeDelivery\Model\ResourceModel\TimeSlotOrder\Collection as TimeSlotCollection;
 
 /**
  * Mpx MpTimeDelivery Plugin ResourceModel Seller collection

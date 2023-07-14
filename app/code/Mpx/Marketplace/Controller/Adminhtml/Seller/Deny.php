@@ -14,16 +14,16 @@ use Magento\Catalog\Model\Product\Action as ProductAction;
 use Magento\Framework\Controller\ResultFactory;
 use Magento\Ui\Component\MassAction\Filter;
 use Mpx\Marketplace\Helper\CommonFunc as MpxHelperData;
-use Webkul\Marketplace\Helper\Data as MpHelper;
-use Webkul\Marketplace\Helper\Email as MpEmailHelper;
-use Webkul\Marketplace\Model\ResourceModel\Product\CollectionFactory;
-use Webkul\Marketplace\Model\SellerFactory;
+use XShoppingSt\Marketplace\Helper\Data as MpHelper;
+use XShoppingSt\Marketplace\Helper\Email as MpEmailHelper;
+use XShoppingSt\Marketplace\Model\ResourceModel\Product\CollectionFactory;
+use XShoppingSt\Marketplace\Model\SellerFactory;
 use Mpx\Marketplace\Helper\Constant;
 
 /**
  * Class massDisapprove
  */
-class Deny extends \Webkul\Marketplace\Controller\Adminhtml\Seller\Deny
+class Deny extends \XShoppingSt\Marketplace\Controller\Adminhtml\Seller\Deny
 {
 
     public function __construct(
@@ -40,7 +40,7 @@ class Deny extends \Webkul\Marketplace\Controller\Adminhtml\Seller\Deny
         MpHelper                                        $mpHelper,
         MpEmailHelper                                   $mpEmailHelper,
         \Magento\Customer\Model\CustomerFactory         $customerModel,
-        \Webkul\Marketplace\Helper\Data                 $helper,
+        \XShoppingSt\Marketplace\Helper\Data                 $helper,
         MpxHelperData                                   $mpxHelperData
     ) {
         $this->mpxHelperData = $mpxHelperData;
@@ -182,6 +182,6 @@ class Deny extends \Webkul\Marketplace\Controller\Adminhtml\Seller\Deny
      */
     protected function _isAllowed()
     {
-        return $this->_authorization->isAllowed('Webkul_Marketplace::seller');
+        return $this->_authorization->isAllowed('XShoppingSt_Marketplace::seller');
     }
 }

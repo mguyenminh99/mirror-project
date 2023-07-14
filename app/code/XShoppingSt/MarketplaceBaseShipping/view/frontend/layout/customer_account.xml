@@ -1,0 +1,9 @@
+<?xml version="1.0"?>
+<page
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" layout="2columns-left" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd" design_abstraction="custom">
+    <body>
+        <referenceContainer name="seller_account_navigation">
+            <block class="XShoppingSt\Marketplace\Block\Account\Navigation" name="base_shipping_link" template="XShoppingSt_MarketplaceBaseShipping::navigation.phtml"></block>
+        </referenceContainer>
+    </body>
+</page>

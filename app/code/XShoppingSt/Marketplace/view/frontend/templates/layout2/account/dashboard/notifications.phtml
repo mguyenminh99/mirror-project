@@ -1,0 +1,12 @@
+<ul class="wk-mp__action-dropdown-menu wk-mp-dashboard-notifications-menu">
+    <?php foreach ($block->getAllNotification() as $notification) {
+      /* @noEscape */ echo $block->getNotificationInfo($notification);
+    } ?>
+    <li>
+        <small>
+            <a href="<?= $block->escapeUrl($block->getUrl('marketplace/account/notification'))?>">
+                <?= $block->escapeHtml(__("View All"))?>
+            </a>
+        </small>
+    </li>
+</ul>

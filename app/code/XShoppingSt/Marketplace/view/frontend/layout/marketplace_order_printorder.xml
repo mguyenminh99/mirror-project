@@ -1,0 +1,15 @@
+<?xml version="1.0"?>
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+    <update handle="marketplace_order_view_totals"/>
+    <update handle="print" />
+    <body>
+        <referenceBlock name="page.main.title">
+            <block class="XShoppingSt\Marketplace\Block\Order\View" name="marketplace.order.status" template="XShoppingSt_Marketplace::order/order_status.phtml" />
+        </referenceBlock>
+        <referenceContainer name="content">
+            <block class="XShoppingSt\Marketplace\Block\Order\View" name="marketplace_order_printorder" template="XShoppingSt_Marketplace::order/print.phtml" cacheable="false">
+                <block class="XShoppingSt\Marketplace\Block\Order\Items" name="marketplace_order_items" template="XShoppingSt_Marketplace::order/items.phtml" />
+            </block>
+        </referenceContainer>
+    </body>
+</page>

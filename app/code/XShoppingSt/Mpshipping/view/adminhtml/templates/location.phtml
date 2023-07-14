@@ -1,0 +1,20 @@
+<?php
+// phpcs:disable Magento2.Templates.ThisInTemplate.FoundThis
+ $section = $block->getRequest()->getParam('section');
+ if ($section=='carriers') { ?>
+        <?php
+        $locationModel = $block->getLocationModel();
+        $helper = $locationModel->getHelper();
+        $key = $helper->getGoogleApiKey();
+        ?>
+<script type="text/javascript"
+src="https://maps.googleapis.com/maps/api/js?key=<?= /* @noEscape */ $key;?>&libraries=places">
+</script>
+<script type="text/x-magento-init">
+    {
+        "*": {
+            "wklocation": {}
+        }
+    }
+</script>
+    <?php } ?>

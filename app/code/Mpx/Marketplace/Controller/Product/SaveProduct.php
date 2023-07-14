@@ -3,7 +3,7 @@
 namespace Mpx\Marketplace\Controller\Product;
 
 use Magento\Framework\Exception\NoSuchEntityException;
-use Webkul\Marketplace\Model\Product as SellerProduct;
+use XShoppingSt\Marketplace\Model\Product as SellerProduct;
 use Magento\Downloadable\Api\Data\SampleInterfaceFactory as SampleFactory;
 use Magento\Downloadable\Api\Data\LinkInterfaceFactory as LinkFactory;
 use Magento\Catalog\Api\CategoryLinkManagementInterface;
@@ -11,7 +11,7 @@ use Magento\Catalog\Api\CategoryLinkManagementInterface;
 /**
  * Mpx Marketplace SaveProduct controller.
  */
-class SaveProduct extends \Webkul\Marketplace\Controller\Product\SaveProduct
+class SaveProduct extends \XShoppingSt\Marketplace\Controller\Product\SaveProduct
 {
 
     /**
@@ -822,7 +822,7 @@ class SaveProduct extends \Webkul\Marketplace\Controller\Product\SaveProduct
 
         return $requestProductData;
     }
-    
+
     private function getDownloadableParamData($downloadableParamData)
     {
         if (isset($downloadableParamData['link']) && is_array($downloadableParamData['link'])) {

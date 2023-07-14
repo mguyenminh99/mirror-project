@@ -71,7 +71,7 @@ atlassian*
 
 /app/code/*
 !/app/code/Mpx
-!/app/code/Webkul
+!/app/code/XShoppingSt
 !/app/code/Magefan
 !/app/code/CommunityEngineering
 

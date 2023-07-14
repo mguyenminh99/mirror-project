@@ -9,12 +9,12 @@
 
 namespace Mpx\Marketplace\Block\Adminhtml\Items\Column\Name;
 
-use Webkul\Marketplace\Helper\Data as HelperData;
+use XShoppingSt\Marketplace\Helper\Data as HelperData;
 
-class Seller extends \Webkul\Marketplace\Block\Adminhtml\Items\Column\Name\Seller
+class Seller extends \XShoppingSt\Marketplace\Block\Adminhtml\Items\Column\Name\Seller
 {
     /**
-     * @var \Webkul\Marketplace\Model\SaleslistFactory
+     * @var \XShoppingSt\Marketplace\Model\SaleslistFactory
      */
     protected $saleslistFactory;
 
@@ -44,7 +44,7 @@ class Seller extends \Webkul\Marketplace\Block\Adminhtml\Items\Column\Name\Selle
      * @param \Magento\CatalogInventory\Api\StockConfigurationInterface $stockConfiguration
      * @param \Magento\Framework\Registry $registry
      * @param \Magento\Catalog\Model\Product\OptionFactory $optionFactory
-     * @param \Webkul\Marketplace\Model\SaleslistFactory $saleslistFactory
+     * @param \XShoppingSt\Marketplace\Model\SaleslistFactory $saleslistFactory
      * @param \Magento\Framework\UrlInterface $urlInterface
      * @param \Magento\Customer\Model\CustomerFactory $customerModel
      * @param \Magento\Framework\App\ResourceConnection $resource
@@ -57,7 +57,7 @@ class Seller extends \Webkul\Marketplace\Block\Adminhtml\Items\Column\Name\Selle
         \Magento\CatalogInventory\Api\StockConfigurationInterface $stockConfiguration,
         \Magento\Framework\Registry $registry,
         \Magento\Catalog\Model\Product\OptionFactory $optionFactory,
-        \Webkul\Marketplace\Model\SaleslistFactory $saleslistFactory,
+        \XShoppingSt\Marketplace\Model\SaleslistFactory $saleslistFactory,
         \Magento\Framework\UrlInterface $urlInterface,
         \Magento\Customer\Model\CustomerFactory $customerModel,
         \Magento\Framework\App\ResourceConnection $resource,

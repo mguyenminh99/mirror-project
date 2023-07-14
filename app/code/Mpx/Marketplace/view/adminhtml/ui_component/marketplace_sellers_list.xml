@@ -31,7 +31,7 @@
                 </item>
             </argument>
         </column>
-        <column name="flagcount" class="Webkul\Marketplace\Ui\Component\Listing\Columns\Flaglink">
+        <column name="flagcount" class="XShoppingSt\Marketplace\Ui\Component\Listing\Columns\Flaglink">
             <argument name="data" xsi:type="array">
                 <item name="config" xsi:type="array">
                     <item name="componentDisabled" xsi:type="boolean">true</item>
@@ -45,14 +45,14 @@
                 </item>
             </argument>
         </column>
-        <actionsColumn name="actions" class="Webkul\Marketplace\Ui\Component\Listing\Columns\ViewAction">
+        <actionsColumn name="actions" class="XShoppingSt\Marketplace\Ui\Component\Listing\Columns\ViewAction">
             <argument name="data" xsi:type="array">
                 <item name="config" xsi:type="array">
                     <item name="componentDisabled" xsi:type="boolean">true</item>
                 </item>
             </argument>
         </actionsColumn>
-        <actionsColumn name="pro_deny" class="Webkul\Marketplace\Ui\Component\Listing\Columns\Sellerdeny">
+        <actionsColumn name="pro_deny" class="XShoppingSt\Marketplace\Ui\Component\Listing\Columns\Sellerdeny">
             <argument name="data" xsi:type="array">
                 <item name="config" xsi:type="array">
                     <item name="label" xsi:type="string" translate="true">Deny Store Opening</item>

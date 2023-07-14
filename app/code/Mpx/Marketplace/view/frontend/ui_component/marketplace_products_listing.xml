@@ -25,14 +25,14 @@
                 <visible>false</visible>
             </settings>
         </column>
-        <column name="qtyConfirmed" class="Webkul\Marketplace\Ui\Component\Listing\Columns\Frontend\QtyConfirmed">
+        <column name="qtyConfirmed" class="XShoppingSt\Marketplace\Ui\Component\Listing\Columns\Frontend\QtyConfirmed">
             <argument name="data" xsi:type="array">
                 <item name="config" xsi:type="array">
                     <item name="componentDisabled" xsi:type="boolean">true</item>
                 </item>
             </argument>
         </column>
-        <column name="qtyPending" class="Webkul\Marketplace\Ui\Component\Listing\Columns\Frontend\QtyPending">
+        <column name="qtyPending" class="XShoppingSt\Marketplace\Ui\Component\Listing\Columns\Frontend\QtyPending">
             <argument name="data" xsi:type="array">
                 <item name="config" xsi:type="array">
                     <item name="componentDisabled" xsi:type="boolean">true</item>

@@ -3,7 +3,7 @@ namespace Mpx\Customer\Model\Plugin;
 
 use Magento\Authorization\Model\UserContextInterface;
 use Magento\Integration\Api\AuthorizationServiceInterface as AuthorizationService;
-use Webkul\Marketplace\Model\ResourceModel\Seller\CollectionFactory as SellerCollection;
+use XShoppingSt\Marketplace\Model\ResourceModel\Seller\CollectionFactory as SellerCollection;
 
 /**
  *  Class CustomerAuthorization

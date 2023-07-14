@@ -16,21 +16,21 @@ use Magento\Framework\Session\SessionManager;
 use Magento\Quote\Model\QuoteRepository;
 use Magento\Sales\Api\OrderRepositoryInterface;
 use Magento\Sales\Model\Order\AddressFactory;
-use Webkul\Marketplace\Helper\Data as MarketplaceHelper;
-use Webkul\Marketplace\Helper\Email as MpEmailHelper;
-use Webkul\Marketplace\Helper\Notification as NotificationHelper;
-use Webkul\Marketplace\Helper\Orders as OrdersHelper;
-use Webkul\Marketplace\Model\OrderPendingMailsFactory;
-use Webkul\Marketplace\Model\OrdersFactory;
-use Webkul\Marketplace\Model\ProductFactory;
-use Webkul\Marketplace\Model\SaleperpartnerFactory;
-use Webkul\Marketplace\Model\SaleslistFactory;
-use Webkul\Marketplace\Model\SellerFactory;
+use XShoppingSt\Marketplace\Helper\Data as MarketplaceHelper;
+use XShoppingSt\Marketplace\Helper\Email as MpEmailHelper;
+use XShoppingSt\Marketplace\Helper\Notification as NotificationHelper;
+use XShoppingSt\Marketplace\Helper\Orders as OrdersHelper;
+use XShoppingSt\Marketplace\Model\OrderPendingMailsFactory;
+use XShoppingSt\Marketplace\Model\OrdersFactory;
+use XShoppingSt\Marketplace\Model\ProductFactory;
+use XShoppingSt\Marketplace\Model\SaleperpartnerFactory;
+use XShoppingSt\Marketplace\Model\SaleslistFactory;
+use XShoppingSt\Marketplace\Model\SellerFactory;
 
 /**
  * Mpx Marketplace SalesOrderPlaceAfterObserver Observer Model.
  */
-class SalesOrderPlaceAfterObserver extends \Webkul\Marketplace\Observer\SalesOrderPlaceAfterObserver
+class SalesOrderPlaceAfterObserver extends \XShoppingSt\Marketplace\Observer\SalesOrderPlaceAfterObserver
 {
     /**
      * @var eventManager
@@ -304,7 +304,7 @@ class SalesOrderPlaceAfterObserver extends \Webkul\Marketplace\Observer\SalesOrd
             $collectionsave->setMagerealorderId($order->getIncrementId());
             $collectionsave->setMagequantity($qty);
             $collectionsave->setSellerId($sellerId);
-            $collectionsave->setCpprostatus(\Webkul\Marketplace\Model\Saleslist::PAID_STATUS_PENDING);
+            $collectionsave->setCpprostatus(\XShoppingSt\Marketplace\Model\Saleslist::PAID_STATUS_PENDING);
             $collectionsave->setMagebuyerId($this->_customerSession->getCustomerId());
             $collectionsave->setMageproPrice($price);
             $collectionsave->setMageproName($item->getName());

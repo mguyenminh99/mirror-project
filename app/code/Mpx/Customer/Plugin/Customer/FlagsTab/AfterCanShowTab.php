@@ -2,7 +2,7 @@
 
 namespace Mpx\Customer\Plugin\Customer\FlagsTab;
 
-use Webkul\Marketplace\Block\Adminhtml\FlagsTab;
+use XShoppingSt\Marketplace\Block\Adminhtml\FlagsTab;
 
 class AfterCanShowTab
 {

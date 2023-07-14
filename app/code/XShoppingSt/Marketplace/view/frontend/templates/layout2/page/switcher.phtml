@@ -1,0 +1,15 @@
+<?php if (count($block->getStores())>1 || count($block->getGroups())>1 || $block->getCurrencyCount()>1): ?>
+    <diV class="panel wrapper">
+        <diV class="panel header">
+            <?php if (count($block->getStores())>1): ?>
+                <?= $block->getChildHtml('seller_store_language'); ?>
+            <?php endif; ?>
+            <?php if (count($block->getGroups())>1): ?>
+                <?= $block->getChildHtml('seller_store_switcher'); ?>
+            <?php endif; ?>
+            <?php if ($block->getCurrencyCount()>1): ?>
+                <?= $block->getChildHtml('seller_store_settings_currency'); ?>
+            <?php endif; ?>
+        </div>
+    </div>
+<?php endif; ?>

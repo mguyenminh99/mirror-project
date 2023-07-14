@@ -1,7 +1,7 @@
 <?php
 
-$helper = $this->helper(\Webkul\Marketplace\Helper\Data::class);
-$orderHelper = $this->helper(\Webkul\Marketplace\Helper\Orders::class);
+$helper = $this->helper(\XShoppingSt\Marketplace\Helper\Data::class);
+$orderHelper = $this->helper(\XShoppingSt\Marketplace\Helper\Orders::class);
 $isPartner = $helper->isSeller();
 $trackingCode = $block->_customerSession->getTrackingCode();
 $customSelectedFlag = false;

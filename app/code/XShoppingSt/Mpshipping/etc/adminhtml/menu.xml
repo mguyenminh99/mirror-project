@@ -1,0 +1,9 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Backend:etc/menu.xsd">
+    <menu>
+        <add id="XShoppingSt_Mpshipping::menu" title="Table Rate Shipping Manager" module="XShoppingSt_Mpshipping" sortOrder="100" parent="XShoppingSt_Marketplace::marketplace" resource="XShoppingSt_Mpshipping::menu"/>
+        <add id="XShoppingSt_Mpshipping::mpshipping" title="Marketplace Table Rate Shipping Manager" module="XShoppingSt_Mpshipping" sortOrder="6" parent="XShoppingSt_Mpshipping::menu" action="mpshipping/shipping" resource="XShoppingSt_Mpshipping::mpshipping"/>
+        <add id="XShoppingSt_Mpshipping::mpshippingset" title="Marketplace Super Shipping Set Manager" module="XShoppingSt_Mpshipping" sortOrder="7" parent="XShoppingSt_Mpshipping::menu" action="mpshipping/shippingset" resource="XShoppingSt_Mpshipping::mpshippingset"/>
+        <add id="XShoppingSt_Mpshipping::distanceset" title="Shipping By Distance" module="XShoppingSt_Mpshipping" sortOrder="8" parent="XShoppingSt_Mpshipping::menu" action="mpshipping/distanceset" resource="XShoppingSt_Mpshipping::distanceset"/>
+    </menu>
+</config>

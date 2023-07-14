@@ -2,7 +2,7 @@
 
 namespace Mpx\Customer\Plugin\Customer\AssignCategoryTab;
 
-use Webkul\Marketplace\Block\Adminhtml\Customer\Edit\AssignCategoryTab;
+use XShoppingSt\Marketplace\Block\Adminhtml\Customer\Edit\AssignCategoryTab;
 
 class AfterCanShowTab
 {

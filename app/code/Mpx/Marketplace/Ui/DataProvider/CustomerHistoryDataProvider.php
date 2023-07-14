@@ -4,14 +4,14 @@
  */
 namespace Mpx\Marketplace\Ui\DataProvider;
 
-use Webkul\Marketplace\Model\ResourceModel\Saleslist\CollectionFactory;
-use Webkul\Marketplace\Model\ResourceModel\Saleslist\Collection as OrderColl;
-use Webkul\Marketplace\Helper\Data as HelperData;
+use XShoppingSt\Marketplace\Model\ResourceModel\Saleslist\CollectionFactory;
+use XShoppingSt\Marketplace\Model\ResourceModel\Saleslist\Collection as OrderColl;
+use XShoppingSt\Marketplace\Helper\Data as HelperData;
 
 /**
  * @inheritdoc
  */
-class CustomerHistoryDataProvider extends \Webkul\Marketplace\Ui\DataProvider\CustomerHistoryDataProvider
+class CustomerHistoryDataProvider extends \XShoppingSt\Marketplace\Ui\DataProvider\CustomerHistoryDataProvider
 {
     /**
      * Construct

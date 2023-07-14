@@ -1,0 +1,13 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
+    <preference for="XShoppingSt\MpApi\Api\SellerManagementInterface"
+                type="XShoppingSt\MpApi\Model\Seller\SellerManagement" />
+    <preference for="XShoppingSt\MpApi\Api\AdminManagementInterface"
+                type="XShoppingSt\MpApi\Model\Admin\AdminManagement" />
+
+    <preference for="XShoppingSt\MpApi\Api\Data\ResponseInterface"
+                type="XShoppingSt\MpApi\Model\Response" />
+    <preference for="XShoppingSt\MpApi\Api\SaleslistInterface" type="XShoppingSt\MpApi\Model\SaleslistRepositry"/>
+    <preference for="XShoppingSt\MpApi\Api\Data\SellerResultsInterface" type="XShoppingSt\MpApi\Model\ResourceModel\Saleslist\Collection"/>
+    <preference for="XShoppingSt\MpApi\Api\AdminSellerManagementInterface" type="XShoppingSt\MpApi\Model\Admin\AdminSellerRepositry"/>
+</config>

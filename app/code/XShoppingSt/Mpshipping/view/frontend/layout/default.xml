@@ -1,0 +1,11 @@
+<?xml version="1.0"?>
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+    <head>
+        <css src="XShoppingSt_Mpshipping::css/mpship.css"/>
+    </head>
+    <body>
+        <referenceContainer name="layout2_seller_account_navigation">
+            <block class="XShoppingSt\Marketplace\Block\Account\Navigation" name="layout2_mpshipping_account_navigation" before="-" template="XShoppingSt_Mpshipping::/layout2/account/navigation.phtml" />
+        </referenceContainer>
+    </body>
+</page>

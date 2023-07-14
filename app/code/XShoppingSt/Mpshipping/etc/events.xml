@@ -1,0 +1,6 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:Event/etc/events.xsd">
+    <event name="mp_order_save_after">
+        <observer name="xShoppingSt_mpshipping_sales_order_place_after_observer" instance="XShoppingSt\Mpshipping\Observer\SalesOrderPlaceAfterObserver" />
+    </event>
+</config>

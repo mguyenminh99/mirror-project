@@ -1,0 +1,21 @@
+<?xml version="1.0"?>
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+    <update handle="customer_account"/>
+    <head>
+        <css src="XShoppingSt_Marketplace::css/wk_block.css"/>
+        <css src="XShoppingSt_Marketplace::css/style.css"/>
+        <css src="XShoppingSt_Marketplace::css/product.css"/>
+        <css src="XShoppingSt_Marketplace::css/layout.css"/>
+        <css src="XShoppingSt_MpMassUpload::css/styles.css"/>
+    </head>
+    <body>
+        <referenceBlock name="page.main.title">
+            <action method="setPageTitle">
+                <argument translate="true" name="title" xsi:type="string">Mass Upload Dataflow Profile</argument>
+            </action>
+        </referenceBlock>
+        <referenceContainer name="content">
+            <block class="XShoppingSt\MpMassUpload\Block\Dataflow\Profile" name="mpmassupload_dataflow_profile" template="XShoppingSt_MpMassUpload::account/dataflow_profile.phtml" cacheable="false"></block>
+        </referenceContainer>
+    </body>
+</page>

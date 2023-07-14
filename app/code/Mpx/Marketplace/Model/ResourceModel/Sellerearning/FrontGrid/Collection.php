@@ -1,21 +1,11 @@
 <?php
-/**
- * Webkul Software.
- *
- * @category  Webkul
- * @package   Webkul_Marketplace
- * @author    Webkul
- * @copyright Copyright (c) Webkul Software Private Limited (https://webkul.com)
- * @license   https://store.webkul.com/license.html
- */
-
 namespace Mpx\Marketplace\Model\ResourceModel\Sellerearning\FrontGrid;
 
 /**
  * Mpx\Marketplace\Model\ResourceModel\Saleslist\Grid\Collection Class
  * Collection for displaying grid of marketplace Saleslist.
  */
-class Collection extends \Webkul\Marketplace\Model\ResourceModel\Sellerearning\FrontGrid\Collection
+class Collection extends \XShoppingSt\Marketplace\Model\ResourceModel\Sellerearning\FrontGrid\Collection
 {
     /**
      * Join store relation table if there is store filter

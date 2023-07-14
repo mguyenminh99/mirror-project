@@ -1,0 +1,64 @@
+<?php
+namespace XShoppingSt\Marketplace\Model\Plugin\Order;
+
+/**
+ * Marketplace Order PDF ShipmentPdfHeader Plugin.
+ */
+class ShipmentPdfHeader
+{
+    /**
+     * @var \Magento\Sales\Model\Order\Shipment
+     */
+    protected $shipment;
+
+    /**
+     * @param \Magento\Sales\Model\Order\Shipment $shipment
+     */
+    public function __construct(
+        \Magento\Sales\Model\Order\Shipment $shipment
+    ) {
+        $this->shipment = $shipment;
+    }
+
+    /**
+     * Insert title and number for concrete document type.
+     *
+     * @param \Zend_Pdf_Page $page
+     * @param string         $text
+     */
+    public function beforeInsertDocumentNumber(
+        \XShoppingSt\Marketplace\Model\Order\Pdf\Shipment $pdfShipment,
+        $page,
+        $text
+    ) {
+        $shipmentArr = explode(__('Packing Slip # '), $text);
+        $shipmentIncrementedId = $shipmentArr[1];
+        $shipment = $this->shipment->loadByIncrementId($shipmentIncrementedId);
+        $payment = $shipment->getOrder()->getPayment();
+        if (!empty($payment->getMethodInstance())) {
+            $method = $payment->getMethodInstance();
+            $paymentInfo = $method->getTitle();
+        } else {
+            $paymentData = $shipment->getOrder()->getPayment()->getData();
+            if (!empty($paymentData['additional_information']['method_title'])) {
+                $paymentInfo = $paymentData['additional_information']['method_title'];
+            } else {
+                $paymentInfo = $paymentData['method'];
+            }
+        }
+        /* Payment */
+        $yPayments = $pdfShipment->y + 65;
+        if (!$shipment->getOrder()->getIsVirtual()) {
+            $yPayments = $yPayments + 15;
+            $paymentLeft = 35;
+        } else {
+            $yPayments = $yPayments + 15;
+            $paymentLeft = 285;
+        }
+        $yPayments += 5;
+        foreach ($pdfShipment->getString()->split($paymentInfo, 45, true, true) as $_value) {
+            $page->drawText(strip_tags(trim($_value)), $paymentLeft, $yPayments, 'UTF-8');
+            $yPayments -= 15;
+        }
+    }
+}

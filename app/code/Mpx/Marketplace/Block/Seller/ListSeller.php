@@ -3,7 +3,7 @@
 namespace Mpx\Marketplace\Block\Seller;
 
 use Magento\Framework\App\Helper\Context;
-use Webkul\Marketplace\Model\SellerFactory as MpSeller;
+use XShoppingSt\Marketplace\Model\SellerFactory as MpSeller;
 use Mpx\Marketplace\Helper\Constant;
 
 /**

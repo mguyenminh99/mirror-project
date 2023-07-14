@@ -1,0 +1,22 @@
+<?php
+    $btnHtml = "
+    <button style='display:block; margin-top:15px;' type='button' class='button' id='run-profile'><span><span>
+    ";
+    $btnHtml .= __("Run Profile");
+    $btnHtml .= "</span></span></button>";
+
+    $data = [
+        "defaultUrl" => $block->getUrl('mpmassupload/run/profile'),
+        "btnHtml" => $btnHtml,
+        "sellerWarning" => __('Please Select Seller'),
+        "profileWarning" => __('Please Select Profile.')
+    ];
+    $data = $block->jsonEncode($data);
+    ?>
+<script type="text/x-magento-init">
+    {
+        "body": {
+            "XShoppingSt_MpMassUpload/js/run": <?= /* @noEscape */ $data ?>
+        }
+    }
+</script>

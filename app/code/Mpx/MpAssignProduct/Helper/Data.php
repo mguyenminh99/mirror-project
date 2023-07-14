@@ -8,7 +8,7 @@
  */
 namespace Mpx\MpAssignProduct\Helper;
 
-class Data extends \Webkul\MpAssignProduct\Helper\Data
+class Data extends \XShoppingSt\MpAssignProduct\Helper\Data
 {
     /**
      * Get Associated Options of Assign Product

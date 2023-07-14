@@ -1,0 +1,8 @@
+<?xml version="1.0"?>
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+    <body>
+        <referenceContainer name="layout2_seller_account_navigation">
+            <block class="XShoppingSt\MpTimeDelivery\Block\Account\Navigation" name="mptime_slot_navigation" before="-" template="XShoppingSt_MpTimeDelivery::layout2/navigation.phtml" cacheable="true" />
+        </referenceContainer>
+    </body>
+</page>

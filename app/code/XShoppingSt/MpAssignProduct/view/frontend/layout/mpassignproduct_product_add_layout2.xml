@@ -1,0 +1,21 @@
+<?xml version="1.0"?>
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" layout="seller-2columns-left" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+	<update handle="marketplace_styles"/>
+	<head>
+		<css src="XShoppingSt_MpAssignProduct::css/styles.css"/>
+        <css src="jquery/fileUploader/css/jquery.fileupload-ui.css"/>
+	</head>
+	<body>
+		<referenceBlock name="seller.page.main.title">
+			<action method="setPageTitle">
+				<argument translate="true" name="title" xsi:type="string">Marketplace Assigned Product</argument>
+			</action>
+		</referenceBlock>
+		<referenceContainer name="seller.content">
+			<block class="XShoppingSt\MpAssignProduct\Block\Product\Add" name="assignproduct_view" template="XShoppingSt_MpAssignProduct::add.phtml" cacheable="false" />
+		</referenceContainer>
+        <referenceContainer name="assignproduct_view">
+            <block class="XShoppingSt\MpAssignProduct\Block\Product\Helper\Form\Gallery\Content" name="assignproduct_product_add_gallery" template="XShoppingSt_MpAssignProduct::product/helper/gallery.phtml" cacheable="false"/>
+        </referenceContainer>
+	</body>
+</page>

@@ -12,7 +12,7 @@ namespace Mpx\Marketplace\Controller\Order\Shipment\Tracking;
 use Magento\Framework\Exception\InputException;
 use Magento\Framework\Exception\NoSuchEntityException;
 
-class Delete extends \Webkul\Marketplace\Controller\Order\Shipment\Tracking\Delete
+class Delete extends \XShoppingSt\Marketplace\Controller\Order\Shipment\Tracking\Delete
 {
     /**
      * Add new tracking number action

@@ -10,9 +10,9 @@
 namespace Mpx\Marketplace\Controller\Account;
 
 /**
- * Webkul Marketplace Account RewriteUrlPost Controller.
+ * XShoppingSt Marketplace Account RewriteUrlPost Controller.
  */
-class RewriteUrlPost extends \Webkul\Marketplace\Controller\Account\RewriteUrlPost
+class RewriteUrlPost extends \XShoppingSt\Marketplace\Controller\Account\RewriteUrlPost
 {
     /**
      * Seller's Custom URL Post action.

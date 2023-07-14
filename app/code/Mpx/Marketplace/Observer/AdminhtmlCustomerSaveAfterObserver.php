@@ -3,15 +3,15 @@
 
 namespace Mpx\Marketplace\Observer;
 
-use Webkul\Marketplace\Model\ResourceModel\Seller\CollectionFactory;
-use Webkul\Marketplace\Model\ResourceModel\Product\CollectionFactory as ProductCollection;
+use XShoppingSt\Marketplace\Model\ResourceModel\Seller\CollectionFactory;
+use XShoppingSt\Marketplace\Model\ResourceModel\Product\CollectionFactory as ProductCollection;
 use Magento\Framework\App\Filesystem\DirectoryList;
 use Magento\Framework\Filesystem;
-use Webkul\Marketplace\Model\Product as ProductStatus;
-use Webkul\Marketplace\Model\SaleperpartnerFactory as MpSalesPartner;
-use Webkul\Marketplace\Model\SellerFactory as MpSeller;
-use Webkul\Marketplace\Helper\Data as MpHelper;
-use Webkul\Marketplace\Helper\Email as MpEmailHelper;
+use XShoppingSt\Marketplace\Model\Product as ProductStatus;
+use XShoppingSt\Marketplace\Model\SaleperpartnerFactory as MpSalesPartner;
+use XShoppingSt\Marketplace\Model\SellerFactory as MpSeller;
+use XShoppingSt\Marketplace\Helper\Data as MpHelper;
+use XShoppingSt\Marketplace\Helper\Email as MpEmailHelper;
 use Magento\Catalog\Model\ProductFactory as ProductModel;
 use Magento\Framework\Filesystem\Io\File as FilesystemIo;
 use Magento\Catalog\Model\Product\Action as ProductAction;
@@ -22,7 +22,7 @@ use Mpx\Marketplace\Helper\Constant;
 /**
  * Mpx Marketplace AdminhtmlCustomerSaveAfterObserver Observer.
  */
-class AdminhtmlCustomerSaveAfterObserver extends \Webkul\Marketplace\Observer\AdminhtmlCustomerSaveAfterObserver
+class AdminhtmlCustomerSaveAfterObserver extends \XShoppingSt\Marketplace\Observer\AdminhtmlCustomerSaveAfterObserver
 {
 
     /**
@@ -61,7 +61,7 @@ class AdminhtmlCustomerSaveAfterObserver extends \Webkul\Marketplace\Observer\Ad
     protected $_mediaDirectory;
 
     /**
-     * @var \Webkul\Marketplace\Model\ResourceModel\Product\Collection
+     * @var \XShoppingSt\Marketplace\Model\ResourceModel\Product\Collection
      */
     protected $_sellerProduct;
 
@@ -96,7 +96,7 @@ class AdminhtmlCustomerSaveAfterObserver extends \Webkul\Marketplace\Observer\Ad
     protected $mpEmailHelper;
 
     /**
-     * @var \Webkul\Marketplace\Model\ProductFactory
+     * @var \XShoppingSt\Marketplace\Model\ProductFactory
      */
     protected $mpProductFactory;
 
@@ -151,7 +151,7 @@ class AdminhtmlCustomerSaveAfterObserver extends \Webkul\Marketplace\Observer\Ad
      * @param \Magento\Customer\Model\CustomerFactory $customerFactory
      * @param MpHelper $mpHelper
      * @param MpEmailHelper $mpEmailHelper
-     * @param \Webkul\Marketplace\Model\ProductFactory $mpProductFactory
+     * @param \XShoppingSt\Marketplace\Model\ProductFactory $mpProductFactory
      * @param \Magento\Framework\Module\Dir\Reader $reader
      * @param ProductModel $productModel
      * @param FilesystemIo|null $filesystemFile
@@ -172,7 +172,7 @@ class AdminhtmlCustomerSaveAfterObserver extends \Webkul\Marketplace\Observer\Ad
         \Magento\Customer\Model\CustomerFactory                           $customerFactory,
         MpHelper                                                          $mpHelper,
         MpEmailHelper                                                     $mpEmailHelper,
-        \Webkul\Marketplace\Model\ProductFactory                          $mpProductFactory,
+        \XShoppingSt\Marketplace\Model\ProductFactory                          $mpProductFactory,
         \Magento\Framework\Module\Dir\Reader                              $reader,
         ProductModel                                                      $productModel,
         FilesystemIo                                                      $filesystemFile = null,
@@ -701,12 +701,12 @@ class AdminhtmlCustomerSaveAfterObserver extends \Webkul\Marketplace\Observer\Ad
                 mkdir($mediaAvatarFullPath, 0777, true);
                 $avatarBannerImage = $reader->getModuleDir(
                         '',
-                        'Webkul_Marketplace'
+                        'XShoppingSt_Marketplace'
                     ).'/view/base/web/images/avatar/banner-image.png';
                 copy($avatarBannerImage, $mediaAvatarFullPath.'/banner-image.png');
                 $avatarNoImage = $reader->getModuleDir(
                         '',
-                        'Webkul_Marketplace'
+                        'XShoppingSt_Marketplace'
                     ).'/view/base/web/images/avatar/noimage.png';
                 copy($avatarNoImage, $mediaAvatarFullPath.'/noimage.png');
             }
@@ -725,7 +725,7 @@ class AdminhtmlCustomerSaveAfterObserver extends \Webkul\Marketplace\Observer\Ad
                 mkdir($mediaMarketplaceBannerFullPath, 0777, true);
                 $marketplaceBannerImage = $reader->getModuleDir(
                         '',
-                        'Webkul_Marketplace'
+                        'XShoppingSt_Marketplace'
                     ).'/view/base/web/images/marketplace/banner/sell-page-banner.png';
                 copy(
                     $marketplaceBannerImage,
@@ -734,7 +734,7 @@ class AdminhtmlCustomerSaveAfterObserver extends \Webkul\Marketplace\Observer\Ad
                 // for landing page layout 2
                 $marketplaceBannerImage = $reader->getModuleDir(
                         '',
-                        'Webkul_Marketplace'
+                        'XShoppingSt_Marketplace'
                     ).'/view/base/web/images/landingpage1/banner/sell-page-1-hero-banner.jpg';
                 $this->_filesystemFile->cp(
                     $marketplaceBannerImage,
@@ -743,7 +743,7 @@ class AdminhtmlCustomerSaveAfterObserver extends \Webkul\Marketplace\Observer\Ad
                 // for landing page layout 3
                 $marketplaceBannerImage = $reader->getModuleDir(
                         '',
-                        'Webkul_Marketplace'
+                        'XShoppingSt_Marketplace'
                     ).'/view/base/web/images/landingpage2/banner/sell-page-2-hero-banner.jpg';
                 $this->_filesystemFile->cp(
                     $marketplaceBannerImage,
@@ -758,7 +758,7 @@ class AdminhtmlCustomerSaveAfterObserver extends \Webkul\Marketplace\Observer\Ad
                 mkdir($mediaMarketplaceIconFullPath, 0777, true);
                 $icon1BannerImage = $reader->getModuleDir(
                         '',
-                        'Webkul_Marketplace'
+                        'XShoppingSt_Marketplace'
                     ).'/view/base/web/images/marketplace/icon/icon-add-products.png';
                 copy(
                     $icon1BannerImage,
@@ -767,7 +767,7 @@ class AdminhtmlCustomerSaveAfterObserver extends \Webkul\Marketplace\Observer\Ad
 
                 $icon2BannerImage = $reader->getModuleDir(
                         '',
-                        'Webkul_Marketplace'
+                        'XShoppingSt_Marketplace'
                     ).'/view/base/web/images/marketplace/icon/icon-collect-revenues.png';
                 copy(
                     $icon2BannerImage,
@@ -776,7 +776,7 @@ class AdminhtmlCustomerSaveAfterObserver extends \Webkul\Marketplace\Observer\Ad
 
                 $icon3BannerImage = $reader->getModuleDir(
                         '',
-                        'Webkul_Marketplace'
+                        'XShoppingSt_Marketplace'
                     ).'/view/base/web/images/marketplace/icon/icon-register-yourself.png';
                 copy(
                     $icon3BannerImage,
@@ -785,7 +785,7 @@ class AdminhtmlCustomerSaveAfterObserver extends \Webkul\Marketplace\Observer\Ad
 
                 $icon4BannerImage = $reader->getModuleDir(
                         '',
-                        'Webkul_Marketplace'
+                        'XShoppingSt_Marketplace'
                     ).'/view/base/web/images/marketplace/icon/icon-start-selling.png';
                 copy(
                     $icon4BannerImage,
@@ -795,7 +795,7 @@ class AdminhtmlCustomerSaveAfterObserver extends \Webkul\Marketplace\Observer\Ad
                 // for landing page layout 3
                 $iconBannerImage = $reader->getModuleDir(
                         '',
-                        'Webkul_Marketplace'
+                        'XShoppingSt_Marketplace'
                     ).'/view/base/web/images/landingpage2/icon/sell-page-2-setup-1.png';
                 $this->_filesystemFile->cp(
                     $iconBannerImage,
@@ -803,7 +803,7 @@ class AdminhtmlCustomerSaveAfterObserver extends \Webkul\Marketplace\Observer\Ad
                 );
                 $iconBannerImage = $reader->getModuleDir(
                         '',
-                        'Webkul_Marketplace'
+                        'XShoppingSt_Marketplace'
                     ).'/view/base/web/images/landingpage2/icon/sell-page-2-setup-2.png';
                 $this->_filesystemFile->cp(
                     $iconBannerImage,
@@ -811,7 +811,7 @@ class AdminhtmlCustomerSaveAfterObserver extends \Webkul\Marketplace\Observer\Ad
                 );
                 $iconBannerImage = $reader->getModuleDir(
                         '',
-                        'Webkul_Marketplace'
+                        'XShoppingSt_Marketplace'
                     ).'/view/base/web/images/landingpage2/icon/sell-page-2-setup-3.png';
                 $this->_filesystemFile->cp(
                     $iconBannerImage,
@@ -819,7 +819,7 @@ class AdminhtmlCustomerSaveAfterObserver extends \Webkul\Marketplace\Observer\Ad
                 );
                 $iconBannerImage = $reader->getModuleDir(
                         '',
-                        'Webkul_Marketplace'
+                        'XShoppingSt_Marketplace'
                     ).'/view/base/web/images/landingpage2/icon/sell-page-2-setup-4.png';
                 $this->_filesystemFile->cp(
                     $iconBannerImage,
@@ -827,7 +827,7 @@ class AdminhtmlCustomerSaveAfterObserver extends \Webkul\Marketplace\Observer\Ad
                 );
                 $iconBannerImage = $reader->getModuleDir(
                         '',
-                        'Webkul_Marketplace'
+                        'XShoppingSt_Marketplace'
                     ).'/view/base/web/images/landingpage2/icon/sell-page-2-setup-5.png';
                 $this->_filesystemFile->cp(
                     $iconBannerImage,
@@ -842,7 +842,7 @@ class AdminhtmlCustomerSaveAfterObserver extends \Webkul\Marketplace\Observer\Ad
                 mkdir($mediaPlaceholderFullPath, 0777, true);
                 $placeholderImage = $reader->getModuleDir(
                         '',
-                        'Webkul_Marketplace'
+                        'XShoppingSt_Marketplace'
                     ).'/view/base/web/images/placeholder/image.jpg';
                 copy(
                     $placeholderImage,

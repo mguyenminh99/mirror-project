@@ -1,0 +1,13 @@
+<?xml version="1.0"?>
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" layout="1column" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+		<update handle="marketplace_seller_top_header" />
+    <body>
+				<referenceContainer name="content">
+			    <block class="XShoppingSt\Marketplace\Block\Profile" name="marketplace_sellerprofile" template="XShoppingSt_Marketplace::profile.phtml" after="-">
+			        <block class="XShoppingSt\Marketplace\Block\Profile" name="marketplace_sellerprofile_recently_added_products" template="XShoppingSt_Marketplace::seller/profile/recently_added_products.phtml"/>
+			        <block class="XShoppingSt\Marketplace\Block\Profile" name="marketplace_seller_description" template="XShoppingSt_Marketplace::seller/profile/description.phtml"/>
+			        <block class="XShoppingSt\Marketplace\Block\Profile" name="marketplace_sellerprofile_rating" template="XShoppingSt_Marketplace::seller/profile/rating.phtml"/>
+			    </block>
+		    </referenceContainer>
+    </body>
+</page>

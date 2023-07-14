@@ -1,0 +1,6 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Backend:etc/menu.xsd">
+	<menu>
+		<add id="XShoppingSt_MpAssignProduct::product" title="Manage Assign Products" module="XShoppingSt_MpAssignProduct" sortOrder="20" parent="XShoppingSt_Marketplace::menu" action="mpassignproduct/product" resource="XShoppingSt_MpAssignProduct::product"/>
+	</menu>
+</config>

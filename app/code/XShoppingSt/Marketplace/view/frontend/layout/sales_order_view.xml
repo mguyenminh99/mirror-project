@@ -1,0 +1,16 @@
+<?xml version="1.0"?>
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+    <body>
+        <referenceContainer name="additional.product.info">
+            <block class="Magento\Framework\View\Element\Template" name="marketplace_seller_sales_item"/>
+        </referenceContainer>
+        <referenceBlock name="marketplace_seller_sales_item">
+            <action method="setTemplate" ifconfig="marketplace/profile_settings/seller_profile_display">
+                <argument name="template" xsi:type="string">XShoppingSt_Marketplace::sales/item/default.phtml</argument>
+            </action>
+            <arguments>
+                <argument name="profile_helper" xsi:type="object">XShoppingSt\Marketplace\ViewModel\Profile</argument>
+            </arguments>
+        </referenceBlock>
+    </body>
+</page>
