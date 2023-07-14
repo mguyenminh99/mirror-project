@@ -8,9 +8,14 @@
 - docker
 - docker compose
 
-コンテナの作成
+ソースコードクローン
 ```shell-sessions
 git clone git@gitlab.true-inc.jp:true-inc/x-shopping-st/x-shopping-st.git
+```
+
+dockerディレクトリに移動
+```shell-sessions
+cd x-shopping-st/dev/docker
 ```
 
 開発環境コンテナ作成
