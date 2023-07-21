@@ -8,12 +8,12 @@ MYSQL_USER=`grep ^MYSQL_USER .env | cut -d = -f 2`
 MYSQL_PASSWORD=`grep ^MYSQL_PASSWORD .env | cut -d = -f 2`
 MYSQL_HOST=`grep ^MYSQL_HOST .env | cut -d = -f 2`
 MYSQL_USER=`grep ^MYSQL_USER .env | cut -d = -f 2`
+ADMIN_PASS=`grep ^ADMIN_PASS .env | cut -d = -f 2`
 
-ADMIN_FIRSTNAME=Admin
-ADMIN_LASTNAME=Admin
-ADMIN_MAIL=admin@x-shopping-st.com
-ADMIN_USER=admin
-ADMIN_PASS=admin#01
+ADMIN_FIRSTNAME=xs-admin
+ADMIN_LASTNAME=xs-admin
+ADMIN_MAIL=xs-admin@x-shopping-st.com
+ADMIN_USER=xs-admin
 
 # API認証情報の設定
 if [ ! -e "../../auth.json" ]; then
@@ -38,8 +38,7 @@ if [ $? = 1 ]; then
   echo "SEND_GRID_API_KEY=${SEND_GRID_API_KEY}" >> .env
 fi
 
-# composerパッケージが存在しない場合
-echo "composerの更新にしばらく時間がかかります。"
+# composerパッケージインストール
 docker exec ${COMPOSE_PROJECT_NAME}_apache_php_1 bash -c "composer install"
 
 echo "magentoのインストールを開始します。"
@@ -69,7 +68,6 @@ read RESULT
 docker-compose restart
 docker restart reverse_proxy_nginx_1
 
-echo "\n<shop info>"
 echo "管理画面 : https://${HOST_NAME}/x_shopping_st"
-echo "adminユーザー : \"${ADMIN_USER}\""
-echo "adminパスワード : \"${ADMIN_PASS}\""
+echo "管理ユーザー : ${ADMIN_USER}"
+echo "パスワードは.envファイルのADMIN_PASSに設定されています。キーパスに登録してください。"

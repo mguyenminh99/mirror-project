@@ -3,7 +3,6 @@ volumes:
 
 networks:
   x_shopping_st:
-  reverse_proxy_x_shopping_st:
     external: true
 
 services:
@@ -20,7 +19,6 @@ services:
       - 80
     networks:
       - x_shopping_st
-      - reverse_proxy_x_shopping_st
     depends_on:
       - apache_php
       - mysql
