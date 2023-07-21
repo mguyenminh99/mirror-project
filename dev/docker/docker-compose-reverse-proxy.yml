@@ -1,5 +1,6 @@
 networks:
   x_shopping_st:
+    external: true
 
 services:
   nginx:
@@ -15,4 +16,4 @@ services:
     ports:
       - "80:80"
     networks:
-      - x_shopping_st_reverse_proxy
+      - x_shopping_st
