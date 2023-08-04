@@ -65,7 +65,7 @@ define([
                     linkText: $.mage.__('Go to Details Page'),
                     notifyMsg: $.mage.__('Notify Seller by Email'),
                     is_seller : this.getIsSeller(row),
-                    TEMPORARILY_SUSPENDED_SELLER_STATUS : this.getTemporarilySuspendedStatus(row),
+                    SELLER_STATUS_TEMPORARILY_SUSPENDED : this.getTemporarilySuspendedStatus(row),
                     seller_status_update_to: this.getSellerStatusUpdateTo(row)
                 }
             );

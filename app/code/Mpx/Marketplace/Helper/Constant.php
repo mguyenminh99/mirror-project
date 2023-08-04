@@ -5,8 +5,8 @@ namespace Mpx\Marketplace\Helper;
 class Constant
 {
 
-    const ENABLED_SELLER_STATUS = 1;
-    const TEMPORARILY_SUSPENDED_SELLER_STATUS = 3;
+    const SELLER_STATUS_OPENING = 1;
+    const SELLER_STATUS_TEMPORARILY_SUSPENDED = 3;
     const UNICODE_HYPHEN_MINUS = "\u{002D}";
     const SKU_PREFIX_LENGTH = 4;
     const MARKETPLACE_NAME_CONFIG_PATH = 'mpx_web/general/marketplaceName';

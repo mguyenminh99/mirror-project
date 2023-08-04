@@ -40,6 +40,7 @@ class BeforeSaveProductData
     public function beforeSaveProductData(SaveProduct $subject, $sellerId, $wholedata): array
     {
         $wholedata = $this->setSkuFormat($wholedata);
+        $sellerId = $this->marketplaceHelperData->getOriginSellerId($sellerId);
         return [$sellerId,$wholedata];
     }
 

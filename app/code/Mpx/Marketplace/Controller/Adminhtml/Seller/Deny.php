@@ -79,10 +79,10 @@ class Deny extends \XShoppingSt\Marketplace\Controller\Adminhtml\Seller\Deny
             ->addFieldToFilter('seller_id', $postData['seller_id']);
 
         if (isset($postData['seller_status_update_to']) == Constant::ENABLE_SELLER) {
-            $sellerStatusUpdateTo = Constant::TEMPORARILY_SUSPENDED_SELLER_STATUS;
+            $sellerStatusUpdateTo = Constant::SELLER_STATUS_TEMPORARILY_SUSPENDED;
             $productStatusUpdateTo = \Magento\Catalog\Model\Product\Attribute\Source\Status::STATUS_DISABLED;
         } else {
-            $sellerStatusUpdateTo = Constant::ENABLED_SELLER_STATUS;
+            $sellerStatusUpdateTo = Constant::SELLER_STATUS_OPENING;
             $productStatusUpdateTo = \Magento\Catalog\Model\Product\Attribute\Source\Status::STATUS_ENABLED;
             if( $this->mpxHelperData->isRunOutOfSellerLimit()){
                 $this->messageManager->addError(__('You cannot register more than %1 stores at this time',$limit_seller));
@@ -163,7 +163,7 @@ class Deny extends \XShoppingSt\Marketplace\Controller\Adminhtml\Seller\Deny
             ['seller' => $seller]
         );
 
-        if ($sellerStatusUpdateTo != Constant::TEMPORARILY_SUSPENDED_SELLER_STATUS) {
+        if ($sellerStatusUpdateTo != Constant::SELLER_STATUS_TEMPORARILY_SUSPENDED) {
             $this->messageManager->addSuccess(__('Seller has been Reopened.'));
         } else {
             $this->messageManager->addSuccess(__('Seller has been Denied.'));

@@ -1,0 +1,12 @@
+<?xml version="1.0"?>
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+    <update handle="customer_account"/>
+    <head>
+        <css src="XShoppingSt_MpTimeDelivery::css/style.css"/>
+    </head>
+    <body>
+        <referenceContainer name="content">
+            <block class="XShoppingSt\MpTimeDelivery\Block\Configuration"  name="manage-time-delivery" template="XShoppingSt_MpTimeDelivery::account/configuration.phtml" cacheable="false"/>
+        </referenceContainer>
+    </body>
+</page>

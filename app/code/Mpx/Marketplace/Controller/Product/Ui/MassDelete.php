@@ -116,7 +116,7 @@ class MassDelete extends \XShoppingSt\Marketplace\Controller\Product\Ui\MassDele
     public function execute()
     {
         $assignIds = [];
-        if ($this->helper->isSeller() == Constant::ENABLED_SELLER_STATUS) {
+        if ($this->helper->isSeller() == Constant::SELLER_STATUS_OPENING) {
             try {
                 $registry = $this->_coreRegistry;
                 if (!$registry->registry('mp_flat_catalog_flag')) {

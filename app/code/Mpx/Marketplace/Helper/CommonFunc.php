@@ -12,10 +12,21 @@ use Magento\Framework\Model\ResourceModel\Db\Collection\AbstractCollection;
 use XShoppingSt\Marketplace\Helper\Data as HelperData;
 use XShoppingSt\Marketplace\Model\SellerFactory as MpSeller;
 use Magento\Store\Model\ScopeInterface;
-use Mpx\Marketplace\Helper\Constant;
+use XShoppingSt\Marketplace\Model\ResourceModel\Seller\CollectionFactory as SellerCollection;
+use XShoppingSt\Marketplace\Model\SellerFactory;
 
 class CommonFunc extends AbstractHelper
 {
+    /**
+     * @var SellerFactory
+     */
+    protected $sellerFactory;
+
+    /**
+     * @var SellerCollection
+     */
+    protected $sellerCollection;
+
     /**
      * @var Session
      */
@@ -50,12 +61,16 @@ class CommonFunc extends AbstractHelper
         MpSeller                        $mpSeller,
         ScopeConfigInterface            $scopeConfig,
         HelperData       $helper,
-        UserContextInterface $userContext
+        UserContextInterface $userContext,
+        SellerCollection $sellerCollection,
+        SellerFactory $sellerFactory
     ) {
         $this->customerSession = $customerSession;
         $this->mpSeller = $mpSeller;
         $this->scopeConfig = $scopeConfig;
         $this->helper = $helper;
+        $this->sellerCollection = $sellerCollection;
+        $this->sellerFactory = $sellerFactory;
         $this->userContext = $userContext;
         parent::__construct($context);
     }
@@ -143,7 +158,7 @@ class CommonFunc extends AbstractHelper
         $sellerId = $this->customerSession->getCustomerId();
         $sellerCollection = $this->helper->getSellerCollectionObj($sellerId);
         foreach ($sellerCollection as $value) {
-            if ($value->getIsSeller() == Constant::ENABLED_SELLER_STATUS) {
+            if ($value->getIsSeller() == Constant::SELLER_STATUS_OPENING) {
                 return true;
             }
         }
@@ -223,5 +238,37 @@ class CommonFunc extends AbstractHelper
     public function getMarketPlaceId()
     {
         return $this->scopeConfig->getValue(Constant::MARKETPLACE_ID_CONFIG_PATH, ScopeInterface::SCOPE_STORE);
+    }
+
+    /**
+     * @param $sellerId
+     * @return mixed
+     */
+    public function getOriginSellerId($sellerId)
+    {
+        $seller = $this->sellerCollection->create()->addFieldToFilter('seller_id' , $sellerId)->getLastItem();
+        if ($seller->getParentSellerId()){
+            return $seller->getParentSellerId();
+        }
+        return $sellerId;
+    }
+
+    /**
+     * @param $sellerId
+     * @return bool
+     */
+    public function isSubSeller($sellerId){
+        $seller = $this->sellerFactory->create()->load($sellerId, "seller_id");
+        if($seller->getParentSellerId()){
+            return true;
+        }
+        return false;
+    }
+
+    /**
+     * @return int|null
+     */
+    public function getCustomerId(){
+        return $this->customerSession->getCustomerId();
     }
 }

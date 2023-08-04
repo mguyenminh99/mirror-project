@@ -47,7 +47,7 @@ class ListSeller extends \Magento\Framework\View\Element\Template
     public function getSellerData()
     {
         $sellerData = $this->mpSeller->create()->getCollection();
-        $sellerData->addFieldToFilter('is_seller', Constant::ENABLED_SELLER_STATUS);
+        $sellerData->addFieldToFilter('is_seller', Constant::SELLER_STATUS_OPENING);
         $sellerData->addFieldToFilter('store_id', ['eq' => 1]);
         return $sellerData;
     }

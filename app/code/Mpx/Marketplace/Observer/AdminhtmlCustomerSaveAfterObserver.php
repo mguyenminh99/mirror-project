@@ -356,7 +356,7 @@ class AdminhtmlCustomerSaveAfterObserver extends \XShoppingSt\Marketplace\Observ
                             $autoId = $value->getId();
                             $value->addData($postData);
                             $value = $this->mpSeller->create()->load($autoId);
-                            $value->setIsSeller(Constant::ENABLED_SELLER_STATUS);
+                            $value->setIsSeller(Constant::SELLER_STATUS_OPENING);
                             $value->setShopTitle($profiletitle);
                             $value->setShopUrl($profileurl);
                             $value->setUpdatedAt($this->_date->gmtDate());
