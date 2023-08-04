@@ -13,6 +13,8 @@
             <module name="Amazon_Core" />
             <module name="Magento_Security" />
             <module name="Magento_User" />
+            <module name="Mageplaza_Smtp" />
+            <module name="Mpx_Smtp" />
         </sequence>
     </module>
 </config>
