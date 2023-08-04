@@ -51,7 +51,7 @@ class Verifysku
     public function formatSku($sku)
     {
         $sellerId = $this->customerSession->getCustomer()->getId();
-        $skuPrefix = str_pad($sellerId, 3, "0", STR_PAD_LEFT);
+        $skuPrefix = str_pad($sellerId, Constant::SKU_PREFIX_LENGTH, "0", STR_PAD_LEFT);
 
         return $skuPrefix.Constant::UNICODE_HYPHEN_MINUS.$sku;
     }

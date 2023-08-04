@@ -13,7 +13,6 @@ use Magento\Framework\Serialize\SerializerInterface;
 use Magento\GoogleOptimizer\Model\Code as ModelCode;
 use XShoppingSt\Marketplace\Helper\Data as HelperData;
 use Magento\Store\Model\StoreManager;
-use Mpx\Marketplace\Helper\Constant;
 
 /**
  * Class Product Create
@@ -74,17 +73,6 @@ class Create extends \XShoppingSt\Marketplace\Block\Product\Create
             $data,
             $wysiwygImages
         );
-    }
-
-    /**
-     * Get Sku Format
-     *
-     * @param string $sku
-     * @return false|string
-     */
-    public function getUnformattedSku($sku)
-    {
-        return substr($sku, Constant::SKU_PREFIX_LENGTH);
     }
 
     /**
