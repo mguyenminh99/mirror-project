@@ -5,11 +5,9 @@ STG_USER='stg-user'
 
 if [ $COMPOSE_PROJECT_NAME = $STG_USER ]; then
   HOST_NAME="stg.x-shopping-st.com"
-  VARNISH_HOST_NAME=stg-varnish.x-shopping-st.com
   MYSQL_HOST="stg-mysql.x-shopping-st.com"
 else
   HOST_NAME=dev-${COMPOSE_PROJECT_NAME}.x-shopping-st.com
-  VARNISH_HOST_NAME=dev-${COMPOSE_PROJECT_NAME}-varnish.x-shopping-st.com
   MYSQL_HOST="dev-${COMPOSE_PROJECT_NAME}-mysql.x-shopping-st.com"
 fi
 
@@ -27,7 +25,6 @@ ADMIN_PASS=$(cat /dev/urandom | tr -dc 'a-zA-Z0-9' | fold -w 16 | head -n 1)
 echo "\
 APP_MODE=development
 HOST_NAME=${HOST_NAME}
-VARNISH_HOST_NAME=${VARNISH_HOST_NAME}
 MYSQL_ROOT_PASSWORD=${MYSQL_ROOT_PASSWORD}
 MYSQL_DATABASE=${MYSQL_DATABASE}
 MYSQL_USER=${MYSQL_USER}

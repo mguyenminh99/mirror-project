@@ -5,14 +5,14 @@ networks:
 services:
   nginx:
     build:
-      context: nginx
+      context: proxy
       dockerfile: ./Dockerfile
     restart: always
     hostname: dev-reverse-proxy.x-shopping-st.com
     working_dir: /etc/nginx/
     volumes:
-      - ./nginx/conf.d/reverse-ptoxy.conf:/etc/nginx/conf.d/reverse-ptoxy.conf
-      - ./nginx/html:/usr/share/nginx/html
+      - ./proxy/conf.d/reverse-ptoxy.conf:/etc/nginx/conf.d/reverse-ptoxy.conf
+      - ./proxy/html:/usr/share/nginx/html
     ports:
       - "80:80"
     networks:
