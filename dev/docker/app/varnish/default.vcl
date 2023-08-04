@@ -6,8 +6,8 @@ import std;
 # For SSL offloading, pass the following header in your proxy server or load balancer: 'X-Forwarded-Proto: https'
 
 backend default {
-    .host = "example.x-shopping-st.com";
-    .port = "80";
+    .host = "127.0.0.1";
+    .port = "8080";
     .probe = {
         .url = "/health_check.php";
         .timeout = 2s;

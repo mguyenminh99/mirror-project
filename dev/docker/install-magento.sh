@@ -39,24 +39,25 @@ if [ $? = 1 ]; then
 fi
 
 # composerパッケージインストール
-docker exec ${COMPOSE_PROJECT_NAME}_apache_php_1 bash -c "composer install"
+docker exec ${COMPOSE_PROJECT_NAME}_app_1 bash -c "composer install"
 
 echo "magentoのインストールを開始します。"
-docker exec ${COMPOSE_PROJECT_NAME}_apache_php_1 bash -c "./bin/magento setup:install --base-url=http://${HOST_NAME} --base-url-secure=https://${HOST_NAME} --db-host=${MYSQL_HOST} --db-name=${MYSQL_DATABASE}  --db-user=${MYSQL_USER} --db-password=${MYSQL_PASSWORD} --admin-firstname=${ADMIN_FIRSTNAME} --admin-lastname=${ADMIN_LASTNAME} --admin-email=${ADMIN_MAIL} --admin-user=${ADMIN_USER} --admin-password=${ADMIN_PASS} --language=ja_JP --currency=JPY --timezone=Asia/Tokyo --backend-frontname=x_shopping_st --use-secure=1 --use-secure-admin=1"
 
-docker exec ${COMPOSE_PROJECT_NAME}_mysql_1 mysql -u ${MYSQL_USER} -p${MYSQL_PASSWORD} -e"insert into ${MYSQL_DATABASE}.core_config_data (scope, scope_id, path, value)
+docker exec ${COMPOSE_PROJECT_NAME}_app_1 bash -c "./bin/magento setup:install --base-url=http://${HOST_NAME} --base-url-secure=https://${HOST_NAME} --db-host=${MYSQL_HOST} --db-name=${MYSQL_DATABASE}  --db-user=${MYSQL_USER} --db-password=${MYSQL_PASSWORD} --admin-firstname=${ADMIN_FIRSTNAME} --admin-lastname=${ADMIN_LASTNAME} --admin-email=${ADMIN_MAIL} --admin-user=${ADMIN_USER} --admin-password=${ADMIN_PASS} --language=ja_JP --currency=JPY --timezone=Asia/Tokyo --backend-frontname=x_shopping_st --use-secure=1 --use-secure-admin=1"
+
+docker exec ${COMPOSE_PROJECT_NAME}_db_1 mysql -u ${MYSQL_USER} -p${MYSQL_PASSWORD} -e"insert into ${MYSQL_DATABASE}.core_config_data (scope, scope_id, path, value)
 values ('default','0','system/full_page_cache/caching_application','2'),
 ('default','0','system/full_page_cache/varnish/access_list','${HOST_NAME}'),
 ('default','0','system/full_page_cache/varnish/backend_host','${HOST_NAME}'),
 ('default','0','system/full_page_cache/varnish/backend_port','80'),
 ('default','0','system/full_page_cache/varnish/grace_period','300');"
 
-docker exec ${COMPOSE_PROJECT_NAME}_apache_php_1 bash -c "sed -i 's/files/db/g' ./app/etc/env.php"
-docker exec ${COMPOSE_PROJECT_NAME}_apache_php_1 bash -c "find var generated vendor pub/static pub/media app/etc -type f -exec chmod g+w {} +"
-docker exec ${COMPOSE_PROJECT_NAME}_apache_php_1 bash -c "find var generated vendor pub/static pub/media app/etc -type d -exec chmod g+ws {} +"
-docker exec ${COMPOSE_PROJECT_NAME}_apache_php_1 bash -c "chmod u+x bin/magento"
-docker exec ${COMPOSE_PROJECT_NAME}_apache_php_1 bash -c "chmod 777 -R var generated app/etc"
-docker exec ${COMPOSE_PROJECT_NAME}_apache_php_1 bash -c "chmod 777 -R pub"
+docker exec ${COMPOSE_PROJECT_NAME}_app_1 bash -c "sed -i 's/files/db/g' ./app/etc/env.php"
+docker exec ${COMPOSE_PROJECT_NAME}_app_1 bash -c "find var generated vendor pub/static pub/media app/etc -type f -exec chmod g+w {} +"
+docker exec ${COMPOSE_PROJECT_NAME}_app_1 bash -c "find var generated vendor pub/static pub/media app/etc -type d -exec chmod g+ws {} +"
+docker exec ${COMPOSE_PROJECT_NAME}_app_1 bash -c "chmod u+x bin/magento"
+docker exec ${COMPOSE_PROJECT_NAME}_app_1 bash -c "chmod 777 -R var generated app/etc"
+docker exec ${COMPOSE_PROJECT_NAME}_app_1 bash -c "chmod 777 -R pub"
 
 echo "以下のレコードを各人PCのhostsファイルに追加してください。"
 echo "社内からアクセスする場合 --> 10.0.2.2 ${HOST_NAME}"
