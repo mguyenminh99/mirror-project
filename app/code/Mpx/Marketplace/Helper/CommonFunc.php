@@ -94,7 +94,7 @@ class CommonFunc extends AbstractHelper
      */
     public function getSkuPrefix()
     {
-        return str_pad($this->userContext->getUserId(), 3, "0", STR_PAD_LEFT);
+        return str_pad($this->userContext->getUserId(), Constant::SKU_PREFIX_LENGTH, "0", STR_PAD_LEFT);
     }
 
     /**
@@ -105,7 +105,7 @@ class CommonFunc extends AbstractHelper
      */
     public function getSkuWithoutPrefix($sku)
     {
-        return substr($sku, Constant::SKU_PREFIX_LENGTH);
+        return preg_match("/".Constant::UNICODE_HYPHEN_MINUS."(.*)/", $sku, $matches) ? $matches[1] : $sku;
     }
 
     /**

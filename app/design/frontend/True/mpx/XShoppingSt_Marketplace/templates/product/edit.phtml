@@ -10,6 +10,7 @@
 /** @var $block \XShoppingSt\Marketplace\Block\Product\Create */
 
 $helper = $this->helper(\XShoppingSt\Marketplace\Helper\Data::class);
+$helperCommon = $this->helper(\Mpx\Marketplace\Helper\CommonFunc::class);
 $product_hint_status = $helper->getProductHintStatus();
 $currency_code = $helper->getCurrentCurrencyCode();
 $currency_symbol = $helper->getCurrencySymbol();
@@ -25,7 +26,7 @@ $weightUnit = $helper->getWeightUnit();
 $tax10Percent = $helper->getTaxClassModel()->addFieldToFilter('class_name','消費税10%')->getFirstItem();
 $taxId = $tax10Percent->getClassId();
 $taxName = $tax10Percent->getClassName();
-$sku = $block->getUnformattedSku($product_coll->getSku());
+$sku = $helperCommon->getSkuWithoutPrefix($product_coll->getSku());
 ?>
 <form action="<?= $block->escapeUrl($block->getUrl('marketplace/product/save', ['_secure' => $this->getRequest()->isSecure()])) ?>" enctype="multipart/form-data" method="post" id="edit-product" data-form="edit-product" data-mage-init='{"validation":{}}'>
     <div class="wk-mp-design" id="wk-bodymain">
