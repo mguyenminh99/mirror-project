@@ -12,7 +12,8 @@
     },
     "require": {
         "community-engineering/japan-common": "^1.0",
-        "magento/product-community-edition": "2.3.5-p2"
+        "magento/product-community-edition": "2.3.5-p2",
+        "mageplaza/module-smtp": "^4.7"
     },
     "replace": {
         "community-engineering/module-kuromoji": "*"

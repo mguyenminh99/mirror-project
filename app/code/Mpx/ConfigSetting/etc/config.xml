@@ -163,5 +163,19 @@
         <address>
             <street_lines>2</street_lines>
         </address>
+<!--Start SMTP config-->
+        <smtp>
+            <general>
+                <enabled>1</enabled>
+            </general>
+            <configuration_option>
+                <host>smtp.sendgrid.net</host>
+                <port>587</port>
+                <protocol>tls</protocol>
+                <authentication>login</authentication>
+                <username>apikey</username>
+            </configuration_option>
+        </smtp>
+<!--End SMTP config-->
     </default>
 </config>
