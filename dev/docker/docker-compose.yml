@@ -33,7 +33,6 @@ services:
       options:
         max-size: 10m
         max-file: '3'
-        compress: true
 
   db:
     build:
@@ -60,4 +59,3 @@ services:
       options:
         max-size: 10m
         max-file: '3'
-        compress: true
