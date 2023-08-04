@@ -8,6 +8,17 @@
  */
 namespace Mpx\MpAssignProduct\Helper;
 
+use Magento\Catalog\Api\ProductRepositoryInterface;
+use Magento\Catalog\Model\ResourceModel\Product\CollectionFactory as ProductCollection;
+use Magento\ConfigurableProduct\Model\Product\Type\Configurable as ConfigurableCollection;
+use Magento\Framework\Mail\Template\TransportBuilder;
+use Magento\Framework\Translate\Inline\StateInterface;
+use XShoppingSt\Marketplace\Model\ResourceModel\Product\CollectionFactory;
+use XShoppingSt\Marketplace\Model\ResourceModel\Seller\CollectionFactory as SellerCollection;
+use XShoppingSt\MpAssignProduct\Model\ResourceModel\Data\CollectionFactory as DataCollection;
+use XShoppingSt\MpAssignProduct\Model\ResourceModel\Items\CollectionFactory as ItemsCollection;
+use XShoppingSt\MpAssignProduct\Model\ResourceModel\Quote\CollectionFactory as QuoteCollection;
+
 class Data extends \XShoppingSt\MpAssignProduct\Helper\Data
 {
     /**
@@ -63,5 +74,19 @@ class Data extends \XShoppingSt\MpAssignProduct\Helper\Data
             }
         }
         return $result;
+    }
+
+    /**
+     * Get Origin Seller Id
+     *
+     * @return int
+     */
+    public function getCustomerId()
+    {
+        $customerId = 0;
+        if ($this->_customerSession->isLoggedIn()) {
+            $customerId = (int) $this->commonFunc->getOriginSellerId($this->_customerSession->getCustomerId());
+        }
+        return $customerId;
     }
 }

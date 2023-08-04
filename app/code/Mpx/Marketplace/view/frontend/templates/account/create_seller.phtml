@@ -1,0 +1,99 @@
+<?php
+/** @var $block \Mpx\Marketplace\Block\Account\Seller */
+$order = $block->getOrder();
+?>
+<form class="form create-sub-seller"
+      action="<?= $block->escapeUrl($block->getUrl('mpx/account/save')) ?>"
+      method="post" id="form-validate" enctype="multipart/form-data"
+      data-hasrequired="<?= $block->escapeHtml(__('* Required Fields')) ?>"
+      autocomplete="off" data-mage-init='{"validation":{}}'
+>
+    <?= $block->getBlockHtml('formkey')?>
+    <?= $block->getBlockHtml('seller.formkey')?>
+    <div class="wk-mp-design">
+        <fieldset class="fieldset wk-mp-fieldset" data-hasrequired="<?= $block->escapeHtml(__('* Required Fields')) ?>">
+            <legend class="legend"><span><?= $block->escapeHtml(__('Create Sub Account')) ?></span>
+                <button id="save_config" class="button primary wk-mp-btn" title="Add">
+                <span>
+
+                    <span><?= $block->escapeHtml(__('Save')) ?></span>
+                </span>
+                </button>
+            </legend>
+            <div class="field required">
+                <label class="label">
+                    <span>
+                        <?= $block->escapeHtml(__("Last Name")); ?>:
+                    </span>
+                </label>
+                <div class="control">
+                    <input type="text"
+                           class="input-text required-entry"
+                           name="lastname"
+                           data-validate="{required:true}"
+                           data-msg-required="<?= $block->escapeHtml(__('Please enter your last name')) ?>"
+                    >
+                </div>
+            </div>
+            <div class="field required">
+                <label class="label">
+                    <span>
+                        <?= $block->escapeHtml(__("First Name")); ?>:
+                    </span>
+                </label>
+                <div class="control">
+                    <input type="text"
+                           class="input-text required-entry"
+                           name="firstname"
+                           data-validate="{required:true}"
+                           data-msg-required="<?= $block->escapeHtml(__('Please enter your first name')) ?>"
+                    >
+                </div>
+            </div>
+            <div class="field required">
+                <label class="label">
+                    <span>
+                        <?= $block->escapeHtml(__("Email")); ?>:
+                    </span>
+                </label>
+                <div class="control">
+                    <input type="text"
+                           class="input-text required-entry"
+                           name="email"
+                           data-validate="{required:true, email:true}"
+                           data-msg-required="<?= $block->escapeHtml(__('Please enter your e-mail address')) ?>"
+                           data-msg-email="<?= $block->escapeHtml(__('Please check the format of your email address')) ?>"
+                    >
+                </div>
+            </div>
+            <div class="field required">
+                <label class="label">
+                    <span>
+                        <?= $block->escapeHtml(__("Password")); ?>:
+                    </span>
+                </label>
+                <div class="control">
+                    <input type="password"
+                           class="input-text required-entry"
+                           data-password-min-length="8"
+                           data-password-min-character-sets="2"
+                           data-validate="{required:true, 'validate-customer-password':true}"
+                           autocomplete="off"
+                           name="password"
+                           data-msg-required="<?= $block->escapeHtml(__('Please enter your password')) ?>"
+                           data-msg-validate-customer-password="<?= $block->escapeHtml(__('Password must be 8 or more alphanumeric characters.')) ?>"
+                    >
+                </div>
+            </div>
+        </fieldset>
+    </div>
+</form>
+<script type="text/x-magento-init">
+        {
+            "*": {
+                "validateEmailExist": {
+                    "url" : "<?= $block->getUrl('mpx/account/validateemail')?>"
+                }
+            }
+        }
+</script>

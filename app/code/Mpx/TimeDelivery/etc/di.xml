@@ -10,4 +10,10 @@
         <plugin name="plugin_add_shop_title_to_seller" type="Mpx\TimeDelivery\Plugin\TimeSlotConfigProvider" sortOrder="1" disabled="false"/>
     </type>
     <preference for="XShoppingSt\MpTimeDelivery\Block\Options\Option" type="Mpx\TimeDelivery\Block\Options\Option" />
+    <preference for="XShoppingSt\MpTimeDelivery\Model\Seller\OrderConfigProviders" type="Mpx\TimeDelivery\Model\Seller\OrderConfigProviders" />
+    <type name="XShoppingSt\MpTimeDelivery\Block\Options\Option">
+        <plugin name="after_get_current_customer_id" type="Mpx\TimeDelivery\Plugin\Options\Option" sortOrder="1" disabled="false"/>
+    </type>
+    <preference for="XShoppingSt\MpTimeDelivery\Block\Configuration" type="Mpx\TimeDelivery\Block\Configuration" />
+    <preference for="XShoppingSt\MpTimeDelivery\Controller\Account\Save" type="Mpx\TimeDelivery\Controller\Account\Save" />
 </config>

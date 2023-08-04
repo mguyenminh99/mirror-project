@@ -1,6 +1,6 @@
 
 <form id="ask-form-<%- sellerid %>" method="get" enctype="multipart/form-data" action="<%- formaction %>" class="wk-mp-deny-form">
-    <% if (is_seller == TEMPORARILY_SUSPENDED_SELLER_STATUS) { %>
+    <% if (is_seller == SELLER_STATUS_TEMPORARILY_SUSPENDED) { %>
     <div class="modal-body">
         <div class="bootbox-body">
             <input type="hidden" name="seller_id" value="<%- sellerid %>">
@@ -14,7 +14,7 @@
     </div>
     <% } %>
     <!-- Modal reason to deny this seller -->
-    <% if (is_seller != TEMPORARILY_SUSPENDED_SELLER_STATUS) { %>
+    <% if (is_seller != SELLER_STATUS_TEMPORARILY_SUSPENDED) { %>
     <div class="modal-body">
         <div class="bootbox-body">
             <textarea class="bootbox-input bootbox-input-text form-control required-entry" name="seller_deny_reason" rows="4" cols="83"></textarea><br>

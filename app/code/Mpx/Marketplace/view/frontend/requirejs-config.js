@@ -21,6 +21,7 @@ var config = {
     map: {
         '*': {
             sellerOrderShipment: 'Mpx_Marketplace/js/order/shipment',
+            validateEmailExist: 'Mpx_Marketplace/js/validate/validate-email-exist'
         }
     },
 }

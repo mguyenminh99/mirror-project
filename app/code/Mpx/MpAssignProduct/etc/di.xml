@@ -9,4 +9,9 @@
 <config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
         xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
     <preference for="XShoppingSt\MpAssignProduct\Helper\Data" type="Mpx\MpAssignProduct\Helper\Data" />
+    <preference for="XShoppingSt\MpAssignProduct\Helper\Data" type="Mpx\MpAssignProduct\Helper\Data" />
+    <preference for="XShoppingSt\MpAssignProduct\Block\Product\ProductList" type="Mpx\MpAssignProduct\Block\Product\ProductList" />
+    <preference for="XShoppingSt\MpAssignProduct\Observer\AssignSeller" type="Mpx\MpAssignProduct\Observer\AssignSeller" />
+    <preference for="XShoppingSt\MpAssignProduct\Block\Product\AllProducts" type="Mpx\MpAssignProduct\Block\Product\AllProducts" />
+    <preference for="XShoppingSt\MpAssignProduct\Controller\Product\Save" type="Mpx\MpAssignProduct\Controller\Product\Save" />
 </config>

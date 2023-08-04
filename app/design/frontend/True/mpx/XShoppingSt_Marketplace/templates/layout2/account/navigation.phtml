@@ -18,6 +18,7 @@ $productNotificationCount = $block->getProductNotificationCount();
 $orderNotificationCount = $block->getOrderNotificationCount();
 $transactionCount = $block->getTransactionNotificationCount();
 $helper = $this->helper(\XShoppingSt\Marketplace\Helper\Data::class);
+$mpxCommonFunctionHelper = $this->helper(\Mpx\Marketplace\Helper\CommonFunc::class)
 ?>
 <nav data-mage-init='{"XShoppingSt_Marketplace/js/sellerNavigation": {}}' class="wk-mp-menu wk-mp-main">
     <ul id="wk-mp-nav">
@@ -92,11 +93,38 @@ $helper = $this->helper(\XShoppingSt\Marketplace\Helper\Data::class);
             <?php endif; ?>
             <?php if ($_helper->isAllowed('marketplace/account/customer')): ?>
                 <?php if ($_helper->getSellerProfileDisplayFlag()): ?>
-                    <li class="nav item notification-link wk-mp-item-customer level-0 <?= /* @noEscape */ strpos($magentoCurrentUrl, 'marketplace/account/customer')? "current active":"";?>" id="wk-mp-menu-customer" >
+                    <?php if($mpxCommonFunctionHelper->isSubSeller($mpxCommonFunctionHelper->getCustomerId())):?>
+                        <li class="nav item notification-link wk-mp-item-customer level-0 <?= /* @noEscape */ strpos($magentoCurrentUrl, 'marketplace/account/customer')? "current active":"";?>" id="wk-mp-menu-customer" >
                         <a href="<?= $block->escapeUrl($block->getUrl('marketplace/account/customer/', ['_secure' => $this->getRequest()->isSecure()])); ?>" class="<?= /* @noEscape */ strpos($magentoCurrentUrl, 'marketplace/account/customer')? "active":"";?>">
                             <span><?= /* @noEscape */ __('Customers') ?></span>
                         </a>
-                    </li>
+                    <?php else:?>
+                        <li class="wk-mp-item-customer level-0 <?= /* @noEscape */ strpos($magentoCurrentUrl, 'marketplace/account/customer')? "current active":"";?>" id="wk-mp-menu-customer" >
+                            <a href="<?= $block->escapeUrl($block->getUrl('marketplace/account/customer/', ['_secure' => $this->getRequest()->isSecure()])); ?>" class="<?= /* @noEscape */ strpos($magentoCurrentUrl, 'marketplace/account/customer')? "active":"";?>">
+                                <span><?= /* @noEscape */ __('Customers') ?></span>
+                            </a>
+                            <div class="wk-mp-submenu">
+                                <strong class="wk-mp-submenu-title"><?= /* @noEscape */ __('Customers')?></strong>
+                                <a href="#" class="action-close _close" data-role="wk-mp-close-submenu"></a>
+                                <ul>
+                                    <li data-ui-id="menu-x-shopping-st-marketplace-menu" class="item-menu parent level-1">
+                                        <strong class="wk-mp-submenu-group-title">
+                                            <span><?= /* @noEscape */ __('Menu')?></span>
+                                        </strong>
+                                        <div class="wk-mp-submenu">
+                                            <ul>
+                                                <li class="level-2">
+                                                    <a href="<?= $block->escapeUrl($block->getUrl('marketplace/account/customer/', ['_secure' => $this->getRequest()->isSecure()])); ?>">
+                                                        <span><?= /* @noEscape */ __('Customers') ?></span>
+                                                    </a>
+                                                </li>
+                                            </ul>
+                                        </div>
+                                    </li>
+                                </ul>
+                            </div>
+                        </li>
+                    <?php endif;?>
                 <?php endif; ?>
             <?php endif; ?>
             <?php if ($_helper->isAllowed('marketplace/account/earning')): ?>

@@ -18,13 +18,13 @@ class Sellerdeny extends \XShoppingSt\Marketplace\Ui\Component\Listing\Columns\S
         if (isset($dataSource['data']['items'])) {
             $fieldName = $this->getData('name');
             foreach ($dataSource['data']['items'] as &$item) {
-                if($item['is_seller'] == Constant::TEMPORARILY_SUSPENDED_SELLER_STATUS){
+                if($item['is_seller'] == Constant::SELLER_STATUS_TEMPORARILY_SUSPENDED){
                     $item[$fieldName.'_html'] = "<button class='button'><span>".__('Reopen')."</span></button>";
                     $item[$fieldName.'_title'] = __('Do you want to reopen your store?');
                     $item[$fieldName.'_submitlabel'] = __('Reopen');
                     $item[$fieldName.'_cancellabel'] = __('Cancel');
                     $item[$fieldName.'_sellerid'] = $item['seller_id'];
-                    $item[$fieldName.'_temporarily_suspended_status'] = Constant::TEMPORARILY_SUSPENDED_SELLER_STATUS;
+                    $item[$fieldName.'_temporarily_suspended_status'] = Constant::SELLER_STATUS_TEMPORARILY_SUSPENDED;
 
                     $item[$fieldName.'_formaction'] = $this->urlBuilder->getUrl('marketplace/seller/deny');
                 }

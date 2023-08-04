@@ -66,4 +66,10 @@
     <preference for="XShoppingSt\Marketplace\Block\Adminhtml\Items\Column\Name\Seller" type="Mpx\Marketplace\Block\Adminhtml\Items\Column\Name\Seller" />
     <preference for="XShoppingSt\Marketplace\Controller\Product\Ui\MassDelete" type="Mpx\Marketplace\Controller\Product\Ui\MassDelete" />
     <preference for="XShoppingSt\Marketplace\Controller\Seller\Sendmail" type="Mpx\Marketplace\Controller\Seller\Sendmail" />
+    <type name="XShoppingSt\Marketplace\Helper\Data">
+        <plugin name="after_get_customer_id"
+                type="Mpx\Marketplace\Plugin\Customer\AfterGetCustomerId"
+                sortOrder="1" />
+    </type>
+    <preference for="XShoppingSt\Marketplace\Controller\Order\Printpdfinfo" type="Mpx\Marketplace\Controller\Order\Printpdfinfo" />
 </config>

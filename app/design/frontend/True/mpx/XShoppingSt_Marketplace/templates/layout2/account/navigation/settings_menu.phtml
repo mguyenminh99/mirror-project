@@ -38,6 +38,11 @@ $isSellerGroup = $_helper->isSellerGroupModuleInstalled();
                                 </li>
                             <?php } ?>
                         <?php } ?>
+                        <li class="level-2">
+                            <a href="<?= $block->escapeUrl($block->getUrl('mpx/account/createseller', ['_secure' => $this->getRequest()->isSecure()])); ?>">
+                                <span><?= /* @noEscape */ __('Create Sub Account') ?></span>
+                            </a>
+                        </li>
                     </ul>
                 </div>
             </li>
