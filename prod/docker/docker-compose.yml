@@ -1,0 +1,61 @@
+volumes:
+  mysql_data:
+
+networks:
+  x_shopping_st:
+    external: true
+
+services:
+
+  app:
+    build:
+      context: ../../
+      dockerfile: dev/docker/app/Dockerfile
+      args:
+        - HOST_NAME=${HOST_NAME}
+        - UID=${UID}
+        - GID=${GID}
+    hostname: ${HOST_NAME}
+    working_dir: /var/www/html
+    tmpfs: /var/lib/varnish/varnishd:exec
+    volumes:
+      - ./../../:/var/www/html
+    env_file:
+      - .env
+    expose:
+      - 80
+    networks:
+      - x_shopping_st
+    depends_on:
+      - db
+    logging:
+      driver: json-file
+      options:
+        max-size: 10m
+        max-file: '3'
+
+  db:
+    build:
+      context: ./
+      dockerfile: db/Dockerfile
+      args:
+        - UID=${UID}
+        - GID=${GID}
+    hostname: ${MYSQL_HOST}
+    command: mysqld --character-set-server=utf8mb4 --collation-server=utf8mb4_unicode_ci
+    volumes:
+      - ./mysql/initdb:/docker-entrypoint-initdb.d
+      - mysql_data:/var/lib/mysql
+    env_file:
+      - .env
+    ports:
+      - 3306
+    expose:
+      - 3306
+    networks:
+      - x_shopping_st
+    logging:
+      driver: json-file
+      options:
+        max-size: 10m
+        max-file: '3'
