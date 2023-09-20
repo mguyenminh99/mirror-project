@@ -1,0 +1,188 @@
+<?php
+/** @var $block \Mpx\ShipmentInstruction\Block\ShipmentInstruction\Edit */
+
+$shipmentInstructionId=$this->getRequest()->getParam('id');
+$shipmentInstruction = $block->getShipmentInstruction($shipmentInstructionId);
+$orderQty = $block->getOrderQty($shipmentInstruction->getOrderIncrementId(), $shipmentInstruction->getSku());
+$regions = $block->getAllRegions();
+$streetData = explode("\n", $shipmentInstruction->getDestinationStreet());
+$timeSlots = $block->getTimeSlotConfig($shipmentInstruction['seller_id']);
+$currentDateTime = new DateTime()
+?>
+<form action="<?= $block->escapeUrl($block->getUrl('shipmentinstruction/shipmentinstruction/save', ['_secure' => $this->getRequest()->isSecure(), 'form' => 'duplicate'])) ?>" enctype="multipart/form-data" method="post" id="duplicate-shipment-instruction" data-form="duplicate-shipment-instruction" data-mage-init='{"validation":{}}'>
+    <div class="wk-mp-design" id="wk-bodymain">
+        <fieldset class="fieldset info wk-mp-fieldset">
+            <div data-mage-init='{"formButtonAction": {}}' class="wk-mp-page-title legend">
+                <span><?= $block->escapeHtml(__('Duplicate Shipment Instruction')) ?></span>
+                <button class="button wk-mp-btn" title="<?= $block->escapeHtml(__('Save')) ?>" type="submit" id="shipment-instruction-save-btn">
+                    <span><span><?= $block->escapeHtml(__('Save')) ?></span></span>
+                </button>
+            </div>
+            <?= $block->getBlockHtml('formkey')?>
+            <?= $block->getBlockHtml('seller.formkey')?>
+
+            <div class="fieldset wk_mp_fieldset">
+                <strong><span><h3><?= /* @noEscape */ __('Order Number') ?></h3></span></strong>
+                <div class="control">
+                    <?= $shipmentInstruction->getOrderIncrementId(); ?>
+                    <input hidden type="text" class="required-entry input-text" name="entity_id" value="<?= $shipmentInstruction->getEntityId(); ?>"/>
+                    <input hidden onchange="checkOrderedQty()" type="text" class="required-entry input-text" name="order_increment_id" id="name" value="<?= $shipmentInstruction->getOrderIncrementId(); ?>"/>
+                </div>
+            </div>
+
+            <div class="fieldset wk_mp_fieldset">
+                <strong><span><h3><?= /* @noEscape */ __('Product Information') ?></h3></span></strong>
+                <div class="field required">
+                    <label class="label"><?= $block->escapeHtml(__('Product Number')) ?>:</label>
+                    <div class="control">
+                        <?= $shipmentInstruction->getSku(); ?>
+                    </div>
+                </div>
+
+                <div class="field required">
+                    <label class="label"><?= $block->escapeHtml(__('Product Name')) ?>:</label>
+                    <div class="control">
+                        <input type="text" class="required-entry input-text" name="product_name" value="<?= $shipmentInstruction->getProductName(); ?>"/>
+                    </div>
+                </div>
+
+                <div class="field required">
+                    <label class="label"><?= $block->escapeHtml(__('Shipping instruction quantity')) ?>:</label>
+                    <div class="control">
+                        <input type="text" class="required-entry input-text validate-number" name="shipping_instruction_qty" id="name"/>
+                    </div>
+                </div>
+            </div>
+
+            <div class="fieldset wk_mp_fieldset">
+                <strong><span><h3><?= /* @noEscape */ __('Shipping destination info') ?></h3></span></strong>
+                <div class="field required">
+                    <label class="label"><?= $block->escapeHtml(__('Customer name')) ?>:</label>
+                    <div class="control">
+                        <input type="text" class="required-entry input-text" name="customer_name" value="<?= $shipmentInstruction->getDestinationCustomerName();?>"/>
+                    </div>
+                </div>
+
+                <div class="field required">
+                    <label class="label"><?= $block->escapeHtml(__('Zip code')) ?>:</label>
+                    <div class="control">
+                        <input type="text" class="required-entry input-text validate-postcode" name="destination_postcode" value="<?= $shipmentInstruction->getDestinationPostcode();?>"/>
+                    </div>
+                </div>
+
+                <div class="field required">
+                    <label class="label"><?= $block->escapeHtml(__('Customer Region')) ?>:</label>
+                    <div class="control">
+                        <div class="control">
+                            <select id="region_id" name="region_id" title="<?= __('State/Province')?>" class="validate-select region_id required-entry" style="" aria-required="true" defaultvalue="0">
+                                <option value=""><?= /* @noEscape */ __('Please select a region, state or province.') ?></option>
+                                <?php foreach ($regions as $region):?>
+                                    <option <?=($region['name'] == $shipmentInstruction->getDestinationRegion()) ? "selected" : ''?> value="<?=$region['name'];?>"><?=$region['name'];?></option>
+                                <?php endforeach;?>
+                                <input type="text" id="region" name="region" value="" title="<?= __('State/Province')?>" class="input-text" style="display:none;" autocomplete="off" aria-required="true">
+                        </div>
+                    </div>
+                </div>
+
+                <div class="field required">
+                    <label class="label"><?= $block->escapeHtml(__('Customer City')) ?>:</label>
+                    <div class="control">
+                        <input type="text" class="required-entry input-text" name="customer_city" value="<?= $shipmentInstruction->getDestinationCity();?>"/>
+                    </div>
+                </div>
+
+                <div class="field required">
+                    <label class="label"><?= $block->escapeHtml(__('Customer Street')) ?>:</label>
+                    <div class="control">
+                        <input type="text" class="required-entry input-text" name="customer_street[]" value="<?= !empty($streetData[0]) ? $streetData[0] : " ";?>"/>
+                    </div>
+                </div>
+
+                <div class="field">
+                    <label class="label"><?= $block->escapeHtml(__('Customer Room Number')) ?>:</label>
+                    <div class="control">
+                        <input type="text" class="required-entry input-text" name="customer_street[]" value="<?= !empty($streetData[1]) ? $streetData[1] : "" ;?>"/>
+                    </div>
+                </div>
+
+                <div class="field">
+                    <label class="label"><?= $block->escapeHtml(__('Delivery Company')) ?>:</label>
+                </div>
+
+                <div class="field">
+                    <label class="label"><?= $block->escapeHtml(__('Invoice Type')) ?>:</label>
+                </div>
+
+                <div class="field">
+                    <label class="label"><?= $block->escapeHtml(__('Estimated ship date')) ?>:</label>
+                </div>
+
+                <table class="table time-slot">
+                    <thead>
+                    <tr>
+                        <th class="desired_shipping_date_time" data-bind="i18n: 'Date/Day'" style="text-align:center"><?= $block->escapeHtml(__('Desired shipping date time')) ?></th>
+                        <th class="desired_shipping_date_time" data-bind="i18n: 'Delivery Time Slots'"><?= $block->escapeHtml(__('Desired shipping date time')) ?></th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr class="slot-row">
+                        <td>
+                            <select name="desired_delivery_date">
+                                <option value=""><?=$block->escapeHtml(__('None')) ?></option>
+                                <?php for ($count = 0; $count < $block->getMaxDaysTimeSlotConfig(); $count++) { $dataDate = date('Y-m-d', strtotime($block->getStartDayShip(). ' + '.$count.' days')); ?>
+                                    <option <?= ($dataDate == $shipmentInstruction->getDesiredDeliveryDate()) ? "selected" : "";?> value="<?=$dataDate?>"><?= date('Y年m月d日', strtotime($block->getStartDayShip(). ' + '.$count.' days')); ?></option>
+                                <?php } ?>
+                            </select>
+                        </td>
+                        <td>
+                            <select name="desired_delivery_time">
+                                <option value=""><?=$block->escapeHtml(__('None')) ?></option>
+                                <?php foreach ($timeSlots as $slot) : $dataTime = $block->getFormatTime($slot->getStartTime()) . " - " . $block->getFormatTime($slot->getEndTime());?>
+                                    <?php if (new DateTime($shipmentInstruction->getDesiredDeliveryDate()) > $currentDateTime && $slot->getEndTime() > $currentDateTime->format('H:i')): ?>
+                                        <option <?=($dataTime == $shipmentInstruction->getDesiredDeliveryTime()) ? "selected" : "";?> value="<?=$dataTime?>"><?=$dataTime;?></option>
+                                    <?php else: ?>
+                                        <option value=""><?=$block->escapeHtml(__('None')) ?></option>
+                                    <?php endif ?>
+                                <?php endforeach;?>
+                            </select>
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+
+            </div>
+
+            <div class="fieldset wk_mp_fieldset">
+                <strong><span><h3><?= /* @noEscape */ __('Last update datetime') ?></h3></span></strong>
+            </div>
+
+            <div class="fieldset wk_mp_fieldset">
+                <strong><span><h3><?= /* @noEscape */ __('Created datetime') ?></h3></span></strong>
+            </div>
+
+        </fieldset>
+    </div>
+</form>
+<div class="buttons-set">
+    <p class="back-link">
+        <a href="<?= $block->getUrl('shipmentinstruction/shipmentinstruction/index') ?>" class="left">&laquo; <?= /* @noEscape */ __('Back to Shipping Instruction List') ?></a>
+    </p>
+</div>
+
+<script>
+    require([
+        "jquery",
+        "XShoppingSt_Marketplace/catalog/type-events"
+    ], function($, TypeSwitcher){
+        var $form = $('[data-form=edit-product]');
+        $form.data('typeSwitcher', TypeSwitcher.init());
+    });
+</script>
+<script type="text/x-magento-init">
+    {
+        "*": {
+            "XShoppingSt_Marketplace/js/product/weight-handler": {},
+            "XShoppingSt_Marketplace/catalog/apply-to-type-switcher": {}
+        }
+    }
+</script>

@@ -166,7 +166,7 @@ class CommonFunc extends AbstractHelper
     }
 
     /**
-     * Get Marketplace Name
+     * Get Marketplace NameMarketplace Mass Upload
      *
      * @return mixed
      */

@@ -10,6 +10,7 @@
 
 $helper = $this->helper(\XShoppingSt\Marketplace\Helper\Data::class);
 $orderHelper = $this->helper(\XShoppingSt\Marketplace\Helper\Orders::class);
+$shipmentHelper = $this->helper(\Mpx\ShipmentInstruction\Helper\Data::class);
 $orderId = $this->getRequest()->getParam('id');
 $order = $block->getOrder();
 $items = $order->getItems();
@@ -173,7 +174,19 @@ if (count($marketplaceOrders)) {
                             </a>
                             <?php
                         } ?>
-
+                        <?php if($shipmentHelper->canCreateShipmentInstruction($order)) : ?>
+                            <a data-url = "<?=$block->escapeUrl($block->getUrl('shipmentinstruction/shipmentinstruction/create', ['orderId' => $orderId,'increment_id' => $order->getIncrementId(), '_secure' => $this->getRequest()->isSecure()]))?>"
+                                <?php if(($order->getOrderStatus() != 'pending') || ($order->getOrderState() != 'new')) :?>
+                                    id="createShipmentInstructionBtn"
+                                <?php endif;?>
+                               class="action">
+                                <button class="button wk-mp-btn" title="<?= /* @noEscape */
+                                __('Create Shipping Instruction for Order') ?>" type="button" id="mp-create-shipment-btn">
+                                    <span><span><?= /* @noEscape */
+                                            __('Shipping Instruction') ?></span></span>
+                                </button>
+                            </a>
+                        <?php endif;?>
                     </div>
                 </div>
             </div>
@@ -414,6 +427,12 @@ if (count($marketplaceOrders)) {
                 __('Back To My Orders') ?></a>
         </p>
     </div>
+
+    <div id="modal-content">
+        <div class="modal-inner-content">
+            <p><?=  /* @noEscape */ __("Please check the status of your order. If there is no problem, click the create button to create shipping instruction data.")?></p>
+        </div>
+    </div>
     <script>
         require([
             "jquery",
@@ -437,5 +456,17 @@ if (count($marketplaceOrders)) {
             }
         }
     </script>
+    <script type="text/x-magento-init">
+        {
+            "*": {
+                "shipmentInstructionWarning": {
+                    "shipmentTitle" : "<?= __('Shipping Instruction Warning')?>",
+                    "buttonCancel" : "<?= __('Cancel')?>",
+                    "buttonCreate" : "<?= __('Create Instruction Data')?>"
+                }
+            }
+        }
+    </script>
+
     <?php
 }

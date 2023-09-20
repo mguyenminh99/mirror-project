@@ -1,0 +1,45 @@
+{
+    "sales_shipment_instruction": {
+        "column": {
+            "entity_id": true,
+            "seller_id": true,
+            "increment_order_id": true,
+            "sku": true,
+            "product_name": true,
+            "instructed_qty": true,
+            "destination_customer_name": true,
+            "destination_postcode": true,
+            "destination_region": true,
+            "destination_city": true,
+            "destination_street": true,
+            "destination_telephone": true,
+            "desired_delivery_date": true,
+            "desired_delivery_time": true,
+            "carrier_code": true,
+            "shipping_label_type": true,
+            "csv_export_id": true,
+            "scheduled_shipping_date": true,
+            "created_at": true,
+            "updated_at": true
+        },
+        "index": {
+            "SALES_SHIPMENT_INSTRUCTION_SKU": true,
+            "SALES_SHIPMENT_INSTRUCTION_INCREMENT_ORDER_ID": true,
+            "SALES_SHIPMENT_INSTRUCTION_CSV_EXPORT_ID": true
+        },
+        "constraint": {
+            "PRIMARY": true
+        }
+    },
+    "sales_shipment_shipping_label_export_history": {
+        "column": {
+            "entity_id": true,
+            "carrier_code": true,
+            "format": true,
+            "created_at": true
+        },
+        "constraint": {
+            "PRIMARY": true
+        }
+    }
+}

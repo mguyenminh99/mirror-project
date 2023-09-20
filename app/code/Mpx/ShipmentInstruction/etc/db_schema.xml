@@ -1,0 +1,48 @@
+<schema xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:framework:Setup/Declaration/Schema/etc/schema.xsd">
+    <table name="sales_shipment_instruction" resource="default" engine="innodb"
+           comment="出荷指示データを管理">
+        <column xsi:type="int" name="entity_id" unsigned="true" nullable="false" identity="true" comment="auto_increment ID"/>
+        <column xsi:type="int" name="seller_id" unsigned="true" nullable="false" comment="ストアID"/>
+        <column xsi:type="varchar" length="32" name="increment_order_id" nullable="true" comment="sales_order_item.increment_order_id 注文番号"/>
+        <column xsi:type="varchar" length="255" name="sku" nullable="false" comment="sales_order_item.sku 商品番号"/>
+        <column xsi:type="varchar" length="255" name="product_name" nullable="false" comment="sales_order_item.name 商品名称"/>
+        <column xsi:type="int" unsigned="true" name="instructed_qty" nullable="false" comment="出荷指示数"/>
+        <column xsi:type="varchar" length="255" name="destination_customer_name" nullable="false" comment="顧客姓 sales_order_address.customer_lastname + sales_order_address.customer_firstname"/>
+        <column xsi:type="varchar" length="255" name="destination_postcode" nullable="false" comment="出荷先郵便番号 sales_order_address.postcode"/>
+        <column xsi:type="varchar" length="255" name="destination_region" nullable="false" comment="出荷先都道府県名 sales_order_address.region"/>
+        <column xsi:type="varchar" length="255" name="destination_city" nullable="false" comment="出荷先市区町村 sales_order_address.city"/>
+        <column xsi:type="varchar" length="255" name="destination_street" nullable="false" comment="出荷先 番地 + 建物名 + 部屋番号 sales_order_address.street"/>
+        <column xsi:type="varchar" length="255" name="destination_telephone" nullable="false" comment="出荷先電話番号 sales_order_address.telephone"/>
+        <column xsi:type="date" name="desired_delivery_date" nullable="true" comment="sales_order_item.delivery_date 配送希望日"/>
+        <column xsi:type="varchar" length="255" name="desired_delivery_time" nullable="true" comment="sales_order_item.delivery_time 配送希望時間"/>
+        <column xsi:type="varchar" length="8" name="carrier_code" nullable="false" comment="配送会社名(YAMATO : ヤマト運輸)"/>
+        <column xsi:type="varchar" length="255" name="shipping_label_type" nullable="false" comment="送り状の種類(配送会社には発払いや代引き用など複数の送り状が用意されている)"/>
+        <column xsi:type="int" unsigned="true" name="csv_export_id" nullable="true" comment="sales_shipment_instruction_csv_export_history.entity_id"/>
+        <column xsi:type="timestamp" name="scheduled_shipping_date" nullable="true" comment="出荷予定日"/>
+        <column xsi:type="timestamp" name="created_at" nullable="false" default="CURRENT_TIMESTAMP" comment="データ作成日"/>
+        <column xsi:type="timestamp" name="updated_at" nullable="true"  comment="データ更新日"/>
+        <constraint xsi:type="primary" referenceId="PRIMARY">
+            <column name="entity_id"/>
+        </constraint>
+        <index referenceId="SALES_SHIPMENT_INSTRUCTION_SKU" indexType="btree">
+            <column name="sku"/>
+        </index>
+        <index referenceId="SALES_SHIPMENT_INSTRUCTION_INCREMENT_ORDER_ID" indexType="btree">
+            <column name="increment_order_id"/>
+        </index>
+        <index referenceId="SALES_SHIPMENT_INSTRUCTION_CSV_EXPORT_ID" indexType="btree">
+            <column name="csv_export_id"/>
+        </index>
+    </table>
+
+    <table name="sales_shipment_shipping_label_export_history" resource="default" engine="innodb" comment="sales_shipment_shipping_label_export_history">
+        <column xsi:type="int" name="entity_id" unsigned="true" nullable="false" identity="true" comment="auto_increment(csv_export_id)"/>
+        <column xsi:type="varchar" length="8" name="carrier_code" nullable="false" comment="配送会社名(YAMATO : ヤマト運輸)"/>
+        <column xsi:type="varchar" length="64" name="format" nullable="false" comment="ファイルのフォーマット(B2クラウド)"/>
+        <column xsi:type="timestamp" name="created_at" nullable="false" default="CURRENT_TIMESTAMP" comment="データ作成日"/>
+        <constraint xsi:type="primary" referenceId="PRIMARY">
+            <column name="entity_id"/>
+        </constraint>
+    </table>
+</schema>
