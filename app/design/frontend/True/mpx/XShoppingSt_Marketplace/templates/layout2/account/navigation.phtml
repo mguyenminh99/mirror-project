@@ -31,6 +31,53 @@ $mpxCommonFunctionHelper = $this->helper(\Mpx\Marketplace\Helper\CommonFunc::cla
                 </li>
             <?php endif; ?>
             <?php
+            $shipmentInsActions = ["shipmentinstruction/shipmentinstruction/index", "shipmentinstruction/shipmentexporthistory/index"];
+            ?>
+            <?php if ($_helper->isAllowed($shipmentInsActions)):  ?>
+                <li class="wk-mp-item-product level-0 <?= /* @noEscape */ strpos($magentoCurrentUrl, 'shipmentinstruction/')? "current active":"";?>" id="wk-mp-menu-product">
+                    <a href="#" onclick="return false;" class="">
+                        <span><?= /* @noEscape */ __('Shipment')?></span>
+                    </a>
+                    <div class="wk-mp-submenu">
+                        <strong class="wk-mp-submenu-title"><?= /* @noEscape */ __('Shipment')?></strong>
+                        <a href="#" class="action-close _close" data-role="wk-mp-close-submenu"></a>
+                        <ul>
+                            <li data-ui-id="menu-x-shopping-st-marketplace-menu" class="item-menu parent level-1">
+                                <strong class="wk-mp-submenu-group-title">
+                                    <span><?= /* @noEscape */ __('Menu')?></span>
+                                </strong>
+                                <div class="wk-mp-submenu">
+                                    <ul>
+                                        <?php if (($isSellerGroup && $helper->isAllowedAction('shipmentinstruction/shipmentinstruction/index')) ||
+                                            !$isSellerGroup) { ?>
+                                            <li class="level-2">
+                                                <a href="<?= $block->escapeHtml($block->getUrl(
+                                                    'shipmentinstruction/shipmentinstruction/index',
+                                                    ['_secure' => $block->getRequest()->isSecure()]
+                                                )); ?>">
+                                                    <span><?= $block->escapeHtml(__('Shipping Instruction List'))?></span>
+                                                </a>
+                                            </li>
+                                        <?php } ?>
+                                        <?php if (($isSellerGroup && $helper->isAllowedAction('shipmentinstruction/shipmentexporthistory/index')) ||
+                                            !$isSellerGroup) { ?>
+                                            <li class="level-2">
+                                                <a href="<?= $block->escapeHtml($block->getUrl(
+                                                    'shipmentinstruction/shipmentexporthistory/index',
+                                                    ['_secure' => $block->getRequest()->isSecure()]
+                                                )); ?>">
+                                                    <span><?= $block->escapeHtml(__('CSV output for invoice labels'))?></span>
+                                                </a>
+                                            </li>
+                                        <?php } ?>
+                                    </ul>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+                </li>
+            <?php endif; ?>
+            <?php
             $actions = ["marketplace/product/add", "marketplace/product/productlist", "marketplace/product_attribute/new"];
             ?>
             <?php if ($_helper->isAllowed($actions)): ?>

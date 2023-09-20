@@ -1,0 +1,16 @@
+<?xml version="1.0"?>
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" layout="seller-2columns-left" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+    <head>
+        <css src="jquery/fileUploader/css/jquery.fileupload-ui.css"/>
+    </head>
+    <body>
+        <referenceBlock name="seller.page.main.title">
+            <action method="setPageTitle">
+                <argument translate="true" name="title" xsi:type="string">Duplicate Shipment Instruction</argument>
+            </action>
+        </referenceBlock>
+        <referenceContainer name="seller.content">
+            <block class="Mpx\ShipmentInstruction\Block\ShipmentInstruction\Edit" name="mpx_shipment_instruction_duplicate" template="Mpx_ShipmentInstruction::shipmentinstruction/duplicate.phtml" cacheable="false"/>
+        </referenceContainer>
+    </body>
+</page>

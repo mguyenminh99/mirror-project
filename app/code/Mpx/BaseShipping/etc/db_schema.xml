@@ -1,0 +1,8 @@
+<?xml version="1.0"?>
+<schema xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:Setup/Declaration/Schema/etc/schema.xsd">
+    <table name="marketplace_shipping_setting" resource="default" engine="innodb" comment="marketplace_shipping_setting">
+        <column xsi:type="varchar" name="b2cloud_billing_customer_code" nullable="true" comment="B2cloud Billing customer code"/>
+        <column xsi:type="varchar" name="b2cloud_billing_classification_code" nullable="true" comment="B2cloud Billing classification code"/>
+        <column xsi:type="varchar" name="b2cloud_fare_control_number" nullable="true" comment="B2cloud Fare control number"/>
+    </table>
+</schema>

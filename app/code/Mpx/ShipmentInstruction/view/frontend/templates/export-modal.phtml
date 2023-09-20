@@ -1,0 +1,40 @@
+<?php
+/** @var \Mpx\ShipmentInstruction\Block\Export\CsvExportModal $block */
+?>
+<div id="custom-export-modal" style="display: none;">
+    <form action="#" method="post" id="csv_setting_detail" style="padding-top: 15px">
+        <label for="format"><?=__('CSV Format')?></label>
+        <select name="csv_format" id="csv_format">
+            <option value="yamato" selected="selected"><?=__('Yamato B2 Cloud')?></option>
+        </select>
+        <br><br>
+        <label for="delivery_format"><?=__('Delivery request format')?></label>
+        <select name="delivery_format" id="delivery_format">
+            <option value="0" selected="selected"><?=__('Prepayment')?></option>
+            <option value="2"><?=__('Collect')?></option>
+            <option value="3"><?=__('DM service')?></option>
+            <option value="4"><?=__('Time')?></option>
+            <option value="5"><?=__('COD')?></option>
+            <option value="6"><?=__('Prepayment (multi accounts)')?></option>
+            <option value="7"><?=__('Nekoposu')?></option>
+            <option value="8"><?=__('Fast delivery compact')?></option>
+            <option value="9"><?=__('Fast delivery compact collect')?></option>
+        </select>
+        <br><br>
+        <label for="estimated_ship_date"><?=__('Estimated ship date')?></label>
+        <input type="date" name="estimated_ship_date" id="estimated_shipping_date" min="<?= $block->getCurrenDate() ?>"
+               value="<?= $block->isShipmentInsExportedPage() ? date('Y-m-d', strtotime($block->getEstimatedShipDate())) : $block->getCurrenDate() ?>">
+        <br><br>
+    </form>
+</div>
+
+<script type="text/x-magento-init">
+    {
+        "*": {
+            "exportModal": {
+                "isShipmentInsExportedPage" : "<?= $block->isShipmentInsExportedPage() ?>",
+                "deliveryFormat" : "<?= $block->getDeliveryFormat() ?>"
+            }
+        }
+    }
+</script>
