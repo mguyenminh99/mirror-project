@@ -33,6 +33,8 @@
     <preference for="XShoppingSt\Marketplace\Model\ResourceModel\Saleslist\Collection" type="Mpx\Marketplace\Model\ResourceModel\Saleslist\Collection" />
     <preference for="XShoppingSt\Marketplace\Controller\Order\Shipment" type="Mpx\Marketplace\Controller\Order\Shipment" />
     <preference for="XShoppingSt\Marketplace\Model\Order\Pdf\Shipment" type="Mpx\Marketplace\Model\Order\Pdf\Shipment" />
+    <preference for="XShoppingSt\Marketplace\Model\Order\Pdf\Invoice" type="Mpx\Marketplace\Model\Order\Pdf\Invoice" />
+    <preference for="Magento\Sales\Model\Order\Pdf\Items\Invoice\DefaultInvoice" type="Mpx\Marketplace\Model\Order\Pdf\Items\Invoice\DefaultInvoice" />
     <preference for="XShoppingSt\Marketplace\Model\Plugin\Order\ShipmentPdfHeader" type="Mpx\Marketplace\Model\Plugin\Order\ShipmentPdfHeader" />
     <type name="XShoppingSt\Marketplace\Controller\Product\Verifysku">
         <plugin name="format_sku_before_check_sku_exist"
