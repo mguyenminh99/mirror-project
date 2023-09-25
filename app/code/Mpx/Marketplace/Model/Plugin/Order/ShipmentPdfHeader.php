@@ -25,7 +25,8 @@ class ShipmentPdfHeader extends \XShoppingSt\Marketplace\Model\Plugin\Order\Ship
                                                      $page,
                                                      $text
     ) {
-        $shipmentIncrementedId = '';
+        $shipmentArr = explode(__('Packing Slip # '), $text);
+        $shipmentIncrementedId = $shipmentArr[1];
         $shipment = $this->shipment->loadByIncrementId($shipmentIncrementedId);
         $payment = $shipment->getOrder()->getPayment();
         if (!empty($payment->getMethodInstance())) {

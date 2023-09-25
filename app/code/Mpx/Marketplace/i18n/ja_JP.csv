@@ -61,3 +61,9 @@
 "Please enter your password","パスワードを入力してください。"
 "Password must be 8 or more alphanumeric characters.","パスワードは８文字以上の英数字で入力してください。"
 "Email address is already registered.","メールアドレスが既に登録されています。"
+"Print Invoice Slip","請求書出力"
+"Print Shipping Slip","納品書出力"
+"Are you sure you want to print invoice slip of selected order(s)?","選択した注文の請求書を発行しますか?"
+"record","件"
+"Are you sure you want to print shipping slip of selected order(s)?","選択した注文の納品書を発行しますか?"
+"${ $.visible } out of ${ $.total } visible","${ $.total } 件表示",module,Mpx_Marketplace

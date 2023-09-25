@@ -53,7 +53,7 @@ class Shipment extends \XShoppingSt\Marketplace\Model\Order\Pdf\Shipment
                 )
             );
             /* Add document text and number */
-            $this->insertDocumentNumber($page,__(''));
+            $this->insertDocumentNumber($page, __('Packing Slip # ') . $shipment->getIncrementId());
             /* Add table */
             $this->_drawHeader($page);
             /* Add body */
@@ -108,7 +108,7 @@ class Shipment extends \XShoppingSt\Marketplace\Model\Order\Pdf\Shipment
             $sellerPdfPage->drawText(
                 __('Order # ') . $sellerOrder->getRealOrderId(),
                 35,
-                $top -= 18,
+                $top -= 30,
                 'UTF-8'
             );
         }
