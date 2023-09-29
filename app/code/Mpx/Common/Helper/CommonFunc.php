@@ -3,12 +3,29 @@
 namespace Mpx\Common\Helper;
 
 use Magento\Framework\App\Helper\AbstractHelper;
+use Magento\Framework\App\Helper\Context;
+use Mpx\ShipmentInstruction\Helper\Constant;
+use XShoppingSt\Marketplace\Helper\Data;
 
 /**
  * Common function class used from multiple modules
  */
 class CommonFunc extends AbstractHelper
 {
+    /**
+     * @var XShoppingSt\Marketplace\Helper\Data
+     */
+    protected $helperData;
+
+    public function __construct(
+        Data $helperData,
+        Context $context
+    )
+    {
+        $this->helperData = $helperData;
+        parent::__construct($context);
+    }
+
     /**
      * Check if number is decimal
      *
@@ -38,4 +55,11 @@ class CommonFunc extends AbstractHelper
         }
         return false;
     }
+
+    /**
+     * @return bool
+     */
+    public function isSellerStatusOpenning(){
+        return ( $this->helperData->isSeller() == Constant::SELLER_STATUS_OPENNING );
+  }
 }

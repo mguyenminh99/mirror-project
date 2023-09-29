@@ -48,3 +48,8 @@
 "Seller Account Information","ストア情報"
 "Set the maximum number of stores that can be registered within the range of 1 to 999.","登録できるストアの上限数は1 ~ 999の範囲で設定してください"
 "We'll email you a link to reset your password.",パスワードをリセットするためのリンクをメールで送信しました。
+"Shipping Amount",送料
+"Changing address information will not recalculate shipping, tax or other order amount.",住所情報を変更しても、送料や税金、その他の情報は変更されません。
+"Shipping & Handling (Excl.Tax)","送料 (税抜)"
+"Shipping & Handling (Incl.Tax)","送料 (税込)"
+"Shipping Prices",送料

@@ -1,0 +1,28 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="../../../../../lib/internal/Magento/Framework/ObjectManager/etc/config.xsd">
+    <type name="Magento\Framework\View\Element\UiComponent\DataProvider\CollectionFactory">
+        <arguments>
+            <argument name="collections" xsi:type="array">
+                <item name="mpx_shipment_instruction_listing_data_source" xsi:type="string">Mpx\ShipmentInstruction\Model\ResourceModel\ShipmentInstruction\Grid\Collection</item>
+                <item name="mpx_shipment_export_history_listing_data_source" xsi:type="string">Mpx\ShipmentInstruction\Model\ResourceModel\ShippingExportHistory\Grid\Collection</item>
+            </argument>
+        </arguments>
+    </type>
+    <type name="Mpx\ShipmentInstruction\Model\ResourceModel\ShipmentInstruction\Grid\Collection">
+        <arguments>
+            <argument name="mainTable" xsi:type="string">sales_shipment_instruction</argument>
+            <argument name="eventPrefix" xsi:type="string">marketplace_orders_grid_collection</argument>
+            <argument name="eventObject" xsi:type="string">orders_grid_collection</argument>
+            <argument name="resourceModel" xsi:type="string">Mpx\ShipmentInstruction\Model\ResourceModel\ShipmentInstruction</argument>
+        </arguments>
+    </type>
+    <type name="Mpx\ShipmentInstruction\Model\ResourceModel\ShippingExportHistory\Grid\Collection">
+        <arguments>
+            <argument name="mainTable" xsi:type="string">sales_shipment_shipping_label_export_history</argument>
+            <argument name="eventPrefix" xsi:type="string">mpx_shipping_export_history_grid_collection</argument>
+            <argument name="eventObject" xsi:type="string">mpx_shipping_export_history_grid_collection</argument>
+            <argument name="resourceModel" xsi:type="string">Mpx\ShipmentInstruction\Model\ResourceModel\ShippingExportHistory</argument>
+        </arguments>
+    </type>
+    <preference for="Mpx\ShipmentInstruction\Api\ShipmentInstructionRepositoryInterface" type="Mpx\ShipmentInstruction\Model\ShipmentInstructionRepository"/>
+</config>

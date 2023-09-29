@@ -17,7 +17,8 @@
       method="post"
       id="form-validate"
       enctype="multipart/form-data"
-      data-hasrequired="<?= $block->escapeHtmlAttr(__('* Required Fields')) ?>">
+      data-hasrequired="<?= $block->escapeHtmlAttr(__('* Required Fields')) ?>"
+      data-mage-init='{"validation":{}}'>
 
     <div class="wk-mp-page-title page-title">
         <h2 class="legend"><?= /* @noEscape */ __('Shipping Origin Address') ?></h2>
@@ -115,10 +116,51 @@
             </div>
         <?php endfor; ?>
 
-        <div class="field country required">
-            <label class="label" for="country"><span><?= $block->escapeHtml(__('Country')) ?></span></label>
-            <div class="control">
-                <?= $block->getCountryHtmlSelect() ?>
+        <div hidden>
+            <select name="country_id" id="country" class="required-entry" title="country" data-validate="{'validate-select':true}" aria-required="true">
+                <option value="JP" selected="selected"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">Japan</font></font></option>
+            </select>
+        </div>
+        <div class="fieldset wk_mp_fieldset">
+            <strong><span><h3><?= /* @noEscape */ __('B2Cloud') ?></h3></span></strong>
+            <div class="field customer_code">
+                <label class="label" for="customer_code">
+                    <span><?= $block->escapeHtml(__('B2cloud Billing customer code')) ?></span>
+                </label>
+                <div class="control">
+                    <input type="text"
+                           name="b2cloud_billing_customer_code"
+                           value="<?= $block->escapeHtmlAttr($block->getAddress()->getData('b2cloud_billing_customer_code')) ?>"
+                           title="<?= $block->escapeHtmlAttr(__('B2cloud Billing customer code')) ?>"
+                           id="customer_code"
+                           class="input-text"/>
+                </div>
+            </div>
+            <div class="field classification_code">
+                <label class="label" for="classification_code">
+                    <span><?= $block->escapeHtml(__('B2cloud Billing classification code')) ?></span>
+                </label>
+                <div class="control">
+                    <input type="text"
+                           name="b2cloud_billing_classification_code"
+                           value="<?= $block->escapeHtmlAttr($block->getAddress()->getData('b2cloud_billing_classification_code')) ?>"
+                           title="<?= $block->escapeHtmlAttr(__('B2cloud Billing classification code')) ?>"
+                           id="classification_code"
+                           class="input-text"/>
+                </div>
+            </div>
+            <div class="field fare_control_number">
+                <label class="label" for="fare_control_number">
+                    <span><?= $block->escapeHtml(__('B2cloud Fare control number')) ?></span>
+                </label>
+                <div class="control">
+                    <input type="text"
+                           name="b2cloud_fare_control_number"
+                           value="<?= $block->escapeHtmlAttr($block->getAddress()->getData('b2cloud_fare_control_number')) ?>"
+                           title="<?= $block->escapeHtmlAttr(__('B2cloud Fare control number')) ?>"
+                           id="fare_control_number"
+                           class="input-text"/>
+                </div>
             </div>
         </div>
     </fieldset>

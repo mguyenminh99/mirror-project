@@ -1,0 +1,145 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<listing xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Ui:etc/ui_configuration.xsd">
+    <argument name="data" xsi:type="array">
+        <item name="js_config" xsi:type="array">
+            <item name="provider" xsi:type="string">mpx_shipment_instruction_un_exported_listing.mpx_shipment_instruction_listing_data_source</item>
+            <item name="deps" xsi:type="string">mpx_shipment_instruction_un_exported_listing.mpx_shipment_instruction_listing_data_source</item>
+        </item>
+        <item name="spinner" xsi:type="string">mpx_shipment_instruction_un_exported_listing_columns</item>
+    </argument>
+    <dataSource name="mpx_shipment_instruction_listing_data_source">
+        <argument name="dataProvider" xsi:type="configurableObject">
+            <argument name="class" xsi:type="string">Magento\Framework\View\Element\UiComponent\DataProvider\DataProvider</argument>
+            <argument name="name" xsi:type="string">mpx_shipment_instruction_listing_data_source</argument>
+            <argument name="primaryFieldName" xsi:type="string">entity_id</argument>
+            <argument name="requestFieldName" xsi:type="string">id</argument>
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="component" xsi:type="string">XShoppingSt_Marketplace/js/grid/provider</item>
+                    <item name="update_url" xsi:type="url" path="marketplace/mui_index/render"/>
+                    <item name="storageConfig" xsi:type="array">
+                        <item name="indexField" xsi:type="string">entity_id</item>
+                    </item>
+                </item>
+            </argument>
+        </argument>
+    </dataSource>
+    <listingToolbar name="listing_top">
+        <columnsControls name="columns_controls"/>
+        <exportButton name="export_button" class="Mpx\ShipmentInstruction\Ui\Component\Listing\ExportButton" component="Mpx_ShipmentInstruction/js/grid/export">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="template" xsi:type="string">Mpx_ShipmentInstruction/grid/exportButton</item>
+                    <item name="options" xsi:type="array">
+                        <item name="cvs" xsi:type="array">
+                            <item name="url" xsi:type="string">shipmentinstruction/mui_export/gridToCsv</item>
+                        </item>
+                    </item>
+                    <item name="selectProvider" xsi:type="string">mpx_shipment_instruction_un_exported_listing.mpx_shipment_instruction_un_exported_listing.mpx_shipment_instruction_un_exported_listing_columns.ids</item>
+                </item>
+            </argument>
+        </exportButton>
+        <filters name="listing_filters" component="Mpx_ShipmentInstruction/js/grid/filters/filters">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="statefull" xsi:type="array">
+                        <item name="applied" xsi:type="boolean">false</item>
+                    </item>
+                    <item name="params" xsi:type="array">
+                        <item name="filters_modifier" xsi:type="array" />
+                    </item>
+                </item>
+            </argument>
+        </filters>
+        <paging name="listing_paging"/>
+    </listingToolbar>
+    <columns name="mpx_shipment_instruction_un_exported_listing_columns">
+        <selectionsColumn name="ids" component="Mpx_ShipmentInstruction/js/grid/columns/multiselect">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="indexField" xsi:type="string">entity_id</item>
+                </item>
+            </argument>
+        </selectionsColumn>
+        <column name="increment_order_id">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="filter" xsi:type="string">text</item>
+                    <item name="label" xsi:type="string" translate="true">Order Number</item>
+                </item>
+            </argument>
+        </column>
+        <column name="sku" class="Mpx\ShipmentInstruction\Ui\Component\Listing\Column\RemovePrefixOnSku">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="label" xsi:type="string" translate="true">Product Number</item>
+                </item>
+            </argument>
+        </column>
+        <column name="product_name">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="label" xsi:type="string" translate="true">Shipment Product Name</item>
+                </item>
+            </argument>
+        </column>
+        <column name="instructed_qty">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="label" xsi:type="string" translate="true">Shipping instruction quantity</item>
+                </item>
+            </argument>
+        </column>
+        <column name="destination_customer_name">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="label" xsi:type="string" translate="true">Shipping destination name</item>
+                </item>
+            </argument>
+        </column>
+        <column name="destination_postcode">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="label" xsi:type="string" translate="true">Shipping destination postcode</item>
+                </item>
+            </argument>
+        </column>
+        <column name="destination_region" class="Mpx\ShipmentInstruction\Ui\Component\Listing\Column\ShippingDestinationAddress">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="sortable" xsi:type="boolean">false</item>
+                    <item name="label" xsi:type="string" translate="true">Shipping destination address</item>
+                </item>
+            </argument>
+        </column>
+        <column name="destination_telephone">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="label" xsi:type="string" translate="true">Shipping destination phone number</item>
+                </item>
+            </argument>
+        </column>
+        <column name="desired_delivery_date" class="Mpx\ShipmentInstruction\Ui\Component\Listing\Column\ShippingDate">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="label" xsi:type="string" translate="true">Shipping date time</item>
+                </item>
+            </argument>
+        </column>
+        <column name="updated_at" class="Magento\Ui\Component\Listing\Columns\Date">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="label" xsi:type="string" translate="true">Shipping instruction data last update date and time</item>
+                </item>
+            </argument>
+        </column>
+        <column name="created_at" class="Magento\Ui\Component\Listing\Columns\Date">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="filter" xsi:type="string">dateRange</item>
+                    <item name="label" xsi:type="string" translate="true">Shipping instruction data creation date and time</item>
+                </item>
+            </argument>
+        </column>
+    </columns>
+</listing>
