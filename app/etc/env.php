@@ -1,7 +1,7 @@
 <?php
 return [
     'backend' => [
-        'frontName' => getenv('BACKEND_FRONTNAME')
+        'frontName' => getenv('ADMIN_PAGE_SLUG')
     ],
     'remote_storage' => [
         'driver' => 'file'
