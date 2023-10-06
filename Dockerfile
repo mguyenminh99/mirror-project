@@ -1,8 +1,10 @@
 FROM ubuntu:18.04
 
-ENV TZ=Asia/Tokyo
+ENV _TZ=Asia/Tokyo
+ARG _ADOBE_API_KEY
+ARG _ADOBE_API_PASS
 
-RUN ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ > /etc/timezone && \
+RUN ln -snf /usr/share/zoneinfo/$_TZ /etc/localtime && echo $_TZ > /etc/timezone && \
     apt-get update && apt-get install -y php7.2 \
                                          php7.2-bcmath \
                                          php7.2-soap \
@@ -18,7 +20,7 @@ RUN ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ > /etc/timezone &
                                          supervisor \
                                          curl
 
-COPY ./supervisord/conf.d/supervisord_include.conf /etc/supervisor/conf.d/supervisord_include.conf
+COPY ./prod/docker/app/supervisord/conf.d/supervisord_include.conf /etc/supervisor/conf.d/supervisord_include.conf
 
 # マルチステージビルドでcomposerをインストール
 COPY --from=composer:1.10 /usr/bin/composer /usr/bin/composer
@@ -26,15 +28,15 @@ COPY --from=composer:1.10 /usr/bin/composer /usr/bin/composer
 RUN curl -s https://packagecloud.io/install/repositories/varnishcache/varnish63/script.deb.sh | bash && \
     DEBIAN_FRONTEND=noninteractive apt-get -y install varnish
 
-COPY ./varnish/default.vcl /etc/varnish/default.vcl
+COPY ./prod/docker/app/varnish/default.vcl /etc/varnish/default.vcl
 
 # apache実行ユーザー、supervisord管理ユーザー作成
 RUN groupadd -g 1001 x-shopping-st && useradd -r -m -u 1001 -g 1001 x-shopping-st
 ENV APACHE_RUN_USER x-shopping-st
 ENV APACHE_RUN_GROUP x-shopping-st
 
-COPY ./apache2/apache2.conf ./php/php.ini /etc/apache2/
-COPY ./php/opcache.ini /etc/php/7.2/mods-available/opcache.ini
+COPY ./prod/docker/app/apache2/apache2.conf ./prod/docker/app/php/php.ini /etc/apache2/
+COPY ./prod/docker/app/php/opcache.ini /etc/php/7.2/mods-available/opcache.ini
 
 WORKDIR /etc/apache2/mods-enabled
 RUN ln -s ../mods-available/rewrite.load && \
@@ -45,6 +47,14 @@ RUN ln -s ../mods-available/rewrite.load && \
     chown -R x-shopping-st:x-shopping-st /var/run/apache2 && \
     chown -R varnish:varnish /var/lib/varnish
 
+COPY . /var/www/html/
+
 WORKDIR /var/www/html
+
+RUN cp -pi ./auth.json.sample ./auth.json && sed -i "s/\"username\": \"<public-key>\"/\"username\": \"$_ADOBE_API_KEY\"/" ./auth.json && sed -i "s/\"password\": \"<private-key>\"/\"password\": \"$_ADOBE_API_PASS\"/" ./auth.json
+
+RUN composer update
+
+RUN find var generated vendor pub/static pub/media app/etc -type f -exec chmod g+w {} + && find var generated vendor pub/static pub/media app/etc -type d -exec chmod g+ws {} + && chmod u+x bin/magento && chmod 777 -R var generated app/etc && chmod 777 -R pub
 
 CMD ["/usr/bin/supervisord"]

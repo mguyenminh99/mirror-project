@@ -1,0 +1,14 @@
+{
+  "steps":[
+    {
+      "name": "gcr.io/cloud-builders/docker",
+      "args": [
+        "build",
+        "-t",
+        "asia-northeast1-docker.pkg.dev/${PROJECT_ID}/x-shopping-st/x-shopping-st-${TAG_NAME}",
+        "."
+      ]
+    }
+  ]
+}
+

@@ -1,6 +1,7 @@
 #Ignore sample, log  ,idea ifile
 .idea
 *.sample
+!auth.json.sample
 *.log
 
 #Ignore docker generated files
