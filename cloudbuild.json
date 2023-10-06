@@ -5,7 +5,7 @@
       "args": [
         "build",
         "-t",
-        "asia-northeast1-docker.pkg.dev/${PROJECT_ID}/x-shopping-st/x-shopping-st-${TAG_NAME}",
+        "asia-northeast1-docker.pkg.dev/${PROJECT_ID}/x-shopping-st/x-shopping-st:${COMMIT_SHA}",
         "."
       ]
     }
