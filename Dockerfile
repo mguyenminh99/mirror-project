@@ -1,10 +1,10 @@
 FROM ubuntu:18.04
 
-ENV _TZ=Asia/Tokyo
-ARG _ADOBE_API_KEY
-ARG _ADOBE_API_PASS
+ENV TZ=Asia/Tokyo
+ARG ADOBE_API_KEY
+ARG ADOBE_API_PASS
 
-RUN ln -snf /usr/share/zoneinfo/$_TZ /etc/localtime && echo $_TZ > /etc/timezone && \
+RUN ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ > /etc/timezone && \
     apt-get update && apt-get install -y php7.2 \
                                          php7.2-bcmath \
                                          php7.2-soap \
@@ -51,7 +51,7 @@ COPY . /var/www/html/
 
 WORKDIR /var/www/html
 
-RUN cp -pi ./auth.json.sample ./auth.json && sed -i "s/\"username\": \"<public-key>\"/\"username\": \"$_ADOBE_API_KEY\"/" ./auth.json && sed -i "s/\"password\": \"<private-key>\"/\"password\": \"$_ADOBE_API_PASS\"/" ./auth.json
+RUN cp -pi ./auth.json.sample ./auth.json && sed -i "s/\"username\": \"<public-key>\"/\"username\": \"$ADOBE_API_KEY\"/" ./auth.json && sed -i "s/\"password\": \"<private-key>\"/\"password\": \"$ADOBE_API_PASS\"/" ./auth.json
 
 RUN composer update
 

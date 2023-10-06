@@ -4,6 +4,9 @@
       "name": "gcr.io/cloud-builders/docker",
       "args": [
         "build",
+	"--build-arg",
+	"ADOBE_API_KEY=${_ADOBE_API_KEY}",
+	"ADOBE_API_PASS=${_ADOBE_API_PASS}",
         "-t",
         "asia-northeast1-docker.pkg.dev/${PROJECT_ID}/x-shopping-st/x-shopping-st:${COMMIT_SHA}",
         "."
