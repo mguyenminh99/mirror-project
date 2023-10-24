@@ -79,24 +79,6 @@ return [
     'downloadable_domains' => [
         getenv('HOST_NAME')
     ],
-    'system' => [
-        'default' => [
-            'web' => [
-                'unsecure' => [
-                    'base_url' => getenv('HOST_NAME'),
-                    'base_link_url' => '{{unsecure_base_url}}',
-                    'base_static_url' => null,
-                    'base_media_url' => null
-                ],
-                'secure' => [
-                    'base_url' => getenv('HOST_NAME'),
-                    'base_link_url' => '{{secure_base_url}}',
-                    'base_static_url' => null,
-                    'base_media_url' => null
-                ]
-            ],
-        ],
-    ],
     'install' => [
         'date' => 'Sat, 19 Feb 2022 11:21:38 +0000'
     ]

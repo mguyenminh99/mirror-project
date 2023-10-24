@@ -886,7 +886,7 @@ class Installer
         $this->checkFilePermissionsForDbUpgrade();
         $this->log->log('Data install/update:');
         $this->log->log('Disabling caches:');
-        $this->updateCaches(false, $frontendCaches);
+//        $this->updateCaches(false, $frontendCaches);
         $this->handleDBSchemaData($setup, 'data', $request);
         $this->log->log('Enabling caches:');
         $this->updateCaches(true, $frontendCaches);
