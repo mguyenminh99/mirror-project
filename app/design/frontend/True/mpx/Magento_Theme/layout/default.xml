@@ -22,6 +22,5 @@
         <referenceBlock name="contact-us-link" remove="true"/>
         <referenceBlock name="sales-guest-form-link" remove="true"/>
         <referenceBlock name="amazon.pay.password.reset" remove="true"/>
-        <referenceBlock name="cms_page" remove="true" />
     </body>
 </page>
