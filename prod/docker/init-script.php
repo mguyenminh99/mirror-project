@@ -10,8 +10,8 @@ require_once('Zend/Mail/Transport/Smtp.php');
 require_once 'Zend/Mail.php';
 
 $bootstrap = \Magento\Framework\App\Bootstrap::create(BP, $_SERVER);
-$obj = $bootstrap->getObjectManager();
-$filesystem = $obj->create(\Magento\Framework\Filesystem::class);
+$objectManager = $bootstrap->getObjectManager();
+$filesystem = $objectManager->create(\Magento\Framework\Filesystem::class);
 $rootDirectory = $filesystem->getDirectoryWrite('base')->getAbsolutePath();
 
 $mysqlHost = getenv('DB_HOST');
