@@ -4,18 +4,12 @@
       "name": "gcr.io/cloud-builders/docker",
       "args": [
         "build",
-        "--build-arg",
-        "ADOBE_API_KEY=${_ADOBE_API_KEY}",
-        "--build-arg",
-       	"ADOBE_API_PASS=${_ADOBE_API_PASS}",
+        "--build-arg=ADOBE_API_KEY=projects/335090651464/secrets/ADOBE_API_KEY/versions/latest",
+        "--build-arg=ADOBE_API_PASS=projects/335090651464/secrets/ADOBE_API_PASS/versions/latest",
         "-t",
         "asia-northeast1-docker.pkg.dev/${PROJECT_ID}/x-shopping-st/x-shopping-st:${COMMIT_SHA}",
         "."
       ]
     }
-  ],
-  "substitutions": {
-    "_ADOBE_API_KEY": "projects/335090651464/secrets/ADOBE_API_KEY/versions/latest",
-    "_ADOBE_API_PASS": "projects/335090651464/secrets/ADOBE_API_PASS/versions/latest"
-  }
+  ]
 }
