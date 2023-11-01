@@ -5,9 +5,9 @@
       "args": [
         "build",
         "--build-arg",
-        "ADOBE_API_KEY=$ADOBE_API_KEY",
+        "ADOBE_API_KEY=$$ADOBE_API_KEY",
         "--build-arg",
-        "ADOBE_API_PASS=$ADOBE_API_PASS",
+        "ADOBE_API_PASS=$$ADOBE_API_PASS",
         "-t",
         "asia-northeast1-docker.pkg.dev/${PROJECT_ID}/x-shopping-st/x-shopping-st:${COMMIT_SHA}",
         "."
