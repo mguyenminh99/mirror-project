@@ -51,7 +51,9 @@ COPY . /var/www/html/
 
 WORKDIR /var/www/html
 
-RUN cp -pi ./auth.json.sample ./auth.json && sed -i "s/\"username\": \"<public-key>\"/\"username\": \"$ADOBE_API_KEY\"/" ./auth.json && sed -i "s/\"password\": \"<private-key>\"/\"password\": \"$ADOBE_API_PASS\"/" ./auth.json
+RUN echo ${ADOBE_API_KEY}
+
+RUN cp -pi ./auth.json.sample ./auth.json && sed -i "s/\"username\": \"<public-key>\"/\"username\": \"${ADOBE_API_KEY}\"/" ./auth.json && sed -i "s/\"password\": \"<private-key>\"/\"password\": \"${ADOBE_API_PASS}\"/" ./auth.json
 
 RUN composer update
 

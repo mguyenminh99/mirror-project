@@ -13,6 +13,9 @@
         "."
       ]
     }
-  ]
+  ],
+  "substitutions": {
+    "_ADOBE_API_KEY": "projects/335090651464/secrets/ADOBE_API_KEY/versions/latest",
+    "_ADOBE_API_PASS": "projects/335090651464/secrets/ADOBE_API_PASS/versions/latest"
+  }
 }
-
