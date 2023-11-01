@@ -3,8 +3,6 @@ FROM ubuntu:18.04
 ENV TZ=Asia/Tokyo
 ARG ADOBE_API_KEY
 ARG ADOBE_API_PASS
-ENV ADOBE_API_KEY=$ADOBE_API_KEY
-ENV ADOBE_API_PASS=$ADOBE_API_PASS
 
 RUN ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ > /etc/timezone && \
     apt-get update && apt-get install -y php7.2 \
