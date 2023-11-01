@@ -29,5 +29,8 @@
         "env": "ADOBE_API_PASS"
       }
     ]
+  },
+  "options": {
+    "logging": "CLOUD_LOGGING_ONLY"
   }
 }
