@@ -8,13 +8,19 @@
         "ADOBE_API_KEY",
         "--build-arg",
         "ADOBE_API_PASS",
+        "--build-arg",
+        "SEND_GRID_API_ACCOUNT",
+        "--build-arg",
+        "SEND_GRID_API_KEY",
         "-t",
         "asia-northeast1-docker.pkg.dev/${PROJECT_ID}/x-shopping-st/x-shopping-st:${COMMIT_SHA}",
         "."
       ],
       "secretEnv": [
         "ADOBE_API_KEY",
-        "ADOBE_API_PASS"
+        "ADOBE_API_PASS",
+        "SEND_GRID_API_ACCOUNT",
+        "SEND_GRID_API_KEY"
       ]
     }
   ],
@@ -27,6 +33,14 @@
       {
         "versionName": "projects/335090651464/secrets/ADOBE_API_PASS/versions/latest",
         "env": "ADOBE_API_PASS"
+      },
+      {
+        "versionName": "projects/335090651464/secrets/SEND_GRID_API_ACCOUNT/versions/latest",
+        "env": "SEND_GRID_API_ACCOUNT"
+      },
+      {
+        "versionName": "projects/335090651464/secrets/SEND_GRID_API_KEY/versions/latest",
+        "env": "SEND_GRID_API_KEY"
       }
     ]
   },
