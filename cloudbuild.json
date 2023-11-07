@@ -22,6 +22,13 @@
         "SEND_GRID_API_ACCOUNT",
         "SEND_GRID_API_KEY"
       ]
+    },
+    {
+      "name": "gcr.io/cloud-builders/docker",
+      "args": [
+        "push",
+        "asia-northeast1-docker.pkg.dev/${PROJECT_ID}/x-shopping-st/x-shopping-st:${COMMIT_SHA}"
+      ]
     }
   ],
   "availableSecrets": {
