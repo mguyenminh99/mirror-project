@@ -3,6 +3,11 @@ FROM ubuntu:18.04
 ENV TZ=Asia/Tokyo
 ARG ADOBE_API_KEY
 ARG ADOBE_API_PASS
+ARG SEND_GRID_API_ACCOUNT
+ARG SEND_GRID_API_KEY
+
+ENV SEND_GRID_API_ACCOUNT ${SEND_GRID_API_ACCOUNT}
+ENV SEND_GRID_API_KEY ${SEND_GRID_API_KEY}
 
 RUN ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ > /etc/timezone && \
     apt-get update && apt-get install -y php7.2 \
