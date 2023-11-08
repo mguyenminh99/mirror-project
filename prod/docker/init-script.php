@@ -1,7 +1,7 @@
 <?php
 
-if (isMagentoInstalled()) {
-    echo 'Magento has been installed !!!' . PHP_EOL;
+if (isXssInitialized()) {
+    echo 'x-shopping-st has been initialized.'.PHP_EOL;
     exit;
 }
 
@@ -68,7 +68,7 @@ if (mysqli_query($connection, "SELECT 1 FROM `core_config_data` LIMIT 0")) {
     fopen("init.done", "w");
 }
 
-function isMagentoInstalled() {
+function isXssInitialized() {
     return file_exists("init.done");
 }
 
