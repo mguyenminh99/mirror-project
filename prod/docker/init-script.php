@@ -1,7 +1,7 @@
 <?php
 
-if(file_exists("init.done")){
-    echo 'Magento has been installed !!!'.PHP_EOL;
+if (isMagentoInstalled()) {
+    echo 'Magento has been installed !!!' . PHP_EOL;
     exit;
 }
 
@@ -26,81 +26,53 @@ $adminUser = getenv('ADMIN_USER');
 $adminPass = getenv('ADMIN_PASS');
 $adminPageSlug = getenv('ADMIN_PAGE_SLUG');
 
-$connection = mysqli_connect($mysqlHost, $mysqlUser, $mysqlPass) ;
+$connection = mysqli_connect($mysqlHost, $mysqlUser, $mysqlPass);
 if (!$connection) {
-    sendMailError('Cannot connect to database server', 'Connect database');
+    sendErrorEmail('Cannot connect to database server', 'Connect database');
     echo 'Error : ' . mysqli_connect_error();
     exit;
 }
 
-$dbSelected = mysqli_select_db($connection,$mysqlDbName);
+$dbSelected = mysqli_select_db($connection, $mysqlDbName);
 
-// check db exist
 if (!$dbSelected) {
-    echo 'Database "'. $mysqlDbName . '" not exist!'.PHP_EOL;
+    echo 'Database "' . $mysqlDbName . '" not exist!' . PHP_EOL;
+    sendErrorEmail('Database "' . $mysqlDbName . '" not exist!');
     exit;
 }
 
-//check table exist in database
-if (mysqli_query($connection,"SELECT 1 FROM `core_config_data` LIMIT 0")) {
-    echo 'Run setup:upgrade script'.PHP_EOL;
+if (mysqli_query($connection, "SELECT 1 FROM `core_config_data` LIMIT 0")) {
 
-    exec("php {$rootDirectory}bin/magento setup:upgrade",$outputSetupUpgrade,$resultCodeSetupUpgrade);
-    print_r($outputSetupUpgrade);
+    executeCommand("php {$rootDirectory}bin/magento setup:upgrade");
+    executeCommand("php {$rootDirectory}bin/magento setup:static-content:deploy -f");
 
-    if ($resultCodeSetupUpgrade) {
-        sendMailError($outputSetupUpgrade, 'Setup:upgrade');
-        echo 'Run setup:upgrade command fail'.PHP_EOL;
-        exit;
-    } else {
-        echo 'Run setup:upgrade command success'.PHP_EOL;
-    }
-
-    echo 'Run setup:static-content:deploy script'.PHP_EOL;
-
-    exec("php {$rootDirectory}bin/magento setup:static-content:deploy -f",$outputStaticContent,$resultCodeStaticContent);
-    print_r($outputStaticContent);
-    if ($resultCodeStaticContent) {
-        sendMailError($outputStaticContent, 'Setup:static-content:deploy');
-        echo 'Run setup:static-content:deploy command fail'.PHP_EOL;
-        exit;
-    } else {
-        echo 'Run setup:static-content:deploy command success'.PHP_EOL;
-    }
-    exit;
 } else {
-    echo 'Starting install magento'.PHP_EOL;
+
+    echo 'Starting install Magento' . PHP_EOL;
 
     $etcPathFolder = $filesystem->getDirectoryWrite('etc')->getAbsolutePath();
-    unlink($etcPathFolder.'env.php');
+    unlink($etcPathFolder . 'env.php');
 
-    echo 'remove env.php'.PHP_EOL;
+    echo 'Remove env.php' . PHP_EOL;
 
-    exec("rm -rf generated/code/ && rm -rf pub/static/deployed_version.txt && rm -rf var/cache/ var/page_cache/ var/view_preprocessed/",$outputClear);
+    $commandRemoveFolder = "rm -rf generated/code/ && rm -rf pub/static/deployed_version.txt && rm -rf var/cache/ var/page_cache/ var/view_preprocessed/";
+    executeCommand($commandRemoveFolder);
 
-    echo 'remove cache/ generated/ pub/static folder'.PHP_EOL;
+    echo 'Remove cache/ generated/ pub/static folder' . PHP_EOL;
+
     $commandInstall = "php -f {$rootDirectory}bin/magento setup:install --base-url=http://{$hostname} --base-url-secure=https://{$hostname} --db-host={$mysqlHost} --db-name={$mysqlDbName}  --db-user={$mysqlUser} --db-password={$mysqlPass} --admin-firstname={$adminFirstName} --admin-lastname={$adminLastName} --admin-email={$adminEmail} --admin-user={$adminUser} --admin-password={$adminPass} --language=ja_JP --currency=JPY --timezone=Asia/Tokyo --backend-frontname={$adminPageSlug} --use-secure=1 --use-secure-admin=1";
-    echo 'Run setup:install script'.PHP_EOL;
+    executeCommand($commandInstall);
 
-    exec($commandInstall,$outputInstall,$resultCodeInstall);
-    print_r($outputInstall);
-
-    if ($resultCodeInstall) {
-        sendMailError($outputInstall, 'Setup:install');
-        print_r($outputInstall);
-        echo 'Run setup:install command fail'.PHP_EOL;
-        exit;
-    } else {
-        echo 'Run setup:install command success'.PHP_EOL;
-    }
-    copy($etcPathFolder.'env.php.tpl',$etcPathFolder.'env.php');
-    echo 'Install magento successful'.PHP_EOL;
+    copy($etcPathFolder . 'env.php.tpl', $etcPathFolder . 'env.php');
+    echo 'Install Magento successfully' . PHP_EOL;
     fopen("init.done", "w");
-    exit;
 }
 
-function sendMailError($errorContent, $stepError) {
-    $errorContent = is_array($errorContent) ? implode(PHP_EOL,$errorContent) : $errorContent;
+function isMagentoInstalled() {
+    return file_exists("init.done");
+}
+
+function sendErrorEmail($errorMessage) {
 
     $config = [
         'auth'     => 'login',
@@ -112,12 +84,31 @@ function sendMailError($errorContent, $stepError) {
 
     $transport = new Zend_Mail_Transport_Smtp('smtp.sendgrid.net', $config);
     $mail = new Zend_Mail();
-    $mail->setBodyText($errorContent);
+    $mail->setBodyText($errorMessage);
     $mail->setFrom('dev-team@true-inc.jp', 'Dev Team');
     $mail->addTo('dev-team@true-inc.jp', 'Dev Team');
-    $mail->setSubject($stepError. ' error when deploy magento');
+    $mail->setSubject("x-shopping-st $hostname init script failed");
     $mail->send($transport);
 
-    echo 'Send email to dev-team success!'.PHP_EOL;
+    echo 'Send error mail'.PHP_EOL;
 }
-?>
+
+function executeCommand($command) {
+
+    echo "Running $command command" . PHP_EOL;
+
+    exec($command, $output, $resultCode);
+
+    print_r( $output );
+
+    if ( $resultCode != 0 ) {
+        $errorContent = is_array($output) ? implode(PHP_EOL,$output) : $output;
+        sendErrorEmail("\"$command\" command failed" ."\n" . "Command returns \"$errorContent\"");
+        echo "Command failed" . "\n" . "$command" . PHP_EOL;
+        exit;
+
+    } else {
+
+        echo "Executing \"$command\" success" . PHP_EOL;
+    }
+}
