@@ -75,6 +75,9 @@ function isXssInitialized() {
 
 function sendErrorEmail($errorMessage) {
 
+    $MAIL_FROM = 'system-notice@x-shopping-st.com';
+    $MAIL_TO   = 'dev-team@x-shopping-st.com';
+
     $config = [
         'auth'     => 'login',
         'username' => getenv('SEND_GRID_API_ACCOUNT'),
@@ -86,12 +89,12 @@ function sendErrorEmail($errorMessage) {
     $transport = new Zend_Mail_Transport_Smtp('smtp.sendgrid.net', $config);
     $mail = new Zend_Mail();
     $mail->setBodyText($errorMessage);
-    $mail->setFrom('dev-team@true-inc.jp', 'Dev Team');
-    $mail->addTo('dev-team@true-inc.jp', 'Dev Team');
+    $mail->setFrom($MAIL_FROM, 'System Notice');
+    $mail->addTo($MAIL_TO , 'Dev Team');
     $mail->setSubject("x-shopping-st $hostname init script failed");
     $mail->send($transport);
 
-    echo 'Send error mail'.PHP_EOL;
+    echo 'Send system error mail'.PHP_EOL;
 }
 
 function executeCommand($command) {
