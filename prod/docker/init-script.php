@@ -1,7 +1,8 @@
 <?php
 
+echo 'Start executing init-script.php.'.PHP_EOL;
 if (isXssInitialized()) {
-    echo 'x-shopping-st has been initialized.'.PHP_EOL;
+    echo 'Finish executing init-script.php since container is already setup.'.PHP_EOL;
     exit;
 }
 
@@ -112,3 +113,4 @@ function executeCommand($command) {
         echo "Executing \"$command\" success" . PHP_EOL;
     }
 }
+echo 'Finish executing init-script.php'.PHP_EOL;
