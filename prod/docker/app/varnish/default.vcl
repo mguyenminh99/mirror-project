@@ -7,7 +7,7 @@ import std;
 
 backend default {
     .host = "127.0.0.1";
-    .port = "8080";
+    .port = "80";
     .probe = {
         .url = "/health_check.php";
         .timeout = 2s;

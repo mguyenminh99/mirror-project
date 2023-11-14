@@ -1,11 +1,11 @@
 FROM ubuntu:18.04
 
-ENV TZ=Asia/Tokyo
 ARG ADOBE_API_KEY
 ARG ADOBE_API_PASS
 ARG SEND_GRID_API_ACCOUNT
 ARG SEND_GRID_API_KEY
 
+ENV TZ=Asia/Tokyo
 ENV SEND_GRID_API_ACCOUNT ${SEND_GRID_API_ACCOUNT}
 ENV SEND_GRID_API_KEY ${SEND_GRID_API_KEY}
 
@@ -45,8 +45,6 @@ COPY ./prod/docker/app/php/opcache.ini /etc/php/7.2/mods-available/opcache.ini
 
 WORKDIR /etc/apache2/mods-enabled
 RUN ln -s ../mods-available/rewrite.load && \
-    sed -i s/"Listen 80"/"Listen 8080"/ /etc/apache2/ports.conf && \
-    sed -i s/"<VirtualHost \*:80>"/"<VirtualHost \*:8080>"/ /etc/apache2/sites-available/000-default.conf && \
     sed -i 's/	DocumentRoot \/var\/www\/html/	DocumentRoot \/var\/www\/html\/pub/' /etc/apache2/sites-available/000-default.conf && \
     chown -R x-shopping-st:x-shopping-st /var/log/apache2 && \
     chown -R x-shopping-st:x-shopping-st /var/run/apache2 && \
@@ -54,11 +52,19 @@ RUN ln -s ../mods-available/rewrite.load && \
 
 COPY . /var/www/html/
 
+RUN chown -R x-shopping-st:x-shopping-st /var/www/html/
+
 WORKDIR /var/www/html
 
 RUN cp -pi ./auth.json.sample ./auth.json && sed -i "s/\"username\": \"<public-key>\"/\"username\": \"$ADOBE_API_KEY\"/" ./auth.json && sed -i "s/\"password\": \"<private-key>\"/\"password\": \"$ADOBE_API_PASS\"/" ./auth.json
 
+USER x-shopping-st
+
 RUN composer update
+
+USER root
+
+WORKDIR /var/www/html
 
 RUN find var generated vendor pub/static pub/media app/etc -type f -exec chmod g+w {} + && find var generated vendor pub/static pub/media app/etc -type d -exec chmod g+ws {} + && chmod u+x bin/magento && chmod 777 -R var generated app/etc && chmod 777 -R pub
 
