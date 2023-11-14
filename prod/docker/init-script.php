@@ -1,7 +1,8 @@
 <?php
 
+echo 'Start executing init-script.php.'.PHP_EOL;
 if (isXssInitialized()) {
-    echo 'x-shopping-st has been initialized.'.PHP_EOL;
+    echo 'Finish executing init-script.php since container is already setup.'.PHP_EOL;
     exit;
 }
 
@@ -12,6 +13,7 @@ require_once 'Zend/Mail.php';
 $bootstrap = \Magento\Framework\App\Bootstrap::create(BP, $_SERVER);
 $objectManager = $bootstrap->getObjectManager();
 $filesystem = $objectManager->create(\Magento\Framework\Filesystem::class);
+$configWriter = $objectManager->create(\Magento\Framework\App\Config\Storage\WriterInterface::class);
 $rootDirectory = $filesystem->getDirectoryWrite('base')->getAbsolutePath();
 
 $mysqlHost = getenv('DB_HOST');
@@ -64,8 +66,26 @@ if (mysqli_query($connection, "SELECT 1 FROM `core_config_data` LIMIT 0")) {
     executeCommand($commandInstall);
 
     copy($etcPathFolder . 'env.php.tpl', $etcPathFolder . 'env.php');
+
+    saveVarnishConfig($configWriter, $hostname);
+
     echo 'Install Magento successfully' . PHP_EOL;
     fopen("init.done", "w");
+}
+
+function saveVarnishConfig($configWriter,$hostname)
+{
+    $configValue = [
+        ['path' => 'system/full_page_cache/caching_application', 'value' => 2],
+        ['path' => 'system/full_page_cache/varnish/access_list', 'value' => $hostname],
+        ['path' => 'system/full_page_cache/varnish/backend_host', 'value' => $hostname],
+        ['path' => 'system/full_page_cache/varnish/backend_port', 'value' => 80],
+        ['path' => 'system/full_page_cache/varnish/grace_period', 'value' => 300],
+    ];
+    foreach ($configValue as $config) {
+        $configWriter->save($config['path'], $config['value'], 'default', 0);
+    }
+
 }
 
 function isXssInitialized() {
@@ -73,6 +93,9 @@ function isXssInitialized() {
 }
 
 function sendErrorEmail($errorMessage) {
+
+    $MAIL_FROM = 'system-notice@x-shopping-st.com';
+    $MAIL_TO   = 'dev-team@x-shopping-st.com';
 
     $config = [
         'auth'     => 'login',
@@ -85,12 +108,12 @@ function sendErrorEmail($errorMessage) {
     $transport = new Zend_Mail_Transport_Smtp('smtp.sendgrid.net', $config);
     $mail = new Zend_Mail();
     $mail->setBodyText($errorMessage);
-    $mail->setFrom('dev-team@true-inc.jp', 'Dev Team');
-    $mail->addTo('dev-team@true-inc.jp', 'Dev Team');
+    $mail->setFrom($MAIL_FROM, 'System Notice');
+    $mail->addTo($MAIL_TO , 'Dev Team');
     $mail->setSubject("x-shopping-st $hostname init script failed");
     $mail->send($transport);
 
-    echo 'Send error mail'.PHP_EOL;
+    echo 'Send system error mail'.PHP_EOL;
 }
 
 function executeCommand($command) {
@@ -112,3 +135,4 @@ function executeCommand($command) {
         echo "Executing \"$command\" success" . PHP_EOL;
     }
 }
+echo 'Finish executing init-script.php'.PHP_EOL;
