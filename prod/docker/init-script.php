@@ -96,7 +96,7 @@ function sendErrorEmail($errorMessage) {
 
     $MAIL_FROM = 'system-notice@x-shopping-st.com';
     $MAIL_TO   = 'dev-team@x-shopping-st.com';
-
+    $hostname = getenv('HOST_NAME');
     $config = [
         'auth'     => 'login',
         'username' => getenv('SEND_GRID_API_ACCOUNT'),
