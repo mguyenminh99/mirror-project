@@ -13,6 +13,7 @@ require_once 'Zend/Mail.php';
 $bootstrap = \Magento\Framework\App\Bootstrap::create(BP, $_SERVER);
 $objectManager = $bootstrap->getObjectManager();
 $filesystem = $objectManager->create(\Magento\Framework\Filesystem::class);
+$configWriter = $objectManager->create(\Magento\Framework\App\Config\Storage\WriterInterface::class);
 $rootDirectory = $filesystem->getDirectoryWrite('base')->getAbsolutePath();
 
 $mysqlHost = getenv('DB_HOST');
@@ -65,8 +66,26 @@ if (mysqli_query($connection, "SELECT 1 FROM `core_config_data` LIMIT 0")) {
     executeCommand($commandInstall);
 
     copy($etcPathFolder . 'env.php.tpl', $etcPathFolder . 'env.php');
+
+    saveVarnishConfig($configWriter, $hostname);
+
     echo 'Install Magento successfully' . PHP_EOL;
     fopen("init.done", "w");
+}
+
+function saveVarnishConfig($configWriter,$hostname)
+{
+    $configValue = [
+        ['path' => 'system/full_page_cache/caching_application', 'value' => 2],
+        ['path' => 'system/full_page_cache/varnish/access_list', 'value' => $hostname],
+        ['path' => 'system/full_page_cache/varnish/backend_host', 'value' => $hostname],
+        ['path' => 'system/full_page_cache/varnish/backend_port', 'value' => 8080],
+        ['path' => 'system/full_page_cache/varnish/grace_period', 'value' => 300],
+    ];
+    foreach ($configValue as $config) {
+        $configWriter->save($config['path'], $config['value'], 'default', 0);
+    }
+
 }
 
 function isXssInitialized() {
