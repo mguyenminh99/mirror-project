@@ -79,7 +79,7 @@ function saveVarnishConfig($configWriter,$hostname)
         ['path' => 'system/full_page_cache/caching_application', 'value' => 2],
         ['path' => 'system/full_page_cache/varnish/access_list', 'value' => $hostname],
         ['path' => 'system/full_page_cache/varnish/backend_host', 'value' => $hostname],
-        ['path' => 'system/full_page_cache/varnish/backend_port', 'value' => 80],
+        ['path' => 'system/full_page_cache/varnish/backend_port', 'value' => 8080],
         ['path' => 'system/full_page_cache/varnish/grace_period', 'value' => 300],
     ];
     foreach ($configValue as $config) {
