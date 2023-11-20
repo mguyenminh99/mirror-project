@@ -5,9 +5,10 @@ ARG ADOBE_API_PASS
 ARG SEND_GRID_API_ACCOUNT
 ARG SEND_GRID_API_KEY
 
-ENV TZ=Asia/Tokyo
-ENV SEND_GRID_API_ACCOUNT ${SEND_GRID_API_ACCOUNT}
-ENV SEND_GRID_API_KEY ${SEND_GRID_API_KEY}
+ENV TZ=Asia/Tokyo \
+    SEND_GRID_API_ACCOUNT=${SEND_GRID_API_ACCOUNT} \
+    SEND_GRID_API_KEY=${SEND_GRID_API_KEY} \
+    PROJECT_ROOT=/var/www/html/
 
 RUN ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ > /etc/timezone && \
     apt-get update && apt-get install -y php7.2 \
@@ -37,8 +38,8 @@ COPY ./prod/docker/app/varnish/default.vcl /etc/varnish/default.vcl
 
 # apache実行ユーザー、supervisord管理ユーザー作成
 RUN groupadd -g 1001 x-shopping-st && useradd -r -m -u 1001 -g 1001 x-shopping-st
-ENV APACHE_RUN_USER x-shopping-st
-ENV APACHE_RUN_GROUP x-shopping-st
+ENV APACHE_RUN_USER=x-shopping-st \
+    APACHE_RUN_GROUP=x-shopping-st
 
 COPY ./prod/docker/app/apache2/apache2.conf ./prod/docker/app/php/php.ini /etc/apache2/
 COPY ./prod/docker/app/php/opcache.ini /etc/php/7.2/mods-available/opcache.ini
@@ -50,11 +51,11 @@ RUN ln -s ../mods-available/rewrite.load && \
     chown -R x-shopping-st:x-shopping-st /var/run/apache2 && \
     chown -R varnish:varnish /var/lib/varnish
 
-COPY . /var/www/html/
+COPY . $PROJECT_ROOT
 
-RUN chown -R x-shopping-st:x-shopping-st /var/www/html/
+RUN chown -R x-shopping-st:x-shopping-st $PROJECT_ROOT
 
-WORKDIR /var/www/html
+WORKDIR $PROJECT_ROOT
 
 RUN cp -pi ./auth.json.sample ./auth.json && sed -i "s/\"username\": \"<public-key>\"/\"username\": \"$ADOBE_API_KEY\"/" ./auth.json && sed -i "s/\"password\": \"<private-key>\"/\"password\": \"$ADOBE_API_PASS\"/" ./auth.json
 
@@ -64,7 +65,7 @@ RUN composer update
 
 USER root
 
-WORKDIR /var/www/html
+WORKDIR $PROJECT_ROOT
 
 RUN find var generated vendor pub/static pub/media app/etc -type f -exec chmod g+w {} + && find var generated vendor pub/static pub/media app/etc -type d -exec chmod g+ws {} + && chmod u+x bin/magento && chmod 777 -R var generated app/etc && chmod 777 -R pub
 
