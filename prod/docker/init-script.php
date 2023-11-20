@@ -106,15 +106,18 @@ function sendErrorEmail($errorMessage) {
         'ssl' => 'tls'
     ];
 
-    $transport = new Zend_Mail_Transport_Smtp('smtp.sendgrid.net', $config);
-    $mail = new Zend_Mail();
-    $mail->setBodyText($errorMessage);
-    $mail->setFrom($MAIL_FROM, 'System Notice');
-    $mail->addTo($MAIL_TO , 'Dev Team');
-    $mail->setSubject("x-shopping-st $hostname init script failed");
-    $mail->send($transport);
-
-    echo 'Send system error mail'.PHP_EOL;
+    try {
+        $transport = new Zend_Mail_Transport_Smtp('smtp.sendgrid.net', $config);
+        $mail = new Zend_Mail();
+        $mail->setBodyText($errorMessage);
+        $mail->setFrom($MAIL_FROM, 'System Notice');
+        $mail->addTo($MAIL_TO , 'Dev Team');
+        $mail->setSubject("x-shopping-st $hostname init script failed");
+        $mail->send($transport);
+        echo 'Send system error mail' . PHP_EOL;
+    }catch (\Exception $e){
+        echo 'Error sending email: ' . $e->getMessage();
+    }
 }
 
 function executeCommand($command) {
