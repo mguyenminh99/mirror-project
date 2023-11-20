@@ -30,8 +30,8 @@ $adminPageSlug = getenv('ADMIN_PAGE_SLUG');
 
 $connection = mysqli_connect($mysqlHost, $mysqlUser, $mysqlPass);
 if (!$connection) {
-    sendErrorEmail('Cannot connect to database server', 'Connect database');
     echo 'Error : ' . mysqli_connect_error();
+    sendErrorEmail('Cannot connect to database server', 'Connect database');
     exit(1);
 }
 
@@ -127,8 +127,8 @@ function executeCommand($command) {
 
     if ( $resultCode != 0 ) {
         $errorContent = is_array($output) ? implode(PHP_EOL,$output) : $output;
-        sendErrorEmail("\"$command\" command failed" ."\n" . "Command returns \"$errorContent\"");
         echo "Command failed" . "\n" . "$command" . PHP_EOL;
+        sendErrorEmail("\"$command\" command failed" ."\n" . "Command returns \"$errorContent\"");
         exit(1);
 
     } else {
