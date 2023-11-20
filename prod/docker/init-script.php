@@ -3,7 +3,7 @@
 echo 'Start executing init-script.php.'.PHP_EOL;
 if (isXssInitialized()) {
     echo 'Finish executing init-script.php since container is already setup.'.PHP_EOL;
-    exit;
+    exit(1);
 }
 $rootDirectory = getenv('PROJECT_ROOT');
 
@@ -32,7 +32,7 @@ $connection = mysqli_connect($mysqlHost, $mysqlUser, $mysqlPass);
 if (!$connection) {
     sendErrorEmail('Cannot connect to database server', 'Connect database');
     echo 'Error : ' . mysqli_connect_error();
-    exit;
+    exit(1);
 }
 
 $dbSelected = mysqli_select_db($connection, $mysqlDbName);
@@ -40,7 +40,7 @@ $dbSelected = mysqli_select_db($connection, $mysqlDbName);
 if (!$dbSelected) {
     echo 'Database "' . $mysqlDbName . '" not exist!' . PHP_EOL;
     sendErrorEmail('Database "' . $mysqlDbName . '" not exist!');
-    exit;
+    exit(1);
 }
 
 if (mysqli_query($connection, "SELECT 1 FROM `core_config_data` LIMIT 0")) {
@@ -129,7 +129,7 @@ function executeCommand($command) {
         $errorContent = is_array($output) ? implode(PHP_EOL,$output) : $output;
         sendErrorEmail("\"$command\" command failed" ."\n" . "Command returns \"$errorContent\"");
         echo "Command failed" . "\n" . "$command" . PHP_EOL;
-        exit;
+        exit(1);
 
     } else {
 
