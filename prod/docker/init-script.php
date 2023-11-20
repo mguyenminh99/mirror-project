@@ -131,9 +131,6 @@ function executeCommand($command) {
         sendErrorEmail("\"$command\" command failed" ."\n" . "Command returns \"$errorContent\"");
         exit(1);
 
-    } else {
-
-        echo "Executing \"$command\" success" . PHP_EOL;
     }
 }
 echo 'Finish executing init-script.php'.PHP_EOL;
