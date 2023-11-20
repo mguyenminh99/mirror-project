@@ -119,8 +119,6 @@ function sendErrorEmail($errorMessage) {
 
 function executeCommand($command) {
 
-    echo "Running $command command" . PHP_EOL;
-
     exec($command, $output, $resultCode);
 
     print_r( $output );
@@ -130,7 +128,6 @@ function executeCommand($command) {
         echo "Command failed" . "\n" . "$command" . PHP_EOL;
         sendErrorEmail("\"$command\" command failed" ."\n" . "Command returns \"$errorContent\"");
         exit(1);
-
     }
 }
 echo 'Finish executing init-script.php'.PHP_EOL;
