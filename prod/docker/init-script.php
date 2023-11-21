@@ -16,6 +16,7 @@ $objectManager = $bootstrap->getObjectManager();
 $filesystem = $objectManager->create(\Magento\Framework\Filesystem::class);
 $configWriter = $objectManager->create(\Magento\Framework\App\Config\Storage\WriterInterface::class);
 $emailLog = $objectManager->create(\Mpx\Smtp\Helper\SendEmailLog::class);
+$currentTime = (new Datetime('now', new DateTimeZone('Asia/Tokyo')))->format('Y-m-d h:i:s');
 
 $mysqlHost = getenv('DB_HOST');
 $mysqlDbName = getenv('DB_NAME');
@@ -32,7 +33,7 @@ $mailSubject = "x-shopping-st ". $hostname ." init script failed";
 
 $connection = mysqli_connect($mysqlHost, $mysqlUser, $mysqlPass);
 if (!$connection) {
-    echo 'Error : ' . mysqli_connect_error();
+    echo  $currentTime ." INFO Error : " . mysqli_connect_error();
     $emailLog->sendEmail("Cannot connect to database server", $mailSubject);
     exit(1);
 }
@@ -40,7 +41,7 @@ if (!$connection) {
 $dbSelected = mysqli_select_db($connection, $mysqlDbName);
 
 if (!$dbSelected) {
-    echo 'Database "' . $mysqlDbName . '" not exist!' . PHP_EOL;
+    echo $currentTime ." INFO Database " . $mysqlDbName . " not exist!" . PHP_EOL;
     $emailLog->sendEmail("Database " . $mysqlDbName . " not exist!", $mailSubject);
     exit(1);
 }
@@ -96,6 +97,7 @@ function isXssInitialized() {
 }
 
 function executeCommand($command , $emailLog) {
+    $currentTime = (new Datetime('now', new DateTimeZone('Asia/Tokyo')))->format('Y-m-d h:i:s');
 
     $mailSubject = "x-shopping-st ". getenv('HOST_NAME') ." init script failed";
 
@@ -105,7 +107,7 @@ function executeCommand($command , $emailLog) {
 
     if ( $resultCode != 0 ) {
         $errorContent = is_array($output) ? implode(PHP_EOL,$output) : $output;
-        echo "Command failed" . "\n" . "$command" . PHP_EOL;
+        echo $currentTime ." INFO Command failed" . "\n" . "$command" . PHP_EOL;
         $emailLog->sendEmail($command . "command failed" . PHP_EOL . "Command returns " . $errorContent, $mailSubject);
         echo 'Send system error mail' . PHP_EOL;
         exit(1);
