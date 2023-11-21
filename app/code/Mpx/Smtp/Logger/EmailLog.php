@@ -2,6 +2,8 @@
 
 namespace Mpx\Smtp\Logger;
 
+use Magento\Framework\App\ObjectManager;
+
 class EmailLog extends \Magento\Framework\Logger\Monolog
 {
     /**
@@ -39,6 +41,23 @@ class EmailLog extends \Magento\Framework\Logger\Monolog
 
         $message = $message instanceof \Exception ? $message->getMessage() : $message;
 
+        $this->sendEmailLog($level,$message);
+
         return parent::addRecord($level, $message, $context);
+    }
+
+    public function sendEmailLog($level,$message)
+    {
+        $objectManager = ObjectManager::getInstance();
+        $emailLog = $objectManager->create(\Mpx\Smtp\Helper\SendEmailLog::class);
+        $errorLogCode = [\Monolog\Logger::CRITICAL,\Monolog\Logger::ERROR];
+
+        if (!in_array($level, $errorLogCode)) {
+            return;
+        }
+
+        $message = '[x-shopping-st] system alert' . PHP_EOL . $message;
+        $subject = "[x-shopping-st] system {". (($level == \Monolog\Logger::CRITICAL) ? "CRITICAL" : "ERROR") ."}";
+        $emailLog->sendEmail($message, $subject);
     }
 }

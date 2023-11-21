@@ -15,6 +15,7 @@ $bootstrap = \Magento\Framework\App\Bootstrap::create(BP, $_SERVER);
 $objectManager = $bootstrap->getObjectManager();
 $filesystem = $objectManager->create(\Magento\Framework\Filesystem::class);
 $configWriter = $objectManager->create(\Magento\Framework\App\Config\Storage\WriterInterface::class);
+$emailLog = $objectManager->create(\Mpx\Smtp\Helper\SendEmailLog::class);
 
 $mysqlHost = getenv('DB_HOST');
 $mysqlDbName = getenv('DB_NAME');
@@ -27,11 +28,12 @@ $adminEmail = getenv('ADMIN_MAIL');
 $adminUser = getenv('ADMIN_USER');
 $adminPass = getenv('ADMIN_PASS');
 $adminPageSlug = getenv('ADMIN_PAGE_SLUG');
+$mailSubject = "x-shopping-st ". $hostname ." init script failed";
 
 $connection = mysqli_connect($mysqlHost, $mysqlUser, $mysqlPass);
 if (!$connection) {
     echo 'Error : ' . mysqli_connect_error();
-    sendErrorEmail('Cannot connect to database server', 'Connect database');
+    $emailLog->sendEmail("Cannot connect to database server", $mailSubject);
     exit(1);
 }
 
@@ -39,14 +41,14 @@ $dbSelected = mysqli_select_db($connection, $mysqlDbName);
 
 if (!$dbSelected) {
     echo 'Database "' . $mysqlDbName . '" not exist!' . PHP_EOL;
-    sendErrorEmail('Database "' . $mysqlDbName . '" not exist!');
+    $emailLog->sendEmail("Database " . $mysqlDbName . " not exist!", $mailSubject);
     exit(1);
 }
 
 if (mysqli_query($connection, "SELECT 1 FROM `core_config_data` LIMIT 0")) {
 
-    executeCommand("php {$rootDirectory}bin/magento setup:upgrade");
-    executeCommand("php {$rootDirectory}bin/magento setup:static-content:deploy -f");
+    executeCommand("php {$rootDirectory}bin/magento setup:upgrade", $emailLog);
+    executeCommand("php {$rootDirectory}bin/magento setup:static-content:deploy -f", $emailLog);
 
 } else {
 
@@ -58,12 +60,12 @@ if (mysqli_query($connection, "SELECT 1 FROM `core_config_data` LIMIT 0")) {
     echo 'Remove env.php' . PHP_EOL;
 
     $commandRemoveFolder = "rm -rf generated/code/ && rm -rf pub/static/deployed_version.txt && rm -rf var/cache/ var/page_cache/ var/view_preprocessed/";
-    executeCommand($commandRemoveFolder);
+    executeCommand($commandRemoveFolder, $emailLog);
 
     echo 'Remove cache/ generated/ pub/static folder' . PHP_EOL;
 
     $commandInstall = "php -f {$rootDirectory}bin/magento setup:install --base-url=http://{$hostname} --base-url-secure=https://{$hostname} --db-host={$mysqlHost} --db-name={$mysqlDbName}  --db-user={$mysqlUser} --db-password={$mysqlPass} --admin-firstname={$adminFirstName} --admin-lastname={$adminLastName} --admin-email={$adminEmail} --admin-user={$adminUser} --admin-password={$adminPass} --language=ja_JP --currency=JPY --timezone=Asia/Tokyo --backend-frontname={$adminPageSlug} --use-secure=1 --use-secure-admin=1";
-    executeCommand($commandInstall);
+    executeCommand($commandInstall, $emailLog);
 
     copy($etcPathFolder . 'env.php.tpl', $etcPathFolder . 'env.php');
 
@@ -93,34 +95,9 @@ function isXssInitialized() {
     return file_exists($rootDirectory . "init.done");
 }
 
-function sendErrorEmail($errorMessage) {
+function executeCommand($command , $emailLog) {
 
-    $MAIL_FROM = 'system-notice@x-shopping-st.com';
-    $MAIL_TO   = 'dev-team@x-shopping-st.com';
-    $hostname = getenv('HOST_NAME');
-    $config = [
-        'auth'     => 'login',
-        'username' => getenv('SEND_GRID_API_ACCOUNT'),
-        'password' => getenv('SEND_GRID_API_KEY'),
-        'port'     => 587,
-        'ssl' => 'tls'
-    ];
-
-    try {
-        $transport = new Zend_Mail_Transport_Smtp('smtp.sendgrid.net', $config);
-        $mail = new Zend_Mail();
-        $mail->setBodyText($errorMessage);
-        $mail->setFrom($MAIL_FROM, 'System Notice');
-        $mail->addTo($MAIL_TO , 'Dev Team');
-        $mail->setSubject("x-shopping-st $hostname init script failed");
-        $mail->send($transport);
-        echo 'Send system error mail' . PHP_EOL;
-    }catch (\Exception $e){
-        echo 'Error sending email: ' . $e->getMessage();
-    }
-}
-
-function executeCommand($command) {
+    $mailSubject = "x-shopping-st ". getenv('HOST_NAME') ." init script failed";
 
     exec($command, $output, $resultCode);
 
@@ -129,7 +106,8 @@ function executeCommand($command) {
     if ( $resultCode != 0 ) {
         $errorContent = is_array($output) ? implode(PHP_EOL,$output) : $output;
         echo "Command failed" . "\n" . "$command" . PHP_EOL;
-        sendErrorEmail("\"$command\" command failed" ."\n" . "Command returns \"$errorContent\"");
+        $emailLog->sendEmail($command . "command failed" . PHP_EOL . "Command returns " . $errorContent, $mailSubject);
+        echo 'Send system error mail' . PHP_EOL;
         exit(1);
     }
 }
