@@ -5,8 +5,9 @@ if (isXssInitialized()) {
     echo 'Finish executing init-script.php since container is already setup.'.PHP_EOL;
     exit;
 }
+$rootDirectory = getenv('PROJECT_ROOT');
 
-require 'app/autoload.php';
+require $rootDirectory . 'app/autoload.php';
 require_once('Zend/Mail/Transport/Smtp.php');
 require_once 'Zend/Mail.php';
 
@@ -14,7 +15,6 @@ $bootstrap = \Magento\Framework\App\Bootstrap::create(BP, $_SERVER);
 $objectManager = $bootstrap->getObjectManager();
 $filesystem = $objectManager->create(\Magento\Framework\Filesystem::class);
 $configWriter = $objectManager->create(\Magento\Framework\App\Config\Storage\WriterInterface::class);
-$rootDirectory = $filesystem->getDirectoryWrite('base')->getAbsolutePath();
 
 $mysqlHost = getenv('DB_HOST');
 $mysqlDbName = getenv('DB_NAME');
@@ -70,7 +70,7 @@ if (mysqli_query($connection, "SELECT 1 FROM `core_config_data` LIMIT 0")) {
     saveVarnishConfig($configWriter, $hostname);
 
     echo 'Install Magento successfully' . PHP_EOL;
-    fopen("init.done", "w");
+    fopen($rootDirectory . "init.done", "w");
 }
 
 function saveVarnishConfig($configWriter,$hostname)
@@ -89,7 +89,8 @@ function saveVarnishConfig($configWriter,$hostname)
 }
 
 function isXssInitialized() {
-    return file_exists("init.done");
+    $rootDirectory = getenv('PROJECT_ROOT');
+    return file_exists($rootDirectory . "init.done");
 }
 
 function sendErrorEmail($errorMessage) {
