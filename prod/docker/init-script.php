@@ -108,8 +108,7 @@ function executeCommand($command , $emailLog) {
     if ( $resultCode != 0 ) {
         $errorContent = is_array($output) ? implode(PHP_EOL,$output) : $output;
         echo $currentTime ." INFO Command failed" . "\n" . "$command" . PHP_EOL;
-        $emailLog->sendEmail($command . "command failed" . PHP_EOL . "Command returns " . $errorContent, $mailSubject);
-        echo 'Send system error mail' . PHP_EOL;
+        $emailLog->sendEmail($currentTime . " init-script stderr output:" . "\n" . "$errorContent" . "\n" . "Executed Command:" . "\n" . "\"$command\"", $mailSubject);
         exit(1);
     }
 }
