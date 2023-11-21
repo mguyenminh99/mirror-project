@@ -73,8 +73,9 @@ if (mysqli_query($connection, "SELECT 1 FROM `core_config_data` LIMIT 0")) {
     saveVarnishConfig($configWriter, $hostname);
 
     echo 'Install Magento successfully' . PHP_EOL;
-    fopen($rootDirectory . "init.done", "w");
 }
+
+fopen($rootDirectory . "init.done", "w");
 
 function saveVarnishConfig($configWriter,$hostname)
 {
