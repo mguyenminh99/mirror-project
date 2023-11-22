@@ -58,7 +58,7 @@ class EmailLog extends \Magento\Framework\Logger\Monolog
         }
 
         $message = $currentTime . PHP_EOL . getenv('HOST_NAME') . PHP_EOL . $message;
-        $subject = "[x-shopping-st] system {". (($level == \Monolog\Logger::CRITICAL) ? "CRITICAL" : "ERROR") ."}";
+        $subject = "[x-shopping-st] system " . (($level == \Monolog\Logger::CRITICAL) ? "CRITICAL" : "ERROR");
         $emailLog->sendEmail($message, $subject);
     }
 }
