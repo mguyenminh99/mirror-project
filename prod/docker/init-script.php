@@ -33,7 +33,7 @@ $mailSubject = "x-shopping-st ". $hostname ." init script failed";
 
 $connection = mysqli_connect($mysqlHost, $mysqlUser, $mysqlPass);
 if (!$connection) {
-    echo  $currentTime ." INFO Error : " . mysqli_connect_error();
+    echo  $currentTime ." Error : " . mysqli_connect_error();
     $emailLog->sendEmail("Cannot connect to database server", $mailSubject);
     exit(1);
 }
@@ -41,7 +41,7 @@ if (!$connection) {
 $dbSelected = mysqli_select_db($connection, $mysqlDbName);
 
 if (!$dbSelected) {
-    echo $currentTime ." INFO Database " . $mysqlDbName . " not exist!" . PHP_EOL;
+    echo $currentTime ." Error Database " . $mysqlDbName . " not exist!" . PHP_EOL;
     $emailLog->sendEmail("Database " . $mysqlDbName . " not exist!", $mailSubject);
     exit(1);
 }
@@ -108,7 +108,7 @@ function executeCommand($command , $emailLog) {
 
     if ( $resultCode != 0 ) {
         $errorContent = is_array($output) ? implode(PHP_EOL,$output) : $output;
-        echo $currentTime ." INFO Command failed" . "\n" . "$command" . PHP_EOL;
+        echo $currentTime ." Error Command failed" . "\n" . "$command" . PHP_EOL;
         $emailLog->sendEmail($currentTime . " init-script stderr output:" . "\n" . "$errorContent" . "\n" . "Executed Command:" . "\n" . "\"$command\"", $mailSubject);
         exit(1);
     }
