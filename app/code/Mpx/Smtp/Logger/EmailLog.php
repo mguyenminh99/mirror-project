@@ -51,12 +51,13 @@ class EmailLog extends \Magento\Framework\Logger\Monolog
         $objectManager = ObjectManager::getInstance();
         $emailLog = $objectManager->create(\Mpx\Smtp\Helper\SendEmailLog::class);
         $errorLogCode = [\Monolog\Logger::CRITICAL,\Monolog\Logger::ERROR];
+        $currentTime = (new \Datetime('now', new \DateTimeZone('Asia/Tokyo')))->format('Y-m-d h:i:s');
 
         if (!in_array($level, $errorLogCode)) {
             return;
         }
 
-        $message = '[x-shopping-st] system alert' . PHP_EOL . $message;
+        $message = $currentTime . PHP_EOL . getenv('HOST_NAME') . PHP_EOL . $message;
         $subject = "[x-shopping-st] system {". (($level == \Monolog\Logger::CRITICAL) ? "CRITICAL" : "ERROR") ."}";
         $emailLog->sendEmail($message, $subject);
     }
