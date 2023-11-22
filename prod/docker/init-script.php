@@ -48,6 +48,9 @@ if (!$dbSelected) {
 
 if (mysqli_query($connection, "SELECT 1 FROM `core_config_data` LIMIT 0")) {
 
+    $etcPathFolder = $filesystem->getDirectoryWrite('etc')->getAbsolutePath();
+    copy($etcPathFolder . 'env.php.tpl', $etcPathFolder . 'env.php');
+
     executeCommand("php {$rootDirectory}bin/magento setup:upgrade", $emailLog);
     executeCommand("php {$rootDirectory}bin/magento setup:static-content:deploy -f", $emailLog);
 
@@ -67,8 +70,6 @@ if (mysqli_query($connection, "SELECT 1 FROM `core_config_data` LIMIT 0")) {
 
     $commandInstall = "php -f {$rootDirectory}bin/magento setup:install --base-url=http://{$hostname} --base-url-secure=https://{$hostname} --db-host={$mysqlHost} --db-name={$mysqlDbName}  --db-user={$mysqlUser} --db-password={$mysqlPass} --admin-firstname={$adminFirstName} --admin-lastname={$adminLastName} --admin-email={$adminEmail} --admin-user={$adminUser} --admin-password={$adminPass} --language=ja_JP --currency=JPY --timezone=Asia/Tokyo --backend-frontname={$adminPageSlug} --use-secure=1 --use-secure-admin=1";
     executeCommand($commandInstall, $emailLog);
-
-    copy($etcPathFolder . 'env.php.tpl', $etcPathFolder . 'env.php');
 
     saveVarnishConfig($configWriter, $hostname);
 
