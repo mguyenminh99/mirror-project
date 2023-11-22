@@ -58,11 +58,6 @@ if (mysqli_query($connection, "SELECT 1 FROM `core_config_data` LIMIT 0")) {
 
     echo 'Starting install Magento' . PHP_EOL;
 
-    $etcPathFolder = $filesystem->getDirectoryWrite('etc')->getAbsolutePath();
-    unlink($etcPathFolder . 'env.php');
-
-    echo 'Remove env.php' . PHP_EOL;
-
     $commandRemoveFolder = "rm -rf generated/code/ && rm -rf pub/static/deployed_version.txt && rm -rf var/cache/ var/page_cache/ var/view_preprocessed/";
     executeCommand($commandRemoveFolder, $emailLog);
 
