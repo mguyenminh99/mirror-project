@@ -8,7 +8,7 @@ ARG SEND_GRID_API_KEY
 ENV TZ=Asia/Tokyo \
     SEND_GRID_API_ACCOUNT=${SEND_GRID_API_ACCOUNT} \
     SEND_GRID_API_KEY=${SEND_GRID_API_KEY} \
-    PROJECT_ROOT=/var/www/html/
+    PROJECT_ROOT=/var/www/html
 
 RUN ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ > /etc/timezone && \
     apt-get update && apt-get install -y php7.2 \
@@ -53,7 +53,7 @@ RUN ln -s ../mods-available/rewrite.load && \
 
 COPY . $PROJECT_ROOT
 
-RUN chown -R x-shopping-st:x-shopping-st $PROJECT_ROOT
+RUN mkdir $PROJECT_ROOT/var/log/ && chown -R x-shopping-st:x-shopping-st $PROJECT_ROOT
 
 WORKDIR $PROJECT_ROOT
 
@@ -71,8 +71,6 @@ RUN find var generated vendor pub/static pub/media app/etc -type f -exec chmod g
 
 RUN ln -sf /dev/stdout /var/log/apache2/access.log && \
     ln -sf /dev/stderr /var/log/apache2/error.log && \
-    ln -sf /dev/stdout ${PROJECT_ROOT}var/log/system.log && \
-    ln -sf /dev/stdout ${PROJECT_ROOT}var/log/debug.log && \
-    ln -sf /dev/stderr ${PROJECT_ROOT}var/log/exception.log
+    ln -sf /dev/stdout $PROJECT_ROOT/var/log/
 
 CMD ["/usr/bin/supervisord"]
