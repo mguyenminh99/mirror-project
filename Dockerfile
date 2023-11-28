@@ -69,4 +69,10 @@ WORKDIR $PROJECT_ROOT
 
 RUN find var generated vendor pub/static pub/media app/etc -type f -exec chmod g+w {} + && find var generated vendor pub/static pub/media app/etc -type d -exec chmod g+ws {} + && chmod u+x bin/magento && chmod 777 -R var generated app/etc && chmod 777 -R pub
 
+RUN ln -sf /dev/stdout /var/log/apache2/access.log && \
+    ln -sf /dev/stderr /var/log/apache2/error.log && \
+    ln -sf /dev/stdout ${PROJECT_ROOT}var/log/system.log && \
+    ln -sf /dev/stdout ${PROJECT_ROOT}var/log/debug.log && \
+    ln -sf /dev/stderr ${PROJECT_ROOT}var/log/exception.log
+
 CMD ["/usr/bin/supervisord"]
