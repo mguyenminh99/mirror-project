@@ -55,7 +55,9 @@ COPY . $PROJECT_ROOT
 
 RUN mkdir $PROJECT_ROOT/var/log/
 
-RUN ln -sf /dev/stdout $PROJECT_ROOT/var/log/ && \
+RUN ln -sf /dev/stdout $PROJECT_ROOT/var/log/system.log && \
+    ln -sf /dev/stdout $PROJECT_ROOT/var/log/debug.log && \
+    ln -sf /dev/stderr $PROJECT_ROOT/var/log/exception.log && \
     chown -R x-shopping-st:x-shopping-st $PROJECT_ROOT
 
 WORKDIR $PROJECT_ROOT
