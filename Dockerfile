@@ -46,6 +46,8 @@ COPY ./prod/docker/app/php/opcache.ini /etc/php/7.2/mods-available/opcache.ini
 
 WORKDIR /etc/apache2/mods-enabled
 RUN ln -s ../mods-available/rewrite.load && \
+    ln -sf /dev/stdout /var/log/apache2/access.log && \
+    ln -sf /dev/stderr /var/log/apache2/error.log && \
     sed -i 's/	DocumentRoot \/var\/www\/html/	DocumentRoot \/var\/www\/html\/pub/' /etc/apache2/sites-available/000-default.conf && \
     chown -R x-shopping-st:x-shopping-st /var/log/apache2 && \
     chown -R x-shopping-st:x-shopping-st /var/run/apache2 && \
@@ -53,12 +55,7 @@ RUN ln -s ../mods-available/rewrite.load && \
 
 COPY . $PROJECT_ROOT
 
-RUN mkdir $PROJECT_ROOT/var/log/
-
-RUN ln -sf /dev/stdout $PROJECT_ROOT/var/log/system.log && \
-    ln -sf /dev/stdout $PROJECT_ROOT/var/log/debug.log && \
-    ln -sf /dev/stderr $PROJECT_ROOT/var/log/exception.log && \
-    chown -R x-shopping-st:x-shopping-st $PROJECT_ROOT
+RUN chown -R x-shopping-st:x-shopping-st $PROJECT_ROOT
 
 WORKDIR $PROJECT_ROOT
 
