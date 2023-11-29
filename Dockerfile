@@ -53,7 +53,12 @@ RUN ln -s ../mods-available/rewrite.load && \
 
 COPY . $PROJECT_ROOT
 
-RUN mkdir $PROJECT_ROOT/var/log/ && chown -R x-shopping-st:x-shopping-st $PROJECT_ROOT
+RUN mkdir $PROJECT_ROOT/var/log/
+
+RUN ln -sf /dev/stdout /var/log/apache2/access.log && \
+    ln -sf /dev/stderr /var/log/apache2/error.log && \
+    ln -sf /dev/stdout $PROJECT_ROOT/var/log/ && \
+    chown -R x-shopping-st:x-shopping-st $PROJECT_ROOT /var/log/apache2/
 
 WORKDIR $PROJECT_ROOT
 
@@ -68,9 +73,5 @@ USER root
 WORKDIR $PROJECT_ROOT
 
 RUN find var generated vendor pub/static pub/media app/etc -type f -exec chmod g+w {} + && find var generated vendor pub/static pub/media app/etc -type d -exec chmod g+ws {} + && chmod u+x bin/magento && chmod 777 -R var generated app/etc && chmod 777 -R pub
-
-RUN ln -sf /dev/stdout /var/log/apache2/access.log && \
-    ln -sf /dev/stderr /var/log/apache2/error.log && \
-    ln -sf /dev/stdout $PROJECT_ROOT/var/log/
 
 CMD ["/usr/bin/supervisord"]
