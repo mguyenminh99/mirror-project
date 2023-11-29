@@ -44,6 +44,8 @@ ENV APACHE_RUN_USER=x-shopping-st \
 COPY ./prod/docker/app/apache2/apache2.conf ./prod/docker/app/php/php.ini /etc/apache2/
 COPY ./prod/docker/app/php/opcache.ini /etc/php/7.2/mods-available/opcache.ini
 
+COPY . $PROJECT_ROOT
+
 WORKDIR /etc/apache2/mods-enabled
 RUN ln -s ../mods-available/rewrite.load && \
     ln -sf /dev/stdout /var/log/apache2/access.log && \
@@ -51,11 +53,8 @@ RUN ln -s ../mods-available/rewrite.load && \
     sed -i 's/	DocumentRoot \/var\/www\/html/	DocumentRoot \/var\/www\/html\/pub/' /etc/apache2/sites-available/000-default.conf && \
     chown -R x-shopping-st:x-shopping-st /var/log/apache2 && \
     chown -R x-shopping-st:x-shopping-st /var/run/apache2 && \
+    chown -R x-shopping-st:x-shopping-st $PROJECT_ROOT && \
     chown -R varnish:varnish /var/lib/varnish
-
-COPY . $PROJECT_ROOT
-
-RUN chown -R x-shopping-st:x-shopping-st $PROJECT_ROOT
 
 WORKDIR $PROJECT_ROOT
 
