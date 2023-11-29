@@ -55,10 +55,8 @@ COPY . $PROJECT_ROOT
 
 RUN mkdir $PROJECT_ROOT/var/log/
 
-RUN ln -sf /dev/stdout /var/log/apache2/access.log && \
-    ln -sf /dev/stderr /var/log/apache2/error.log && \
-    ln -sf /dev/stdout $PROJECT_ROOT/var/log/ && \
-    chown -R x-shopping-st:x-shopping-st $PROJECT_ROOT /var/log/apache2/
+RUN ln -sf /dev/stdout $PROJECT_ROOT/var/log/ && \
+    chown -R x-shopping-st:x-shopping-st $PROJECT_ROOT
 
 WORKDIR $PROJECT_ROOT
 
