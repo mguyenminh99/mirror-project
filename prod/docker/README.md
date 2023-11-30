@@ -2,5 +2,5 @@
 
 From root folder run cmd to install: 
 ```
-php prod/docker/init-script.php
+php prod/docker/app/setup/init-script.php
 ```

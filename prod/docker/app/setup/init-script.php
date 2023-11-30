@@ -1,8 +1,8 @@
 <?php
 
 require getenv('PROJECT_ROOT') . '/app/autoload.php';
-require_once(getenv('PROJECT_ROOT') . '/prod/Config/Config.php');
-require_once(getenv('PROJECT_ROOT') . '/prod/Helper/Mail.php');
+require_once(getenv('PROJECT_ROOT') . '/prod/docker/app/setup/Config/Config.php');
+require_once(getenv('PROJECT_ROOT') . '/prod/docker/app/setup/Helper/Mail.php');
 
 $setup = new Setup();
 $setup->init();
