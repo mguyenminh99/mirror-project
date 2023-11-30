@@ -11,7 +11,6 @@ class Setup{
 
     protected $bootstrap;
     protected $objectManager;
-    protected $filesystem;
     protected $configWriter;
     protected $logger;
     protected $config;
@@ -20,7 +19,6 @@ class Setup{
     function __construct(){
         $this->bootstrap     = \Magento\Framework\App\Bootstrap::create(BP, $_SERVER);
         $this->objectManager = $this->bootstrap->getObjectManager();
-        $this->filesystem    = $this->objectManager->create(\Magento\Framework\Filesystem::class);
         $this->configWriter  = $this->objectManager->create(\Magento\Framework\App\Config\Storage\WriterInterface::class);
         $this->logger        = $this->objectManager->create(\Magento\Framework\Logger\Monolog::class, ['name' => 'init_script']);
         $this->config        = new Config();
