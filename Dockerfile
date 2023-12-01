@@ -48,10 +48,7 @@ COPY . $PROJECT_ROOT
 
 WORKDIR /etc/apache2/mods-enabled
 RUN ln -s ../mods-available/rewrite.load && \
-    ln -sf /dev/stdout /var/log/apache2/access.log && \
-    ln -sf /dev/stderr /var/log/apache2/error.log && \
     sed -i 's/	DocumentRoot \/var\/www\/html/	DocumentRoot \/var\/www\/html\/pub/' /etc/apache2/sites-available/000-default.conf && \
-    chown -R x-shopping-st:x-shopping-st /var/log/apache2 && \
     chown -R x-shopping-st:x-shopping-st /var/run/apache2 && \
     chown -R x-shopping-st:x-shopping-st $PROJECT_ROOT && \
     chown -R varnish:varnish /var/lib/varnish
