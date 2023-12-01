@@ -36,34 +36,26 @@ RUN curl -s https://packagecloud.io/install/repositories/varnishcache/varnish63/
 
 COPY ./prod/docker/app/varnish/default.vcl /etc/varnish/default.vcl
 
-# apache実行ユーザー、supervisord管理ユーザー作成
-RUN groupadd -g 1001 x-shopping-st && useradd -r -m -u 1001 -g 1001 x-shopping-st
-ENV APACHE_RUN_USER=x-shopping-st \
-    APACHE_RUN_GROUP=x-shopping-st
+ENV APACHE_RUN_USER=root \
+    APACHE_RUN_GROUP=root
+
+COPY . $PROJECT_ROOT
 
 COPY ./prod/docker/app/apache2/apache2.conf ./prod/docker/app/php/php.ini /etc/apache2/
 COPY ./prod/docker/app/php/opcache.ini /etc/php/7.2/mods-available/opcache.ini
 
-COPY . $PROJECT_ROOT
+RUN sed -i 's/	DocumentRoot \/var\/www\/html/	DocumentRoot \/var\/www\/html\/pub/' /etc/apache2/sites-available/000-default.conf
 
 WORKDIR /etc/apache2/mods-enabled
 RUN ln -s ../mods-available/rewrite.load && \
-    sed -i 's/	DocumentRoot \/var\/www\/html/	DocumentRoot \/var\/www\/html\/pub/' /etc/apache2/sites-available/000-default.conf && \
-    chown -R x-shopping-st:x-shopping-st /var/run/apache2 && \
-    chown -R x-shopping-st:x-shopping-st $PROJECT_ROOT && \
-    chown -R varnish:varnish /var/lib/varnish
+    ln -sf /dev/stdout /var/log/apache2/access.log && \
+    ln -sf /dev/stderr /var/log/apache2/error.log
 
 WORKDIR $PROJECT_ROOT
 
 RUN cp -pi ./auth.json.sample ./auth.json && sed -i "s/\"username\": \"<public-key>\"/\"username\": \"$ADOBE_API_KEY\"/" ./auth.json && sed -i "s/\"password\": \"<private-key>\"/\"password\": \"$ADOBE_API_PASS\"/" ./auth.json
 
-USER x-shopping-st
-
 RUN composer update
-
-USER root
-
-WORKDIR $PROJECT_ROOT
 
 RUN find var generated vendor pub/static pub/media app/etc -type f -exec chmod g+w {} + && find var generated vendor pub/static pub/media app/etc -type d -exec chmod g+ws {} + && chmod u+x bin/magento && chmod 777 -R var generated app/etc && chmod 777 -R pub
 
