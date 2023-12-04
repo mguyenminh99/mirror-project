@@ -72,7 +72,7 @@ class Setup{
                 $this->logger->info('Installing Magento successfully.');
             }
 
-            fopen(PROJECT_ROOT . "/init.done", "w");
+            fopen($this->config->PROJECT_ROOT . "/init.done", "w");
 
             $this->logger->info('Finish init-script.');
 
