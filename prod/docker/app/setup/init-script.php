@@ -49,6 +49,8 @@ class Setup{
 
             if (mysqli_query($connection, "SELECT 1 FROM `core_config_data` LIMIT 0")) {
 
+                copy($this->config->PROJECT_ROOT . '/app/etc/env.php.tpl', $this->config->PROJECT_ROOT . '/app/etc/env.php');
+
                 $this->executeCommand("php {$this->config->PROJECT_ROOT}/bin/magento setup:upgrade");
                 $this->executeCommand("php {$this->config->PROJECT_ROOT}/bin/magento setup:static-content:deploy -f");
 
