@@ -1,6 +1,7 @@
 <?php
 
 namespace Mpx\StdLogger\Logger;
+use Mpx\StdLogger\Logger\Handler\Base;
 
 class StreamHandlerStd extends \Monolog\Handler\StreamHandler
 {
@@ -38,6 +39,12 @@ class StreamHandlerStd extends \Monolog\Handler\StreamHandler
         }
 
         $this->streamWrite($this->stream, $record);
+
+        if ($this->stdLoggerType == Base::STDOUT_LOGGER) {
+            $this->streamWrite(fopen('php://stdout', 'w'), $record);
+        } elseif ($this->stdLoggerType == Base::STDERR_LOGGER) {
+            $this->streamWrite(fopen('php://stderr', 'w'), $record);
+        }
 
         if ($this->useLocking) {
             flock($this->stream, LOCK_UN);

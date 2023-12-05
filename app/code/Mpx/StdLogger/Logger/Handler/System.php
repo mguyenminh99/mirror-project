@@ -4,11 +4,12 @@ namespace Mpx\StdLogger\Logger\Handler;
 
 use Magento\Framework\Filesystem\DriverInterface;
 use Monolog\Logger;
+use Mpx\StdLogger\Logger\Handler\Base;
 
 /**
  * System stream handler
  */
-class System extends \Mpx\StdLogger\Logger\Handler\Base
+class System extends Base
 {
     /**
      * @var string
@@ -36,6 +37,7 @@ class System extends \Mpx\StdLogger\Logger\Handler\Base
         $filePath = null
     ) {
         $this->exceptionHandler = $exceptionHandler;
+        $this->setStdLoggerType(Base::STDOUT_LOGGER);
         parent::__construct($filesystem, $filePath);
     }
 

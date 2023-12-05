@@ -1,8 +1,4 @@
 <?php
-/**
- * Copyright © Magento, Inc. All rights reserved.
- * See COPYING.txt for license details.
- */
 
 namespace Mpx\StdLogger\Logger\Handler;
 
@@ -15,6 +11,9 @@ use Monolog\Logger;
  */
 class Base extends \Mpx\StdLogger\Logger\StreamHandlerStd
 {
+    const STDOUT_LOGGER = 'stdout_logger';
+    const STDERR_LOGGER = 'stderr_logger';
+
     /**
      * @var string
      */
@@ -29,6 +28,8 @@ class Base extends \Mpx\StdLogger\Logger\StreamHandlerStd
      * @var DriverInterface
      */
     protected $filesystem;
+
+    protected $stdLoggerType;
 
     /**
      * @param DriverInterface $filesystem
@@ -85,5 +86,13 @@ class Base extends \Mpx\StdLogger\Logger\StreamHandlerStd
         }
 
         parent::write($record);
+    }
+
+    /**
+     * @return bool
+     */
+    public function setStdLoggerType($stdLoggerType)
+    {
+        return $this->stdLoggerType = $stdLoggerType;
     }
 }
