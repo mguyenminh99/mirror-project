@@ -20,7 +20,7 @@ class Setup{
         $this->bootstrap     = \Magento\Framework\App\Bootstrap::create(BP, $_SERVER);
         $this->objectManager = $this->bootstrap->getObjectManager();
         $this->configWriter  = $this->objectManager->create(\Magento\Framework\App\Config\Storage\WriterInterface::class);
-        $this->logger        = $this->objectManager->create(\Magento\Framework\Logger\Monolog::class, ['name' => 'init_script']);
+        $this->logger        = $this->objectManager->create(\Mpx\StdLogger\Logger\Monolog::class, ['name' => 'init_script']);
         $this->config        = new Config();
         $this->mail          = new Mail();
     }
