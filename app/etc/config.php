@@ -286,6 +286,7 @@ return [
         'Webkul_MarketplaceBaseShipping' => 1,
         'Webkul_MpApi' => 1,
         'Mpx_MpAssignProduct' => 1,
+        'Mpx_StdLogger' => 1,
         'Mpx_TimeDelivery' => 1,
         'Mpx_Mpshipping' => 1,
         'Yotpo_Yotpo' => 1
