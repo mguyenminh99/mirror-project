@@ -1,62 +1,56 @@
-FROM ubuntu:18.04
+FROM php:7.2-apache-buster
 
-ARG ADOBE_API_KEY
-ARG ADOBE_API_PASS
-ARG SEND_GRID_API_ACCOUNT
-ARG SEND_GRID_API_KEY
+RUN apt-get update
 
-ENV TZ=Asia/Tokyo \
-    SEND_GRID_API_ACCOUNT=${SEND_GRID_API_ACCOUNT} \
-    SEND_GRID_API_KEY=${SEND_GRID_API_KEY} \
-    PROJECT_ROOT=/var/www/html
+RUN apt-get install -y mariadb-client \
+                       libnice-dev \
+                       libpng-dev \
+                       libjpeg-dev \
+                       libwebp-dev \
+                       libfreetype6-dev \
+                       libxslt-dev \
+                       libzip-dev \
+                       libxml2 \
+                       cron \
+                       unzip
 
-RUN ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ > /etc/timezone && \
-    apt-get update && apt-get install -y php7.2 \
-                                         php7.2-bcmath \
-                                         php7.2-soap \
-                                         php7.2-xsl \
-                                         php7.2-curl \
-                                         php7.2-xml \
-                                         php7.2-gd \
-                                         php7.2-intl \
-                                         php7.2-mbstring \
-                                         php7.2-mysql \
-                                         php7.2-soap \
-                                         php7.2-zip \
-                                         supervisor \
-                                         curl
+RUN docker-php-ext-install bcmath \
+                           mysqli \
+                           pdo_mysql \
+                           soap \
+                           zip \
+                           intl \
+                           xsl \
+                           opcache \
+                           sockets
 
-COPY ./prod/docker/app/supervisord/conf.d/supervisord_include.conf /etc/supervisor/conf.d/supervisord_include.conf
+RUN docker-php-ext-configure gd  --with-freetype-dir=/usr/include/ \
+                                 --with-jpeg-dir=/usr/include/ \
+                                 --with-png-dir=/usr/include/ \
+                                 --with-webp-dir=/usr/include/
+
+RUN docker-php-ext-install gd
+
+# apache実行ユーザー作成
+RUN groupadd -g 1001 x-shopping-st && useradd -r -m -u 1001 -g 1001 x-shopping-st
+
+ENV APACHE_RUN_USER x-shopping-st
+ENV APACHE_RUN_GROUP x-shopping-st
+
+COPY dev/docker/apache-php/apache2/apache2.conf /etc/apache2/apache2.conf
+COPY dev/docker/apache-php/php/php.ini /usr/local/etc/php/php.ini
+COPY dev/docker/apache-php/php/docker-php-ext-opcache.ini /usr/local/etc/php/conf.d/docker-php-ext-opcache.ini
+
+WORKDIR /etc/apache2/mods-enabled
+RUN ln -s ../mods-available/rewrite.load
 
 # マルチステージビルドでcomposerをインストール
 COPY --from=composer:1.10 /usr/bin/composer /usr/bin/composer
 
-RUN curl -s https://packagecloud.io/install/repositories/varnishcache/varnish63/script.deb.sh | bash && \
-    DEBIAN_FRONTEND=noninteractive apt-get -y install varnish
-
-COPY ./prod/docker/app/varnish/default.vcl /etc/varnish/default.vcl
-
-ENV APACHE_RUN_USER=root \
-    APACHE_RUN_GROUP=root
-
-COPY . $PROJECT_ROOT
-
-COPY ./prod/docker/app/apache2/apache2.conf ./prod/docker/app/php/php.ini /etc/apache2/
-COPY ./prod/docker/app/php/opcache.ini /etc/php/7.2/mods-available/opcache.ini
-
 RUN sed -i 's/	DocumentRoot \/var\/www\/html/	DocumentRoot \/var\/www\/html\/pub/' /etc/apache2/sites-available/000-default.conf
 
-WORKDIR /etc/apache2/mods-enabled
-RUN ln -s ../mods-available/rewrite.load && \
-    ln -sf /dev/stdout /var/log/apache2/access.log && \
-    ln -sf /dev/stderr /var/log/apache2/error.log
+WORKDIR /var/www/html
 
-WORKDIR $PROJECT_ROOT
-
-RUN cp -pi ./auth.json.sample ./auth.json && sed -i "s/\"username\": \"<public-key>\"/\"username\": \"$ADOBE_API_KEY\"/" ./auth.json && sed -i "s/\"password\": \"<private-key>\"/\"password\": \"$ADOBE_API_PASS\"/" ./auth.json
+USER x-shopping-st
 
 RUN composer update
-
-RUN find var generated vendor pub/static pub/media app/etc -type f -exec chmod g+w {} + && find var generated vendor pub/static pub/media app/etc -type d -exec chmod g+ws {} + && chmod u+x bin/magento && chmod 777 -R var generated app/etc && chmod 777 -R pub
-
-CMD ["/usr/bin/supervisord"]
