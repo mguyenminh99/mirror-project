@@ -53,4 +53,6 @@ WORKDIR /var/www/html
 
 USER x-shopping-st
 
+COPY . /var/www/html
+
 RUN composer update
