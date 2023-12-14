@@ -4,6 +4,8 @@ ARG ADOBE_API_KEY
 ARG ADOBE_API_PASS
 ARG SEND_GRID_API_ACCOUNT
 ARG SEND_GRID_API_KEY
+ENV PROJECT_ROOT=/var/www/html
+ENV TZ=Asia/Tokyo
 
 RUN apt-get update
 
@@ -54,11 +56,11 @@ COPY --from=composer:1.10 /usr/bin/composer /usr/bin/composer
 
 RUN sed -i 's/	DocumentRoot \/var\/www\/html/	DocumentRoot \/var\/www\/html\/pub/' /etc/apache2/sites-available/000-default.conf
 
-COPY . /var/www/html/
+COPY . $PROJECT_ROOT
 
-RUN chown -R x-shopping-st:x-shopping-st /var/www/html/
+RUN chown -R x-shopping-st:x-shopping-st $PROJECT_ROOT
 
-WORKDIR /var/www/html
+WORKDIR $PROJECT_ROOT
 
 RUN cp -pi ./auth.json.sample ./auth.json && sed -i "s/\"username\": \"<public-key>\"/\"username\": \"$ADOBE_API_KEY\"/" ./auth.json && sed -i "s/\"password\": \"<private-key>\"/\"password\": \"$ADOBE_API_PASS\"/" ./auth.json
 
@@ -68,7 +70,7 @@ RUN composer update
 
 USER root
 
-WORKDIR /var/www/html
+WORKDIR $PROJECT_ROOT
 
 RUN find var generated vendor pub/static pub/media app/etc -type f -exec chmod g+w {} + && find var generated vendor pub/static pub/media app/etc -type d -exec chmod g+ws {} + && chmod u+x bin/magento && chmod 777 -R var generated app/etc && chmod 777 -R pub
 
