@@ -37,9 +37,9 @@ RUN groupadd -g 1001 x-shopping-st && useradd -r -m -u 1001 -g 1001 x-shopping-s
 ENV APACHE_RUN_USER x-shopping-st
 ENV APACHE_RUN_GROUP x-shopping-st
 
-COPY dev/docker/apache-php/apache2/apache2.conf /etc/apache2/apache2.conf
-COPY dev/docker/apache-php/php/php.ini /usr/local/etc/php/php.ini
-COPY dev/docker/apache-php/php/docker-php-ext-opcache.ini /usr/local/etc/php/conf.d/docker-php-ext-opcache.ini
+COPY prod/docker/app/apache2/apache2.conf /etc/apache2/apache2.conf
+COPY prod/docker/app/php/php.ini /usr/local/etc/php/php.ini
+COPY prod/docker/app/php/docker-php-ext-opcache.ini /usr/local/etc/php/conf.d/docker-php-ext-opcache.ini
 
 WORKDIR /etc/apache2/mods-enabled
 RUN ln -s ../mods-available/rewrite.load
@@ -49,10 +49,24 @@ COPY --from=composer:1.10 /usr/bin/composer /usr/bin/composer
 
 RUN sed -i 's/	DocumentRoot \/var\/www\/html/	DocumentRoot \/var\/www\/html\/pub/' /etc/apache2/sites-available/000-default.conf
 
+COPY . /var/www/html/
+
+RUN chown -R x-shopping-st:x-shopping-st /var/www/html/
+
 WORKDIR /var/www/html
+
+RUN cp -pi ./auth.json.sample ./auth.json && sed -i "s/\"username\": \"<public-key>\"/\"username\": \"$ADOBE_API_KEY\"/" ./auth.json && sed -i "s/\"password\": \"<private-key>\"/\"password\": \"$ADOBE_API_PASS\"/" ./auth.json
 
 USER x-shopping-st
 
-COPY . /var/www/html
-
 RUN composer update
+
+USER root
+
+WORKDIR /var/www/html
+
+RUN find var generated vendor pub/static pub/media app/etc -type f -exec chmod g+w {} + && find var generated vendor pub/static pub/media app/etc -type d -exec chmod g+ws {} + && chmod u+x bin/magento && chmod 777 -R var generated app/etc && chmod 777 -R pub
+
+USER x-shopping-st
+
+ENTRYPOINT ["php", "/var/www/html/prod/docker/app/setup/init-script.php", "&&", "apache2-foreground"]
