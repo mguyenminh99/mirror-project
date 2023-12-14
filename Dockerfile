@@ -1,5 +1,10 @@
 FROM php:7.2-apache-buster
 
+ARG ADOBE_API_KEY
+ARG ADOBE_API_PASS
+ARG SEND_GRID_API_ACCOUNT
+ARG SEND_GRID_API_KEY
+
 RUN apt-get update
 
 RUN apt-get install -y mariadb-client \
