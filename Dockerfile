@@ -76,4 +76,4 @@ RUN find var generated vendor pub/static pub/media app/etc -type f -exec chmod g
 
 USER x-shopping-st
 
-ENTRYPOINT ["php", "/var/www/html/prod/docker/app/setup/init-script.php", "&&", "apache2-foreground"]
+#ENTRYPOINT ["php", "/var/www/html/prod/docker/app/setup/init-script.php", "&&", "apache2-foreground"]
