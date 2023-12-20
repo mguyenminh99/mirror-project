@@ -6,7 +6,7 @@ INSTANCE_NAME=$SQL_INSTANCE_NAME
 
 INSTANCE_CONNECTION_NAME="$PROJECT_ID:$REGION:$INSTANCE_NAME"
 
-/var/www/html/prod/docker/app/cloud-sql-proxy -instances=$INSTANCE_CONNECTION_NAME=tcp:3306 &
+/var/www/html/prod/docker/app/cloud-sql-proxy $INSTANCE_CONNECTION_NAME &
 
 php /var/www/html/prod/docker/app/setup/init-script.php &
 
