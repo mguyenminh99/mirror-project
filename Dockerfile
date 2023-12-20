@@ -4,6 +4,10 @@ ARG ADOBE_API_KEY
 ARG ADOBE_API_PASS
 ARG SEND_GRID_API_ACCOUNT
 ARG SEND_GRID_API_KEY
+ARG GOOGLE_CLOUD_PROJECT
+ARG GOOGLE_CLOUD_REGION
+ARG SQL_INSTANCE_NAME
+
 ENV PROJECT_ROOT=/var/www/html
 ENV TZ=Asia/Tokyo
 
@@ -75,3 +79,5 @@ WORKDIR $PROJECT_ROOT
 RUN find var generated vendor pub/static pub/media app/etc -type f -exec chmod g+w {} + && find var generated vendor pub/static pub/media app/etc -type d -exec chmod g+ws {} + && chmod u+x bin/magento && chmod 777 -R var generated app/etc && chmod 777 -R pub
 
 USER x-shopping-st
+
+CMD ["bash", "/var/www/html/prod/docker/app/start.sh"]
