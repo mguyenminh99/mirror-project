@@ -54,7 +54,7 @@ RUN ln -s ../mods-available/rewrite.load
 # マルチステージビルドでcomposerをインストール
 COPY --from=composer:1.10 /usr/bin/composer /usr/bin/composer
 
-RUN sed -i 's/	DocumentRoot \/var\/www\/html/	DocumentRoot \/var\/www\/html\/pub/' /etc/apache2/sites-available/000-default.conf
+RUN sed -i 's/	DocumentRoot \/var\/www\/html/	DocumentRoot \/var\/www\/html\/pub/' /etc/apache2/sites-available/000-default.conf && sed -i 's/VirtualHost \*:80/VirtualHost \*:8080/' /etc/apache2/sites-enabled/000-default.conf && sed -i 's/Listen 80/Listen 8080/' /etc/apache2/ports.conf
 
 COPY . $PROJECT_ROOT
 
@@ -75,5 +75,3 @@ WORKDIR $PROJECT_ROOT
 RUN find var generated vendor pub/static pub/media app/etc -type f -exec chmod g+w {} + && find var generated vendor pub/static pub/media app/etc -type d -exec chmod g+ws {} + && chmod u+x bin/magento && chmod 777 -R var generated app/etc && chmod 777 -R pub
 
 USER x-shopping-st
-
-#ENTRYPOINT ["php", "/var/www/html/prod/docker/app/setup/init-script.php", "&&", "apache2-foreground"]
