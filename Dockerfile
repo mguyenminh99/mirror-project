@@ -62,7 +62,7 @@ RUN sed -i 's/	DocumentRoot \/var\/www\/html/	DocumentRoot \/var\/www\/html\/pub
 
 COPY . $PROJECT_ROOT
 
-RUN chown -R x-shopping-st:x-shopping-st $PROJECT_ROOT
+RUN chown -R x-shopping-st:x-shopping-st $PROJECT_ROOT && chmod +x $PROJECT_ROOT/prod/docker/app/cloud-sql-proxy
 
 WORKDIR $PROJECT_ROOT
 
