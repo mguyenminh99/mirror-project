@@ -1,0 +1,62 @@
+<?php
+
+namespace Mpx\StdLogger\Logger\Handler;
+
+use Magento\Framework\Filesystem\DriverInterface;
+use Monolog\Logger;
+use Mpx\StdLogger\Logger\Handler\Base;
+
+/**
+ * System stream handler
+ */
+class System extends Base
+{
+    /**
+     * @var string
+     */
+    protected $fileName = '/var/log/system.log';
+
+    /**
+     * @var int
+     */
+    protected $loggerType = Logger::INFO;
+
+    /**
+     * @var Exception
+     */
+    protected $exceptionHandler;
+
+    /**
+     * @param DriverInterface $filesystem
+     * @param Exception $exceptionHandler
+     * @param string $filePath
+     */
+    public function __construct(
+        DriverInterface $filesystem,
+        Exception $exceptionHandler,
+        $filePath = null
+    ) {
+        $this->exceptionHandler = $exceptionHandler;
+        $this->setStdLoggerType(Base::STDOUT_LOGGER);
+        parent::__construct($filesystem, $filePath);
+    }
+
+    /**
+     * Writes formatted record through the handler.
+     *
+     * @param array $record The record metadata
+     * @return void
+     */
+    public function write(array $record)
+    {
+        if (isset($record['context']['exception'])) {
+            $this->exceptionHandler->handle($record);
+
+            return;
+        }
+
+        $record['formatted'] = $this->getFormatter()->format($record);
+
+        parent::write($record);
+    }
+}
