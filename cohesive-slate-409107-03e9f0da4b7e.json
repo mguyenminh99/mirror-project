@@ -1,0 +1,13 @@
+{
+  "type": "service_account",
+  "project_id": "cohesive-slate-409107",
+  "private_key_id": "03e9f0da4b7ea46916f46c5796a4199937684afb",
+  "private_key": "-----BEGIN PRIVATE KEY-----\nMIIEvQIBADANBgkqhkiG9w0BAQEFAASCBKcwggSjAgEAAoIBAQClKMf586L/MuE2\nnnHeJawsMfsSYIHVZ+sAKXqvSEYutVGHb1O+yUiHDZzgxV2c6fpjzddqNNWDXhwv\niKGacuSjm1WFBudNMIh0Ysq9dagJMMk8rYz5+Xxqjl5MkbePanybfw8ZkoyaAFAj\nTXoq+hxjSTomvxBilSVA5JTmw/qMgRE7/VcVnd/f916zxkCOy0LRCxkS7cdqlW0k\ns++W2SWCftct0rKtKu2141xrP2t3MzFidqTW55J6T/Vec6nGgO8fIhu7UoBNyyyk\nuyZWv9dlyTBLgqAYKUKORCh+DVqpbNX7cpMhC7s/xD11C1wvgTtqsohCzdt4cNDu\n4CcZrU+XAgMBAAECggEAB+Gv1WJGk4YikEA0b+T9V+iUsjZPy9bXNJ1GIQpCayU0\n/FEYPoENiIBiTamtg3j4/X1Lu+JElC3QC4aqK5wzBAm8JYqETD82K9OxGCR+vd2J\npO8lTKKWyOD9aAsGJv5ubt874b0IH6tHJ8AhRd7ErwpGD6ZLimDSs8uUvYR5tu24\nHnIFOg5MgFDLxppNEr7uc0SaHA1lMM+7jSC7s9zEile4CCyxuFRWssubiidWuhy4\nZAH7k/Xh7zZNiWWEPHVDAzNDylcE6sbdka0M0jh6NNX15HTs8RKvZDPoeVSKVDOZ\nzjTObBvYUWVH0lAYZ/6I89u9Z8ngRdBejtUJSYBqTQKBgQDlQwpT8g7rQjaJUPXZ\nTZYsO1lLBXp7BzUjeuvbU/1uWjkxGQbv+Fr1uc9JuKGBo/JEGYpLZDwR7NEIZeqT\ntH+W4YIi+tK382+9mbQ5rXK39a/+g/9GyY5qx5/bXC9q8L1GC3PoxjiL2U7b8wTt\noJemek8RjCZM1FXeur7ibZoKZQKBgQC4a9yR7YhHm3pZbPUuuvcwrhU6K3MdYwOZ\nRzSXV+W1rMX3SiWFzfpTfLAPcW3/UOeVG99ozOB4e3foIAaj4qcPwvvvndlu5xU3\nF5T7s03TFTnq5m2VeGGWq3uF9fNpApCz2LKxpZPA/+18D+LEK7WmQo4BqMHT1V67\nbSzCUNT0SwKBgFyNUOkMqhstUsjihy1flgVrPCP+JTDvevNE11xmrsPS5o28lcFg\nmI/koBsZzxF/9vio+txurZVq7gQe6LESSAPIK/olGdYrD2wSVeCG9e3v4Em2TeLs\n0XKn/g/XSkk4wKA7VWKeSwuiAaTnmZC4qSAK9kqWMowHmFbfOto79tjFAoGASBJ/\nJNh7heCRNBmMyDJxICkoSo9ocXeclG5rcyn6r8FRrI7hkyUoSzBTbfWaU0k+99ro\nuIA4yV0XQzQg5DNTrqk45DAAJYNRmzIwGx27sF5/P/nFocBmAwgJQhUYh1VlT6PE\nUgCveaGLIgzjRl7+oncoICXfefXNC9piv53vW3kCgYEApfyUYjnUeGGclVoe+ZyL\nWMUn++Gdy5k+ahIMGs3LXujY2BG6IBoqp5zjfFG6tJLZ5tx0aT+j2OHeXxn+lUBj\n+MZu2q8Veow4639Kh1HrF8CtoiZbtUa9V564CQxK/bM3BCcZN07EIezn103slETY\n4GEc8j64zfXXX2QxaAaK048=\n-----END PRIVATE KEY-----\n",
+  "client_email": "store-artifact-test-sevice-acc@cohesive-slate-409107.iam.gserviceaccount.com",
+  "client_id": "114640298873282696579",
+  "auth_uri": "https://accounts.google.com/o/oauth2/auth",
+  "token_uri": "https://oauth2.googleapis.com/token",
+  "auth_provider_x509_cert_url": "https://www.googleapis.com/oauth2/v1/certs",
+  "client_x509_cert_url": "https://www.googleapis.com/robot/v1/metadata/x509/store-artifact-test-sevice-acc%40cohesive-slate-409107.iam.gserviceaccount.com",
+  "universe_domain": "googleapis.com"
+}
