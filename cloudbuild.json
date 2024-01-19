@@ -7,15 +7,15 @@
         "--build-arg",
         "SECRET_ENV",
         "-t",
-        "asia-southeast1-docker.pkg.dev/cohesive-slate-409107/build-trigger/app:latest",
-        "."
+        "asia-northeast1-docker.pkg.dev/cohesive-slate-409107/build-trigger/app:latest",
+        "." 
       ]
     },
     {
       "name": "gcr.io/cloud-builders/docker",
       "args": [
         "push",
-        "asia-southeast1-docker.pkg.dev/cohesive-slate-409107/build-trigger/app:latest"
+        "asia-northeast1-docker.pkg.dev/cohesive-slate-409107/build-trigger/app:latest"
       ]
     },
     {
@@ -25,11 +25,11 @@
         "deploy",
         "my-php-apache-app",
         "--image",
-        "asia-southeast1-docker.pkg.dev/cloudtest-408512/build-trigger/app:latest",
+        "asia-northeast1-docker.pkg.dev/cloudtest-408512/build-trigger/app:latest",
         "--platform",
         "managed",
         "--region",
-        "asia-east1",
+        "asia-northeast1",
         "--allow-unauthenticated",
         "--port",
         "80"
