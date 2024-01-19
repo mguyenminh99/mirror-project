@@ -4,8 +4,6 @@
       "name": "gcr.io/cloud-builders/docker",
       "args": [
         "build",
-        "--build-arg",
-        "SECRET_ENV",
         "-t",
         "asia-northeast1-docker.pkg.dev/cohesive-slate-409107/build-trigger/app:latest",
         "." 
@@ -23,7 +21,7 @@
       "args": [
         "run",
         "deploy",
-        "my-php-apache-app",
+        "deploy-by-cloud-build",
         "--image",
         "asia-northeast1-docker.pkg.dev/cloudtest-408512/build-trigger/app:latest",
         "--platform",
