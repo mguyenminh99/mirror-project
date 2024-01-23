@@ -52,6 +52,9 @@
     ]
   },
   "options": {
-    "logging": "CLOUD_LOGGING_ONLY"
+    "logging": "CLOUD_LOGGING_ONLY",
+    "pool" : {
+      "name" : "projects/${PROJECT_ID}/locations/asia-northeast1/workerPools/private-pool-for-cloud-build"
+    }
   }
 }
