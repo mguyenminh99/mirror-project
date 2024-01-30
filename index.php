@@ -2,7 +2,7 @@
 <html>
 	<head>
 		<meta charset=utf8>
-		<title>mirror github 1</title>
+		<title>mirror github 2</title>
 		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 		<style>
 			* {
