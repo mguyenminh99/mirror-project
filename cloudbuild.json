@@ -4,6 +4,8 @@
         "name": "gcr.io/cloud-builders/docker",
         "args": [
           "build",
+          "--build-arg",
+          "DB_HOST=${_DB_HOST}",
           "-t",
           "us-central1-docker.pkg.dev/cohesive-slate-409107/minh-artifact/api-image:latest",
           "."
