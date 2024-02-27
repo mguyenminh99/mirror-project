@@ -17,9 +17,9 @@
       ]
     }
   ],
-  "substitutions": {
-    "_CLOUD_FUNCTION_NAME": "function-1",
-    "_CLOUD_PUBSUB_TOPIC": "cloud-builds"
+  "notifications": {
+    "name": "pubsub-notification",
+    "pubsub_topic": "projects/cohesive-slate-409107/topics/cloud-builds"
   },
   "options": {
     "logging": "CLOUD_LOGGING_ONLY"
