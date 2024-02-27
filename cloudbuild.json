@@ -5,7 +5,7 @@
       "args": [
         "build",
         "-t",
-        "us-central1-docker.pkg.dev/cohesive-slate-409107/minh-artifact/app:latest",
+        "us-central1-docker.pkg.dev/cohesive-slate-409107/minh-artifact/app-pubsub:latest",
         "." 
       ]
     },
@@ -13,7 +13,7 @@
       "name": "gcr.io/cloud-builders/docker",
       "args": [
         "push",
-        "us-central1-docker.pkg.dev/cohesive-slate-409107/minh-artifact/app:latest"
+        "us-central1-docker.pkg.dev/cohesive-slate-409107/minh-artifact/app-pubsub:latest"
       ]
     }
   ],
