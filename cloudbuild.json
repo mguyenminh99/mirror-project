@@ -1,15 +1,27 @@
 {
-    "steps": [
-      {
-        "name": "gcr.io/cloud-builders/docker",
-        "args": [
-          "build",
-          "--build-arg",
-          "DB_HOST=${_DB_HOST}",
-          "-t",
-          "us-central1-docker.pkg.dev/cohesive-slate-409107/minh-artifact/api-image:latest",
-          "."
-        ]
-      }
-    ]
+  "steps":[
+    {
+      "name": "gcr.io/cloud-builders/docker",
+      "args": [
+        "build",
+        "-t",
+        "us-central1-docker.pkg.dev/cohesive-slate-409107/minh-artifact/app:latest",
+        "." 
+      ]
+    },
+    {
+      "name": "gcr.io/cloud-builders/docker",
+      "args": [
+        "push",
+        "us-central1-docker.pkg.dev/cohesive-slate-409107/minh-artifact/app:latest"
+      ]
+    }
+  ],
+  "substitutions": {
+    _CLOUD_FUNCTION_NAME: "function-1"
+    _CLOUD_PUBSUB_TOPIC: "cloud-builds"
+  },
+  "options": {
+    "logging": "CLOUD_LOGGING_ONLY"
+  }
 }
