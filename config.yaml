@@ -1,0 +1,14 @@
+apiVersion: cloud-build-notifiers/v1
+kind: HTTPNotifier
+metadata:
+  name: example-http-notifier
+spec:
+  notification:
+    filter: build.status == Build.Status.SUCCESS
+    params:
+      text : $(build.status)
+    delivery:
+      url: https://chat.googleapis.com/v1/spaces/AAAAo4Bhp6M/messages?key=AIzaSyDdI0hCZtE6vySjMm-WEfRq3CPzqKqqsHI&token=bG6sIRGy0D2-gDllBpakx7yoNKfl2LPK_0gtPtIsdpM
+    template:
+      type: golang
+      uri: gs://build-noti/http.json
