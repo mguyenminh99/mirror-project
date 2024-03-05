@@ -16,11 +16,7 @@
         "us-central1-docker.pkg.dev/cohesive-slate-409107/minh-artifact/app-pubsub:latest"
       ]
     }
-  ],
-  "notifications": {
-    "name": "pubsub-notification",
-    "pubsub_topic": "projects/cohesive-slate-409107/topics/cloud-builds"
-  },
+  ]
   "options": {
     "logging": "CLOUD_LOGGING_ONLY"
   }
