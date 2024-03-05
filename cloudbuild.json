@@ -16,7 +16,7 @@
         "us-central1-docker.pkg.dev/cohesive-slate-409107/minh-artifact/app-pubsub:latest"
       ]
     }
-  ]
+  ],
   "options": {
     "logging": "CLOUD_LOGGING_ONLY"
   }
